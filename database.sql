@@ -14,8 +14,8 @@ CREATE TABLE "user_inquiries" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INT REFERENCES users,
 	"services_id" INT REFERENCES services,
-	"date_received" DATE NOT NULL,
-	"date_requested" DATE NOT NULL,
+	"date_received" INT REFERENCES dates,
+	"date_requested" INT REFERENCES dates,
 	"moving" INT REFERENCES moving_questions,
 	"cleaning" INT REFERENCES cleaning_questions,
 	"organizing" INT REFERENCES organizing_questions,
@@ -26,10 +26,10 @@ CREATE TABLE "user_inquiries" (
 CREATE TABLE "customer" (
 	id serial primary key,
 	user_id integer REFERENCES users,
-	inquiries integer REFERENCES user_inquiries,
+	inquiries integer REFERENCES user_inquiries ON DELETE CASCADE,
 	services_id integer REFERENCES services,
 	address varchar(1000),
-	phone_number integer,
+	phone_number varchar(11),
 	email varchar(50),
 	residence varchar(240),
 	bathroom integer,
@@ -39,6 +39,13 @@ CREATE TABLE "customer" (
 	priority INT REFERENCES priority,
 	user_media INT REFERENCES user_media,
 	service_on date 
+);
+
+CREATE TABLE "dates" (
+    id serial primary key,
+    date_requested DATE,
+    date_submitted DATE,
+    service_date DATE,
 );
 
 CREATE TABLE "notes" (
@@ -84,7 +91,11 @@ CREATE TABLE "cleaning_questions" (
 	question3 VARCHAR (10000),
 	question4 VARCHAR (10000),
 	question5 VARCHAR (10000),
-	question6 VARCHAR (10000)
+	question6 VARCHAR (10000),
+    question7 VARCHAR (10000),
+    question8 VARCHAR (10000),
+    question9 VARCHAR (10000),
+    question10 VARCHAR (10000)
 );
 
 CREATE TABLE "organizing_questions" (
