@@ -28,7 +28,8 @@ else {
     pool = new pg.Pool({
         host: 'localhost',
         port: 5432,
-        database: 'ocd_diva',   // 	💥 Change this to the name of your database!
+        database: 'OCD_Diva_Project' // ? I changed this to my database name, the original is below
+        // database: 'ocd_diva',   // 	💥 Change this to the name of your database!
     });
 }
 

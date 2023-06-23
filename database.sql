@@ -45,7 +45,7 @@ CREATE TABLE "dates" (
     id serial primary key,
     date_requested DATE,
     date_submitted DATE,
-    service_date DATE,
+    service_date DATE
 );
 
 CREATE TABLE "notes" (

@@ -29,6 +29,11 @@ import MovingQuestions from '../CustomerForm/MovingQuestions';
 import OrgQuestions from '../CustomerForm/OrgQuestions';
 import Review from '../CustomerForm/Review';
 import Success from '../CustomerForm/Success';
+import UserHistory from '../UserHistory/UserHistory';
+import Inquiries from '../Inquiries/Inquiries';
+import InquiryDetails from '../Inquiries/InquiryDetails';
+import Customers from '../Customers/Customers';
+import CustomerDetails from '../Customers/CustomerDetails';
 
 import './App.css';
 
@@ -118,6 +123,16 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
+          </Route>
+          <Route>
+            <CustomerForm exact path="/form"/>
+          </Route>
+
+          <Route>
+            <UserHistory exact path="/history" />
+          </Route>
+          <Route>
+            <Inquiries exact path="/inquiries" />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}

@@ -6,7 +6,7 @@ function CustomerForm() {
     //What displays
     return (
         <>
-
+    test data
         </>
 
     )
