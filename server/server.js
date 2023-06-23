@@ -8,8 +8,8 @@ const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
 
 // Route includes
-const userRouter = require('./routes/user.router');
-const customerRouter = require('./routes/customerRouter');
+const userRouter = require('./routes/user.router'); // person logging in
+const customerRouter = require('./routes/customerRouter'); // previous customers, admin looking at list of previous customers
 const userInquiries = require('./routes/userInquiries.router')
 const notesRouter = require('./routes/notes.router');
 const completeRouter = require('./routes/completion.router.js');
