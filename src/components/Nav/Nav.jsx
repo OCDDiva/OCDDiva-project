@@ -34,6 +34,15 @@ function Nav() {
             <Link className="navLink" to="/inquiries">
               Inquiries
             </Link>
+            <Link className="navLink" to="/userhistory">
+              User History
+            </Link>
+            <Link className="navLink" to="/form">
+              Customer Form
+            </Link>
+            <Link className="navLink" to="/customerhistory">
+              Customer History
+            </Link>
 
             <LogOutButton className="navLink" />
           </>

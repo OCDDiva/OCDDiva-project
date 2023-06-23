@@ -7,7 +7,7 @@ function Customers() {
     //What displays
     return (
         <>
-
+        Everett aka White Poison - new album dropping soon
 
         </>
     )

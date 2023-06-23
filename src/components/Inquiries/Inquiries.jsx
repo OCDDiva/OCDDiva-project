@@ -7,7 +7,7 @@ function Inquiries(){
     //What displays
     return(
         <>
-        
+        Everett says yo waddup
         </>
     )
 } // End Inquiries()

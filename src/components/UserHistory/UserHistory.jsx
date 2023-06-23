@@ -8,7 +8,7 @@ function UserHistory() {
     return (
         <>
 
-        Everett was here
+        Everett was here!
         </>
     )
 } //End UserHistory()

@@ -82,6 +82,19 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/inquiries" >
+            <Inquiries />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/userhistory" >
+            <UserHistory />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/form">
+            <CustomerForm />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/customerhistory">
+            <Customers />
+          </ProtectedRoute>
+
 
           <Route
             exact
@@ -123,16 +136,6 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
-          </Route>
-          <Route>
-            <CustomerForm exact path="/form"/>
-          </Route>
-
-          <Route>
-            <UserHistory exact path="/history" />
-          </Route>
-          <Route>
-            <Inquiries exact path="/inquiries" />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
