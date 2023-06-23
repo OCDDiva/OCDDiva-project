@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+
+//yo waddup it's yer boi
 import {
   HashRouter as Router,
   Redirect,
