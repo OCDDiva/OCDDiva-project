@@ -9,8 +9,8 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router'); // person logging in
-const customerRouter = require('./routes/customerRouter'); // previous customers, admin looking at list of previous customers
-const userInquiries = require('./routes/userInquiries.router')
+// const customerRouter = require('./routes/customerRouter'); // previous customers, admin looking at list of previous customers
+// const userInquiries = require('./routes/userInquiries.router')
 const notesRouter = require('./routes/notes.router');
 const completeRouter = require('./routes/completion.router.js');
 const priorityRouter = require('./routes/priority.router.js');
@@ -29,8 +29,8 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/api/customers', customerRouter);
-app.use('/api/user_inquiries', userInquiries);
+// app.use('/api/customers', customerRouter);
+// app.use('/api/user_inquiries', userInquiries);
 app.use('/api/notes', notesRouter);
 app.use('/api/complete', completeRouter);
 app.use('/api/priority', priorityRouter);

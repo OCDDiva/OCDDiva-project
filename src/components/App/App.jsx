@@ -21,6 +21,14 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import CustomerForm from '../CustomerForm/CustomerForm';
+import CleaningQuestions from '../CustomerForm/CleaningQuestions';
+import DeclutterQuestions from '../CustomerForm/DeclutterQuestions';
+import DefaultQuestions from '../CustomerForm/DefaultQuestions';
+import MovingQuestions from '../CustomerForm/MovingQuestions';
+import OrgQuestions from '../CustomerForm/OrgQuestions';
+import Review from '../CustomerForm/Review';
+import Success from '../CustomerForm/Success';
 
 import './App.css';
 
