@@ -85,14 +85,41 @@ function App() {
           <ProtectedRoute exact path="/inquiries" >
             <Inquiries />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/inquirydetails" >
+            <InquiryDetails />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/userhistory" >
             <UserHistory />
           </ProtectedRoute>
           <ProtectedRoute exact path="/form">
             <CustomerForm />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/defaultquestions">
+            <DefaultQuestions />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/cleaningquestions">
+            <CleaningQuestions />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/movingquestions">
+            <MovingQuestions />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/organizequestions">
+            <OrgQuestions />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/declutterquestions">
+            <DeclutterQuestions />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/review">
+            <Review />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/success">
+            <Success />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/customerhistory">
             <Customers />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/customerdetails">
+            <CustomerDetails />
           </ProtectedRoute>
 
 
