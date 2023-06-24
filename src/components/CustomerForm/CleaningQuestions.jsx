@@ -120,7 +120,7 @@ function CleaningQuestions() {
                             </label>
                         </li>
                     </ol>
-                    <button onClick={nextStep}>Next</button>
+                    <button className="btn" onClick={nextStep}>Next</button>
                 </>
             )}
             {selectedOption === "essential" && (
@@ -190,7 +190,7 @@ function CleaningQuestions() {
                             </label>
                         </li>
                     </ol>
-                    <button onClick={nextStep}>Next</button>
+                    <button className="btn" onClick={nextStep}>Next</button>
                 </>
             )}
         </>
