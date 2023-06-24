@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useSelector, useDispatch } from 'react-redux';
 
 function CleaningQuestions() {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    // const dispatch = useDispatch(); // will probably need this for sending the DB updates throughout the form
+
     const [selectedOption, setSelectedOption] = useState('');
 
+
     // Setting state for each questions
-    const [numberBedrooms, setNumberBedrooms] = useState(0);
+    const [numBedrooms, setNumBedrooms] = useState(0);
+    const [numBathrooms, setNumBathrooms] = useState(0);
+    const [numAdditionalRooms, setNumAdditionalRooms] = useState(0);
+    const [numDoorsWindows, setNumDoorsWindows] = useState(0);
+    const [hasPets, setHasPets] = useState('');
+    const [hazardousConditions, setHazardousConditions] = useState('');
+
 
     const optionChoice = (e) => {
         setSelectedOption(e.target.value);
@@ -12,7 +25,7 @@ function CleaningQuestions() {
 
     const nextStep = (event) => {
         event.preventDefault();
-
+        history.push('/movingquestions');
     }
 
     return (
@@ -39,27 +52,113 @@ function CleaningQuestions() {
                         <li>
                             <label>
                                 # of Bedrooms:
-                                <input type="number" min="0" />
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={numBedrooms}
+                                    onChange={(e) => setNumBedrooms(e.target.value)} />
                             </label>
                         </li>
                         <li>
                             <label>
                                 # of Bathrooms:
-                                <input type="number" min="0" />
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={numBathrooms}
+                                    onChange={(e) => setNumBathrooms(e.target.value)} />
                             </label>
                         </li>
                         <li>
                             <label>
                                 # of Additional Rooms:
-                                <input type="number" min="0" />
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={numAdditionalRooms}
+                                    onChange={(e) => setNumAdditionalRooms(e.target.value)} />
                             </label>
                         </li>
                         <li>
                             <label>
                                 # of Doors/Windows to be cleaned:
-                                <input type="number" min="0" />
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={numDoorsWindows}
+                                    onChange={(e) => setNumDoorsWindows(e.target.value)} />
                             </label>
                         </li>
+                        <li>
+                            <label>Do you have pets</label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="pets"
+                                    value="yes"
+                                    checked={hasPets === "yes"}
+                                    onChange={() => setHasPets("yes")} />
+                                Yes
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="pets"
+                                    value="no"
+                                    checked={hasPets === "no"}
+                                    onChange={() => setHasPets("no")} />
+                                No
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                Hazardous conditions? ex mold, mildew, bugs, rats
+                                <input
+                                    type="text"
+                                    value={hazardousConditions}
+                                    onChange={(e) => setHazardousConditions(e.target.value)}
+                                />
+                            </label>
+                        </li>
+                    </ol>
+                    <button onClick={nextStep}>Next</button>
+                </>
+            )}
+            {selectedOption === "essential" && (
+                <>
+                    <h2>Essential Service Questions</h2>
+                    <ol>
+                        <li>
+                            <label>
+                                # of Bedrooms:
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={numBedrooms}
+                                    onChange={(e) => setNumBedrooms(e.target.value)} />
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                # of Bathrooms:
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={numBathrooms}
+                                    onChange={(e) => setNumBathrooms(e.target.value)} />
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                # of Additional Rooms:
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value={numAdditionalRooms}
+                                    onChange={(e) => setNumAdditionalRooms(e.target.value)} />
+                            </label>
+                        </li>
+
                         <li>
                             <label>Do you have pets</label>
                             <label>
@@ -74,62 +173,22 @@ function CleaningQuestions() {
                         <li>
                             <label>
                                 Hazardous conditions? ex mold, mildew, bugs, rats
-                                <input type="text" />
+                                <input
+                                    type="text"
+                                    value={hazardousConditions}
+                                    onChange={(e) => setHazardousConditions(e.target.value)}
+                                />
                             </label>
                         </li>
                     </ol>
-                    <button  onClick={nextStep}>Next</button>
-                </>
-            )}
-            {selectedOption === "essential" && (
-                <>
-                    <h2>Essential Service Questions</h2>
-                    <ol>
-                        <li>
-                            <label>
-                                # Bedrooms:
-                                <input type="number" min="0" />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                # of Bathrooms:
-                                <input type="number" min="0" />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                # of Additional Rooms:
-                                <input type="number" min="0" />
-                            </label>
-                        </li>
-
-                        <li>
-                            <label>
-                                # of Doors/Windows to be cleaned:
-                                <input type="number" min="0" />
-                            </label>
-                        </li>
-                        <li>
-                            <label>Do you have pets</label>
-                            <label>
-                                <input type="radio" name="pets" value="yes" />
-                                Yes
-                            </label>
-                            <label>
-                                <input type="radio" name="pets" value="no" />
-                                No
-                            </label>
-                        </li>
-                    </ol>
-                    <button  onClick={nextStep}>Next</button>
+                    <button onClick={nextStep}>Next</button>
                 </>
             )}
         </>
     );
 }// End Inquiries()
 
-
+export default CleaningQuestions;
 
 
 
@@ -148,5 +207,3 @@ function CleaningQuestions() {
                     <p>Description of Ultimate</p>
                     <button>Select Ultimate</button>
                 </div> */}
-
-export default CleaningQuestions;
