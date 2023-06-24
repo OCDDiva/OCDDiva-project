@@ -11,6 +11,9 @@ function MovingQuestions() {
     const dispatch = useDispatch();
 
     const [moving, setMoving] = useState(false);
+    const [movingTo, setMovingTo] = useState('');
+    const [movingOutOf, setMovingOutOf] = useState('');
+    const [largeItems, setLargeItems] = useState('');
 
     const movingValue = (event) => {
         setMoving(event.target.value)
@@ -24,23 +27,52 @@ function MovingQuestions() {
     //What displays
     return (
         <>
-        <h2>Are you moving?</h2>
-        <br />
-        <form onChange={movingValue}>
-            <input type="radio" value="true" name="Yes" /> Yes
-            <input type="radio" value="false" name="No" /> No
-        </form>
-        <div className="movingQuestions">
+            <h2>Are you moving?</h2>
+            <br />
+            <form onChange={movingValue}>
+                <input type="radio" value="true" name="Yes" /> Yes
+                <input type="radio" value="false" name="No" /> No
+            </form>
             {moving === "true" && (
-                <>
-                <h3>Moving Questions</h3>
-                
-                </>
+                <div className="movingQuestions">
+                    <h3>Moving Questions</h3>
+                    <ol>
+                        <li>
+                            <label>
+                            <p>Where are you moving into?</p>
+                                <input
+                                    type="text"
+                                    value={movingTo}
+                                    onChange={(event) => setMovingTo(event.target.value)}
+                                />
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <p>Where are you moving out of?</p>
+                                <input 
+                                    type="text"
+                                    value={movingOutOf}
+                                    onChange={(event) => setMovingOutOf(event.target.value)}
+                                    />
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <p>What large items do you have that will need to be moved?</p>
+                                <input 
+                                    type="text"
+                                    value={largeItems}
+                                    onChange={(event) => setLargeItems(event.target.value)}
+                                />
+                            </label>
+                        </li>
+                    </ol>
+                </div>
             )}
-        </div>
-        <br />
-        <br />
-        <button className="btn" onClick={nextStep}>Next</button>
+            <br />
+            <br />
+            <button className="btn" onClick={nextStep}>Next</button>
         </>
 
     )
