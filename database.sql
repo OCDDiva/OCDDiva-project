@@ -3,44 +3,11 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-CREATE TABLE "user" (
+CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "access_level" INTEGER
-);
-
-CREATE TABLE "user_inquiries" (
-	"id" SERIAL PRIMARY KEY,
-	"user_id" INT REFERENCES user,
-	"services_id" INT REFERENCES services,
-	"date_received" INT REFERENCES dates,
-	"date_requested" INT REFERENCES dates,
-	"moving" INT REFERENCES moving_questions,
-	"cleaning" INT REFERENCES cleaning_questions,
-	"organizing" INT REFERENCES organizing_questions,
-	"declutting" INT REFERENCES decluttering_questions,
-	"comments" VARCHAR(10000)
-);
-
-CREATE TABLE "customer" (
-	id serial primary key,
-	user_id integer REFERENCES user,
-	inquiries integer REFERENCES user_inquiries ON DELETE CASCADE,
-	services_id integer REFERENCES services,
-	first_name varchar(200),
-	last_name varchar(400),
-	address varchar(1000),
-	phone_number varchar(11),
-	email varchar(50),
-	residence varchar(240),
-	bathroom integer,
-	bedroom integer,
-	notes INT REFERENCES notes,
-	completion_status INT REFERENCES completion,
-	priority INT REFERENCES priority,
-	user_media INT REFERENCES user_media,
-	service_on date 
 );
 
 CREATE TABLE "dates" (
@@ -52,7 +19,7 @@ CREATE TABLE "dates" (
 
 CREATE TABLE "notes" (
 	id serial primary key,
-	user_id integer REFERENCES user,
+	user_id integer REFERENCES users,
 	notes varchar(30000)
 );
 
@@ -74,7 +41,7 @@ CREATE TABLE "priority" (
 CREATE TABLE "user_media" (
 	id serial primary key,
 	blob_data BYTEA,
-	user_id int references user
+	user_id int references users
 );
 
 CREATE TABLE "moving_questions" (
@@ -116,4 +83,37 @@ CREATE TABLE "decluttering_questions" (
 	question3 VARCHAR (10000),
 	question4 VARCHAR (10000),
 	question5 VARCHAR (10000)
+);
+
+CREATE TABLE "user_inquiries" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES users,
+	"services_id" INT REFERENCES services,
+	"date_received" INT REFERENCES dates,
+	"date_requested" INT REFERENCES dates,
+	"moving" INT REFERENCES moving_questions,
+	"cleaning" INT REFERENCES cleaning_questions,
+	"organizing" INT REFERENCES organizing_questions,
+	"declutting" INT REFERENCES decluttering_questions,
+	"comments" VARCHAR(10000)
+);
+
+CREATE TABLE "customer" (
+	id serial primary key,
+	user_id integer REFERENCES users,
+	inquiries integer REFERENCES user_inquiries ON DELETE CASCADE,
+	services_id integer REFERENCES services,
+	first_name varchar(200),
+	last_name varchar(400),
+	address varchar(1000),
+	phone_number varchar(11),
+	email varchar(50),
+	residence varchar(240),
+	bathroom integer,
+	bedroom integer,
+	notes INT REFERENCES notes,
+	completion_status INT REFERENCES completion,
+	priority INT REFERENCES priority,
+	user_media INT REFERENCES user_media,
+	service_on date 
 );
