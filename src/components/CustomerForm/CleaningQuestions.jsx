@@ -4,13 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function CleaningQuestions() {
     const history = useHistory();
-    const dispatch = useDispatch();
-    // const dispatch = useDispatch(); // will probably need this for sending the DB updates throughout the form
+    const dispatch = useDispatch(); // will probably need this for sending the DB updates throughout the form
 
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOption, setSelectedOption] = useState(''); // sets option in state to be sent around via dispatches 
 
 
-    // Setting state for each questions
+    // Setting state for each question
     const [numBedrooms, setNumBedrooms] = useState(0);
     const [numBathrooms, setNumBathrooms] = useState(0);
     const [numAdditionalRooms, setNumAdditionalRooms] = useState(0);
@@ -90,8 +89,8 @@ function CleaningQuestions() {
                             </label>
                         </li>
                         <li>
-                            <label>Do you have pets</label>
                             <label>
+                                Do you have pets? :
                                 <input
                                     type="radio"
                                     name="pets"
@@ -160,19 +159,29 @@ function CleaningQuestions() {
                         </li>
 
                         <li>
-                            <label>Do you have pets</label>
                             <label>
-                                <input type="radio" name="pets" value="yes" />
+                                Do you have pets? :
+                                <input
+                                    type="radio"
+                                    name="pets"
+                                    value="yes"
+                                    checked={hasPets === "yes"}
+                                    onChange={() => setHasPets("yes")} />
                                 Yes
                             </label>
                             <label>
-                                <input type="radio" name="pets" value="no" />
+                                <input
+                                    type="radio"
+                                    name="pets"
+                                    value="no"
+                                    checked={hasPets === "no"}
+                                    onChange={() => setHasPets("no")} />
                                 No
                             </label>
                         </li>
                         <li>
                             <label>
-                                Hazardous conditions? ex mold, mildew, bugs, rats
+                                Hazardous conditions? ex mold, mildew, bugs, rats :
                                 <input
                                     type="text"
                                     value={hazardousConditions}
