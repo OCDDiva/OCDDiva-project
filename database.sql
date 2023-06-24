@@ -3,7 +3,7 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-CREATE TABLE "users" (
+CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "user_inquiries" (
 	"id" SERIAL PRIMARY KEY,
-	"user_id" INT REFERENCES users,
+	"user_id" INT REFERENCES user,
 	"services_id" INT REFERENCES services,
 	"date_received" INT REFERENCES dates,
 	"date_requested" INT REFERENCES dates,
@@ -25,9 +25,11 @@ CREATE TABLE "user_inquiries" (
 
 CREATE TABLE "customer" (
 	id serial primary key,
-	user_id integer REFERENCES users,
+	user_id integer REFERENCES user,
 	inquiries integer REFERENCES user_inquiries ON DELETE CASCADE,
 	services_id integer REFERENCES services,
+	first_name varchar(200),
+	last_name varchar(400),
 	address varchar(1000),
 	phone_number varchar(11),
 	email varchar(50),
@@ -50,7 +52,7 @@ CREATE TABLE "dates" (
 
 CREATE TABLE "notes" (
 	id serial primary key,
-	user_id integer REFERENCES users,
+	user_id integer REFERENCES user,
 	notes varchar(30000)
 );
 
@@ -72,7 +74,7 @@ CREATE TABLE "priority" (
 CREATE TABLE "user_media" (
 	id serial primary key,
 	blob_data BYTEA,
-	user_id int references users
+	user_id int references user
 );
 
 CREATE TABLE "moving_questions" (
