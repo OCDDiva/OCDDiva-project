@@ -1,11 +1,12 @@
-//Imports go here
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Card } from '@mui/material';
 
+//TODO Add MUI icons to back and next button in the return 
+//TODO Add multi-step progress bar to all the form components
 
 function DefaultQuestions() {
     const dispatch = useDispatch();
@@ -17,6 +18,12 @@ function DefaultQuestions() {
     let [customer, setCustomer] = useState({
         first_name: '', last_name: '', address: '', phone_number: '', email: ''
     });
+
+    //TODO edit this when we get to styling
+    //! Use effect to make the page load at the postion I want
+    useEffect(() => {
+        window.scrollTo(0, 180)
+    }, [])
 
 
     //! Handle changes
@@ -40,7 +47,7 @@ function DefaultQuestions() {
         setCustomer({ ...customer, email: event.target.value });
     }
 
-
+    //TODO need to finish setting up the redux and server side to complete this
     //! Submit
     const submit = (event) => {
         event.preventDefault();
@@ -49,10 +56,8 @@ function DefaultQuestions() {
         history.push('/cleaningquestions');
     }
 
-
     //! Back to home
-    const goBack = () => { history.pushState('/home') }
-
+    const goBack = () => { history.push('/home') }
 
     //!What displays
     return (
@@ -76,7 +81,7 @@ function DefaultQuestions() {
                         <TextField placeholder="First Name"
                             onChange={handleFirstNameChange}
                             required
-                            sx={{ width: 300,}}
+                            sx={{ width: 300, }}
                         />
 
                         <br /> <br />
@@ -84,7 +89,7 @@ function DefaultQuestions() {
                         <TextField required
                             placeholder="Last Name"
                             onChange={handleLastNameChange}
-                            sx={{ width: 300,}}
+                            sx={{ width: 300, }}
 
                         />
 
@@ -92,10 +97,10 @@ function DefaultQuestions() {
 
                         {/*//! Will probably want to split this into Street, City, State, Zip, etc. Maybe a library for that too?*/}
                         <TextField placeholder="Address"
-                            onChange={handleLastNameChange}
+                            onChange={handleAddressChange}
                             multiline rows="3"
                             required
-                            sx={{ width: 300,}}
+                            sx={{ width: 300, }}
 
                         />
 
@@ -105,7 +110,7 @@ function DefaultQuestions() {
                         <TextField placeholder="Phone Number"
                             onChange={handlePhoneNumberChange}
                             type='number'
-                            sx={{ width: 300,}}
+                            sx={{ width: 300, }}
 
                         />
 
@@ -113,13 +118,14 @@ function DefaultQuestions() {
                         <TextField placeholder="Email"
                             onChange={handleEmailChange}
                             required
-                            sx={{ width: 300,}}
+                            sx={{ width: 300, }}
 
                         />
 
                         <br /> <br />
 
                         <button className="btn" onClick={submit}> Next </button>
+                        <button className="btn" onClick={goBack}> Back </button>
 
                         <br /> <br />
 
