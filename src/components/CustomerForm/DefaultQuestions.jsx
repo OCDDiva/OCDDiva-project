@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Card } from '@mui/material';
 
 //TODO Add MUI icons to back and next button in the return 
-//TODO Add multi-step progress bar to all the form components
+//TODO Add multi-step progress bar to all the form components?
 
 function DefaultQuestions() {
     const dispatch = useDispatch();
@@ -63,9 +63,11 @@ function DefaultQuestions() {
     return (
         <>
             <center>
-                <Typography variant="h5"> New Inquiry Form</Typography>
+                <br/> <br/>
+                <Typography variant="h4"> New Inquiry Form</Typography>
 
-                <br /> <br />
+                <br />
+
                 <Card sx={{
                     width: 700,
                     margin: 2,
@@ -124,8 +126,13 @@ function DefaultQuestions() {
 
                         <br /> <br />
 
-                        <button className="btn" onClick={submit}> Next </button>
+                        {/* Back button */}
                         <button className="btn" onClick={goBack}> Back </button>
+
+                        <br /> <br />
+
+                        {/* Next/Submit button */}
+                        <button className="btn" onClick={submit}> Next </button>
 
                         <br /> <br />
 
