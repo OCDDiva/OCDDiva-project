@@ -7,8 +7,9 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   // GET route code here
-  console.log('in GET route for "user_inquiries"');
-  console.log('is Authenticated?' req.isAuthenticated());
+  // console.log('is Authenticated?', req.isAuthenticated());
+  console.log('is Authenticated?', req.isAuthenticated());
+
   if (req.isAuthenticated()) {
     console.log('user', req.user);
     let queryText = `SELECT
@@ -24,9 +25,9 @@ router.get('/', (req, res) => {
                           JOIN "moving_questions" ON "user_inquiries"."moving" = "moving_questions"."id"
                           JOIN "cleaning_questions" ON "user_inquiries"."cleaning" = "cleaning_questions"."id"
                           JOIN "organizing_questions" ON "user_inquiries"."organizing" = "organizing_questions"."id"
-                          JOIN "decluttering_questions" ON "user_inquiries"."declutting" = "decluttering_questions"."id"';`;
-    pool.query(queryText, [req.users.id]).then((result) => {
-      console.log(result.rows)
+                          JOIN "decluttering_questions" ON "user_inquiries"."declutting" = "decluttering_questions"."id";`;
+    pool.query(queryText).then((result) => {
+      console.log(result.rows);
       res.send(result.rows);
     }).catch((error) => {
       console.log(error);
