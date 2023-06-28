@@ -19,6 +19,8 @@ function MovingQuestions() {
         setMoving(event.target.value)
     };
 
+    const goBack = () => { history.goBack()}
+
     const nextStep = (event) => {
         event.preventDefault();
         history.push('/organizequestions');
@@ -27,15 +29,16 @@ function MovingQuestions() {
     //What displays
     return (
         <>
-            <h2>Are you moving?</h2>
+            <h2 className="h2Headers">Are you moving?</h2>
             <br />
-            <form onChange={movingValue}>
+            <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <input type="radio" value="true" name="Yes" /> Yes
                 <input type="radio" value="false" name="No" /> No
             </form>
             {moving === "true" && (
                 <div className="movingQuestions">
-                    <h3>Moving Questions</h3>
+                    <br />
+                    <br />
                     <ol>
                         <li>
                             <label>
@@ -70,6 +73,9 @@ function MovingQuestions() {
                     </ol>
                 </div>
             )}
+            <br />
+            <br />
+            <button className="btn" onClick={goBack}> Back </button>
             <br />
             <br />
             <button className="btn" onClick={nextStep}>Next</button>
