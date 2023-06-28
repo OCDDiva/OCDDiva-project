@@ -110,3 +110,22 @@ input {
   margin: 5px;
   margin-bottom: 10px;
 }
+
+.h2Headers {
+  text-align: center;
+}
+
+.movingQuestions {
+  display: flex;
+  justify-content: center;
+}
+
+.organizeQuestions {
+  display: flex;
+  justify-content: center;
+}
+
+.declutteringQuestions {
+  display: flex;
+  justify-content: center;
+}
