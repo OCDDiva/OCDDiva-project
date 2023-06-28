@@ -83,8 +83,11 @@ router.post('/', (req, res) => {
 /**
  * PUT CLEANING route template
  */
+let cleaningQuestionsData = {}; 
+
 router.put('/', (req, res) => {
-  // PUT route code here
+  const { cleaningQuestions } = req.body;
+  cleaningQuestionsData = cleaningQuestions;
 });
 
 /**

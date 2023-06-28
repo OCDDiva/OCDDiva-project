@@ -8,7 +8,6 @@ function CleaningQuestions() {
 
     const [selectedOption, setSelectedOption] = useState(''); // sets option in state to be sent around via dispatches 
 
-
     // Setting state for each question
     const [numBedrooms, setNumBedrooms] = useState(0);
     const [numBathrooms, setNumBathrooms] = useState(0);
@@ -17,13 +16,22 @@ function CleaningQuestions() {
     const [hasPets, setHasPets] = useState('');
     const [hazardousConditions, setHazardousConditions] = useState('');
 
-
     const optionChoice = (e) => {
         setSelectedOption(e.target.value);
     };
 
     const nextStep = (event) => {
         event.preventDefault();
+        const questions =  {
+            selectedOption,
+            numBedrooms,
+            numBathrooms,
+            numAdditionalRooms,
+            numDoorsWindows,
+            hasPets,
+            hazardousConditions,
+        };
+        dispatch({ type: 'ADD_CLEANING_QUESTIONS', payload: questions})
         history.push('/movingquestions');
     }
 

@@ -58,7 +58,7 @@ CREATE TABLE "moving_questions" (
 	"Moving" BOOLEAN default false, 
 	"Moving To" VARCHAR (10000),
 	"Moving From" VARCHAR (10000),
-	"Large Items" VARCHAR (10000),
+	"Large Items" VARCHAR (10000)
 	-- question4 VARCHAR (10000),
 	-- question5 VARCHAR (10000)
 );
