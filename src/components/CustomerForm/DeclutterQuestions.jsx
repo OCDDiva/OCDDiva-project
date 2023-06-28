@@ -44,7 +44,7 @@ function DeclutterQuestions() {
                     <ol>
                         <li>
                             <label>
-                                <p>Number of bedrroms to be decluttered?</p>
+                                <p>Number of bedrooms to be decluttered?</p>
                                 <input 
                                     type="number"
                                     value={numBedrooms}

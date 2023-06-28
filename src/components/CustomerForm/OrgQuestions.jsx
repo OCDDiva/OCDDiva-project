@@ -43,7 +43,7 @@ function OrgQuestions() {
                     <ol>
                         <li>
                             <label>
-                                <p>Number of bedrroms to be organized?</p>
+                                <p>Number of bedrooms to be organized?</p>
                                 <input 
                                     type="number"
                                     value={numBedrooms}
