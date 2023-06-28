@@ -16,7 +16,9 @@ function Inquiries(){
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INQUIRIES'});
-    })
+    }, []);
+
+    console.log(inquiries)
 
     //What displays
     return (
