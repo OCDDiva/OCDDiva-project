@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 function CleaningQuestions() {
     const history = useHistory();
     const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
+
+    console.log(user); 
 
   const [cleaningOption, setCleaningOption] = useState('no');
   const [serviceType, setServiceType] = useState('');
@@ -53,16 +56,23 @@ function CleaningQuestions() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    dispatch({
+        type: 'ADD_CLEANING_QUESTIONS',
+        payload: {
+            cleaningOption,
+            serviceType,
+            numberOfBedrooms,
+            numberOfBathrooms,
+            numberOfAdditionalRooms,
+            numberOfDoorsWindows,
+            hasPets,
+            hazardousConditions,
+            userId: user.id,
+        },
+    });
 
-    // You can perform additional actions here, like submitting the form data to a server
-    console.log('Cleaning Option:', cleaningOption);
-    console.log('Service Type:', serviceType);
-    console.log('Number of Bedrooms:', numberOfBedrooms);
-    console.log('Number of Bathrooms:', numberOfBathrooms);
-    console.log('Number of Additional Rooms:', numberOfAdditionalRooms);
-    console.log('Number of Doors/Windows to be cleaned:', numberOfDoorsWindows);
-    console.log('Has Pets:', hasPets);
-    console.log('Hazardous Conditions:', hazardousConditions);
+   
+    
     // Reset form
     // resetForm();
     history.push('/movingquestions');
@@ -309,3 +319,12 @@ function CleaningQuestions() {
 };
 
 export default CleaningQuestions;
+// Test data 
+// console.log('Cleaning Option:', cleaningOption);
+//     console.log('Service Type:', serviceType);
+//     console.log('Number of Bedrooms:', numberOfBedrooms);
+//     console.log('Number of Bathrooms:', numberOfBathrooms);
+//     console.log('Number of Additional Rooms:', numberOfAdditionalRooms);
+//     console.log('Number of Doors/Windows to be cleaned:', numberOfDoorsWindows);
+//     console.log('Has Pets:', hasPets);
+//     console.log('Hazardous Conditions:', hazardousConditions);
