@@ -7,7 +7,7 @@ function Inquiries() {
     //Code goes here
     const dispatch = useDispatch();
     const history = useHistory();
-    const inquiries = useSelector(store => store.inquiriesDetails)
+    const inquiries = useSelector(store => store.inquiryDetails)
     const { inquiriesId } = useParams();
 
     const navToInquiryDetails = (inquiryToDisplay) => {
