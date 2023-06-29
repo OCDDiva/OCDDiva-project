@@ -11,23 +11,21 @@ function CleaningQuestions() {
     console.log(user); 
 
   const [cleaningOption, setCleaningOption] = useState('no');
-  const [serviceType, setServiceType] = useState('');
-  const [numberOfBedrooms, setNumberOfBedrooms] = useState('');
-  const [numberOfBathrooms, setNumberOfBathrooms] = useState('');
-  const [numberOfAdditionalRooms, setNumberOfAdditionalRooms] = useState('');
-  const [numberOfDoorsWindows, setNumberOfDoorsWindows] = useState('');
+  const [serviceType, setServiceType] = useState(null);
+  const [numberOfBedrooms, setNumberOfBedrooms] = useState(0);
+  const [numberOfBathrooms, setNumberOfBathrooms] = useState(0);
+  const [numberOfAdditionalRooms, setNumberOfAdditionalRooms] = useState(0);
+  const [numberOfDoorsWindows, setNumberOfDoorsWindows] = useState(0);
   const [hasPets, setHasPets] = useState(false);
-  const [hazardousConditions, setHazardousConditions] = useState('');
+  const [hazardousConditions, setHazardousConditions] = useState('None');
 
   const handleCleaningOptionChange = (event) => {
     setCleaningOption(event.target.value);
     setServiceType('');
-    // resetForm();
   };
 
   const handleServiceTypeChange = (event) => {
     setServiceType(event.target.value);
-    // resetForm();
   };
 
   const handleNumberOfBedroomsChange = (event) => {
@@ -70,22 +68,8 @@ function CleaningQuestions() {
             userId: user.id,
         },
     });
-
-   
-    
-    // Reset form
-    // resetForm();
     history.push('/movingquestions');
   };
-
-//   const resetForm = () => {
-//     setNumberOfBedrooms('');
-//     setNumberOfBathrooms('');
-//     setNumberOfAdditionalRooms('');
-//     setNumberOfDoorsWindows('');
-//     setHasPets(false);
-//     setHazardousConditions('');
-//   };
 
   const handleNext = (event) => {
     console.log('Moving to the next page...');
@@ -319,12 +303,3 @@ function CleaningQuestions() {
 };
 
 export default CleaningQuestions;
-// Test data 
-// console.log('Cleaning Option:', cleaningOption);
-//     console.log('Service Type:', serviceType);
-//     console.log('Number of Bedrooms:', numberOfBedrooms);
-//     console.log('Number of Bathrooms:', numberOfBathrooms);
-//     console.log('Number of Additional Rooms:', numberOfAdditionalRooms);
-//     console.log('Number of Doors/Windows to be cleaned:', numberOfDoorsWindows);
-//     console.log('Has Pets:', hasPets);
-//     console.log('Hazardous Conditions:', hazardousConditions);
