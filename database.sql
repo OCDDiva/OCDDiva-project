@@ -1,9 +1,13 @@
+-- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
+
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "access_level" INTEGER
 );
+
+-- REGISTER A USER AFTER CREATING THIS TABLE BEFORE MAKING THE REST OF THE TABLES
 
 CREATE TABLE "services" (
 	id serial primary key,
@@ -23,13 +27,6 @@ CREATE TABLE "dates" (
 INSERT INTO "dates" ("date_requested", "date_submitted", "service_date")
 VALUES ('2023-06-26', '2023-06-25', NULL);
 
-CREATE TABLE "notes" (
-	id serial primary key,
-	user_id integer REFERENCES users,
-	customer_id integer REFERENCES customer,
-	notes varchar(30000)
-);
-
 CREATE TABLE "completion" (
 	id serial primary key,
 	description varchar(2000)
@@ -46,6 +43,7 @@ CREATE TABLE "priority" (
 INSERT INTO "priority" ("description")
 VALUES ('High'), ('Medium'), ('Low');
 
+<<<<<<< HEAD
 CREATE TABLE "user_media" (
 	id serial primary key,
 	blob_data BYTEA,
@@ -61,6 +59,14 @@ CREATE TABLE "user_media" (
 	"large_items" VARCHAR (10000)
 	-- question4 VARCHAR (10000),
 	-- question5 VARCHAR (10000)
+=======
+CREATE TABLE "moving_questions" (
+	id serial primary key,
+	"Moving" BOOLEAN default false, 
+	"Moving To" VARCHAR (10000),
+	"Moving From" VARCHAR (10000),
+	"Large Items" VARCHAR (10000)
+>>>>>>> 5f0e81e9faed8b0cd209a31db98a8fc553cbceb6
 );
 
 INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
@@ -123,7 +129,6 @@ CREATE TABLE "user_inquiries" (
 INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "moving", "cleaning", "organizing", "declutting", "comments")
 VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1, 'Everett was here');
 
--- FOR GET INQUIRIES (Seth reference this for the previous customer page)
 SELECT
 "services"."description" AS "services_id",
 "dates"."date_submitted" AS "date_received",
@@ -139,25 +144,14 @@ JOIN "cleaning_questions" ON "user_inquiries"."cleaning" = "cleaning_questions".
 JOIN "organizing_questions" ON "user_inquiries"."organizing" = "organizing_questions"."id"
 JOIN "decluttering_questions" ON "user_inquiries"."declutting" = "decluttering_questions"."id";
 
---For User History customers, completed projects and notes
-SELECT 
-"services"."description" AS "services_id",
-"dates"."service_date" AS "service_date",
-"users"."username" AS "username",
-"completion"."description" AS "description",
-"notes"."notes" AS "notes"
-FROM "customer"
-JOIN "services" on "customer"."services_id" = "services"."id"
-JOIN "dates" on "customer"."service_on" = "dates"."service_date"
-JOIN "users" on "customer"."user_id" = "users"."id"
-JOIN "completion" on "customer"."completion_status" = "completion"."id"
-JOIN "notes" on "customer"."user_id" = "notes"."user_id";
 
 CREATE TABLE "customer" (
 	"id" serial primary key,
 	"user_id" integer REFERENCES users,
 	"inquiries" integer REFERENCES user_inquiries ON DELETE CASCADE,
 	"services_id" integer REFERENCES services,
+	"firstName" varchar(100),
+	"lastName" varchar(250),
 	"street1" varchar(1000),
 	"street2" varchar(1000),
 	"city" varchar(1000),
@@ -171,5 +165,23 @@ CREATE TABLE "customer" (
 	"service_on" date 
 );
 
-INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
-VALUES (1, 1, 1, 1, '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
+INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
+VALUES (1, 1, 1, 1, 'Everett', 'Butler', '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
+
+CREATE TABLE "user_media" (
+	id serial primary key,
+	blob_data BYTEA,
+	customer_id int references customer,
+	user_id int references users
+);
+
+-- NO TEST DATA YET
+
+CREATE TABLE "notes" (
+	id serial primary key,
+	user_id integer REFERENCES users,
+	customer_id integer REFERENCES customer,
+	notes varchar(30000)
+);
+
+-- NO TEST DATA YET

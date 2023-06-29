@@ -47,6 +47,7 @@ function MovingQuestions() {
 
     const nextStep = (event) => {
         event.preventDefault();
+        console.log(moving, movingTo, movingFrom, largeItems, user.id)
         dispatch({ type: 'UPDATE_MOVING', payload: {
             moving: moving,
             moving_to: movingTo,

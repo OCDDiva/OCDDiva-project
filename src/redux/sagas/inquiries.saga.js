@@ -6,14 +6,29 @@ function* fetchInquiries() {
     try {
         const inquiries = yield axios.get('/api/forms');
         yield put({ type: 'SET_INQUIRIES', payload: inquiries.data});
+        console.log(inquiries.data)
     } catch (error) {
         console.log(`Error in fetchInquiries: ${error}`);
         alert('Something went wrong!')
     }
 }
 
+function* fetchInquiryDetails() {
+    try {
+        const inquiryDetails = yield axios.get('/api/forms');
+        yield put({ type: 'SET_INQUIRY_DETAILS', payload: inquiryDetails.data});
+        console.log(inquiryDetails);
+    } catch (error) {
+        console.log(`Error in fetchInquiryDetails: ${error}`);
+        alert('Something went wrong!')
+    }
+}
+
+
+
 function* inquiriesSaga() {
     yield takeEvery('FETCH_INQUIRIES', fetchInquiries);
+    yield takeEvery('FETCH_INQUIRY_DETAILS', fetchInquiryDetails);
 }
 
 export default inquiriesSaga;
