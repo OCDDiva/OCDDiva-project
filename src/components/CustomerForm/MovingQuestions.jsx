@@ -34,9 +34,6 @@ function MovingQuestions() {
 
     const goBack = () => { history.goBack() }
 
-    // useEffect(() => {
-    //     dispatch({ type: 'UPDATE_MOVING' });
-    // })
 
     const nextStep = (event) => {
         event.preventDefault();
@@ -52,10 +49,7 @@ function MovingQuestions() {
         history.push('/organizequestions');
     }
 
-    console.log('Checking the value of moving', moving);
-    console.log('checking the value of movingTo', movingTo);
-    console.log('Checking the value of movingFrom', movingFrom);
-    console.log('Checking the value of largeItems', largeItems);
+
 
     //What displays
     return (

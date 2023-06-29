@@ -33,7 +33,7 @@ function DeclutterQuestions() {
         event.preventDefault();
         dispatch({
             type: 'UPDATE_DECLUTT', payload: {
-                Decluttering: declutteringValue,
+                Declutter: declutteringValue,
                 Bedrooms: numBedrooms,
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
@@ -42,8 +42,10 @@ function DeclutterQuestions() {
             }
 
         })
-        history.push('/review');
+        // history.push('/review');
     }
+
+    console.log('checking value of declutter', declutteringValue)
 
     //What displays
     return (

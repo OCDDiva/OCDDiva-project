@@ -43,7 +43,6 @@ CREATE TABLE "priority" (
 INSERT INTO "priority" ("description")
 VALUES ('High'), ('Medium'), ('Low');
 
-<<<<<<< HEAD
 CREATE TABLE "user_media" (
 	id serial primary key,
 	blob_data BYTEA,
@@ -59,14 +58,6 @@ CREATE TABLE "user_media" (
 	"large_items" VARCHAR (10000)
 	-- question4 VARCHAR (10000),
 	-- question5 VARCHAR (10000)
-=======
-CREATE TABLE "moving_questions" (
-	id serial primary key,
-	"Moving" BOOLEAN default false, 
-	"Moving To" VARCHAR (10000),
-	"Moving From" VARCHAR (10000),
-	"Large Items" VARCHAR (10000)
->>>>>>> 5f0e81e9faed8b0cd209a31db98a8fc553cbceb6
 );
 
 INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
