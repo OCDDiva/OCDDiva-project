@@ -41,8 +41,31 @@ router.get('/', (req, res) => {
 /**
  * GET #2 INQUIRY DETAILS (hint: by id) route template
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // GET #2 route code here
+  if (req.isAuthenticated()) {
+    const db = await pool.connect();
+    try {
+      await db.query('BEGIN');
+      const customerQuery = await db.query(`SELECT * FROM "customer";`);
+      const inquiryQuery = await db.query(`SELECT * FROM "user_inquiries"`);
+      const servicesQuery = await db.query(`SELECT * FROM "services";`);
+      const cleaningQuery = await db.query(`SELECT * FROM "cleaning_questions";`);
+      const movingQuery = await db.query(`SELECT * FROM "moving_questions";`);
+      const organizingQuery = await db.query(`SELECT * FROM "organizing_questions";`);
+      const declutteringQuery = await db.query(`SELECT * FROM "decluttering_questions";`);
+      await db.query('COMMIT');
+      res.sendStatus(201);
+    } catch (error) {
+      console.log('ROLLBACK', error);
+      await db.query('ROLLBACK');
+      res.sendStatus(500);
+    } finally {
+      db.release();
+    }
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 /**
