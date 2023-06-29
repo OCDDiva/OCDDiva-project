@@ -94,7 +94,7 @@ router.put('/moving', (req, res) => {
   // PUT #2 route code here
   console.log(`In PUT for Moving Questions`);
   if (req.isAuthenticated()) {
-    const queryText = `UPDATE "moving_questions" SET "moving" = $1, "moving_to" = $2, "moving_from" = $3, "large_items" = $4 WHERE "users_id" = $5;`;
+    const queryText = `UPDATE "moving_questions" SET "moving" = $1, "moving_to" = $2, "moving_from" = $3, "large_items" = $4 WHERE "user_id" = $5;`;
     const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.body.large_items, req.body.users_id];
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
