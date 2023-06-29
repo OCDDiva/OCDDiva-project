@@ -4,6 +4,7 @@ import axios from 'axios';
 function* updateMovingQuestions(action) {
     try {
         yield axios.put('/api/forms/moving');
+        console.log('Update Moving Questions', action.payload);
         yield put({ type: 'SET_MOVING_QUESTIONS', payload: action.payload });
     } catch (error) {
         console.log(`Error in updating moving questions: ${error}`);

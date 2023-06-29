@@ -139,6 +139,19 @@ JOIN "cleaning_questions" ON "user_inquiries"."cleaning" = "cleaning_questions".
 JOIN "organizing_questions" ON "user_inquiries"."organizing" = "organizing_questions"."id"
 JOIN "decluttering_questions" ON "user_inquiries"."declutting" = "decluttering_questions"."id";
 
+--For User History customers, completed projects and notes
+SELECT 
+"services"."description" AS "services_id",
+"dates"."service_date" AS "service_date",
+"users"."username" AS "username",
+"completion"."description" AS "description",
+"notes"."notes" AS "notes"
+FROM "customer"
+JOIN "services" on "customer"."services_id" = "services"."id"
+JOIN "dates" on "customer"."service_on" = "dates"."service_date"
+JOIN "users" on "customer"."user_id" = "users"."id"
+JOIN "completion" on "customer"."completion_status" = "completion"."id"
+JOIN "notes" on "customer"."user_id" = "notes"."user_id";
 
 CREATE TABLE "customer" (
 	"id" serial primary key,

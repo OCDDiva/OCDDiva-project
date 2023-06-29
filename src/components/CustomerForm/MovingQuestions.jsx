@@ -10,6 +10,13 @@ function MovingQuestions() {
     const history = useHistory();
     const dispatch = useDispatch();
 
+    const [movingQuestions, setMovingQuestions] = useState({
+        moving: false,
+        movingTo: '',
+        movingFrom: '',
+        largeItems: '',
+    })
+
     const [moving, setMoving] = useState(false);
     const [movingTo, setMovingTo] = useState('');
     const [movingFrom, setMovingFrom] = useState('');
