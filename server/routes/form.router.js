@@ -86,7 +86,7 @@ router.post('/', (req, res) => {
 
 
 router.put('/', (req, res) => {
-  const { numBedrooms, numBathrooms, numAdditionalRooms, numDoorsWindows, hasPets, hazardousConditions } = req.body;
+  const { numBedrooms, numBathrooms, numAdditionalRooms, numDoorsWindows, hasPets, hazardousConditions, userId } = req.body;
   console.log(req.body);
 
   const values = [
@@ -96,6 +96,7 @@ router.put('/', (req, res) => {
     numDoorsWindows,
     hasPets,
     hazardousConditions,
+    userId
   ];
 
   const queryText = `
@@ -107,6 +108,7 @@ router.put('/', (req, res) => {
       "NumDoorsWindows" = $4,
       "HasPets" = $5,
       "HazardousConditions" = $6
+      WHERE "id" = $7
   `;
   
   pool.query(queryText, values)

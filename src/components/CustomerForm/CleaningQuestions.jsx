@@ -37,9 +37,6 @@ function CleaningQuestions() {
 
     return (
         <>
-            Steve: Test
-            <br />
-            <br />
             <div>
                 <form>
                     <label>
