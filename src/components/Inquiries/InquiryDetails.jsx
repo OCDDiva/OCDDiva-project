@@ -18,11 +18,6 @@ function InquiryDetails() {
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
-            {inquiryDetails.length === 0 ? (
-                <div>
-                    <p>No new requests!</p>
-                </div>
-            ) : (
                 <div>
                     {inquiryDetails.map(inquiry => {
                         return (
@@ -38,7 +33,6 @@ function InquiryDetails() {
                         )
                     })}
                 </div>
-            )}
         </main>
 
 

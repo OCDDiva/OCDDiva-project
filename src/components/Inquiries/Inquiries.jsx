@@ -10,13 +10,13 @@ function Inquiries() {
     const inquiries = useSelector(store => store.inquiriesDetails)
     const { inquiriesId } = useParams();
 
-    const navToInquiryDetails = (event) => {
-        history.push('/inquiries/:id');
+    const navToInquiryDetails = (inquiryToDisplay) => {
+        history.push(`/inquiries/${inquiryToDisplay.id}`);
     }
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
-    }, []);
+    }, [inquiriesId]);
 
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
@@ -28,19 +28,8 @@ function Inquiries() {
                 </div>
             ) : (
                 <div>
-                    {inquiries.map(inquiry => {
-                        return (
-                            <div key={inquiry.id}>
-                                <h1>{inquiry.services_id}</h1>
-                                <h2>{inquiry.date_received}</h2>
-                                <h3>{inquiry.declutting}</h3>
-                                <h3>{inquiry.moving}</h3>
-                                <h3>{inquiry.organizing}</h3>
-                                <h3>{inquiry.cleaning}</h3>
-
-                            </div>
-                        )
-                    })}
+                    {/* CUSTOMER INFO AND SERVICES_ID */}
+                    <button onClick={navToInquiryDetails}>Details</button>
                 </div>
             )}
         </main>
