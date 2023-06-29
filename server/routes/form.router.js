@@ -83,12 +83,45 @@ router.post('/', (req, res) => {
 /**
  * PUT CLEANING route template
  */
-let cleaningQuestionsData = {}; 
+
 
 router.put('/', (req, res) => {
-  const { cleaningQuestions } = req.body;
-  cleaningQuestionsData = cleaningQuestions;
+  const { numBedrooms, numBathrooms, numAdditionalRooms, numDoorsWindows, hasPets, hazardousConditions } = req.body;
+  console.log(req.body);
+
+  const values = [
+    numBedrooms,
+    numBathrooms,
+    numAdditionalRooms,
+    numDoorsWindows,
+    hasPets,
+    hazardousConditions,
+  ];
+
+  const queryText = `
+    UPDATE "cleaning_questions" 
+    SET 
+      "NumBedrooms" = $1,
+      "NumBathrooms" = $2,
+      "NumAdditionalRooms" = $3,
+      "NumDoorsWindows" = $4,
+      "HasPets" = $5,
+      "HazardousConditions" = $6
+  `;
+  
+  pool.query(queryText, values)
+    .then(() => {
+      console.log('Cleaning Questions updated successfully');
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('Error updating cleaning questions', error);
+      res.status(500).send('Failed to update cleaning questions.');
+    });
 });
+
+
+
 
 /**
  * PUT #2 MOVING route template

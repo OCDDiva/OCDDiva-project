@@ -3,10 +3,10 @@ import axios from 'axios';
 
 function* cleaningQuestions(action) {
     try{
-        const { cleaningQuestions } = action.payload
-        yield axios.post('/api/c')
+        const cleaningQuestions = action.payload
+        console.log(cleaningQuestions); 
+        yield axios.put('/api/forms', cleaningQuestions);
         yield put({type : 'SET_CLEANING_QUESTIONS', payload: cleaningQuestions });
-        
     } catch (error){
         console.log('Error in cleaning questions saga', error);
     }
@@ -16,4 +16,4 @@ function* cleaningSaga() {
     yield takeLatest('ADD_CLEANING_QUESTIONS', cleaningQuestions);
 }
 
-export default cleaningSaga
+export default cleaningSaga;

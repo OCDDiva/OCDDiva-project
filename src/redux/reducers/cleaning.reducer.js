@@ -7,10 +7,10 @@ const initialState = {
     hazardousConditions: '',
   };
   
-  const cleaningQuestionsReducer = (state = initialState, action) => {
+  const cleaningQuestionsReducer = (state = {}, action) => {
     switch (action.type) {
       case 'SET_CLEANING_QUESTIONS':
-        return { ...state, ...action.payload };
+        return { ...action.payload };
       default:
         return state;
     }

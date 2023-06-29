@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom'; 
 import { useSelector, useDispatch } from 'react-redux';
 
 function CleaningQuestions() {
@@ -23,13 +23,13 @@ function CleaningQuestions() {
     const nextStep = (event) => {
         event.preventDefault();
         const questions =  {
-            selectedOption,
-            numBedrooms,
-            numBathrooms,
-            numAdditionalRooms,
-            numDoorsWindows,
-            hasPets,
-            hazardousConditions,
+            selectedOption : selectedOption,
+            numBedrooms : numBedrooms,
+            numBathrooms : numBathrooms,
+            numAdditionalRooms: numAdditionalRooms,
+            numDoorsWindows : numDoorsWindows,
+            hasPets : hasPets,
+            hazardousConditions: hazardousConditions,
         };
         dispatch({ type: 'ADD_CLEANING_QUESTIONS', payload: questions})
         history.push('/movingquestions');
