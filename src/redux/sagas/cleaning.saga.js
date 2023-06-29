@@ -6,7 +6,7 @@ function* cleaningQuestions(action) {
         const cleaningQuestions = action.payload
         console.log(cleaningQuestions); 
         yield axios.put('/api/forms', cleaningQuestions);
-        yield put({type : 'SET_CLEANING_QUESTIONS', payload: cleaningQuestions });
+        yield put({type : 'SET_CLEANING_QUESTIONS'});
     } catch (error){
         console.log('Error in cleaning questions saga', error);
     }

@@ -86,29 +86,31 @@ router.post('/', (req, res) => {
 
 
 router.put('/', (req, res) => {
-  const { numBedrooms, numBathrooms, numAdditionalRooms, numDoorsWindows, hasPets, hazardousConditions, userId } = req.body;
-  console.log(req.body);
-
+  console.log('router form is:', req.body);
   const values = [
-    numBedrooms,
-    numBathrooms,
-    numAdditionalRooms,
-    numDoorsWindows,
-    hasPets,
-    hazardousConditions,
-    userId
+      req.body.cleaningOption, 
+      req.body.serviceType,
+      req.body.numberOfBedrooms,
+      req.body.numberOfBathrooms,
+      req.body.numberOfAdditionalRooms, 
+      req.body.numberOfDoorsWindows,
+      req.body.hasPets,
+      req.body.hazardousConditions,
+      req.body.userId,
   ];
-
+console.log(values); 
   const queryText = `
     UPDATE "cleaning_questions" 
     SET 
-      "NumBedrooms" = $1,
-      "NumBathrooms" = $2,
-      "NumAdditionalRooms" = $3,
-      "NumDoorsWindows" = $4,
-      "HasPets" = $5,
-      "HazardousConditions" = $6
-      WHERE "id" = $7
+      "Cleaning" = $1,
+      "serviceType" = $2,
+      "Bedrooms" = $3,
+      "Bathrooms" = $4,
+      "AdditionalRooms" = $5,
+      "DoorsWindows" = $6,
+      "HasPets" = $7,
+      "HazardousConditions" = $8
+      WHERE "id" = $9
   `;
   pool.query(queryText, values)
     .then(() => {
