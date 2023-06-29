@@ -103,7 +103,7 @@ console.log(values);
     UPDATE "cleaning_questions" 
     SET 
       "Cleaning" = $1,
-      "serviceType" = $2,
+      "ServiceType" = $2,
       "Bedrooms" = $3,
       "Bathrooms" = $4,
       "AdditionalRooms" = $5,

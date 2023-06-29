@@ -55,16 +55,15 @@ INSERT INTO "moving_questions" ("Moving", "Moving To", "Moving From", "Large Ite
 VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
 
 CREATE TABLE "cleaning_questions" (
-	id serial primary key,
-	"Cleaning" BOOLEAN default false,
-	"EssentialClean" BOOLEAN default false,
-	"UltimateClean" BOOLEAN default false,
-	"Bedrooms" INT,
-	"Bathrooms" INT,
-	"AdditionalRooms" INT,
+    id serial primary key,
+    "Cleaning" BOOLEAN default false,
+    "ServiceType" VARCHAR(100),
+    "Bedrooms" INT,
+    "Bathrooms" INT,
+    "AdditionalRooms" INT,
     "DoorsWindows" INT,
     "HasPets" BOOLEAN default false,
-    "HazardousConditions" VARCHAR (10000)
+    "HazardousConditions" VARCHAR(10000)
 );
 
 INSERT INTO "cleaning_questions" ("Cleaning", "EssentialClean", "UltimateClean", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
