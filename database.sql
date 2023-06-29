@@ -53,18 +53,19 @@ CREATE TABLE "user_media" (
 	user_id int references users
 );
 
-CREATE TABLE "moving_questions" (
+-- CREATE TABLE "moving_questions" (
 	id serial primary key,
-	"Moving" BOOLEAN default false, 
-	"Moving To" VARCHAR (10000),
-	"Moving From" VARCHAR (10000),
-	"Large Items" VARCHAR (10000)
+	"moving" BOOLEAN default false, 
+	"moving_to" VARCHAR (10000),
+	"moving_from" VARCHAR (10000),
+	"large_items" VARCHAR (10000)
 	-- question4 VARCHAR (10000),
 	-- question5 VARCHAR (10000)
 );
 
-INSERT INTO "moving_questions" ("Moving", "Moving To", "Moving From", "Large Items")
+INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
 VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
+
 
 CREATE TABLE "cleaning_questions" (
 	id serial primary key,

@@ -1,5 +1,5 @@
 //Imports go here
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,26 +12,56 @@ function MovingQuestions() {
 
     const [moving, setMoving] = useState(false);
     const [movingTo, setMovingTo] = useState('');
-    const [movingOutOf, setMovingOutOf] = useState('');
+    const [movingFrom, setMovingFrom] = useState('');
     const [largeItems, setLargeItems] = useState('');
+    const user = useSelector(store => store.user);
 
     const movingValue = (event) => {
         setMoving(event.target.value)
     };
 
-    const goBack = () => { history.goBack()}
+    const movingToValue = (event) => {
+        setMovingTo(event.target.value)
+    }
+
+    const movingFromValue = (event) => {
+        setMovingFrom(event.target.value);
+    }
+
+    const largeItemsValue = (event) => {
+        setLargeItems(event.target.value);
+    }
+
+    const goBack = () => { history.goBack() }
+
+    // useEffect(() => {
+    //     dispatch({ type: 'UPDATE_MOVING' });
+    // })
 
     const nextStep = (event) => {
         event.preventDefault();
-        history.push('/organizequestions');
+        dispatch({ type: 'UPDATE_MOVING', payload: {
+            moving: moving,
+            moving_to: movingTo,
+            moving_from: movingFrom,
+            large_items: largeItems,
+            users_id: user.id,
+        } 
+    })
+        // history.push('/organizequestions');
     }
+
+    console.log('Checking the value of moving', moving);
+    console.log('checking the value of movingTo', movingTo);
+    console.log('Checking the value of movingFrom', movingFrom);
+    console.log('Checking the value of largeItems', largeItems);
 
     //What displays
     return (
         <>
             <h2 className="h2Headers">Are you moving?</h2>
             <br />
-            <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <input type="radio" value="true" name="Yes" /> Yes
                 <input type="radio" value="false" name="No" /> No
             </form>
@@ -42,31 +72,31 @@ function MovingQuestions() {
                     <ol>
                         <li>
                             <label>
-                            <p>Where are you moving into?</p>
+                                <p>Where are you moving to?</p>
                                 <input
                                     type="text"
                                     value={movingTo}
-                                    onChange={(event) => setMovingTo(event.target.value)}
+                                    onChange={movingToValue}
                                 />
                             </label>
                         </li>
                         <li>
                             <label>
-                                <p>Where are you moving out of?</p>
-                                <input 
+                                <p>Where are you moving from?</p>
+                                <input
                                     type="text"
-                                    value={movingOutOf}
-                                    onChange={(event) => setMovingOutOf(event.target.value)}
-                                    />
+                                    value={movingFrom}
+                                    onChange={movingFromValue}
+                                />
                             </label>
                         </li>
                         <li>
                             <label>
                                 <p>What large items do you have that will need to be moved?</p>
-                                <input 
+                                <input
                                     type="text"
                                     value={largeItems}
-                                    onChange={(event) => setLargeItems(event.target.value)}
+                                    onChange={largeItemsValue}
                                 />
                             </label>
                         </li>

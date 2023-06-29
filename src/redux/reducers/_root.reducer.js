@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import inquiriesList from './inquiriesList.reducer';
+import movingQuestions from './movingQuestions.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -11,8 +12,9 @@ import inquiriesList from './inquiriesList.reducer';
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
-  user,
-  inquiriesList, // will have an id and username if someone is logged in
+  user, // will have an id and username if someone is logged in
+  inquiriesList,
+  movingQuestions, 
 });
 
 export default rootReducer;
