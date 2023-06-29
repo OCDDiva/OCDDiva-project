@@ -19,12 +19,12 @@ function CleaningQuestions() {
   const handleCleaningOptionChange = (event) => {
     setCleaningOption(event.target.value);
     setServiceType('');
-    resetForm();
+    // resetForm();
   };
 
   const handleServiceTypeChange = (event) => {
     setServiceType(event.target.value);
-    resetForm();
+    // resetForm();
   };
 
   const handleNumberOfBedroomsChange = (event) => {
@@ -53,6 +53,7 @@ function CleaningQuestions() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     // You can perform additional actions here, like submitting the form data to a server
     console.log('Cleaning Option:', cleaningOption);
     console.log('Service Type:', serviceType);
@@ -63,23 +64,26 @@ function CleaningQuestions() {
     console.log('Has Pets:', hasPets);
     console.log('Hazardous Conditions:', hazardousConditions);
     // Reset form
-    resetForm();
+    // resetForm();
+    history.push('/movingquestions');
   };
 
-  const resetForm = () => {
-    setNumberOfBedrooms('');
-    setNumberOfBathrooms('');
-    setNumberOfAdditionalRooms('');
-    setNumberOfDoorsWindows('');
-    setHasPets(false);
-    setHazardousConditions('');
-  };
+//   const resetForm = () => {
+//     setNumberOfBedrooms('');
+//     setNumberOfBathrooms('');
+//     setNumberOfAdditionalRooms('');
+//     setNumberOfDoorsWindows('');
+//     setHasPets(false);
+//     setHazardousConditions('');
+//   };
 
   const handleNext = (event) => {
     console.log('Moving to the next page...');
     event.preventDefault();
     history.push('/movingquestions');
   };
+
+  const handleBack = () => { history.handleBack()}
 
   return (
     <div>
@@ -289,10 +293,16 @@ function CleaningQuestions() {
           </div>
         )}
         {cleaningOption === 'no' && (
-          <button className="btn" type="button" onClick={handleNext}>
-            Next
-          </button>
-        )}
+            <button className="btn" type="button" onClick={handleSubmit}>
+              Submit
+            </button>
+          )}
+          <div>
+            <button className ="btn" type="button" onClick={handleBack}>
+            Back
+            </button>
+        </div>
+        
       </form>
     </div>
   );

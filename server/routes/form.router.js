@@ -110,7 +110,6 @@ router.put('/', (req, res) => {
       "HazardousConditions" = $6
       WHERE "id" = $7
   `;
-  
   pool.query(queryText, values)
     .then(() => {
       console.log('Cleaning Questions updated successfully');
