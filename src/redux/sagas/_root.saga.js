@@ -5,6 +5,8 @@ import userSaga from './user.saga';
 import inquiriesSaga from './inquiries.saga';
 import historySaga from './history.saga';
 import movingSaga from './moving.saga';
+import organizingSaga from './organizing.saga';
+import declutteringSaga from './decluttering.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +23,7 @@ export default function* rootSaga() {
     inquiriesSaga(),
     movingSaga(),
     historySaga(),
+    organizingSaga(),
+    declutteringSaga(),
   ]);
 }
