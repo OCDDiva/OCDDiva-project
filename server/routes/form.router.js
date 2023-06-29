@@ -95,7 +95,7 @@ router.put('/moving', (req, res) => {
   console.log(`In PUT for Moving Questions`);
   if (req.isAuthenticated()) {
     console.log(req.body);
-    const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.large_items, req.user.id];
+    const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.body.large_items, req.user.id];
     const queryText = `UPDATE "moving_questions" SET "moving" = $1, "moving_to" = $2, "moving_from" = $3, "large_items" = $4 WHERE "id" = $5;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
