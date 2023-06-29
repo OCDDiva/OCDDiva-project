@@ -20,6 +20,8 @@ function DeclutterQuestions() {
     const [numBathrooms, setNumBathrooms] = useState(0);
     const [numAdditionalRooms, setNumAdditionalRooms] = useState(0);
     const [donation, setDonationStatus] = useState(false);
+    const user = useSelector(store => store.user);
+
 
     const decluttering = (event) => {
         setDeclutteringValue(event.target.value);
@@ -29,6 +31,17 @@ function DeclutterQuestions() {
 
     const nextStep = (event) => {
         event.preventDefault();
+        dispatch({
+            type: 'UPDATE_DECLUTT', payload: {
+                Decluttering: declutteringValue,
+                Bedrooms: numBedrooms,
+                Bathrooms: numBathrooms,
+                AdditionalRooms: numAdditionalRooms,
+                Donation: donation,
+                user_id: user.id
+            }
+
+        })
         history.push('/review');
     }
 
@@ -37,7 +50,7 @@ function DeclutterQuestions() {
         <>
             <h2 className="h2Headers">Would you like your space Decluttered?</h2>
             <br />
-            <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <input type="radio" value={true} name="Yes" /> Yes
                 <input type="radio" value={false} name="No" /> No
             </form>

@@ -114,7 +114,7 @@ router.put('/organizing', (req, res) => {
   // PUT #3 route code here
   console.log(`In PUT for Organizing Questions`);
   if (req.isAuthenticated()) {
-    const queryValues = [req.body.Organizing, req.body.Bedrooms, req.body.Bathrooms, req.body.Donation, req.user.id];
+    const queryValues = [req.body.Organizing, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.user.id];
     const queryText = `UPDATE "organizing_questions" SET "Organizing" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "id" = $6;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
@@ -133,8 +133,8 @@ router.put('/decluttering', (req, res) => {
   // PUT #4 route code here
   console.log(`In PUT for Decluttering Questions`);
   if (req.isAuthenticated()) {
-    const queryValues = [req.body.Declutter, req.body.Bedrooms, req.body.Bathrooms, req.body.Donation, req.user.id];
-    const queryText = `UPDATE "organizing_questions" SET "Organizing" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "id" = $6;`;
+    const queryValues = [req.body.Declutter, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.user.id];
+    const queryText = `UPDATE "decluttering_questions" SET "Declutter" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "id" = $6;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);
