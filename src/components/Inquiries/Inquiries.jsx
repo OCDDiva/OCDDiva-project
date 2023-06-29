@@ -7,7 +7,7 @@ function Inquiries() {
     //Code goes here
     const dispatch = useDispatch();
     const history = useHistory();
-    const inquiries = useSelector(store => store.inquiriesList)
+    const inquiries = useSelector(store => store.inquiriesDetails)
     const { inquiriesId } = useParams();
 
     const navToInquiryDetails = (event) => {
@@ -15,7 +15,7 @@ function Inquiries() {
     }
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_INQUIRIES' });
+        dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 
     //What displays

@@ -7,28 +7,24 @@ function InquiryDetails() {
     //Code goes here
     const dispatch = useDispatch();
     const history = useHistory();
-    const inquiries = useSelector(store => store.inquiriesList)
+    const inquiryDetails = useSelector(store => store.inquiryDetails)
     const { inquiriesId } = useParams();
 
-    const navToInquiryDetails = (event) => {
-        history.push('/inquiries/:id');
-    }
-
     useEffect(() => {
-        dispatch({ type: 'FETCH_INQUIRIES' });
+        dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
-            {inquiries.length === 0 ? (
+            {inquiryDetails.length === 0 ? (
                 <div>
                     <p>No new requests!</p>
                 </div>
             ) : (
                 <div>
-                    {inquiries.map(inquiry => {
+                    {inquiryDetails.map(inquiry => {
                         return (
                             <div key={inquiry.id}>
                                 <h1>{inquiry.services_id}</h1>
