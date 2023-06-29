@@ -10,13 +10,6 @@ function MovingQuestions() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [movingQuestions, setMovingQuestions] = useState({
-        moving: false,
-        movingTo: '',
-        movingFrom: '',
-        largeItems: '',
-    })
-
     const [moving, setMoving] = useState(false);
     const [movingTo, setMovingTo] = useState('');
     const [movingFrom, setMovingFrom] = useState('');
@@ -70,8 +63,8 @@ function MovingQuestions() {
             <h2 className="h2Headers">Are you moving?</h2>
             <br />
             <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <input type="radio" value="true" name="Yes" /> Yes
-                <input type="radio" value="false" name="No" /> No
+                <input type="radio" value={true} name="Yes" /> Yes
+                <input type="radio" value={false} name="No" /> No
             </form>
             {moving === "true" && (
                 <div className="movingQuestions">
@@ -113,7 +106,7 @@ function MovingQuestions() {
             )}
             <br />
             <br />
-            <button className="btn" onClick={goBack}> Back </button>
+            <button className="btn" onClick={goBack} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}> Back </button>
             <br />
             <br />
             <button className="btn" onClick={nextStep}>Next</button>
