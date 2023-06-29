@@ -3,7 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-const CleaningForm = () => {
+function CleaningQuestions() {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
   const [cleaningOption, setCleaningOption] = useState('no');
   const [serviceType, setServiceType] = useState('');
   const [numberOfBedrooms, setNumberOfBedrooms] = useState('');
@@ -11,7 +14,7 @@ const CleaningForm = () => {
   const [numberOfAdditionalRooms, setNumberOfAdditionalRooms] = useState('');
   const [numberOfDoorsWindows, setNumberOfDoorsWindows] = useState('');
   const [hasPets, setHasPets] = useState(false);
-  const [hasHazardousConditions, setHasHazardousConditions] = useState(false);
+  const [hazardousConditions, setHazardousConditions] = useState('');
 
   const handleCleaningOptionChange = (event) => {
     setCleaningOption(event.target.value);
@@ -44,8 +47,8 @@ const CleaningForm = () => {
     setHasPets(event.target.value === 'yes');
   };
 
-  const handleHasHazardousConditionsChange = (event) => {
-    setHasHazardousConditions(event.target.value === 'yes');
+  const handleHazardousConditionsChange = (event) => {
+    setHazardousConditions(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -58,7 +61,7 @@ const CleaningForm = () => {
     console.log('Number of Additional Rooms:', numberOfAdditionalRooms);
     console.log('Number of Doors/Windows to be cleaned:', numberOfDoorsWindows);
     console.log('Has Pets:', hasPets);
-    console.log('Has Hazardous Conditions:', hasHazardousConditions);
+    console.log('Hazardous Conditions:', hazardousConditions);
     // Reset form
     resetForm();
   };
@@ -69,12 +72,17 @@ const CleaningForm = () => {
     setNumberOfAdditionalRooms('');
     setNumberOfDoorsWindows('');
     setHasPets(false);
-    setHasHazardousConditions(false);
+    setHazardousConditions('');
+  };
+
+  const handleNext = (event) => {
+    console.log('Moving to the next page...');
+    event.preventDefault();
+    history.push('/movingquestions');
   };
 
   return (
     <div>
-      <h1>Welcome to our Cleaning Form Service</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <p>Do you want a cleaning service?</p>
@@ -116,116 +124,178 @@ const CleaningForm = () => {
             </select>
             {serviceType === 'essential' && (
               <div>
-                <label htmlFor="numberOfBedrooms">Number of Bedrooms:</label>
-                <input
-                  type="number"
-                  id="numberOfBedrooms"
-                  name="numberOfBedrooms"
-                  value={numberOfBedrooms}
-                  onChange={handleNumberOfBedroomsChange}
-                />
-                <label htmlFor="numberOfBathrooms">Number of Bathrooms:</label>
-                <input
-                  type="number"
-                  id="numberOfBathrooms"
-                  name="numberOfBathrooms"
-                  value={numberOfBathrooms}
-                  onChange={handleNumberOfBathroomsChange}
-                />
-                <label htmlFor="numberOfAdditionalRooms">Number of Additional Rooms:</label>
-                <input
-                  type="number"
-                  id="numberOfAdditionalRooms"
-                  name="numberOfAdditionalRooms"
-                  value={numberOfAdditionalRooms}
-                  onChange={handleNumberOfAdditionalRoomsChange}
-                />
-                <label htmlFor="numberOfDoorsWindows">Number of Doors/Windows to be cleaned:</label>
-                <input
-                  type="number"
-                  id="numberOfDoorsWindows"
-                  name="numberOfDoorsWindows"
-                  value={numberOfDoorsWindows}
-                  onChange={handleNumberOfDoorsWindowsChange}
-                />
-                <div>
-                  <p>Do you have pets?</p>
-                  <div>
+                <ul>
+                  <li>
+                    <label htmlFor="numberOfBedrooms">Number of Bedrooms:</label>
                     <input
-                      type="radio"
-                      id="hasPetsYes"
-                      name="hasPets"
-                      value="yes"
-                      checked={hasPets === true}
-                      onChange={handleHasPetsChange}
+                      type="number"
+                      id="numberOfBedrooms"
+                      name="numberOfBedrooms"
+                      value={numberOfBedrooms}
+                      onChange={handleNumberOfBedroomsChange}
                     />
-                    <label htmlFor="hasPetsYes">Yes</label>
-                  </div>
-                  <div>
+                  </li>
+                  <li>
+                    <label htmlFor="numberOfBathrooms">Number of Bathrooms:</label>
                     <input
-                      type="radio"
-                      id="hasPetsNo"
-                      name="hasPets"
-                      value="no"
-                      checked={hasPets === false}
-                      onChange={handleHasPetsChange}
+                      type="number"
+                      id="numberOfBathrooms"
+                      name="numberOfBathrooms"
+                      value={numberOfBathrooms}
+                      onChange={handleNumberOfBathroomsChange}
                     />
-                    <label htmlFor="hasPetsNo">No</label>
-                  </div>
-                </div>
-                <div>
-                  <p>Do you have hazardous conditions? (e.g., mold, mildew, bugs, rats)</p>
-                  <div>
+                  </li>
+                  <li>
+                    <label htmlFor="numberOfAdditionalRooms">Number of Additional Rooms:</label>
                     <input
-                      type="radio"
-                      id="hasHazardousConditionsYes"
-                      name="hasHazardousConditions"
-                      value="yes"
-                      checked={hasHazardousConditions === true}
-                      onChange={handleHasHazardousConditionsChange}
+                      type="number"
+                      id="numberOfAdditionalRooms"
+                      name="numberOfAdditionalRooms"
+                      value={numberOfAdditionalRooms}
+                      onChange={handleNumberOfAdditionalRoomsChange}
                     />
-                    <label htmlFor="hasHazardousConditionsYes">Yes</label>
-                  </div>
-                  <div>
+                  </li>
+                  <li>
+                    <label htmlFor="numberOfDoorsWindows">Number of Doors/Windows to be cleaned:</label>
                     <input
-                      type="radio"
-                      id="hasHazardousConditionsNo"
-                      name="hasHazardousConditions"
-                      value="no"
-                      checked={hasHazardousConditions === false}
-                      onChange={handleHasHazardousConditionsChange}
+                      type="number"
+                      id="numberOfDoorsWindows"
+                      name="numberOfDoorsWindows"
+                      value={numberOfDoorsWindows}
+                      onChange={handleNumberOfDoorsWindowsChange}
                     />
-                    <label htmlFor="hasHazardousConditionsNo">No</label>
-                  </div>
-                </div>
+                  </li>
+                  <li>
+                    <p>Do you have pets?</p>
+                    <div>
+                      <input
+                        type="radio"
+                        id="hasPetsYes"
+                        name="hasPets"
+                        value="yes"
+                        checked={hasPets === true}
+                        onChange={handleHasPetsChange}
+                      />
+                      <label htmlFor="hasPetsYes">Yes</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        id="hasPetsNo"
+                        name="hasPets"
+                        value="no"
+                        checked={hasPets === false}
+                        onChange={handleHasPetsChange}
+                      />
+                      <label htmlFor="hasPetsNo">No</label>
+                    </div>
+                  </li>
+                  <li>
+                    <label htmlFor="hazardousConditions">Hazardous Conditions:</label>
+                    <input
+                      type="text"
+                      id="hazardousConditions"
+                      name="hazardousConditions"
+                      value={hazardousConditions}
+                      onChange={handleHazardousConditionsChange}
+                    />
+                  </li>
+                </ul>
+                <button className="btn" type="submit">Submit</button>
+              </div>
+            )}
+            {serviceType === 'ultimate' && (
+              <div>
+                <ul>
+                  <li>
+                    <label htmlFor="numberOfBedrooms">Number of Bedrooms:</label>
+                    <input
+                      type="number"
+                      id="numberOfBedrooms"
+                      name="numberOfBedrooms"
+                      value={numberOfBedrooms}
+                      onChange={handleNumberOfBedroomsChange}
+                    />
+                  </li>
+                  <li>
+                    <label htmlFor="numberOfBathrooms">Number of Bathrooms:</label>
+                    <input
+                      type="number"
+                      id="numberOfBathrooms"
+                      name="numberOfBathrooms"
+                      value={numberOfBathrooms}
+                      onChange={handleNumberOfBathroomsChange}
+                    />
+                  </li>
+                  <li>
+                    <label htmlFor="numberOfAdditionalRooms">Number of Additional Rooms:</label>
+                    <input
+                      type="number"
+                      id="numberOfAdditionalRooms"
+                      name="numberOfAdditionalRooms"
+                      value={numberOfAdditionalRooms}
+                      onChange={handleNumberOfAdditionalRoomsChange}
+                    />
+                  </li>
+                  <li>
+                    <label htmlFor="numberOfDoorsWindows">Number of Doors/Windows to be cleaned:</label>
+                    <input
+                      type="number"
+                      id="numberOfDoorsWindows"
+                      name="numberOfDoorsWindows"
+                      value={numberOfDoorsWindows}
+                      onChange={handleNumberOfDoorsWindowsChange}
+                    />
+                  </li>
+                  <li>
+                    <p>Do you have pets?</p>
+                    <div>
+                      <input
+                        type="radio"
+                        id="hasPetsYes"
+                        name="hasPets"
+                        value="yes"
+                        checked={hasPets === true}
+                        onChange={handleHasPetsChange}
+                      />
+                      <label htmlFor="hasPetsYes">Yes</label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        id="hasPetsNo"
+                        name="hasPets"
+                        value="no"
+                        checked={hasPets === false}
+                        onChange={handleHasPetsChange}
+                      />
+                      <label htmlFor="hasPetsNo">No</label>
+                    </div>
+                  </li>
+                  <li>
+                    <label htmlFor="hazardousConditions">Hazardous Conditions:</label>
+                    <input
+                      type="text"
+                      id="hazardousConditions"
+                      name="hazardousConditions"
+                      value={hazardousConditions}
+                      onChange={handleHazardousConditionsChange}
+                    />
+                  </li>
+                </ul>
+                <button type="submit">Submit</button>
               </div>
             )}
           </div>
         )}
-        <button type="submit">Submit</button>
+        {cleaningOption === 'no' && (
+          <button className="btn" type="button" onClick={handleNext}>
+            Next
+          </button>
+        )}
       </form>
     </div>
   );
 };
 
-export default CleaningForm;
-
-
-
-
-
-// THIS IS MADE AS A BACKUP FORM FOR TESTING PURPOSES OR TO BE USED LATER 
-{/* <h2>Cleaning Services</h2> 
-                <p>Please Select a cleaning service:</p>
-
-                <div class="essential">
-                    <h3>Essential</h3>
-                    <p>Description of Essential</p>
-                    <button>Select Essential</button>
-                </div>
-
-                <div class="ultimate">
-                    <h3>Ultimate</h3>
-                    <p>Description of Ultimate</p>
-                    <button>Select Ultimate</button>
-                </div> */}
+export default CleaningQuestions;
