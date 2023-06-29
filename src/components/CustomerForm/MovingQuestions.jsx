@@ -49,7 +49,7 @@ function MovingQuestions() {
             user_id: user.id,
         } 
     })
-        // history.push('/organizequestions');
+        history.push('/organizequestions');
     }
 
     console.log('Checking the value of moving', moving);
