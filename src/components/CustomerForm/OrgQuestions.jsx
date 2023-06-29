@@ -24,6 +24,8 @@ function OrgQuestions() {
         setOrganizingValue(event.target.value);
     };
 
+    const goBack = () => { history.goBack()};
+
     const nextStep = (event) => {
         event.preventDefault();
         history.push('/declutterquestions');
@@ -32,9 +34,9 @@ function OrgQuestions() {
     //What displays
     return (
         <>
-            <h2>Would you like your space organized?</h2>
+            <h2 className="h2Headers">Would you like your space organized?</h2>
             <br />
-            <form onChange={organizing}>
+            <form onChange={organizing} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <input type="radio" value={true} name="Yes" /> Yes
                 <input type="radio" value={false} name="No" /> No
             </form>
@@ -43,7 +45,7 @@ function OrgQuestions() {
                     <ol>
                         <li>
                             <label>
-                                <p>Number of bedrroms to be organized?</p>
+                                <p>Number of bedrooms to be organized?</p>
                                 <input 
                                     type="number"
                                     value={numBedrooms}
@@ -90,6 +92,9 @@ function OrgQuestions() {
                     </ol>
                 </div>
             )}
+            <br />
+            <br />
+            <button className="btn" onClick={goBack}> Back </button>
             <br />
             <br />
             <button className="btn" onClick={nextStep}>Next</button>

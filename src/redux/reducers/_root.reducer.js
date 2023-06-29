@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import inquiriesList from './inquiriesList.reducer';
+import history from './history.reducer';
 
 import cleaningQuestionsReducer from './cleaning.reducer.js';
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   user,
   inquiriesList, // will have an id and username if someone is logged in
   cleaningQuestionsReducer,
+  history,
 });
 
 export default rootReducer;

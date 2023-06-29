@@ -3,6 +3,7 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import inquiriesSaga from './inquiries.saga';
+import historySaga from './history.saga';
 
 import cleaningSaga from './cleaning.saga';
 
@@ -20,5 +21,6 @@ export default function* rootSaga() {
     userSaga(),
     inquiriesSaga(),
     cleaningSaga(),
+    historySaga(),
   ]);
 }
