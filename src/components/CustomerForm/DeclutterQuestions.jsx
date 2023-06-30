@@ -31,8 +31,7 @@ function DeclutterQuestions() {
 
     const nextStep = (event) => {
         event.preventDefault();
-        dispatch({
-            type: 'UPDATE_DECLUTT', payload: {
+        dispatch({type: 'UPDATE_DECLUTT', payload: {
                 Declutter: declutteringValue,
                 Bedrooms: numBedrooms,
                 Bathrooms: numBathrooms,
@@ -42,7 +41,7 @@ function DeclutterQuestions() {
             }
 
         })
-        // history.push('/review');
+        history.push('/review');
     }
 
     console.log('checking value of declutter', declutteringValue)
