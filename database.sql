@@ -52,7 +52,7 @@ CREATE TABLE "user_media" (
 	user_id int references users
 );
 
--- CREATE TABLE "moving_questions" (
+ CREATE TABLE "moving_questions" (
 	id serial primary key,
 	"moving" BOOLEAN default false, 
 	"moving_to" VARCHAR (10000),

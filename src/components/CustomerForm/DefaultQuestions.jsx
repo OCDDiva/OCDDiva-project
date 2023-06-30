@@ -16,7 +16,7 @@ function DefaultQuestions() {
     //TODO is there anything else from the DB that needs to be here? Residence type or is that only for the "service" questions?
     //! State
     let [customer, setCustomer] = useState({
-        first_name: '', last_name: '', address: '', phone_number: '', email: ''
+        first_name: '', last_name: '', street1: '', street2: '', city: '', state: '', zip: '',phone_number: '', email: ''
     });
 
     //TODO edit this when we get to styling
@@ -35,8 +35,24 @@ function DefaultQuestions() {
         setCustomer({ ...customer, last_name: event.target.value });
     }
 
-    const handleAddressChange = (event) => {
-        setCustomer({ ...customer, address: event.target.value });
+    const handleStreet1Change = (event) => {
+        setCustomer({ ...customer, street1: event.target.value });
+    }
+
+    const handleStreet2Change = (event) => {
+        setCustomer({ ...customer, street2: event.target.value });
+    }
+
+    const handleCityChange = (event) => {
+        setCustomer({ ...customer, city: event.target.value });
+    }
+
+    const handleStateChange = (event) => {
+        setCustomer({ ...customer, state: event.target.value });
+    }
+
+    const handleZipChange = (event) => {
+        setCustomer({ ...customer, zip: event.target.value });
     }
 
     const handlePhoneNumberChange = (event) => {
@@ -97,10 +113,41 @@ function DefaultQuestions() {
 
                         <br /> <br />
 
-                        {/*//! Will probably want to split this into Street, City, State, Zip, etc. Maybe a library for that too?*/}
-                        <TextField placeholder="Address"
-                            onChange={handleAddressChange}
-                            multiline rows="3"
+                        <TextField placeholder="Street 1"
+                            onChange={handleStreet1Change}
+                            required
+                            sx={{ width: 300, }}
+                        />
+
+                        <br /> <br />
+
+                        <TextField placeholder="Street 2"
+                            onChange={handleStreet2Change}
+                            sx={{ width: 300, }}
+                        />
+
+                        <br /> <br />
+
+                        <TextField placeholder="City"
+                            onChange={handleCityChange}
+                            required
+                            sx={{ width: 300, }}
+
+                        />
+
+                        <br /> <br />
+
+                        <TextField placeholder="State"
+                            onChange={handleStateChange}
+                            required
+                            sx={{ width: 300, }}
+
+                        />
+
+                        <br /> <br />
+
+                        <TextField placeholder="Zip Code"
+                            onChange={handleZipChange}
                             required
                             sx={{ width: 300, }}
 
