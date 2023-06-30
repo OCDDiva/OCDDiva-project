@@ -5,38 +5,38 @@ const router = express.Router();
 /**
  * GET INQUIRIES route template
  */
-router.get('/', (req, res) => {
-  // GET route code here
-  // console.log('is Authenticated?', req.isAuthenticated());
-  console.log('is Authenticated?', req.isAuthenticated());
+// router.get('/', (req, res) => {
+//   // GET route code here
+//   // console.log('is Authenticated?', req.isAuthenticated());
+//   console.log('is Authenticated?', req.isAuthenticated());
 
-  if (req.isAuthenticated()) {
-    console.log('user', req.user);
-    let queryText = `SELECT
-                          "services"."description" AS "services_id",
-                          "dates"."date_submitted" AS "date_received",
-                          "moving_questions"."id" AS "moving",
-                          "cleaning_questions"."id" AS "cleaning",
-                          "organizing_questions"."id" AS "organizing",
-                          "decluttering_questions"."id" AS "declutting"
-                          FROM "user_inquiries"
-                          JOIN "services" ON "user_inquiries"."services_id" = "services"."id"
-                          JOIN "dates" ON "user_inquiries"."date_received" = "dates"."id"
-                          JOIN "moving_questions" ON "user_inquiries"."moving" = "moving_questions"."id"
-                          JOIN "cleaning_questions" ON "user_inquiries"."cleaning" = "cleaning_questions"."id"
-                          JOIN "organizing_questions" ON "user_inquiries"."organizing" = "organizing_questions"."id"
-                          JOIN "decluttering_questions" ON "user_inquiries"."declutting" = "decluttering_questions"."id";`;
-    pool.query(queryText).then((result) => {
-      console.log(result.rows);
-      res.send(result.rows);
-    }).catch((error) => {
-      console.log(error);
-      res.sendStatus(500);
-    });
-  } else {
-    res.sendStatus(403);
-  }
-});
+//   if (req.isAuthenticated()) {
+//     console.log('user', req.user);
+//     let queryText = `SELECT
+//                           "services"."description" AS "services_id",
+//                           "dates"."date_submitted" AS "date_received",
+//                           "moving_questions"."id" AS "moving",
+//                           "cleaning_questions"."id" AS "cleaning",
+//                           "organizing_questions"."id" AS "organizing",
+//                           "decluttering_questions"."id" AS "declutting"
+//                           FROM "user_inquiries"
+//                           JOIN "services" ON "user_inquiries"."services_id" = "services"."id"
+//                           JOIN "dates" ON "user_inquiries"."date_received" = "dates"."id"
+//                           JOIN "moving_questions" ON "user_inquiries"."moving" = "moving_questions"."id"
+//                           JOIN "cleaning_questions" ON "user_inquiries"."cleaning" = "cleaning_questions"."id"
+//                           JOIN "organizing_questions" ON "user_inquiries"."organizing" = "organizing_questions"."id"
+//                           JOIN "decluttering_questions" ON "user_inquiries"."declutting" = "decluttering_questions"."id";`;
+//     pool.query(queryText).then((result) => {
+//       console.log(result.rows);
+//       res.send(result.rows);
+//     }).catch((error) => {
+//       console.log(error);
+//       res.sendStatus(500);
+//     });
+//   } else {
+//     res.sendStatus(403);
+//   }
+// });
 
 /**
  * GET #2 INQUIRY DETAILS (hint: by id) route template
@@ -48,12 +48,15 @@ router.get('/', async (req, res) => {
     try {
       await db.query('BEGIN');
       const customerQuery = await db.query(`SELECT * FROM "customer";`);
-      const inquiryQuery = await db.query(`SELECT * FROM "user_inquiries"`);
+      const inquiryQuery = await db.query(`SELECT * FROM "user_inquiries";`);
       const servicesQuery = await db.query(`SELECT * FROM "services";`);
       const cleaningQuery = await db.query(`SELECT * FROM "cleaning_questions";`);
       const movingQuery = await db.query(`SELECT * FROM "moving_questions";`);
       const organizingQuery = await db.query(`SELECT * FROM "organizing_questions";`);
       const declutteringQuery = await db.query(`SELECT * FROM "decluttering_questions";`);
+      const result = await db.query(customerQuery, [customerQuery.rows]);
+      const customerResults = (result.data);
+      console.log(customerResults);
       await db.query('COMMIT');
       res.sendStatus(201);
     } catch (error) {
