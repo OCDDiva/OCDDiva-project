@@ -66,8 +66,8 @@ CREATE TABLE "cleaning_questions" (
     "HazardousConditions" VARCHAR(10000)
 );
 
-INSERT INTO "cleaning_questions" ("Cleaning", "EssentialClean", "UltimateClean", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
-VALUES (true, false, true, 3, 2, 1, 0, false, 'test9');
+INSERT INTO "cleaning_questions" ("Cleaning", "ServiceType", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
+VALUES (true, null, 3, 2, 1, 0, false, 'None');
 
 CREATE TABLE "organizing_questions" (
 	id serial primary key,
