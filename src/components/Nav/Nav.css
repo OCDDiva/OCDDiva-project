@@ -23,10 +23,10 @@ h2 {
 
 .nav-title {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 700px;
   color: #f2f2f2;
   padding-left: 10px;
-  margin: 0;
+  margin-bottom: 30px;
 }
 
 .navLink {
@@ -38,7 +38,7 @@ h2 {
   font-size: 15px;
   display: flexbox;
   outline-color: black;
-  margin: 0px;
+  margin-bottom: 10px;
   width: auto;
   
 
