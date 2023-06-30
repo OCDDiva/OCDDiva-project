@@ -1,5 +1,7 @@
 -- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
 
+-- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
+
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
@@ -43,32 +45,41 @@ CREATE TABLE "priority" (
 INSERT INTO "priority" ("description")
 VALUES ('High'), ('Medium'), ('Low');
 
-CREATE TABLE "moving_questions" (
+CREATE TABLE "user_media" (
 	id serial primary key,
-	"Moving" BOOLEAN default false, 
-	"Moving To" VARCHAR (10000),
-	"Moving From" VARCHAR (10000),
-	"Large Items" VARCHAR (10000)
+	blob_data BYTEA,
+	customer_id int references customer,
+	user_id int references users
 );
 
-INSERT INTO "moving_questions" ("Moving", "Moving To", "Moving From", "Large Items")
+ CREATE TABLE "moving_questions" (
+	id serial primary key,
+	"moving" BOOLEAN default false, 
+	"moving_to" VARCHAR (10000),
+	"moving_from" VARCHAR (10000),
+	"large_items" VARCHAR (10000)
+	-- question4 VARCHAR (10000),
+	-- question5 VARCHAR (10000)
+);
+
+INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
 VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
 
+
 CREATE TABLE "cleaning_questions" (
-	id serial primary key,
-	"Cleaning" BOOLEAN default false,
-	"EssentialClean" BOOLEAN default false,
-	"UltimateClean" BOOLEAN default false,
-	"Bedrooms" INT,
-	"Bathrooms" INT,
-	"AdditionalRooms" INT,
+    id serial primary key,
+    "Cleaning" BOOLEAN default false,
+    "ServiceType" VARCHAR(100),
+    "Bedrooms" INT,
+    "Bathrooms" INT,
+    "AdditionalRooms" INT,
     "DoorsWindows" INT,
     "HasPets" BOOLEAN default false,
-    "HazardousConditions" VARCHAR (10000)
+    "HazardousConditions" VARCHAR(10000)
 );
 
-INSERT INTO "cleaning_questions" ("Cleaning", "EssentialClean", "UltimateClean", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
-VALUES (true, false, true, 3, 2, 1, 0, false, 'test9');
+INSERT INTO "cleaning_questions" ("Cleaning", "ServiceType", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
+VALUES (true, null, 3, 2, 1, 0, false, 'None');
 
 CREATE TABLE "organizing_questions" (
 	id serial primary key,

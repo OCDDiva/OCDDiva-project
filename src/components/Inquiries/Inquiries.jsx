@@ -29,6 +29,19 @@ function Inquiries() {
             ) : (
                 <div>
                     {/* CUSTOMER INFO AND SERVICES_ID */}
+                    {inquiries.map(inquiry => {
+                        return (
+                            <div key={inquiry.id}>
+                                <h1>{inquiry.firstName} {inquiry.lastName}</h1>
+                                <h2>{JSON.stringify(inquiry.Cleaning)}</h2>
+                                <h3>{inquiry.service_on}</h3>
+                                <h3>{inquiry.completion_status}</h3>
+                                <h3>{inquiry.notes}</h3>
+                                <h3>{inquiry.cleaning}</h3>
+
+                            </div>
+                        )
+                    })}
                     <button onClick={navToInquiryDetails}>Details</button>
                 </div>
             )}

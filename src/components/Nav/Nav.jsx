@@ -4,9 +4,9 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
-//TODO Potentially change to hamburger meny
+//TODO Potentially change to hamburger menu
 //TODO Add conditional rendering to restrict views for admin & users
-//TODO Can edit the nav-title
+//TODO Can edit the nav-title text
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -52,10 +52,6 @@ function Nav() {
 
             <Link className="navLink" to="/userhistory">
               User History
-            </Link>
-
-            <Link className="navLink" to="/defaultquestions">
-              Customer Form
             </Link>
 
             <Link className="navLink" to="/customerhistory">
