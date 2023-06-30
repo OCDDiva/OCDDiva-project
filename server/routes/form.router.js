@@ -129,22 +129,75 @@ console.log(values);
 /**
  * PUT #2 MOVING route template
  */
-router.put('/', (req, res) => {
+router.put('/moving', (req, res) => {
   // PUT #2 route code here
+  console.log(`In PUT for Moving Questions`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.body.large_items, req.user.id];
+    const queryText = `UPDATE "moving_questions" SET "moving" = $1, "moving_to" = $2, "moving_from" = $3, "large_items" = $4 WHERE "user_id" = $5;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for moving questions ${error}`);
+      res.sendStatus(500);
+    })
+  }
 });
+
+// ! This is the new route possibly for adding in the user inquiries ID
+// router.put('/moving', (req, res) => {
+//   // PUT #2 route code here
+//   console.log(`In PUT for Moving Questions`);
+//   if (req.isAuthenticated()) {
+//     const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.body.large_items, req.params.id, req.user.id];
+//     const queryText = `UPDATE "moving_questions" SET "moving" = $1, "moving_to" = $2, "moving_from" = $3, "large_items" = $4 WHERE "inquiries_id" = $5 and "user_id" =$6;`;
+//     console.log(queryValues);
+//     pool.query(queryText, queryValues).then((result) => {
+//       res.sendStatus(200);
+//     }).catch((error) => {
+//       console.log(`Error in PUT for moving questions ${error}`);
+//       res.sendStatus(500);
+//     })
+//   }
+// });
 
 /**
  * PUT #3 ORGANIZE route template
  */
-router.put('/', (req, res) => {
+router.put('/organizing', (req, res) => {
   // PUT #3 route code here
+  console.log(`In PUT for Organizing Questions`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.Organizing, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.user.id];
+    const queryText = `UPDATE "organizing_questions" SET "Organizing" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "id" = $6;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for moving questions ${error}`);
+      res.sendStatus(500);
+    })
+  }
 });
 
 /**
  * PUT #4 DECLUTTER route template
  */
-router.put('/', (req, res) => {
+router.put('/decluttering', (req, res) => {
   // PUT #4 route code here
+  console.log(`In PUT for Decluttering Questions`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.Declutter, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.user.id];
+    const queryText = `UPDATE "decluttering_questions" SET "Declutter" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "id" = $6;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for moving questions ${error}`);
+      res.sendStatus(500);
+    })
+  }
 });
 
 /**

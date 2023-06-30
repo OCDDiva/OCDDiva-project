@@ -45,16 +45,26 @@ CREATE TABLE "priority" (
 INSERT INTO "priority" ("description")
 VALUES ('High'), ('Medium'), ('Low');
 
-CREATE TABLE "moving_questions" (
+CREATE TABLE "user_media" (
 	id serial primary key,
-	"Moving" BOOLEAN default false, 
-	"Moving To" VARCHAR (10000),
-	"Moving From" VARCHAR (10000),
-	"Large Items" VARCHAR (10000)
+	blob_data BYTEA,
+	customer_id int references customer,
+	user_id int references users
 );
 
-INSERT INTO "moving_questions" ("Moving", "Moving To", "Moving From", "Large Items")
+-- CREATE TABLE "moving_questions" (
+	id serial primary key,
+	"moving" BOOLEAN default false, 
+	"moving_to" VARCHAR (10000),
+	"moving_from" VARCHAR (10000),
+	"large_items" VARCHAR (10000)
+	-- question4 VARCHAR (10000),
+	-- question5 VARCHAR (10000)
+);
+
+INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
 VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
+
 
 CREATE TABLE "cleaning_questions" (
     id serial primary key,
