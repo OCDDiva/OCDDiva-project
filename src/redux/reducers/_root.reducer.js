@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import inquiriesList from './inquiriesList.reducer';
-import history from './history.reducer';
+import inquiryDetails from './inquiryDetails.reducer';
 
 import cleaningQuestionsReducer from './cleaning.reducer.js';
 
@@ -15,9 +14,8 @@ import cleaningQuestionsReducer from './cleaning.reducer.js';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user,
-  inquiriesList, // will have an id and username if someone is logged in
+  inquiryDetails, // will have an id and username if someone is logged in
   cleaningQuestionsReducer,
-  history,
 });
 
 export default rootReducer;
