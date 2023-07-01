@@ -58,7 +58,7 @@ CREATE TABLE "moving_questions" (
 	"Moving" BOOLEAN default false, 
 	"Moving To" VARCHAR (10000),
 	"Moving From" VARCHAR (10000),
-	"Large Items" VARCHAR (10000),
+	"Large Items" VARCHAR (10000)
 	-- question4 VARCHAR (10000),
 	-- question5 VARCHAR (10000)
 );
@@ -144,6 +144,8 @@ CREATE TABLE "customer" (
 	"user_id" integer REFERENCES users,
 	"inquiries" integer REFERENCES user_inquiries ON DELETE CASCADE,
 	"services_id" integer REFERENCES services,
+	"firstName" varchar(100),
+	"lastName" varchar(250),
 	"street1" varchar(1000),
 	"street2" varchar(1000),
 	"city" varchar(1000),
@@ -157,5 +159,5 @@ CREATE TABLE "customer" (
 	"service_on" date 
 );
 
-INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
-VALUES (1, 1, 1, 1, '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
+INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
+VALUES (1, 1, 1, 1, 'Everett', 'Butler', '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
