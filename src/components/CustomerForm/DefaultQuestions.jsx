@@ -16,7 +16,7 @@ function DefaultQuestions() {
     //TODO is there anything else from the DB that needs to be here? Residence type or is that only for the "service" questions?
     //! State
     let [customer, setCustomer] = useState({
-        first_name: '', last_name: '', address: '', phone_number: '', email: ''
+        first_name: '', last_name: '', street1: '', street2: '', city: '', state: '', zip: '', phone_number: '', email: ''
     });
 
     //TODO edit this when we get to styling
@@ -35,8 +35,24 @@ function DefaultQuestions() {
         setCustomer({ ...customer, last_name: event.target.value });
     }
 
-    const handleAddressChange = (event) => {
-        setCustomer({ ...customer, address: event.target.value });
+    const handleStreet1Change = (event) => {
+        setCustomer({ ...customer, street1: event.target.value });
+    }
+
+    const handleStreet2Change = (event) => {
+        setCustomer({ ...customer, street2: event.target.value });
+    }
+
+    const handleCityChange = (event) => {
+        setCustomer({ ...customer, city: event.target.value });
+    }
+
+    const handleStateChange = (event) => {
+        setCustomer({ ...customer, state: event.target.value });
+    }
+
+    const handleZipChange = (event) => {
+        setCustomer({ ...customer, zip: event.target.value });
     }
 
     const handlePhoneNumberChange = (event) => {
@@ -63,14 +79,15 @@ function DefaultQuestions() {
     return (
         <>
             <center>
-                <br/> <br/>
+                <br /> <br />
                 <Typography variant="h4"> New Inquiry Form</Typography>
 
                 <br />
 
                 <Card sx={{
-                    width: 700,
-                    margin: 2,
+                    width: 'auto',
+                    minWidth: 250,
+                    margin: 1,
                     padding: 5,
                     boxShadow: 5,
                 }}>
@@ -78,65 +95,97 @@ function DefaultQuestions() {
                     <Typography variant="h7"> Please enter the following information.</Typography>
 
                     <br /> <br />
+                    <center>
+                        <form onSubmit={submit}>
+                            <TextField placeholder="First Name"
+                                onChange={handleFirstNameChange}
+                                required
+                                sx={{ width: 280, }}
+                            />
 
-                    <form onSubmit={submit}>
-                        <TextField placeholder="First Name"
-                            onChange={handleFirstNameChange}
-                            required
-                            sx={{ width: 300, }}
-                        />
+                            <br /> <br />
 
-                        <br /> <br />
+                            <TextField required
+                                placeholder="Last Name"
+                                onChange={handleLastNameChange}
+                                sx={{ width: 280, }}
 
-                        <TextField required
-                            placeholder="Last Name"
-                            onChange={handleLastNameChange}
-                            sx={{ width: 300, }}
+                            />
 
-                        />
+                            <br /> <br />
 
-                        <br /> <br />
+                            <TextField placeholder="Street 1"
+                                onChange={handleStreet1Change}
+                                required
+                                sx={{ width: 280, }}
+                            />
 
-                        {/*//! Will probably want to split this into Street, City, State, Zip, etc. Maybe a library for that too?*/}
-                        <TextField placeholder="Address"
-                            onChange={handleAddressChange}
-                            multiline rows="3"
-                            required
-                            sx={{ width: 300, }}
+                            <br /> <br />
 
-                        />
+                            <TextField placeholder="Street 2"
+                                onChange={handleStreet2Change}
+                                sx={{ width: 280, }}
+                            />
 
-                        <br /> <br />
+                            <br /> <br />
 
-                        {/*//! want this to be a phone number format.. come back to this. Mui has a demo using a react-imask library*/}
-                        <TextField placeholder="Phone Number"
-                            onChange={handlePhoneNumberChange}
-                            type='number'
-                            sx={{ width: 300, }}
+                            <TextField placeholder="City"
+                                onChange={handleCityChange}
+                                required
+                                sx={{ width: 280, }}
 
-                        />
+                            />
 
-                        <br /> <br />
-                        <TextField placeholder="Email"
-                            onChange={handleEmailChange}
-                            required
-                            sx={{ width: 300, }}
+                            <br /> <br />
 
-                        />
+                            <TextField placeholder="State"
+                                onChange={handleStateChange}
+                                required
+                                sx={{ width: 280, }}
 
-                        <br /> <br />
+                            />
 
-                        {/* Back button */}
-                        <button className="btn" onClick={goBack}> Back </button>
+                            <br /> <br />
 
-                        <br /> <br />
+                            <TextField placeholder="Zip Code"
+                                onChange={handleZipChange}
+                                required
+                                sx={{ width: 280, }}
 
-                        {/* Next/Submit button */}
-                        <button className="btn" onClick={submit}> Next </button>
+                            />
 
-                        <br /> <br />
+                            <br /> <br />
 
-                    </form>
+                            {/*//! want this to be a phone number format.. come back to this. Mui has a demo using a react-imask library*/}
+                            <TextField placeholder="Phone Number"
+                                onChange={handlePhoneNumberChange}
+                                type='number'
+                                sx={{ width: 280, }}
+
+                            />
+
+                            <br /> <br />
+                            <TextField placeholder="Email"
+                                onChange={handleEmailChange}
+                                required
+                                sx={{ width: 280, }}
+
+                            />
+
+                            <br /> <br />
+
+                            {/* Back button */}
+                            <button className="btn" onClick={goBack}> Back </button>
+
+                            <br /> <br />
+
+                            {/* Next/Submit button */}
+                            <button className="btn" onClick={submit}> Next </button>
+
+                            <br /> <br />
+
+                        </form>
+                    </center>
                 </Card>
             </center>
 

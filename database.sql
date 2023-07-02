@@ -1,9 +1,15 @@
+-- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
+
+-- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
+
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "access_level" INTEGER
 );
+
+-- REGISTER A USER AFTER CREATING THIS TABLE BEFORE MAKING THE REST OF THE TABLES
 
 CREATE TABLE "services" (
 	id serial primary key,
@@ -22,13 +28,6 @@ CREATE TABLE "dates" (
 
 INSERT INTO "dates" ("date_requested", "date_submitted", "service_date")
 VALUES ('2023-06-26', '2023-06-25', NULL);
-
-CREATE TABLE "notes" (
-	id serial primary key,
-	user_id integer REFERENCES users,
-	customer_id integer REFERENCES customer,
-	notes varchar(30000)
-);
 
 CREATE TABLE "completion" (
 	id serial primary key,
@@ -53,34 +52,34 @@ CREATE TABLE "user_media" (
 	user_id int references users
 );
 
-CREATE TABLE "moving_questions" (
+ CREATE TABLE "moving_questions" (
 	id serial primary key,
-	"Moving" BOOLEAN default false, 
-	"Moving To" VARCHAR (10000),
-	"Moving From" VARCHAR (10000),
-	"Large Items" VARCHAR (10000)
+	"moving" BOOLEAN default false, 
+	"moving_to" VARCHAR (10000),
+	"moving_from" VARCHAR (10000),
+	"large_items" VARCHAR (10000)
 	-- question4 VARCHAR (10000),
 	-- question5 VARCHAR (10000)
 );
 
-INSERT INTO "moving_questions" ("Moving", "Moving To", "Moving From", "Large Items")
+INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
 VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
 
+
 CREATE TABLE "cleaning_questions" (
-	id serial primary key,
-	"Cleaning" BOOLEAN default false,
-	"EssentialClean" BOOLEAN default false,
-	"UltimateClean" BOOLEAN default false,
-	"Bedrooms" INT,
-	"Bathrooms" INT,
-	"AdditionalRooms" INT,
+    id serial primary key,
+    "Cleaning" BOOLEAN default false,
+    "ServiceType" VARCHAR(100),
+    "Bedrooms" INT,
+    "Bathrooms" INT,
+    "AdditionalRooms" INT,
     "DoorsWindows" INT,
     "HasPets" BOOLEAN default false,
-    "HazardousConditions" VARCHAR (10000)
+    "HazardousConditions" VARCHAR(10000)
 );
 
-INSERT INTO "cleaning_questions" ("Cleaning", "EssentialClean", "UltimateClean", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
-VALUES (true, false, true, 3, 2, 1, 0, false, 'test9');
+INSERT INTO "cleaning_questions" ("Cleaning", "ServiceType", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
+VALUES (true, null, 3, 2, 1, 0, false, 'None');
 
 CREATE TABLE "organizing_questions" (
 	id serial primary key,
@@ -122,7 +121,6 @@ CREATE TABLE "user_inquiries" (
 INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "moving", "cleaning", "organizing", "declutting", "comments")
 VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1, 'Everett was here');
 
--- FOR GET INQUIRIES (Seth reference this for the previous customer page)
 SELECT
 "services"."description" AS "services_id",
 "dates"."date_submitted" AS "date_received",
@@ -161,3 +159,22 @@ CREATE TABLE "customer" (
 
 INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
 VALUES (1, 1, 1, 1, 'Everett', 'Butler', '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
+
+CREATE TABLE "user_media" (
+	id serial primary key,
+	blob_data BYTEA,
+	customer_id int references customer,
+	user_id int references users
+);
+
+-- NO TEST DATA YET
+
+CREATE TABLE "notes" (
+	id serial primary key,
+	user_id integer REFERENCES users,
+	customer_id integer REFERENCES customer,
+	notes varchar(30000)
+);
+
+-- NO TEST DATA YET
+
