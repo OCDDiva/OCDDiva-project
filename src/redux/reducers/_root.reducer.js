@@ -7,6 +7,7 @@ import cleaningQuestionsReducer from './cleaning.reducer.js';
 import movingQuestions from './history.reducer';
 import organizingQuestions from './organizing.reducer';
 import declutteringQuestions from './decluttering.reducer';
+import fetchInquiries from './fetchInquiries.reducer';
 
 
 
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   movingQuestions, 
-  inquiryDetails, // will have an id and username if someone is logged in
+  inquiryDetails,
+  fetchInquiries, // will have an id and username if someone is logged in
   history,
   cleaningQuestionsReducer,
   organizingQuestions,

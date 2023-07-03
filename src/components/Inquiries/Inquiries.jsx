@@ -7,16 +7,17 @@ function Inquiries() {
     //Code goes here
     const dispatch = useDispatch();
     const history = useHistory();
-    const inquiries = useSelector(store => store.inquiryDetails)
-    const { inquiriesId } = useParams();
+    const inquiries = useSelector(store => store.fetchInquiries);
+    // const { inquiriesId } = useParams();
 
-    const navToInquiryDetails = (inquiryToDisplay) => {
-        history.push(`/inquiries/${inquiryToDisplay.id}`);
+    const navToInquiryDetails = (inquiry) => {
+        history.push(`/inquirydetails/${inquiry.id}`);
     }
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
-    }, [inquiriesId]);
+        dispatch({ type: 'FETCH_INQUIRIES'});
+        // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
+    }, []);
 
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
@@ -38,11 +39,12 @@ function Inquiries() {
                                 <h3>{inquiry.completion_status}</h3>
                                 <h3>{inquiry.notes}</h3>
                                 <h3>{inquiry.cleaning}</h3>
-
+                                <p>{JSON.stringify(inquiry.id)}</p>
+                                <button onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
                             </div>
                         )
                     })}
-                    <button onClick={navToInquiryDetails}>Details</button>
+                    
                 </div>
             )}
         </main>

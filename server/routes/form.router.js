@@ -37,37 +37,31 @@ router.get('/', (req, res) => {
 /**
  * GET #2 INQUIRY DETAILS (hint: by id) route template
  */
-// router.get('/', async (req, res) => {
-//   // GET #2 route code here
-//   if (req.isAuthenticated()) {
-//     const db = await pool.connect();
-//     try {
-//       await db.query('BEGIN');
-//       const customerQuery = await db.query(`SELECT * FROM "customer";`);
-//       const inquiryQuery = await db.query(`SELECT * FROM "user_inquiries";`);
-//       const servicesQuery = await db.query(`SELECT * FROM "services";`);
-//       const cleaning = await db.query(`SELECT * FROM "cleaning_questions";`);
-//       const moving = await db.query(`SELECT * FROM "moving_questions";`);
-//       const organizing = await db.query(`SELECT * FROM "organizing_questions";`);
-//       const decluttering = await db.query(`SELECT * FROM "decluttering_questions";`);
-//       console.log(customerQuery);
-//       const result = await db.query(customerQuery);
-//       res.send({ cleaning, moving, organizing, decluttering });
-//       const customerResults = (result.data);
-//       console.log(customerResults);
-//       await db.query('COMMIT');
-//       res.sendStatus(201);
-//     } catch (error) {
-//       console.log('ROLLBACK', error);
-//       await db.query('ROLLBACK');
-//       res.sendStatus(500);
-//     } finally {
-//       db.release();
-//     }
-//   } else {
-//     res.sendStatus(403);
-//   }
-// });
+router.get('/:id', (req, res) => {
+  // GET #2 route code here
+  if (req.isAuthenticated()) {
+    console.log(req.body)
+    let queryText = `SELECT *,
+    "user_inquiries"."id" AS "inquiries",
+    "completion"."description" AS "completion_status"
+    FROM "customer"
+    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+    JOIN "cleaning_questions" ON "user_inquiries"."id" = "user_inquiries"."cleaning"
+    JOIN "moving_questions" ON "user_inquiries"."id" = "user_inquiries"."moving"
+    JOIN "organizing_questions" ON "user_inquiries"."id" = "user_inquiries"."organizing"
+    JOIN "decluttering_questions" ON "user_inquiries"."id" = "user_inquiries"."declutting"
+    JOIN "completion" ON "customer"."completion_status" = "completion"."id"
+    WHERE "customer"."user_id" = $1`;
+    pool.query(queryText, [req.params.id])
+    .then((result) => {
+      res.send(result.rows[0]);
+    })
+    .catch((error) => {
+      console.log(`Error in specific inquiry ${error}`)
+      res.sendStatus(500);
+    })
+  }
+});
 
 /**
  * GET #3 CUSTOMERS route template
@@ -112,17 +106,17 @@ router.post('/', (req, res) => {
 router.put('/', (req, res) => {
   console.log('router form is:', req.body);
   const values = [
-      req.body.cleaningOption, 
-      req.body.serviceType,
-      req.body.numberOfBedrooms,
-      req.body.numberOfBathrooms,
-      req.body.numberOfAdditionalRooms, 
-      req.body.numberOfDoorsWindows,
-      req.body.hasPets,
-      req.body.hazardousConditions,
-      req.body.userId,
+    req.body.cleaningOption,
+    req.body.serviceType,
+    req.body.numberOfBedrooms,
+    req.body.numberOfBathrooms,
+    req.body.numberOfAdditionalRooms,
+    req.body.numberOfDoorsWindows,
+    req.body.hasPets,
+    req.body.hazardousConditions,
+    req.body.userId,
   ];
-console.log(values); 
+  console.log(values);
   const queryText = `
     UPDATE "cleaning_questions" 
     SET 

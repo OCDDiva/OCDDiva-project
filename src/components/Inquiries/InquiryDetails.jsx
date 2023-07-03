@@ -11,15 +11,17 @@ function InquiryDetails() {
     const { inquiriesId } = useParams();
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
-    }, []);
+        dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
+    }, [inquiriesId]);
+
+    console.log(inquiriesId);
 
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
                 <div>
-                    {inquiryDetails.map(inquiry => {
+                    {/* {inquiryDetails.map(inquiry => {
                         return (
                             <div key={inquiry.id}>
                                 <h1>{inquiry.services_id}</h1>
@@ -31,7 +33,8 @@ function InquiryDetails() {
 
                             </div>
                         )
-                    })}
+                    })} */}
+                    <h1>{inquiryDetails.firstName}</h1>
                 </div>
         </main>
 
