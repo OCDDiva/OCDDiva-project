@@ -11,7 +11,7 @@ function Inquiries() {
     // const { inquiriesId } = useParams();
 
     const navToInquiryDetails = (inquiry) => {
-        history.push(`/inquirydetails/${inquiry.id}`);
+        history.push(`/inquirydetails/${inquiry.user_id}`);
     }
 
     useEffect(() => {

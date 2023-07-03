@@ -16,6 +16,10 @@ function InquiryDetails() {
 
     console.log(inquiriesId);
 
+    const returnToInquiries = (event) => {
+        history.push('/inquiries')
+    }
+
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
@@ -35,6 +39,7 @@ function InquiryDetails() {
                         )
                     })} */}
                     <h1>{inquiryDetails.firstName}</h1>
+                    <button onClick={returnToInquiries}>Inquiries List</button>
                 </div>
         </main>
 
