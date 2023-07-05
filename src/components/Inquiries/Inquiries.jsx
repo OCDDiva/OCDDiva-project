@@ -19,6 +19,25 @@ function Inquiries() {
         // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 
+    const dateConversion = (oldDate) => {
+        const date = new Date(oldDate).toLocaleDateString('en-EN')
+        return `${date}`
+    }
+
+    const serviceConversion = (inquiry) => {
+        if (inquiry.EssentialClean === true) {
+            return 'Essential Clean'
+        } else if (inquiry.UltimateClean === true) {
+            return 'Ultimate Clean'
+        } else if (inquiry.Moving === true) {
+            return 'Moving'
+        } else if (inquiry.Organizing === true) {
+            return 'Organizing'
+        } else if (inquiry.Declutter === true) {
+            return 'Declutter'
+        }
+    }
+
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
@@ -34,12 +53,12 @@ function Inquiries() {
                         return (
                             <div key={inquiry.id}>
                                 <h1>{inquiry.firstName} {inquiry.lastName}</h1>
-                                <h2>{JSON.stringify(inquiry.Cleaning)}</h2>
-                                <h3>{inquiry.service_on}</h3>
+                                <h2>{serviceConversion(inquiry)}</h2>
+                                {/* I know this should be a different date */}
+                                <h3>{dateConversion(inquiry.service_on)}</h3>
                                 <h3>{inquiry.completion_status}</h3>
+                                {/* I understand notes is not working rn */}
                                 <h3>{inquiry.notes}</h3>
-                                <h3>{inquiry.cleaning}</h3>
-                                <p>{JSON.stringify(inquiry.id)}</p>
                                 <button onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
                             </div>
                         )
