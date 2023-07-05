@@ -39,6 +39,20 @@ function InquiryDetails() {
         }
     }
 
+    const serviceConversion = (inquiryDetails) => {
+        if (inquiryDetails.EssentialClean === true) {
+            return 'Essential Clean'
+        } else if (inquiryDetails.UltimateClean === true) {
+            return 'Ultimate Clean'
+        } else if (inquiryDetails.Moving === true) {
+            return 'Moving'
+        } else if (inquiryDetails.Organizing === true) {
+            return 'Organizing'
+        } else if (inquiryDetails.Declutter === true) {
+            return 'Declutter'
+        }
+    }
+
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
@@ -47,11 +61,7 @@ function InquiryDetails() {
                     <h1>{inquiryDetails.firstName} {inquiryDetails.lastName}</h1>
                     {/* gonna work on a function that only displays specific services but not sure I will get to it tonight */}
                     <h2> 
-                        Essential Clean: {JSON.stringify(inquiryDetails.EssentialClean)}, 
-                        Ultimate Clean: {JSON.stringify(inquiryDetails.UltimateClean)},
-                        Moving: {JSON.stringify(inquiryDetails.Moving)},
-                        Organizing: {JSON.stringify(inquiryDetails.Organizing)},
-                        Decluttering: {JSON.stringify(inquiryDetails.Declutter)} 
+                        {serviceConversion(inquiryDetails)} 
                     </h2>
                     <h3>Date Received: do we need this for incoming inquiries? or only completed customers?{inquiryDetails.service_on} </h3>
                     <h3> {inquiryDetails.completion_status}</h3>
