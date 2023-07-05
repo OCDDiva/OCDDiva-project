@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   user,// will have an id and username if someone is logged in
   customerReducer,
   movingQuestions, 
-  inquiryDetails, // will have an id and username if someone is logged in
+  inquiryDetails,
   history,
   cleaningQuestionsReducer,
   organizingQuestions,
