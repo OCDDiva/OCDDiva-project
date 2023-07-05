@@ -58,8 +58,24 @@ function InquiryDetails() {
                     {/* TODO I know the priority is bugged, will work on a fix */}
                     <h4> {inquiryDetails.priority}</h4>
                     <h2>NOTES: (insert notes here)
-                    <button onClick={changeNote}>{noteButton()}</button>
                     </h2>
+                    <button onClick={changeNote}>{noteButton()}</button>
+                    <br />
+                    <h3>Customer Responses to Survey:</h3>
+                    <h5>Cleaning & Basic Questions:</h5>
+                    <p>Number of Bedrooms: {inquiryDetails.Bedrooms}</p>
+                    <p>Number of Bathrooms: {inquiryDetails.Bathrooms}</p>
+                    <p>Number of Additional Rooms: {inquiryDetails.AdditionalRooms}</p>
+                    <p>Number of Doors & Windows: {inquiryDetails.DoorsWindows}</p>
+                    <p>Has Pets? {JSON.stringify(inquiryDetails.HasPets)}</p>
+                    <p>Hazardous Conditions? {inquiryDetails.HazardousConditions}</p>
+                    <h5>Moving Questions:</h5>
+                    {/* These column names in the database need to have the spaces removed for this to work */}
+                    <p>New Address: {inquiryDetails.MovingTo}</p>
+                    <p>Old Address: {inquiryDetails.MovingFrom}</p>
+                    <p>Any Large Items? {inquiryDetails.LargeItems}</p>
+                    <h5>Organizing/Decluttering Questions:</h5>
+                    <p>Wanting to Donate? {JSON.stringify(inquiryDetails.Donation)}</p>
                     <button onClick={returnToInquiries}>Inquiries List</button>
                 </div>
         </main>
