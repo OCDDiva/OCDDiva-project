@@ -79,6 +79,11 @@ function InquiryDetails() {
         }
     }
 
+    const dateConversion = (oldDate) => {
+        const date = new Date(oldDate).toLocaleDateString('en-EN')
+        return `${date}`
+    }
+
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
@@ -89,7 +94,7 @@ function InquiryDetails() {
                     <h2> 
                         {serviceConversion(inquiryDetails)} 
                     </h2>
-                    <h3>Date Received: do we need this for incoming inquiries? or only completed customers?{inquiryDetails.service_on} </h3>
+                    <h3>Date Received: do we need this for incoming inquiries? or only completed customers?{dateConversion(inquiryDetails.service_on)} </h3>
                     <h3> {inquiryDetails.completion_status}</h3>
                     {/* TODO I know the priority is bugged, will work on a fix */}
                     <h4> {priorityConversion(inquiryDetails)}</h4>
