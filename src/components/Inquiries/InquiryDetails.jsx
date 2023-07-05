@@ -94,7 +94,8 @@ function InquiryDetails() {
                     <h2> 
                         {serviceConversion(inquiryDetails)} 
                     </h2>
-                    <h3>Date Received: do we need this for incoming inquiries? or only completed customers?{dateConversion(inquiryDetails.service_on)} </h3>
+                    {/* Do we need this on the inquiries page if they haven't receive service yet? */}
+                    <h3>Date Received: {dateConversion(inquiryDetails.service_on)} </h3>
                     <h3> {inquiryDetails.completion_status}</h3>
                     {/* TODO I know the priority is bugged, will work on a fix */}
                     <h4> {priorityConversion(inquiryDetails)}</h4>
