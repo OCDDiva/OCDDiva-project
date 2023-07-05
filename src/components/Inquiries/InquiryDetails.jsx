@@ -53,6 +53,32 @@ function InquiryDetails() {
         }
     }
 
+    const priorityConversion = (inquiryDetails) => {
+        if (inquiryDetails.priority === 1) {
+            return 'High'
+        } else if (inquiryDetails.priority === 2) {
+            return 'Medium'
+        } else if (inquiryDetails.priority === 3) {
+            return 'Low'
+        }
+    }
+
+    const petConversion = (inquiryDetails) => {
+        if (inquiryDetails.HasPets === true) {
+            return 'Yes'
+        } else {
+            return 'No'
+        }
+    }
+
+    const donationConversion = (inquiryDetails) => {
+        if (inquiryDetails.Donation === true) {
+            return 'Yes'
+        } else {
+            return 'No'
+        }
+    }
+
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
@@ -66,7 +92,7 @@ function InquiryDetails() {
                     <h3>Date Received: do we need this for incoming inquiries? or only completed customers?{inquiryDetails.service_on} </h3>
                     <h3> {inquiryDetails.completion_status}</h3>
                     {/* TODO I know the priority is bugged, will work on a fix */}
-                    <h4> {inquiryDetails.priority}</h4>
+                    <h4> {priorityConversion(inquiryDetails)}</h4>
                     <h2>NOTES: (insert notes here)
                     </h2>
                     <button onClick={changeNote}>{noteButton()}</button>
@@ -77,7 +103,7 @@ function InquiryDetails() {
                     <p>Number of Bathrooms: {inquiryDetails.Bathrooms}</p>
                     <p>Number of Additional Rooms: {inquiryDetails.AdditionalRooms}</p>
                     <p>Number of Doors & Windows: {inquiryDetails.DoorsWindows}</p>
-                    <p>Has Pets? {JSON.stringify(inquiryDetails.HasPets)}</p>
+                    <p>Has Pets? {petConversion(inquiryDetails)}</p>
                     <p>Hazardous Conditions? {inquiryDetails.HazardousConditions}</p>
                     <h5>Moving Questions:</h5>
                     {/* These column names in the database need to have the spaces removed for this to work */}
@@ -85,7 +111,7 @@ function InquiryDetails() {
                     <p>Old Address: {inquiryDetails.MovingFrom}</p>
                     <p>Any Large Items? {inquiryDetails.LargeItems}</p>
                     <h5>Organizing/Decluttering Questions:</h5>
-                    <p>Wanting to Donate? {JSON.stringify(inquiryDetails.Donation)}</p>
+                    <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
                     <button onClick={returnToInquiries}>Inquiries List</button>
                 </div>
         </main>
