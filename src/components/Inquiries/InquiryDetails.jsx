@@ -25,20 +25,18 @@ function InquiryDetails() {
     return (
         <main>
                 <div>
-                    {/* {inquiryDetails.map(inquiry => {
-                        return (
-                            <div key={inquiry.id}>
-                                <h1>{inquiry.services_id}</h1>
-                                <h2>{inquiry.date_received}</h2>
-                                <h3>{inquiry.declutting}</h3>
-                                <h3>{inquiry.moving}</h3>
-                                <h3>{inquiry.organizing}</h3>
-                                <h3>{inquiry.cleaning}</h3>
-
-                            </div>
-                        )
-                    })} */}
-                    <h1>{inquiryDetails.firstName}</h1>
+                    <h1>{inquiryDetails.firstName} {inquiryDetails.lastName}</h1>
+                    {/* gonna work on a function that only displays specific services but not sure I will get to it tonight */}
+                    <h2> 
+                        Essential Clean: {JSON.stringify(inquiryDetails.EssentialClean)}, 
+                        Ultimate Clean: {JSON.stringify(inquiryDetails.UltimateClean)},
+                        Moving: {JSON.stringify(inquiryDetails.Moving)},
+                        Organizing: {JSON.stringify(inquiryDetails.Organizing)},
+                        Decluttering: {JSON.stringify(inquiryDetails.Declutter)} 
+                    </h2>
+                    <h3> {inquiryDetails.completion_status}</h3>
+                    {/* TODO I know the priority is bugged, will work on a fix */}
+                    <h4> {inquiryDetails.priority}</h4>
                     <button onClick={returnToInquiries}>Inquiries List</button>
                 </div>
         </main>
