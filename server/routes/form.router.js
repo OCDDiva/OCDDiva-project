@@ -53,13 +53,13 @@ router.get('/:id', (req, res) => {
     JOIN "completion" ON "customer"."completion_status" = "completion"."id"
     WHERE "customer"."user_id" = $1`;
     pool.query(queryText, [req.params.id])
-    .then((result) => {
-      res.send(result.rows[0]);
-    })
-    .catch((error) => {
-      console.log(`Error in specific inquiry ${error}`)
-      res.sendStatus(500);
-    })
+      .then((result) => {
+        res.send(result.rows[0]);
+      })
+      .catch((error) => {
+        console.log(`Error in specific inquiry ${error}`)
+        res.sendStatus(500);
+      })
   }
 });
 
@@ -128,39 +128,51 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   // GET #5 route code here
 });
- 
+
 /**
  * POST ESSENTIAL CUSTOMER INFO(default) route template
  */
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // POST route code here
   console.log('default data is:', req.body);
-  const values = [
-    req.body.city,
-    req.body.email,
-    req.body.first_name,
-    req.body.last_name,
-    req.body.phone_number,
-    req.body.state,
-    req.body.street1,
-    req.body.street2,
-    req.body.zip
-  ];
-  console.log(values);
-  const queryText = `
-    INSERT INTO "customer" 
-    ("city", "email", "firstName", "lastName", "phone_number", "state", "street1", "street2", "zip") 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-  `;
-  pool.query(queryText, values)
-    .then(() => {
-      console.log('Data inserted successfully');
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log('Error inserting data', error);
-      res.status(500).send('Failed to insert data.');
-    });
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const values = [
+      req.body.first_name,
+      req.body.last_name,
+      req.body.street1,
+      req.body.street2,
+      req.body.city,
+      req.body.state,
+      req.body.zip,
+      req.body.phone_number,
+      req.body.email,
+    ];
+    console.log(values);
+    const queryText = `
+      INSERT INTO "user_inquiries" 
+      ("firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id";
+    `;
+    let inquiryResult = await client.query(queryText, values);
+    let inquiryId = inquiryResult.rows[0].id;
+    // INSERT INTO other tables
+    const cleaningQuery = `INSERT INTO "cleaning" ("inquiry_id") VALUES ($1);`;
+    await client.query(cleaningQuery, [inquiryId]);
+
+    // ...
+
+    await client.query('COMMIT');
+    console.log('Data inserted successfully');
+    res.sendStatus(200);
+  } catch (e) {
+    await client.query('ROLLBACK');
+    console.log('Error inserting data', e);
+    res.status(500).send('Failed to insert data.');
+  } finally {
+    client.release();
+  }
 });
 
 /**
@@ -223,7 +235,7 @@ router.put('/moving', (req, res) => {
   // PUT #2 route code here
   console.log(`In PUT for Moving Questions`);
   if (req.isAuthenticated()) {
-    const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.body.large_items, req.user.id];
+    const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.body.large_items, req.inquiry_id.id];
     const queryText = `UPDATE "moving_questions" SET "moving" = $1, "moving_to" = $2, "moving_from" = $3, "large_items" = $4 WHERE "user_id" = $5;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
@@ -259,7 +271,7 @@ router.put('/organizing', (req, res) => {
   // PUT #3 route code here
   console.log(`In PUT for Organizing Questions`);
   if (req.isAuthenticated()) {
-    const queryValues = [req.body.Organizing, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.user.id];
+    const queryValues = [req.body.Organizing, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.inquiry_id.id];
     const queryText = `UPDATE "organizing_questions" SET "Organizing" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "id" = $6;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
@@ -278,7 +290,7 @@ router.put('/decluttering', (req, res) => {
   // PUT #4 route code here
   console.log(`In PUT for Decluttering Questions`);
   if (req.isAuthenticated()) {
-    const queryValues = [req.body.Declutter, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.user.id];
+    const queryValues = [req.body.Declutter, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.inquiry_id.id];
     const queryText = `UPDATE "decluttering_questions" SET "Declutter" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "id" = $6;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
