@@ -130,8 +130,8 @@ router.post('/', (req, res) => {
   ];
   console.log(values);
   const queryText = `
-    INSERT INTO "table_name" 
-    ("city", "email", "first_name", "last_name", "phone_number", "state", "street1", "street2", "zip") 
+    INSERT INTO "customer" 
+    ("city", "email", "firstName", "lastName", "phone_number", "state", "street1", "street2", "zip") 
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
   `;
   pool.query(queryText, values)
