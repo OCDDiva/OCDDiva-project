@@ -34,6 +34,7 @@ import Inquiries from '../Inquiries/Inquiries';
 import InquiryDetails from '../Inquiries/InquiryDetails';
 import Customers from '../Customers/Customers';
 import CustomerDetails from '../Customers/CustomerDetails';
+import HistoryCard from '../UserHistory/HistoryCard';
 
 import './App.css';
 
@@ -92,6 +93,9 @@ function App() {
           <ProtectedRoute exact path="/userhistory" >
             <UserHistory />
           </ProtectedRoute>
+          <ProtectedRoute exact path="/HistoryCard" >
+            <UserHistory />
+          </ProtectedRoute>
           <ProtectedRoute exact path="/form">
             <CustomerForm />
           </ProtectedRoute>
@@ -119,8 +123,8 @@ function App() {
           <ProtectedRoute exact path="/customerhistory">
             <Customers />
           </ProtectedRoute>
-          <ProtectedRoute exact path="/customerdetails">
-            <CustomerDetails />
+          <ProtectedRoute exact path="/customer-details/:customerId" component={CustomerDetails}>
+            {/* <CustomerDetails /> */}
           </ProtectedRoute>
 
 
