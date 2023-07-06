@@ -8,7 +8,7 @@ function* fetchInquiries() {
         yield put({ type: 'SET_INQUIRIES', payload: inquiries.data});
         console.log(inquiries);
     } catch (error) {
-        console.log(`Error in fetchInquiryDetails: ${error}`);
+        console.log(`Error in fetchInquiries: ${error}`);
         alert('Something went wrong!')
     }
 }
