@@ -14,8 +14,6 @@ function InquiryDetails() {
         dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
     }, [inquiriesId]);
 
-    const [note, setNote] = useState('');
-
     console.log(inquiriesId);
 
     const returnToInquiries = (event) => {
@@ -24,15 +22,15 @@ function InquiryDetails() {
 
     const changeNote = (e) => {
         e.preventDefault();
-        if (note.length > 0) {
-            dispatch({ type: 'EDIT_NOTE', payload: { note, inquiriesId, }, history});
+        if (inquiryDetails.notes.length > 0) {
+            dispatch({ type: 'EDIT_NOTE', payload: { notes, inquiriesId, }, history});
         } else {
-            dispatch({ type: 'ADD_NOTE', payload: { note }, history})
+            dispatch({ type: 'ADD_NOTE', payload: { notes }, history})
         }
     }
 
     const noteButton = () => {
-        if (note.length > 0) {
+        if (inquiryDetails.notes.length > 0) {
             return 'Edit Note'
         } else {
             return 'Add Note'
@@ -99,8 +97,8 @@ function InquiryDetails() {
                     <h3> {inquiryDetails.completion_status}</h3>
                     {/* TODO I know the priority is bugged, will work on a fix */}
                     <h4> {priorityConversion(inquiryDetails)}</h4>
-                    <h2>NOTES: (insert notes here)
-                    </h2>
+                    <h2>NOTES: (insert notes here)</h2>
+                    <p>{inquiryDetails.notes}</p>
                     <button onClick={changeNote}>{noteButton()}</button>
                     <br />
                     <h3>Customer Responses to Survey:</h3>
