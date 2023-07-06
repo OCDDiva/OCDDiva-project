@@ -52,8 +52,9 @@ CREATE TABLE "user_media" (
 	user_id int references users
 );
 
- CREATE TABLE "moving_questions" (
+CREATE TABLE "moving_questions" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	"moving" BOOLEAN default false, 
 	"moving_to" VARCHAR (10000),
 	"moving_from" VARCHAR (10000),
@@ -68,6 +69,7 @@ VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
 
 CREATE TABLE "cleaning_questions" (
     id serial primary key,
+    inquiry_id INT references user_inquiries,
     "Cleaning" BOOLEAN default false,
     "ServiceType" VARCHAR(100),
     "Bedrooms" INT,
@@ -83,6 +85,7 @@ VALUES (true, null, 3, 2, 1, 0, false, 'None');
 
 CREATE TABLE "organizing_questions" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	"Organizing" BOOLEAN default false,
 	"Bedrooms" INT,
 	"Bathrooms" INT,
@@ -95,6 +98,7 @@ VALUES (true, 3, 2, 1, true);
 
 CREATE TABLE "decluttering_questions" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	"Declutter" BOOLEAN default false,
 	"Bedrooms" INT,
 	"Bathrooms" INT,
@@ -111,12 +115,23 @@ CREATE TABLE "user_inquiries" (
 	"services_id" INT REFERENCES services,
 	"date_received" INT REFERENCES dates,
 	"date_requested" INT REFERENCES dates,
+	"firstName" varchar(100),
+	"lastName" varchar(250),
+	"street1" varchar(1000),
+	"street2" varchar(1000),
+	"city" varchar(1000),
+	"state" varchar(2),
+	"zip" varchar(5),
+	"phone_number" varchar(11),
+	"email" varchar(50),
+	"priority" INT REFERENCES priority,
+	"comments" VARCHAR(10000)
+);
+
 	"moving" INT REFERENCES moving_questions,
 	"cleaning" INT REFERENCES cleaning_questions,
 	"organizing" INT REFERENCES organizing_questions,
 	"declutting" INT REFERENCES decluttering_questions,
-	"comments" VARCHAR(10000)
-);
 
 INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "moving", "cleaning", "organizing", "declutting", "comments")
 VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1, 'Everett was here');
@@ -142,19 +157,8 @@ CREATE TABLE "customer" (
 	"user_id" integer REFERENCES users,
 	"inquiries" integer REFERENCES user_inquiries ON DELETE CASCADE,
 	"services_id" integer REFERENCES services,
-	"firstName" varchar(100),
-	"lastName" varchar(250),
-	"street1" varchar(1000),
-	"street2" varchar(1000),
-	"city" varchar(1000),
-	"state" varchar(2),
-	"zip" varchar(5),
-	"phone_number" varchar(11),
-	"email" varchar(50),
-	"residence" varchar(240),
-	"completion_status" INT REFERENCES completion,
-	"priority" INT REFERENCES priority,
-	"service_on" date 
+	"service_on" date,
+	"notes" VARCHAR(40000)
 );
 
 INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
