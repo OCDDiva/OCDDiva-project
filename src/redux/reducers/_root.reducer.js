@@ -8,6 +8,7 @@ import cleaningQuestionsReducer from './cleaning.reducer.js';
 import movingQuestions from './history.reducer';
 import organizingQuestions from './organizing.reducer';
 import declutteringQuestions from './decluttering.reducer';
+import fetchInquiries from './fetchInquiries.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,10 +22,11 @@ const rootReducer = combineReducers({
   customerReducer,
   movingQuestions, 
   inquiryDetails,
+  fetchInquiries, // will have an id and username if someone is logged in
   history,
   cleaningQuestionsReducer,
   organizingQuestions,
-  declutteringQuestions,
+  declutteringQuestions, // will have an id and username if someone is logged in
 });
 
 export default rootReducer;
