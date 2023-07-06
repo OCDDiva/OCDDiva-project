@@ -3,12 +3,12 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import inquiriesSaga from './inquiries.saga';
+import customerSaga from './customer.saga';
 import historySaga from './history.saga';
 import cleaningSaga from './cleaning.saga';
 import movingSaga from './moving.saga';
 import organizingSaga from './organizing.saga';
 import declutteringSaga from './decluttering.saga';
-import customerSaga from './customer.saga';
 import defaultSaga from './default.saga';
 
 // rootSaga is the primary saga.
@@ -24,12 +24,12 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     inquiriesSaga(),
+    customerSaga(),
     cleaningSaga(),
     historySaga(),
     movingSaga(),
     organizingSaga(),
     declutteringSaga(),
-    customerSaga(),
     defaultSaga(),
   ]);
 }
