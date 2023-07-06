@@ -66,15 +66,60 @@ router.get('/:id', (req, res) => {
 /**
  * GET #3 CUSTOMERS route template
  */
-router.get('/', (req, res) => {
-  // GET #3 route code here
+router.get('/customers', (req, res) => {
+  console.log('is Authenticated?', req.isAuthenticated());
+
+  if (req.isAuthenticated()) {
+    console.log('user', req.user);
+    let queryText = `SELECT
+                         "customer"."id",
+                         "customer"."firstName", 
+                         "customer"."lastName", 
+                         "services"."description" AS "services_id", 
+                         "customer"."completion_status", 
+                         "customer"."service_on" 
+                     FROM "customer"
+                     JOIN "services" ON "customer"."services_id" = "services"."id";`;
+    pool.query(queryText).then((result) => {
+      console.log('results', result.rows);
+      res.send(result.rows);
+    }).catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 /**
  * GET #4 CUSTOMERS DETAILS (hint: by id) route template
  */
-router.get('/', (req, res) => {
-  // GET #4 route code here
+router.get('/:id', (req, res) => {
+  const customerId = req.params.id;
+  console.log('is Authenticated?', req.isAuthenticated());
+
+  if (req.isAuthenticated()) {
+    console.log('user', req.user);
+    let queryText = `SELECT
+                           "customer"."firstName", 
+                           "customer"."lastName", 
+                           "services"."description" AS "services_id", 
+                           "customer"."completion_status", 
+                           "customer"."service_on" 
+                       FROM "customer"
+                       JOIN "services" ON "customer"."services_id" = "services"."id"
+                       WHERE "customer"."id" = $1;`; // Use the customer ID parameter in the query
+    pool.query(queryText, [customerId]).then((result) => {
+      console.log(result.rows);
+      res.send(result.rows);
+    }).catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 /**

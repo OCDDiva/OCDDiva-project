@@ -9,12 +9,13 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router'); // person logging in
-// const customerRouter = require('./routes/customerRouter'); // previous customers, admin looking at list of previous customers
+// const customerRouter = require('./routes/customer.router.js'); // previous customers, admin looking at list of previous customers
 // const userInquiries = require('./routes/userInquiries.router')
 const notesRouter = require('./routes/notes.router');
 const completeRouter = require('./routes/completion.router.js');
 const priorityRouter = require('./routes/priority.router.js');
 const formRouter = require('./routes/form.router');
+
 
 // Body parser middleware
 app.use(bodyParser.json());
