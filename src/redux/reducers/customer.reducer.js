@@ -1,5 +1,5 @@
 // Reducer function
-const customerReducer = (state = ['SETH'], action) => {
+const customerReducer = (state = [], action) => {
     switch(action.type) {
         case 'SET_CUSTOMERS_LIST':
             return action.payload;

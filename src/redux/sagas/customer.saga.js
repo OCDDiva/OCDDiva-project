@@ -13,6 +13,8 @@ function* fetchCustomers() {
     }
 }
 
+
+
 function* customerSaga() {
     yield takeEvery('FETCH_CUSTOMERS', fetchCustomers);
 }

@@ -17,11 +17,11 @@ function Review() {
     }
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_CUSTOMERS' });
+        dispatch({ type: 'FETCH_INQUIRIES' });
         // dispatch({ type: 'GET_HISTORY' });
     }, []);
 
-    const customerDetails = useSelector(store => store.customerReducer)
+    const customerDetails = useSelector(store => store.customerReducer);
 
     console.log('show me the customers!!!!!', customerDetails);
 
@@ -30,9 +30,16 @@ function Review() {
         <div className="customerReview">
             <h2 className="h2Headers">Review Your Information:</h2>
             <h3>Customer Information</h3>
-            <p>{customerDetails.firstName}</p>
-            <p>{customerDetails.lastName}</p>
-            <p>{customerDetails.street1}</p>
+            {
+                customerDetails.map((customer) =>
+                    <div key={customer.id}>
+                        <p>{customer.firstName} {customer.lastName}</p>
+                        <p></p>
+                        <p>{customer.street1}</p>
+                    </div>
+                )
+            }
+
             <h3>Cleaning Questions</h3>
             <h3>Moving Questions</h3>
             <h3>Organizing Questions</h3>
