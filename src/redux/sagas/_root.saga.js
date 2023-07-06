@@ -9,6 +9,8 @@ import cleaningSaga from './cleaning.saga';
 import movingSaga from './moving.saga';
 import organizingSaga from './organizing.saga';
 import declutteringSaga from './decluttering.saga';
+import defaultSaga from './default.saga';
+
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -28,6 +30,6 @@ export default function* rootSaga() {
     movingSaga(),
     organizingSaga(),
     declutteringSaga(),
-  
+    defaultSaga(),
   ]);
 }

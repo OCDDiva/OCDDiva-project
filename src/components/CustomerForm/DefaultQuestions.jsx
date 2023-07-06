@@ -67,8 +67,18 @@ function DefaultQuestions() {
     //! Submit
     const submit = (event) => {
         event.preventDefault();
-        dispatch({ type: 'ADD_CUSTOMER', payload: customer, setCustomer: setCustomer });
-        setCustomer({ title: '', poster: '', description: '', genre_id: '' });
+        dispatch({ type: 'ADD_DEFAULT_QUESTIONS', payload: customer, setCustomer: setCustomer });
+        setCustomer({
+            first_name: '',
+            last_name: '',
+            street1: '',
+            street2: '',
+            city: '',
+            state: '',
+            zip: '',
+            phone_number: '',
+            email: '',
+          });
         history.push('/cleaningquestions');
     }
 
