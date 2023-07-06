@@ -18,9 +18,8 @@ import fetchInquiries from './fetchInquiries.reducer';
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
-  user, // will have an id and username if someone is logged in
+  user,// will have an id and username if someone is logged in
   customerReducer,
-  user, // will have an id and username if someone is logged in
   movingQuestions, 
   inquiryDetails,
   fetchInquiries, // will have an id and username if someone is logged in
@@ -28,7 +27,6 @@ const rootReducer = combineReducers({
   cleaningQuestionsReducer,
   organizingQuestions,
   declutteringQuestions, // will have an id and username if someone is logged in
-  customerReducer,
 });
 
 export default rootReducer;
