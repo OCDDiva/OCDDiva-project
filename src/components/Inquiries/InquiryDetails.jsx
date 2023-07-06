@@ -113,9 +113,9 @@ function InquiryDetails() {
                     <p>Hazardous Conditions? {inquiryDetails.HazardousConditions}</p>
                     <h5>Moving Questions:</h5>
                     {/* These column names in the database need to have the spaces removed for this to work */}
-                    <p>New Address: {inquiryDetails.MovingTo}</p>
-                    <p>Old Address: {inquiryDetails.MovingFrom}</p>
-                    <p>Any Large Items? {inquiryDetails.LargeItems}</p>
+                    <p>New Address: {inquiryDetails.moving_to}</p>
+                    <p>Old Address: {inquiryDetails.moving_from}</p>
+                    <p>Any Large Items? {inquiryDetails.large_items}</p>
                     <h5>Organizing/Decluttering Questions:</h5>
                     <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
                     <button onClick={returnToInquiries}>Inquiries List</button>
