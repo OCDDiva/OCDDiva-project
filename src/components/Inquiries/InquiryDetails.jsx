@@ -21,17 +21,18 @@ function InquiryDetails() {
         history.push('/inquiries')
     }
 
+    // TODO see what miguel made for the dispatch for adding notes and edit accordingly
     const changeNote = (e) => {
         e.preventDefault();
-        if (inquiryDetails.notes > 0) {
-            dispatch({ type: 'EDIT_NOTE', payload: { notes, inquiriesId, }, history });
+        if (inquiryDetails.notes.length > 0) {
+            dispatch({ type: 'EDIT_NOTE', payload: { inquiryDetails, inquiriesId, }, history });
         } else {
-            dispatch({ type: 'ADD_NOTE', payload: { notes }, history })
+            dispatch({ type: 'ADD_NOTE', payload: { inquiryDetails }, history })
         }
     }
 
     const noteButton = () => {
-        if (inquiryDetails.notes > 0) {
+        if (inquiryDetails.notes.length > 0) {
             return 'Edit Note'
         } else {
             return 'Add Note'
