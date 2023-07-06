@@ -179,18 +179,6 @@ function CleaningQuestions() {
                     </li>
 
                     <li>
-                      {/* Doors and Windows */}
-                      <label htmlFor="numberOfDoorsWindows">Number of Doors/Windows to be cleaned:</label>
-                      <input
-                        type="number"
-                        id="numberOfDoorsWindows"
-                        name="numberOfDoorsWindows"
-                        value={numberOfDoorsWindows}
-                        onChange={handleNumberOfDoorsWindowsChange}
-                      />
-                    </li>
-
-                    <li>
 
                       <p>Do you have pets?</p>
 

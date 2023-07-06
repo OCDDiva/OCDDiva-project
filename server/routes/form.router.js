@@ -134,6 +134,33 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
   // POST route code here
+  console.log('default data is:', req.body);
+  const values = [
+    req.body.city,
+    req.body.email,
+    req.body.first_name,
+    req.body.last_name,
+    req.body.phone_number,
+    req.body.state,
+    req.body.street1,
+    req.body.street2,
+    req.body.zip
+  ];
+  console.log(values);
+  const queryText = `
+    INSERT INTO "customer" 
+    ("city", "email", "firstName", "lastName", "phone_number", "state", "street1", "street2", "zip") 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  `;
+  pool.query(queryText, values)
+    .then(() => {
+      console.log('Data inserted successfully');
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log('Error inserting data', error);
+      res.status(500).send('Failed to insert data.');
+    });
 });
 
 /**
