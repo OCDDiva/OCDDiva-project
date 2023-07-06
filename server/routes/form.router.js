@@ -12,20 +12,16 @@ router.get('/', (req, res) => {
 
   if (req.isAuthenticated()) {
     console.log('user', req.user);
-    let queryText = `SELECT
-                          "services"."description" AS "services_id",
-                          "dates"."date_submitted" AS "date_received",
-                          "moving_questions"."id" AS "moving",
-                          "cleaning_questions"."id" AS "cleaning",
-                          "organizing_questions"."id" AS "organizing",
-                          "decluttering_questions"."id" AS "declutting"
-                          FROM "user_inquiries"
-                          JOIN "services" ON "user_inquiries"."services_id" = "services"."id"
-                          JOIN "dates" ON "user_inquiries"."date_received" = "dates"."id"
-                          JOIN "moving_questions" ON "user_inquiries"."moving" = "moving_questions"."id"
-                          JOIN "cleaning_questions" ON "user_inquiries"."cleaning" = "cleaning_questions"."id"
-                          JOIN "organizing_questions" ON "user_inquiries"."organizing" = "organizing_questions"."id"
-                          JOIN "decluttering_questions" ON "user_inquiries"."declutting" = "decluttering_questions"."id";`;
+    let queryText = `SELECT *,
+    "user_inquiries"."id" AS "inquiries",
+    "completion"."description" AS "completion_status"
+    FROM "customer"
+    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+    JOIN "cleaning_questions" ON "user_inquiries"."id" = "user_inquiries"."cleaning"
+    JOIN "moving_questions" ON "user_inquiries"."id" = "user_inquiries"."moving"
+    JOIN "organizing_questions" ON "user_inquiries"."id" = "user_inquiries"."organizing"
+    JOIN "decluttering_questions" ON "user_inquiries"."id" = "user_inquiries"."declutting"
+    JOIN "completion" ON "customer"."completion_status" = "completion"."id";`;
     pool.query(queryText).then((result) => {
       console.log(result.rows);
       res.send(result.rows);
@@ -41,8 +37,30 @@ router.get('/', (req, res) => {
 /**
  * GET #2 INQUIRY DETAILS (hint: by id) route template
  */
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
   // GET #2 route code here
+  if (req.isAuthenticated()) {
+    console.log(req.body)
+    let queryText = `SELECT *,
+    "user_inquiries"."id" AS "inquiries",
+    "completion"."description" AS "completion_status"
+    FROM "customer"
+    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+    JOIN "cleaning_questions" ON "user_inquiries"."id" = "user_inquiries"."cleaning"
+    JOIN "moving_questions" ON "user_inquiries"."id" = "user_inquiries"."moving"
+    JOIN "organizing_questions" ON "user_inquiries"."id" = "user_inquiries"."organizing"
+    JOIN "decluttering_questions" ON "user_inquiries"."id" = "user_inquiries"."declutting"
+    JOIN "completion" ON "customer"."completion_status" = "completion"."id"
+    WHERE "customer"."user_id" = $1`;
+    pool.query(queryText, [req.params.id])
+    .then((result) => {
+      res.send(result.rows[0]);
+    })
+    .catch((error) => {
+      console.log(`Error in specific inquiry ${error}`)
+      res.sendStatus(500);
+    })
+  }
 });
 
 /**
@@ -133,17 +151,17 @@ router.post('/', (req, res) => {
 router.put('/', (req, res) => {
   console.log('router form is:', req.body);
   const values = [
-      req.body.cleaningOption, 
-      req.body.serviceType,
-      req.body.numberOfBedrooms,
-      req.body.numberOfBathrooms,
-      req.body.numberOfAdditionalRooms, 
-      req.body.numberOfDoorsWindows,
-      req.body.hasPets,
-      req.body.hazardousConditions,
-      req.body.userId,
+    req.body.cleaningOption,
+    req.body.serviceType,
+    req.body.numberOfBedrooms,
+    req.body.numberOfBathrooms,
+    req.body.numberOfAdditionalRooms,
+    req.body.numberOfDoorsWindows,
+    req.body.hasPets,
+    req.body.hazardousConditions,
+    req.body.userId,
   ];
-console.log(values); 
+  console.log(values);
   const queryText = `
     UPDATE "cleaning_questions" 
     SET 
