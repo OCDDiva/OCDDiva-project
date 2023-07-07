@@ -69,7 +69,6 @@ function CleaningQuestions() {
         numberOfDoorsWindows,
         hasPets,
         hazardousConditions,
-        userId: user.id,
       },
     });
     history.push('/movingquestions');

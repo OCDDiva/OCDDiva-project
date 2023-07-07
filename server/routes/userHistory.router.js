@@ -3,6 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', (req, res) => {
+    console.log('In userHistory Router');
     const queryText = `SELECT 
     "services"."description" AS "services_id",
     "dates"."service_date" AS "service_date",

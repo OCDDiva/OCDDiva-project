@@ -41,7 +41,6 @@ function OrgQuestions() {
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
                 Donation: donation,
-                user_id: user.id
             }
 
         })
