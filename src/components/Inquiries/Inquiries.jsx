@@ -57,7 +57,7 @@ function Inquiries() {
                                 {/* I know this should be a different date */}
                                 <h3>{dateConversion(inquiry.service_on)}</h3>
                                 <h3>{inquiry.completion_status}</h3>
-                                <h3>{inquiry.notes}</h3>
+                                <h5>{inquiry.notes}</h5>
                                 <button onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
                             </div>
                         )
