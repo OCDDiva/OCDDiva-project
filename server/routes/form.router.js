@@ -126,7 +126,7 @@ router.get('/customers/:id', (req, res) => {
 /**
  * GET #5 USER HISTORY route template
  */
-router.get('/', async (req, res) => {
+router.get('/allUserInfo', async (req, res) => {
   // GET #5 route code here
   const client = await pool.connect();
   try { 
