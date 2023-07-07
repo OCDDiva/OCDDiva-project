@@ -72,19 +72,20 @@ router.get('/customers', (req, res) => {
   if (req.isAuthenticated()) {
     console.log('user', req.user);
     let queryText = `SELECT
-                         "customer"."id",
-                         "customer"."firstName", 
-                         "customer"."lastName", 
-                         "services"."description" AS "services_id", 
-                         "customer"."completion_status", 
-                         "customer"."service_on" 
-                     FROM "customer"
-                     JOIN "services" ON "customer"."services_id" = "services"."id";`;
+    "customer"."id",
+    "user_inquiries"."firstName", 
+    "user_inquiries"."lastName", 
+    "services"."description" AS "services_id", 
+    "user_inquiries"."completion_status", 
+    "customer"."service_on" 
+    FROM "customer"
+    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+    JOIN "services" ON "customer"."services_id" = "services"."id";`;
     pool.query(queryText).then((result) => {
       console.log('results', result.rows);
       res.send(result.rows);
     }).catch((error) => {
-      console.log('HERE',error);
+      console.log('HERE', error);
       res.sendStatus(500);
     });
   } else {

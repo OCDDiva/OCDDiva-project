@@ -114,11 +114,6 @@ CREATE TABLE "user_inquiries" (
 	"comments" VARCHAR(10000)
 );
 
-	"moving" INT REFERENCES moving_questions,
-	"cleaning" INT REFERENCES cleaning_questions,
-	"organizing" INT REFERENCES organizing_questions,
-	"declutting" INT REFERENCES decluttering_questions,
-
 INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "moving", "cleaning", "organizing", "declutting", "comments")
 VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1, 'Everett was here');
 
@@ -150,12 +145,6 @@ CREATE TABLE "customer" (
 INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
 VALUES (1, 1, 1, 1, 'Everett', 'Butler', '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
 
-CREATE TABLE "user_media" (
-	id serial primary key,
-	blob_data BYTEA,
-	customer_id int references customer,
-	user_id int references users
-);
 
 -- NO TEST DATA YET
 
