@@ -11,12 +11,11 @@ function Inquiries() {
     // const { inquiriesId } = useParams();
 
     const navToInquiryDetails = (inquiry) => {
-        history.push(`/inquirydetails/${inquiry.user_id}`);
+        history.push(`/inquiries/${inquiry.user_id}`);
     }
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INQUIRIES'});
-        // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 
     const dateConversion = (oldDate) => {

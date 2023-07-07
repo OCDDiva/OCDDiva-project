@@ -5,7 +5,7 @@ const router = express.Router();
 /**
  * GET INQUIRIES route template
  */
-router.get('/', (req, res) => {
+router.get('/inquiries', (req, res) => {
   // GET route code here
   // console.log('is Authenticated?', req.isAuthenticated());
   console.log('is Authenticated?', req.isAuthenticated());
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 /**
  * GET #2 INQUIRY DETAILS (hint: by id) route template
  */
-router.get('/:id', (req, res) => {
+router.get('/inquiries/:id', (req, res) => {
   // GET #2 route code here
   if (req.isAuthenticated()) {
     console.log(req.body)
@@ -95,7 +95,7 @@ router.get('/customers', (req, res) => {
 /**
  * GET #4 CUSTOMERS DETAILS (hint: by id) route template
  */
-router.get('/:id', (req, res) => {
+router.get('/customer/:id', (req, res) => {
   const customerId = req.params.id;
   console.log('is Authenticated?', req.isAuthenticated());
 
