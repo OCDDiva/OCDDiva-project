@@ -43,7 +43,6 @@ function MovingQuestions() {
             moving_to: movingTo,
             moving_from: movingFrom,
             large_items: largeItems,
-            user_id: user.id,
         } 
     })
         history.push('/organizequestions');
