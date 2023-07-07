@@ -34,6 +34,14 @@ function MovingQuestions() {
 
     const goBack = () => { history.goBack() }
 
+    useEffect(() => {
+        dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
+        // dispatch({ type: 'GET_HISTORY' });
+    }, []);
+
+    const inquiryDetails = useSelector(store => store.inquiryDetails);
+
+    console.log('Checking inquiry Details', inquiryDetails)
 
     const nextStep = (event) => {
         event.preventDefault();

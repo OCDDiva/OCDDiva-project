@@ -7,9 +7,7 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   // GET route code here
-  // console.log('is Authenticated?', req.isAuthenticated());
   console.log('is Authenticated?', req.isAuthenticated());
-
   if (req.isAuthenticated()) {
     console.log('user', req.user);
     let queryText = `SELECT *,
