@@ -1,4 +1,4 @@
-const allUserDetails = (state = {}, action) => {
+const allUserInfo = (state = {}, action) => {
     switch (action.type) {
         case 'SET_ALL_USER_INFO':
             return action.payload;
@@ -7,4 +7,4 @@ const allUserDetails = (state = {}, action) => {
     }
 };
 
-export default allUserDetails;
+export default allUserInfo;
