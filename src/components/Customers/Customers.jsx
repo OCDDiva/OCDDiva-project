@@ -42,26 +42,23 @@ function Customers() {
             </form>
             <br />
             <br />
-            <Grid container spacing={2}>
+            <Grid container spacing={2} justifyContent="center">
                 {customers.map((customer) => (
                     <Card key={customer.id} sx={{ minWidth: 555, minHeight: 300 }}>
                         <CardContent>
-                            <Typography variant="h4"> Name: {customer.firstName} {customer.lastName}
+                            <Typography variant="h4" style={{ textAlign: "center" }}> Name: {customer.firstName} {customer.lastName}
                             </Typography>
                             <br />
-                            <Typography variant="h5">Date of Service: {transformDate(customer.service_on)}</Typography>
-                            <Typography variant="h5">Type of service: {customer.services_id}</Typography>
-                            <Typography variant="h5">Completion status: {customer.completion_status}</Typography>
-                            <Typography variant="h5">Notes: </Typography>
+                            <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {transformDate(customer.service_on)}</Typography>
+                            <Typography variant="h5" style={{ textAlign: "center" }}>Type of service: {customer.services_id}</Typography>
+                            <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
+                            <Typography variant="h5" style={{ textAlign: "center" }}>Notes: </Typography>
                             <br />
                         </CardContent>
                         <CardActions>
-                            <Button component={Link} to={`/customer-details/${customer.id}`} variant="outlined" color="error">
+                            <button onClick={() => history.push(`/customer-details/${customer.id}`)} className="btn" style={{ display: "block", margin: "0 auto" }}>
                                 Details
-                            </Button>
-                            <Button component={Link} to={`/inquiry-details/${customer.inquiryId}`} variant="outlined" color="error">
-                                Back
-                            </Button>
+                            </button>
                         </CardActions>
                     </Card>
                 ))}

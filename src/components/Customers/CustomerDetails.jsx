@@ -65,9 +65,9 @@ const handleAdd = () => {
         <Typography variant="h4" style={{ textAlign: "center" }}>Customer Details</Typography>
         <br />
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Button variant="outlined" color="error" onClick={() => history.goBack()}>
-        Back
-      </Button>
+        <button className="btn" onClick={() => history.goBack()}>
+          Back
+        </button>
       </div>
       <br />
       <Box border={1} p={2} maxWidth={600} style={{ margin: '0 auto' }}>
@@ -81,20 +81,20 @@ const handleAdd = () => {
       <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer?.notes}</Typography>
       <br />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <Button variant="outlined" color="error" onClick={handleAdd} >
-        Add Note
-      </Button>
-      <Button variant="outlined" color="error" onClick={handleEdit} >
-        Edit Note
-      </Button>
-      <Button variant="outlined" color="error" onClick={handleDelete}>
-        Delete
-      </Button>
+      <button className="btn" onClick={handleAdd}>
+              Add Note
+            </button>
+            <button className="btn" onClick={handleEdit}>
+              Edit Note
+            </button>
+            <button className="btn" onClick={handleDelete}>
+              Delete
+            </button>
       </div>
       <br />
       <Typography variant="h4" style={{ textAlign: "center" }}>Customer's Form(s):</Typography>
       <form>
-        <TextField
+        {/* <TextField
           name="firstName"
           label="First Name"
           value={customer?.firstName || ''}
@@ -107,19 +107,19 @@ const handleAdd = () => {
           value={customer?.lastName || ''}
         //   onChange={handleInputChange}
           fullWidth
-        />
+        /> */}
         {/* Add more form fields based on your form structure */}
       </form>
       <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-      <Button variant="outlined" color="error" onClick={handleEdit} >
-        Edit 
-      </Button>
-      <Button variant="outlined" color="error" onClick={handleSave}>
-        Save
-      </Button>
-      <Button variant="outlined" color="error" onClick={handleDelete}>
-        Delete
-      </Button>
+      <button className="btn" onClick={handleEdit}>
+              Edit
+            </button>
+            <button className="btn" onClick={handleSave}>
+              Save
+            </button>
+            <button className="btn" onClick={handleDelete}>
+              Delete
+            </button>
       </div>
     </Container>
     </Box>

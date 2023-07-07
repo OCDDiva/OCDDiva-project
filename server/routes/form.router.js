@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 /**
  * GET #2 INQUIRY DETAILS (hint: by id) route template
  */
-router.get('/:id', (req, res) => {
+router.get('/inquiry/:id', (req, res) => {
   // GET #2 route code here
   if (req.isAuthenticated()) {
     console.log(req.body)
@@ -68,7 +68,7 @@ router.get('/:id', (req, res) => {
  */
 router.get('/customers', (req, res) => {
   console.log('is Authenticated?', req.isAuthenticated());
-
+  console.log('HERE /customers')
   if (req.isAuthenticated()) {
     console.log('user', req.user);
     let queryText = `SELECT
@@ -84,7 +84,7 @@ router.get('/customers', (req, res) => {
       console.log('results', result.rows);
       res.send(result.rows);
     }).catch((error) => {
-      console.log(error);
+      console.log('HERE',error);
       res.sendStatus(500);
     });
   } else {
