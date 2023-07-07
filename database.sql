@@ -1,7 +1,3 @@
--- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
-
--- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
-
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
@@ -18,16 +14,6 @@ CREATE TABLE "services" (
 
 INSERT INTO "services" ("description")
 VALUES ('Essential Cleaning'),('Ultimate Cleaning'), ('Moving In'), ('Moving Out'), ('Organize'), ('Declutter');
-
-CREATE TABLE "dates" (
-    id serial primary key,
-    date_requested DATE,
-    date_submitted DATE,
-    service_date DATE
-);
-
-INSERT INTO "dates" ("date_requested", "date_submitted", "service_date")
-VALUES ('2023-06-26', '2023-06-25', NULL);
 
 CREATE TABLE "completion" (
 	id serial primary key,
@@ -47,13 +33,14 @@ VALUES ('High'), ('Medium'), ('Low');
 
 CREATE TABLE "user_media" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	blob_data BYTEA,
-	customer_id int references customer,
-	user_id int references users
+	customer_id int references customer
 );
 
  CREATE TABLE "moving_questions" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	"moving" BOOLEAN default false, 
 	"moving_to" VARCHAR (10000),
 	"moving_from" VARCHAR (10000),
@@ -68,6 +55,7 @@ VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
 
 CREATE TABLE "cleaning_questions" (
     id serial primary key,
+    inquiry_id INT references user_inquiries,
     "Cleaning" BOOLEAN default false,
     "ServiceType" VARCHAR(100),
     "Bedrooms" INT,
@@ -83,6 +71,7 @@ VALUES (true, null, 3, 2, 1, 0, false, 'None');
 
 CREATE TABLE "organizing_questions" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	"Organizing" BOOLEAN default false,
 	"Bedrooms" INT,
 	"Bathrooms" INT,
@@ -95,6 +84,7 @@ VALUES (true, 3, 2, 1, true);
 
 CREATE TABLE "decluttering_questions" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	"Declutter" BOOLEAN default false,
 	"Bedrooms" INT,
 	"Bathrooms" INT,
@@ -109,14 +99,21 @@ CREATE TABLE "user_inquiries" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INT REFERENCES users,
 	"services_id" INT REFERENCES services,
-	"date_received" INT REFERENCES dates,
-	"date_requested" INT REFERENCES dates,
-	"moving" INT REFERENCES moving_questions,
-	"cleaning" INT REFERENCES cleaning_questions,
-	"organizing" INT REFERENCES organizing_questions,
-	"declutting" INT REFERENCES decluttering_questions,
+	"date_received" DATE,
+	"date_requested" DATE,
+	"firstName" varchar(100),
+	"lastName" varchar(250),
+	"street1" varchar(1000),
+	"street2" varchar(1000),
+	"city" varchar(1000),
+	"state" varchar(2),
+	"zip" varchar(5),
+	"phone_number" varchar(11),
+	"email" varchar(50),
+	"priority" INT REFERENCES priority,
 	"comments" VARCHAR(10000)
 );
+
 
 INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "moving", "cleaning", "organizing", "declutting", "comments")
 VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1, 'Everett was here');
@@ -142,39 +139,13 @@ CREATE TABLE "customer" (
 	"user_id" integer REFERENCES users,
 	"inquiries" integer REFERENCES user_inquiries ON DELETE CASCADE,
 	"services_id" integer REFERENCES services,
-	"firstName" varchar(100),
-	"lastName" varchar(250),
-	"street1" varchar(1000),
-	"street2" varchar(1000),
-	"city" varchar(1000),
-	"state" varchar(2),
-	"zip" varchar(5),
-	"phone_number" varchar(11),
-	"email" varchar(50),
-	"residence" varchar(240),
-	"completion_status" INT REFERENCES completion,
-	"priority" INT REFERENCES priority,
-	"service_on" date 
+	"service_on" date,
+	"notes" VARCHAR(40000)
 );
 
 INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
 VALUES (1, 1, 1, 1, 'Everett', 'Butler', '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
 
-CREATE TABLE "user_media" (
-	id serial primary key,
-	blob_data BYTEA,
-	customer_id int references customer,
-	user_id int references users
-);
-
--- NO TEST DATA YET
-
-CREATE TABLE "notes" (
-	id serial primary key,
-	user_id integer REFERENCES users,
-	customer_id integer REFERENCES customer,
-	notes varchar(30000)
-);
 
 -- NO TEST DATA YET
 
