@@ -6,7 +6,7 @@ function* defaultQuestions (action) {
         const defaultQuestions = action.payload
         console.log(defaultQuestions); 
         yield axios.post('/api/forms', defaultQuestions);
-        yield post({type : 'SET_DEFAULT_QUESTIONS'});
+        yield put({type : 'SET_DEFAULT_QUESTIONS'});
     } catch (error){
         console.log('Error in default questions saga', error);
     }
