@@ -129,3 +129,10 @@ input {
   display: flex;
   justify-content: center;
 }
+
+ul {
+  list-style-type: none;
+  display: block;
+  text-align: center;
+  
+}
