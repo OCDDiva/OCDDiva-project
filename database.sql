@@ -1,7 +1,3 @@
--- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
-
--- RUN ALL QUERIES IN ORDER, TOP TO BOTTOM
-
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
@@ -18,16 +14,6 @@ CREATE TABLE "services" (
 
 INSERT INTO "services" ("description")
 VALUES ('Essential Cleaning'),('Ultimate Cleaning'), ('Moving In'), ('Moving Out'), ('Organize'), ('Declutter');
-
-CREATE TABLE "dates" (
-    id serial primary key,
-    date_requested DATE,
-    date_submitted DATE,
-    service_date DATE
-);
-
-INSERT INTO "dates" ("date_requested", "date_submitted", "service_date")
-VALUES ('2023-06-26', '2023-06-25', NULL);
 
 CREATE TABLE "completion" (
 	id serial primary key,
@@ -47,12 +33,12 @@ VALUES ('High'), ('Medium'), ('Low');
 
 CREATE TABLE "user_media" (
 	id serial primary key,
+	inquiry_id INT references user_inquiries,
 	blob_data BYTEA,
-	customer_id int references customer,
-	user_id int references users
+	customer_id int references customer
 );
 
-CREATE TABLE "moving_questions" (
+ CREATE TABLE "moving_questions" (
 	id serial primary key,
 	inquiry_id INT references user_inquiries,
 	"moving" BOOLEAN default false, 
@@ -113,8 +99,8 @@ CREATE TABLE "user_inquiries" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INT REFERENCES users,
 	"services_id" INT REFERENCES services,
-	"date_received" INT REFERENCES dates,
-	"date_requested" INT REFERENCES dates,
+	"date_received" DATE,
+	"date_requested" DATE,
 	"firstName" varchar(100),
 	"lastName" varchar(250),
 	"street1" varchar(1000),
@@ -169,15 +155,6 @@ CREATE TABLE "user_media" (
 	blob_data BYTEA,
 	customer_id int references customer,
 	user_id int references users
-);
-
--- NO TEST DATA YET
-
-CREATE TABLE "notes" (
-	id serial primary key,
-	user_id integer REFERENCES users,
-	customer_id integer REFERENCES customer,
-	notes varchar(30000)
 );
 
 -- NO TEST DATA YET
