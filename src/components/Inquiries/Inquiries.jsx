@@ -11,12 +11,11 @@ function Inquiries() {
     // const { inquiriesId } = useParams();
 
     const navToInquiryDetails = (inquiry) => {
-        history.push(`/inquirydetails/${inquiry.user_id}`);
+        history.push(`/inquiries/${inquiry.user_id}`);
     }
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INQUIRIES'});
-        // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 
     const dateConversion = (oldDate) => {
@@ -57,8 +56,7 @@ function Inquiries() {
                                 {/* I know this should be a different date */}
                                 <h3>{dateConversion(inquiry.service_on)}</h3>
                                 <h3>{inquiry.completion_status}</h3>
-                                {/* I understand notes is not working rn */}
-                                <h3>{inquiry.notes}</h3>
+                                <h5>{inquiry.notes}</h5>
                                 <button onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
                             </div>
                         )

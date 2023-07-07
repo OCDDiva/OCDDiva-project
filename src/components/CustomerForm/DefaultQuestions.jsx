@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card } from '@mui/material';
 
 //TODO Add MUI icons to back and next button in the return 
@@ -11,12 +11,12 @@ import { Card } from '@mui/material';
 function DefaultQuestions() {
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const user = useSelector(store => store.user);
 
     //TODO is there anything else from the DB that needs to be here? Residence type or is that only for the "service" questions?
     //! State
     let [customer, setCustomer] = useState({
-        first_name: '', last_name: '', street1: '', street2: '', city: '', state: '', zip: '', phone_number: '', email: ''
+        first_name: '', last_name: '', street1: '', street2: '', city: '', state: '', zip: '', phone_number: '', email: '', user_id: user.id
     });
 
     //TODO edit this when we get to styling
@@ -78,6 +78,7 @@ function DefaultQuestions() {
             zip: '',
             phone_number: '',
             email: '',
+            user_id: user.id
           });
         history.push('/cleaningquestions');
     }

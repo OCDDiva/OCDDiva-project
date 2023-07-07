@@ -4,18 +4,18 @@ import Inquiries from '../../components/Inquiries/Inquiries';
 
 function* fetchInquiries() {
     try {
-        const inquiries = yield axios.get('/api/forms');
+        const inquiries = yield axios.get('/api/forms/inquiries');
         yield put({ type: 'SET_INQUIRIES', payload: inquiries.data});
         console.log(inquiries);
     } catch (error) {
-        console.log(`Error in fetchInquiryDetails: ${error}`);
+        console.log(`Error in fetchInquiries: ${error}`);
         alert('Something went wrong!')
     }
 }
 
 function* fetchInquiryDetails(action) {
     try {
-        const inquiryDetails = yield axios.get(`/api/forms/${action.payload}`);
+        const inquiryDetails = yield axios.get(`/api/forms/inquiries/${action.payload}`);
         yield put({ type: 'SET_INQUIRY_DETAILS', payload: inquiryDetails.data});
         console.log(inquiryDetails);
     } catch (error) {

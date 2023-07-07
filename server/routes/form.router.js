@@ -149,12 +149,13 @@ router.post('/', async (req, res) => {
       req.body.zip,
       req.body.phone_number,
       req.body.email,
+      req.body.user_id,
     ];
     console.log(values);
     const queryText = `
       INSERT INTO "user_inquiries" 
-      ("firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id";
+      ("firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "user_id") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id";
     `;
     let inquiryResult = await client.query(queryText, values);
     let inquiryId = inquiryResult.rows[0].id;
@@ -171,6 +172,8 @@ router.post('/', async (req, res) => {
     const delcuttQuery = `INSERT INTO "decluttering_questions" ("inquiry_id") 
                           VALUES ($1);`;
     await client.query(delcuttQuery, [inquiryId]);
+    const customerQuery = `INSERT INTO "customer" ("inquiries") VALUES ($1);`;
+    await client.query(customerQuery, [inquiryId]);
     await client.query('COMMIT');
     console.log('Data inserted successfully');
     res.sendStatus(200);
