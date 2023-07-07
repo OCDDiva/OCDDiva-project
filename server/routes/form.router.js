@@ -126,8 +126,36 @@ router.get('/customers/:id', (req, res) => {
 /**
  * GET #5 USER HISTORY route template
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // GET #5 route code here
+  const client = await pool.connect();
+  try { 
+    await client.query('BEGIN');
+    const queryText =  `SELECT * FROM "user_inquiries";`
+    await client.query(queryText);
+    const customerQuery =  `SELECT * FROM "customers" WHERER "inquiries"."id" = $1;`;
+    await client.query(customerQuery);
+    const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(cleaningQuestions);
+    const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(movingQuestions);
+    const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(organizingQuestions);
+    const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(declutteringQuestions);
+    const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
+    await client.query(userMedia);
+    await client.query('COMMIT');
+    console.log('Data retrieved successfully.');
+    // TODO Finish this so we can retrieve all data from the tables as a single object and parse through it
+    // res.send(result.rows)
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.log('Error inserting data', error);
+    res.status(500).send('Failed to insert data.');
+  } finally {
+    client.release();
+  }
 });
 
 /**
