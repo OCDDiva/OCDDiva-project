@@ -1,12 +1,12 @@
 import { Stepper, Step, StepLabel } from '@mui/material';
 
 const steps = [
-    'Default Questions',
-    'Cleaning Services',
-    'Moving Services',
+    'Contact',
+    'Cleaning',
+    'Moving',
     'Organization',
     'Declutter',
-    'Review Page',
+    'Review',
 ];
 
 function ProgressBar({ currentStep }) {

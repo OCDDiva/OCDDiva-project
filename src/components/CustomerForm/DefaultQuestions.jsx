@@ -93,9 +93,8 @@ function DefaultQuestions() {
             <center>
                 <br /> <br />
                 <Typography variant="h4"> New Inquiry Form</Typography>
-
                 <br />
-
+                <ProgressBar currentStep={0} />
                 <Card sx={{
                     width: 'auto',
                     minWidth: 250,
@@ -103,7 +102,6 @@ function DefaultQuestions() {
                     padding: 5,
                     boxShadow: 5,
                 }}>
-                    <ProgressBar currentStep={0} />
 
                     <Typography variant="h7"> Please enter the following information.</Typography>
                     

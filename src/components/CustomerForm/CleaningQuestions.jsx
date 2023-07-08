@@ -88,7 +88,7 @@ function CleaningQuestions() {
   //! What Displays
   return (
     <center>
-
+    <ProgressBar currentStep={1} />
       <Card sx={{
         width: 'auto',
         minWidth: 250,
@@ -96,8 +96,6 @@ function CleaningQuestions() {
         padding: 1,
         boxShadow: 5,
       }}>
-
-        <ProgressBar currentStep={1} />
         <form onSubmit={handleSubmit}>
 
           <br />
