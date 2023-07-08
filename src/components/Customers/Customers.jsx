@@ -12,6 +12,7 @@ function Customers() {
     const dispatch = useDispatch();
     const customers = useSelector(store => store.customerReducer)
     const history = useHistory();
+    
 
 
     // const viewCustomerDetails = (customerId) => {
@@ -52,7 +53,7 @@ function Customers() {
                             <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {transformDate(customer.service_on)}</Typography>
                             <Typography variant="h5" style={{ textAlign: "center" }}>Type of service: {customer.services_id}</Typography>
                             <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
-                            <Typography variant="h5" style={{ textAlign: "center" }}>Notes: </Typography>
+                            <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             <br />
                         </CardContent>
                         <CardActions>
