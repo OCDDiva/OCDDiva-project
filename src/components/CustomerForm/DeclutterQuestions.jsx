@@ -2,12 +2,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
-// 1. # Bedrooms to declutter
-// 2. # Bathrooms to declutter
-// 3. # Addtnl declutter rooms
-// 4. Large objects to donate?
-
+import { TextField, Typography, Card } from '@mui/material';
 
 function DeclutterQuestions() {
     //Code goes here
@@ -31,7 +26,8 @@ function DeclutterQuestions() {
 
     const nextStep = (event) => {
         event.preventDefault();
-        dispatch({type: 'UPDATE_DECLUTT', payload: {
+        dispatch({
+            type: 'UPDATE_DECLUTT', payload: {
                 Declutter: declutteringValue,
                 Bedrooms: numBedrooms,
                 Bathrooms: numBathrooms,
@@ -48,70 +44,74 @@ function DeclutterQuestions() {
     //What displays
     return (
         <>
-            <h2 className="h2Headers">Would you like your space Decluttered?</h2>
-            <br />
-            <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <input type="radio" value={true} name="Yes" /> Yes
-                <input type="radio" value={false} name="No" /> No
-            </form>
-            {declutteringValue === "true" && (
-                <div className="declutteringQuestions">
-                    <ol>
-                        <li>
-                            <label>
-                                <p>Number of bedrooms to be decluttered?</p>
-                                <input
-                                    type="number"
-                                    value={numBedrooms}
-                                    onChange={(event) => setNumBedrooms(event.target.value)}
-                                />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <p>Number of bathrooms to be decluttered?</p>
-                                <input
-                                    type="number"
-                                    value={numBathrooms}
-                                    onChange={(event) => setNumBathrooms(event.target.value)}
-                                />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <p>Number of additional rooms to be decluttered?</p>
-                                <input
-                                    type="number"
-                                    value={numAdditionalRooms}
-                                    onChange={(event) => setNumAdditionalRooms(event.target.value)}
-                                />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <p>Would you like to donate any items today?</p>
-                                <input
-                                    type="radio"
-                                    value="true"
-                                    onChange={(event) => setDonationStatus(event.target.value)}
-                                /> Yes
-                                <br />
-                                <input
-                                    type="radio"
-                                    value="false"
-                                    onChange={(event) => setDonationStatus(event.target.value)}
-                                /> No
-                            </label>
-                        </li>
-                    </ol>
-                </div>
-            )}
-            <br />
-            <br />
-            <button className="btn" onClick={goBack}> Back </button>
-            <br />
-            <br />
-            <button className="btn" onClick={nextStep}>Next</button>
+            <center>
+                <Card>
+                    <h2 className="h2Headers">Would you like your space Decluttered?</h2>
+                    <br />
+                    <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <input type="radio" value={true} name="Yes" /> Yes
+                        <input type="radio" value={false} name="No" /> No
+                    </form>
+                    {declutteringValue === "true" && (
+                        <div className="declutteringQuestions">
+                            <ul style={{ listStyle: 'none' }}>
+                                <li>
+                                    <label>
+                                        <p>Number of bedrooms to be decluttered?</p>
+                                        <input
+                                            type="number"
+                                            value={numBedrooms}
+                                            onChange={(event) => setNumBedrooms(event.target.value)}
+                                        />
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <p>Number of bathrooms to be decluttered?</p>
+                                        <input
+                                            type="number"
+                                            value={numBathrooms}
+                                            onChange={(event) => setNumBathrooms(event.target.value)}
+                                        />
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <p>Number of additional rooms to be decluttered?</p>
+                                        <input
+                                            type="number"
+                                            value={numAdditionalRooms}
+                                            onChange={(event) => setNumAdditionalRooms(event.target.value)}
+                                        />
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <p>Would you like to donate any items today?</p>
+                                        <input
+                                            type="radio"
+                                            value="true"
+                                            onChange={(event) => setDonationStatus(event.target.value)}
+                                        /> Yes
+                                        <br />
+                                        <input
+                                            type="radio"
+                                            value="false"
+                                            onChange={(event) => setDonationStatus(event.target.value)}
+                                        /> No
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
+                    <br />
+                    <br />
+                    <button className="btn" onClick={nextStep}>Next</button>
+                    <br />
+                    <br />
+                    <button className="btn" onClick={goBack}> Back </button>
+                </Card>
+            </center>
         </>
 
     )

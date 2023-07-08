@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { TextField, Typography, Card } from '@mui/material';
 
 
 function MovingQuestions() {
@@ -45,13 +46,14 @@ function MovingQuestions() {
     const nextStep = (event) => {
         event.preventDefault();
         console.log(moving, movingTo, movingFrom, largeItems, user.id)
-        dispatch({ type: 'UPDATE_MOVING', payload: {
-            moving: moving,
-            moving_to: movingTo,
-            moving_from: movingFrom,
-            large_items: largeItems,
-        } 
-    })
+        dispatch({
+            type: 'UPDATE_MOVING', payload: {
+                moving: moving,
+                moving_to: movingTo,
+                moving_from: movingFrom,
+                large_items: largeItems,
+            }
+        })
         history.push('/organizequestions');
     }
 
@@ -60,56 +62,61 @@ function MovingQuestions() {
     //What displays
     return (
         <>
-            <h2 className="h2Headers">Are you moving?</h2>
-            <br />
-            <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <input type="radio" value={true} name="Yes" /> Yes
-                <input type="radio" value={false} name="No" /> No
-            </form>
-            {moving === "true" && (
-                <div className="movingQuestions">
+            <center>
+                <Card>
+                    <Typography variant="h4" className="h2Headers">Are you moving?</Typography>
+                    <br />
+                    <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <input type="radio" value={true} name="Yes" /> Yes
+                        <input type="radio" value={false} name="No" /> No
+                    </form>
+                    {moving === "true" && (
+                        <div className="movingQuestions">
+                            <br />
+                            <br />
+                            <ul style={{ listStyle: "none" }}>
+                                <li>
+                                    <label>
+                                        <p>Where are you moving to?</p>
+                                        <input
+                                            type="text"
+                                            value={movingTo}
+                                            onChange={movingToValue}
+                                        />
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <p>Where are you moving from?</p>
+                                        <input
+                                            type="text"
+                                            value={movingFrom}
+                                            onChange={movingFromValue}
+                                        />
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <p>What large items do you have that will need to be moved?</p>
+                                        <input
+                                            type="text"
+                                            value={largeItems}
+                                            onChange={largeItemsValue}
+                                        />
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                     <br />
                     <br />
-                    <ol>
-                        <li>
-                            <label>
-                                <p>Where are you moving to?</p>
-                                <input
-                                    type="text"
-                                    value={movingTo}
-                                    onChange={movingToValue}
-                                />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <p>Where are you moving from?</p>
-                                <input
-                                    type="text"
-                                    value={movingFrom}
-                                    onChange={movingFromValue}
-                                />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <p>What large items do you have that will need to be moved?</p>
-                                <input
-                                    type="text"
-                                    value={largeItems}
-                                    onChange={largeItemsValue}
-                                />
-                            </label>
-                        </li>
-                    </ol>
-                </div>
-            )}
-            <br />
-            <br />
-            <button className="btn" onClick={goBack} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}> Back </button>
-            <br />
-            <br />
-            <button className="btn" onClick={nextStep}>Next</button>
+                    <button className="btn" onClick={nextStep}>Next</button>
+                    <br />
+                    <br />
+                    <button className="btn" onClick={goBack}> Back </button>
+                </Card>
+
+            </center>
         </>
 
     )
