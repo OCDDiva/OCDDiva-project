@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card } from '@mui/material';
+import { Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import ProgressBar from '../ProgressBar/ProgressBar.jsx';
-
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 function CleaningQuestions() {
 
@@ -79,263 +85,287 @@ function CleaningQuestions() {
   const goBack = () => { history.push('/DefaultQuestions') }
 
   //! What Displays
-  //TODO Want to change all of these inputs to Textfields
   return (
     <center>
+
       <Card sx={{
         width: 'auto',
         minWidth: 250,
         margin: 2,
-        padding: 5,
+        padding: 1,
         boxShadow: 5,
       }}>
 
         <ProgressBar currentStep={1} />
         <form onSubmit={handleSubmit}>
 
-          <p>Do you want a cleaning service?</p>
+          <br />
 
-          <input
-            type="radio"
-            id="cleaningOptionYes"
-            name="cleaningOption"
-            value="yes"
-            checked={cleaningOption === 'yes'}
-            onChange={handleCleaningOptionChange}
-          />
+          <FormControl>
 
-          <label htmlFor="cleaningOptionYes">Yes</label>
+            <Typography variant="h5"> Do you need a cleaning service? </Typography>
 
-          <input
-            type="radio"
-            id="cleaningOptionNo"
-            name="cleaningOption"
-            value="no"
-            checked={cleaningOption === 'no'}
-            onChange={handleCleaningOptionChange}
-          />
-          <label htmlFor="cleaningOptionNo">No</label>
+            <RadioGroup sx={{ display: 'block' }}
+              row
+              className='rowCleaningQuestion'
+              name="radio-btn-row-cleaning-question" >
+
+              <FormControlLabel value="yes" control={<Radio />} label="Yes" onChange={handleCleaningOptionChange} labelPlacement="bottom" />
+              <FormControlLabel value="no" control={<Radio />} label="No" onChange={handleCleaningOptionChange} labelPlacement="bottom" />
+
+            </RadioGroup>
+          </FormControl>
+
+          <br />
 
           {cleaningOption === 'yes' && (
             <div>
-              <label htmlFor="serviceType">Select a cleaning service:</label>
-              <select
-                id="serviceType"
-                name="serviceType"
-                value={serviceType}
-                onChange={handleServiceTypeChange}
-              >
-                <option value="">Select service type</option>
-                <option value="essential">Essential Cleaning</option>
-                <option value="ultimate">Ultimate Cleaning</option>
-              </select>
+              <br />
 
-              {/* ESSENTIAL Clean */}
-              {serviceType === 'essential' && (
-                <div>
-                  <ul>
+              <FormControl variant="standard">
+                <FormLabel> Please select a service: </FormLabel>
+                <Select
+                  id="serviceType"
+                  label="Service Type"
+                  value={serviceType}
+                  onChange={handleServiceTypeChange} >
 
-                    <li>
+                  <br /><br />
+
+                  <MenuItem value="essential">Essential Cleaning</MenuItem>
+                  <MenuItem value="ultimate">Ultimate Cleaning</MenuItem>
+
+                </Select>
+                <br />
+
+                {/* ESSENTIAL Clean */}
+                {serviceType === 'essential' && (
+                  <div>
+                    <ul>
+
+                      <li>
+                        {/* Bedrooms */}
+                        <Typography> How many bedrooms do you have? </Typography>
+
+                        <TextField
+                          required
+                          type='number'
+                          id='numberOfBedrooms'
+                          name='numberOfBedrooms'
+                          value={numberOfBedrooms}
+                          onChange={handleNumberOfBedroomsChange}
+                        />
+                      </li>
+
+                      <br />
+
+                      <li>
+                        {/* Bathrooms */}
+                        <Typography> How many bathrooms do you have? </Typography>
+
+                        <TextField
+                          required
+                          type='number'
+                          id='numberOfBathrooms'
+                          name='numberOfBathrooms'
+                          value={numberOfBathrooms}
+                          onChange={handleNumberOfBathroomsChange}
+                        />
+                      </li>
+
+                      <br />
+
+                      <li>
+                        {/* Additional rooms */}
+                        <Typography> How many additional rooms do you have? </Typography>
+
+                        <TextField
+                          type='number'
+                          id='numberOfAdditionalRooms'
+                          name='numberOfAdditionalRooms'
+                          value={numberOfAdditionalRooms}
+                          onChange={handleNumberOfAdditionalRoomsChange}
+                        />
+
+                      </li>
+
+                      <br />
+
+                      <li>
+                        {/* Pets Question*/}
+
+                        <FormControl>
+
+                          <Typography > Do you have pets? </Typography>
+
+                          <RadioGroup sx={{ display: 'block' }}
+                            row
+                            className='rowCleaningQuestion'
+                            name="radio-btn-row-cleaning-question" >
+
+                            <FormControlLabel value="yes" id="hasPetsYes" checked={hasPets === true} control={<Radio />} label="Yes" onChange={handleHasPetsChange} labelPlacement="bottom" />
+                            <FormControlLabel value="no" id="hasPetsNo" checked={hasPets === false} control={<Radio />} label="No" onChange={handleHasPetsChange} labelPlacement="bottom" />
+
+                          </RadioGroup>
+                        </FormControl>
+
+                      </li>
+
+                      <br />
+
+                      <li>
+                        {/* Hazards */}
+                        <Typography> Are there any hazardous conditions we should know about? </Typography>
+
+                        <TextField
+                          type='text'
+                          id='hazardousConditions'
+                          name='hazardousConditions'
+                          helperText="Ex. Mold, infestations, etc."
+                          value={hazardousConditions}
+                          onChange={handleHazardousConditionsChange}
+                        />
+                      </li>
+                    </ul>
+
+                    {/* Submit Button */}
+                    <button className="btn" type="submit"> Next </button>
+
+                  </div>
+                )}
+
+                {/* ULTIMATE Clean */}
+                {serviceType === 'ultimate' && (
+                  <div>
+                    <ul>
+
                       {/* Bedrooms */}
-                      <label htmlFor="numberOfBedrooms">Number of Bedrooms:</label>
-                      <input
-                        type="number"
-                        id="numberOfBedrooms"
-                        name="numberOfBedrooms"
-                        value={numberOfBedrooms}
-                        onChange={handleNumberOfBedroomsChange}
-                      />
-                    </li>
+                      <li>
+                        <Typography> How many bedrooms do you have? </Typography>
 
-                    <li>
+                        <TextField
+                          required
+                          type='number'
+                          id='numberOfBedrooms'
+                          name='numberOfBedrooms'
+                          value={numberOfBedrooms}
+                          onChange={handleNumberOfBedroomsChange}
+                        />
+                      </li>
+
+                      <br />
+
                       {/* Bathrooms */}
-                      <label htmlFor="numberOfBathrooms">Number of Bathrooms:</label>
-                      <input
-                        type="number"
-                        id="numberOfBathrooms"
-                        name="numberOfBathrooms"
-                        value={numberOfBathrooms}
-                        onChange={handleNumberOfBathroomsChange}
-                      />
-                    </li>
+                      <li>
+                        <Typography> How many bathrooms do you have? </Typography>
 
-                    <li>
+                        <TextField
+                          required
+                          type='number'
+                          id='numberOfBathrooms'
+                          name='numberOfBathrooms'
+                          value={numberOfBathrooms}
+                          onChange={handleNumberOfBathroomsChange}
+                        />
+                      </li>
+
+                      <br />
+
                       {/* Additional rooms */}
-                      <label htmlFor="numberOfAdditionalRooms">Number of Additional Rooms:</label>
-                      <input
-                        type="number"
-                        id="numberOfAdditionalRooms"
-                        name="numberOfAdditionalRooms"
-                        value={numberOfAdditionalRooms}
-                        onChange={handleNumberOfAdditionalRoomsChange}
-                      />
-                    </li>
+                      <li>
+                        <Typography> How many additional rooms do you have? </Typography>
 
-                    <li>
+                        <TextField
+                          type='number'
+                          id='numberOfAdditionalRooms'
+                          name='numberOfAdditionalRooms'
+                          value={numberOfAdditionalRooms}
+                          onChange={handleNumberOfAdditionalRoomsChange}
+                        />
+                      </li>
 
-                      <p>Do you have pets?</p>
+                      <br />
 
-                      {/* Pets Yes*/}
-                      <input
-                        type="radio"
-                        id="hasPetsYes"
-                        name="hasPets"
-                        value="yes"
-                        checked={hasPets === true}
-                        onChange={handleHasPetsChange}
-                      />
-                      <label htmlFor="hasPetsYes">Yes</label>
+                      <li>
+                        {/* Doors and Windows */}
+                        {/*//! This should be split into separate inputs.. */}
 
-                      {/* Pets No*/}
-                      <input
-                        type="radio"
-                        id="hasPetsNo"
-                        name="hasPets"
-                        value="no"
-                        checked={hasPets === false}
-                        onChange={handleHasPetsChange}
-                      />
-                      <label htmlFor="hasPetsNo">No</label>
-                    </li>
+                        <Typography> How many doors and windows need to be cleaned? </Typography>
 
-                    <li>
-                      {/* Hazards */}
-                      <label htmlFor="hazardousConditions">Hazardous Conditions:</label>
-                      <input
-                        type="text"
-                        id="hazardousConditions"
-                        name="hazardousConditions"
-                        value={hazardousConditions}
-                        onChange={handleHazardousConditionsChange}
-                      />
+                        <TextField
+                          type='number'
+                          id='numberOfDoorsWindows'
+                          name='numberOfDoorsWindows'
+                          value={numberOfDoorsWindows}
+                          onChange={handleNumberOfDoorsWindowsChange}
+                        />
+                      </li>
+
+                      <br />
+
+                      {/* Pets Question*/}
+                      <li>
+                        <FormControl>
+
+                          <Typography > Do you have pets? </Typography>
+
+                          <RadioGroup sx={{ display: 'block' }}
+                            row
+                            className='rowCleaningQuestion'
+                            name="radio-btn-row-cleaning-question" >
+
+                            <FormControlLabel value="yes" id="hasPetsYes" checked={hasPets === true} control={<Radio />} label="Yes" onChange={handleHasPetsChange} labelPlacement="bottom" />
+                            <FormControlLabel value="no" id="hasPetsNo" checked={hasPets === false} control={<Radio />} label="No" onChange={handleHasPetsChange} labelPlacement="bottom" />
+
+                          </RadioGroup>
+                        </FormControl>
+                      </li>
+
+                      <br />
+
+
+                      <li>
+                        {/* Hazards */}
+                        <Typography> Are there any hazardous conditions we should know about? </Typography>
+
+                        <TextField
+                          type='text'
+                          id='hazardousConditions'
+                          name='hazardousConditions'
+                          helperText="Ex. Mold, infestations, etc."
+                          value={hazardousConditions}
+                          onChange={handleHazardousConditionsChange}
+                        />
                     </li>
                   </ul>
 
-                  {/* Submit Button */}
-                  <button className="btn" type="submit">Submit</button>
+                    {/* Submit Button */}
+                <button type="submit" className='btn'> Next </button>
 
-                </div>
-              )}
+                <br />
 
-              {/* ULTIMATE Clean */}
-              {serviceType === 'ultimate' && (
-                <div>
-                  <ul>
-
-                    <li>
-                      {/* Bedrooms */}
-                      <label htmlFor="numberOfBedrooms">Number of Bedrooms:</label>
-                      <input
-                        type="number"
-                        id="numberOfBedrooms"
-                        name="numberOfBedrooms"
-                        value={numberOfBedrooms}
-                        onChange={handleNumberOfBedroomsChange}
-                      />
-                    </li>
-
-                    <li>
-                      {/* Bathrooms */}
-                      <label htmlFor="numberOfBathrooms">Number of Bathrooms:</label>
-                      <input
-                        type="number"
-                        id="numberOfBathrooms"
-                        name="numberOfBathrooms"
-                        value={numberOfBathrooms}
-                        onChange={handleNumberOfBathroomsChange}
-                      />
-                    </li>
-
-                    <li>
-                      {/* Additional rooms */}
-                      <label htmlFor="numberOfAdditionalRooms">Number of Additional Rooms:</label>
-                      <input
-                        type="number"
-                        id="numberOfAdditionalRooms"
-                        name="numberOfAdditionalRooms"
-                        value={numberOfAdditionalRooms}
-                        onChange={handleNumberOfAdditionalRoomsChange}
-                      />
-                    </li>
-
-                    <li>
-                      {/* Doors and Windows */}
-                      <label htmlFor="numberOfDoorsWindows">Number of Doors/Windows to be cleaned:</label>
-                      <input
-                        type="number"
-                        id="numberOfDoorsWindows"
-                        name="numberOfDoorsWindows"
-                        value={numberOfDoorsWindows}
-                        onChange={handleNumberOfDoorsWindowsChange}
-                      />
-                    </li>
-
-                    <li>
-                      <p>Do you have pets?</p>
-
-                      {/* Pets Yes Button */}
-                      <input
-                        type="radio"
-                        id="hasPetsYes"
-                        name="hasPets"
-                        value="yes"
-                        checked={hasPets === true}
-                        onChange={handleHasPetsChange}
-                      />
-                      <label htmlFor="hasPetsYes">Yes</label>
-
-                      {/* Pets No Button */}
-                      <input
-                        type="radio"
-                        id="hasPetsNo"
-                        name="hasPets"
-                        value="no"
-                        checked={hasPets === false}
-                        onChange={handleHasPetsChange}
-                      />
-                      <label htmlFor="hasPetsNo">No</label>
-                    </li>
-
-                    <li>
-                      {/* Hazards */}
-                      <label htmlFor="hazardousConditions">Hazardous Conditions:</label>
-                      <input
-                        type="text"
-                        id="hazardousConditions"
-                        name="hazardousConditions"
-                        value={hazardousConditions}
-                        onChange={handleHazardousConditionsChange}
-                      />
-                    </li>
-                  </ul>
-
-                  {/* Submit Button */}
-                  <button type="submit" className='btn'>Submit</button>
-
-                  <br />
-
-                </div>
-              )}
             </div>
           )}
-
-          <br />
-          {/* Submit/Next Button */}
-          {cleaningOption === 'no' && (
-            <button className="btn" type="button" onClick={handleSubmit}>
-              Next
-            </button>
+        </FormControl>
+      </div>
           )}
 
+      <br />
+      {/* Submit/Next Button */}
+      {cleaningOption === 'no' && (
+        <button className="btn" type="button" onClick={handleSubmit}>
+          Next
+        </button>
+      )}
 
-          {/* Back Button */}
-          <button className="btn" type="button" onClick={goBack}>
-            Back
-          </button>
+      {/* Back Button */}
+      <button className="btn" type="button" onClick={goBack}>
+        Back
+      </button>
 
-        </form>
+    </form>
       </Card >
-    </center>
+    </center >
 
   );
 };
