@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fetchHistory(){
     try{
-        const history = yield axios.get('/userHistory')
+        const history = yield axios.get('/api/forms/userHistory')
         yield put({ type: 'SET_HISTORY', payload: history.data })
     } catch (error) {
         console.log(`Error in fetchHistory ${error}`);
