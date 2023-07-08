@@ -93,7 +93,6 @@ function CleaningQuestions() {
   const goBack = () => { history.push('/DefaultQuestions') }
 
   //! What Displays
-  //TODO Might want to change all of these inputs to Textfields, have to see if that will work
   return (
     <center>
 
