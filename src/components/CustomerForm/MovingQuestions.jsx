@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 
 function MovingQuestions() {
@@ -60,6 +61,7 @@ function MovingQuestions() {
     //What displays
     return (
         <>
+        <ProgressBar currentStep={2} />
             <h2 className="h2Headers">Are you moving?</h2>
             <br />
             <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

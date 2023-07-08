@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 function CleaningQuestions() {
 
@@ -82,13 +82,6 @@ function CleaningQuestions() {
     history.push('/movingquestions');
   };
 
-  //TODO Steve what is this? It isn't being used
-  const handleNext = (event) => {
-    console.log('Moving to the next page...');
-    event.preventDefault();
-    history.push('/movingquestions');
-  };
-
   //! Back
   const goBack = () => { history.push('/DefaultQuestions') }
 
@@ -104,6 +97,7 @@ function CleaningQuestions() {
         boxShadow: 5,
       }}>
 
+        <ProgressBar currentStep={1} />
         <form onSubmit={handleSubmit}>
 
           <br />
