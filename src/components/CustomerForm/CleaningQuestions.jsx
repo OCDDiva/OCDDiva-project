@@ -11,6 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 function CleaningQuestions() {
 
