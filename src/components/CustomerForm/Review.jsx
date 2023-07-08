@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 
 function Review() {
@@ -28,6 +29,7 @@ function Review() {
     //What displays
     return (
         <div className="customerReview">
+            <ProgressBar currentStep={5} />
             <h2 className="h2Headers">Review Your Information:</h2>
             <h3>Customer Information</h3>
             {

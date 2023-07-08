@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from '@mui/material';
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 //TODO Add MUI icons to back and next button in the return 
 //TODO Add multi-step progress bar to all the form components?
@@ -102,8 +103,10 @@ function DefaultQuestions() {
                     padding: 5,
                     boxShadow: 5,
                 }}>
+                    <ProgressBar currentStep={0} />
 
                     <Typography variant="h7"> Please enter the following information.</Typography>
+                    
 
                     <br /> <br />
                     <center>

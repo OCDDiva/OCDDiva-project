@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 
 function CleaningQuestions() {
@@ -74,13 +75,6 @@ function CleaningQuestions() {
     history.push('/movingquestions');
   };
 
-  //TODO Steve what is this? It isn't being used
-  const handleNext = (event) => {
-    console.log('Moving to the next page...');
-    event.preventDefault();
-    history.push('/movingquestions');
-  };
-
   //! Back
   const goBack = () => { history.push('/DefaultQuestions') }
 
@@ -96,8 +90,8 @@ function CleaningQuestions() {
         boxShadow: 5,
       }}>
 
+        <ProgressBar currentStep={1} />
         <form onSubmit={handleSubmit}>
-
 
           <p>Do you want a cleaning service?</p>
 

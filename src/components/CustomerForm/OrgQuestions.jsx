@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 // 1. # Bedrooms to be organized
 // 2. # Bathrooms to be organized
@@ -50,6 +51,7 @@ function OrgQuestions() {
     //What displays
     return (
         <>
+        <ProgressBar currentStep={3} />
             <h2 className="h2Headers">Would you like your space organized?</h2>
             <br />
             <form onChange={organizing} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

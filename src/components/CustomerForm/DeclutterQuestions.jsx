@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
 // 1. # Bedrooms to declutter
 // 2. # Bathrooms to declutter
@@ -48,6 +49,7 @@ function DeclutterQuestions() {
     //What displays
     return (
         <>
+        <ProgressBar currentStep={4} />
             <h2 className="h2Headers">Would you like your space Decluttered?</h2>
             <br />
             <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
