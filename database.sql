@@ -51,6 +51,7 @@ CREATE TABLE "user_media" (
 
 INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
 VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
+
 CREATE TABLE "cleaning_questions" (
     id serial primary key,
     inquiry_id INT references user_inquiries,
