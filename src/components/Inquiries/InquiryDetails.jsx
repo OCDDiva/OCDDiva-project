@@ -9,6 +9,7 @@ function InquiryDetails() {
     const history = useHistory();
     const inquiryDetails = useSelector(store => store.inquiryDetails)
     const { inquiriesId } = useParams();
+    console.log(inquiryDetails)
 
     useEffect(() => {
         dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
@@ -24,7 +25,7 @@ function InquiryDetails() {
     // TODO see what miguel made for the dispatch for adding notes and edit accordingly
     const changeNote = (e) => {
         e.preventDefault();
-        if (inquiryDetails.notes.length > 0) {
+        if (inquiryDetails.notes.length> 0) {
             dispatch({ type: 'EDIT_NOTE', payload: { inquiryDetails, inquiriesId, }, history });
         } else {
             dispatch({ type: 'ADD_NOTE', payload: { inquiryDetails }, history })
@@ -32,7 +33,7 @@ function InquiryDetails() {
     }
 
     const noteButton = () => {
-        if (inquiryDetails.notes.length > 0) {
+        if (inquiryDetails.notes.length> 0) {
             return 'Edit Note'
         } else {
             return 'Add Note'
