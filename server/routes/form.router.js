@@ -141,19 +141,20 @@ router.get('/allUserInfo', async (req, res) => {
   try { 
     await client.query('BEGIN');
     const queryText =  `SELECT * FROM "user_inquiries";`
-    await client.query(queryText);
-    const customerQuery =  `SELECT * FROM "customers" WHERER "inquiries"."id" = $1;`;
-    await client.query(customerQuery);
+    const queryResult = await client.query(queryText)
+    const primaryTableId = queryResult.rows[0].id;
+    const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
+    await client.query(customerQuery, [primaryTableId]);
     const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(cleaningQuestions);
+    await client.query(cleaningQuestions, [primaryTableId]);
     const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(movingQuestions);
+    await client.query(movingQuestions, [primaryTableId]);
     const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(organizingQuestions);
+    await client.query(organizingQuestions, [primaryTableId]);
     const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(declutteringQuestions);
+    await client.query(declutteringQuestions,[primaryTableId]);
     const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
-    await client.query(userMedia);
+    await client.query(userMedia, [primaryTableId]);
     await client.query('COMMIT');
     console.log('Data retrieved successfully.');
     // TODO Finish this so we can retrieve all data from the tables as a single object and parse through it
@@ -166,6 +167,7 @@ router.get('/allUserInfo', async (req, res) => {
     client.release();
   }
 });
+
 
 /**
  * POST ESSENTIAL CUSTOMER INFO(default) route template
