@@ -114,9 +114,14 @@ CREATE TABLE "user_inquiries" (
 	"comments" VARCHAR(10000)
 );
 
+<<<<<<< HEAD
+INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "moving", "cleaning", "organizing", "declutting", "comments")
+VALUES (1, 1, 1, 1, 1, 1, 1, 1, 1, 'Everett was here');
+=======
 
 INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "firstName", "lastName", "street1", "city", "state", "zip", "phone_number", "email", "priority", "completion_status", "comments")
 VALUES (1, 1, 1, '2023-06-29', '2023-07-01', 'Everett', 'Butler', '123 Vista Wayyy', 'Chiefs-Kingdom', 'MO', '12345', '8165555555', 'chiefsrule@email.com', 1, 5, 'Everett was here');
+>>>>>>> 9dbad00a47355d2a046ec71ccb8d317b6856d40f
 
 SELECT
 "services"."description" AS "services_id",
@@ -143,5 +148,14 @@ CREATE TABLE "customer" (
 	"notes" VARCHAR(40000)
 );
 
+<<<<<<< HEAD
+INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "residence", "completion_status", "priority",  "service_on")
+VALUES (1, 1, 1, 1, 'Everett', 'Butler', '123 Vista Wayyyyyy', null, 'Illicit', 'MO', '12345', '5555555555', 'yowaddup@email.com', 'Home', 5, 1, '2023-06-26');
+
+
+-- NO TEST DATA YET
+
+=======
 INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "service_on", "notes")
 VALUES (1, 1, 1, 1, '2023-06-30', 'Everett has notes, yo');
+>>>>>>> 9dbad00a47355d2a046ec71ccb8d317b6856d40f
