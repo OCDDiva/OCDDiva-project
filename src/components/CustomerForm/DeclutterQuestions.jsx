@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
+import { TextField, Typography, Card } from '@mui/material';
 
 // 1. # Bedrooms to declutter
 // 2. # Bathrooms to declutter
@@ -50,47 +51,47 @@ function DeclutterQuestions() {
     return (
         <>
         <ProgressBar currentStep={4} />
-            <h2 className="h2Headers">Would you like your space Decluttered?</h2>
-            <br />
-            <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <input type="radio" value={true} name="Yes" /> Yes
-                <input type="radio" value={false} name="No" /> No
-            </form>
-            {declutteringValue === "true" && (
-                <div className="declutteringQuestions">
-                    <ol>
-                        <li>
-                            <label>
+        <center>
+                <Card sx={{
+                    width: 'auto',
+                    minWidth: 250,
+                    margin: 1,
+                    padding: 5,
+                    boxShadow: 5,
+                }}>
+                    <h2 className="h2Headers">Would you like your space Decluttered?</h2>
+                    <br />
+                    <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <input type="radio" value={true} name="Yes" /> Yes
+                        <input type="radio" value={false} name="No" /> No
+                    </form>
+                    {declutteringValue === "true" && (
+                        <div className="declutteringQuestions" style={{ display: 'inline-block' }}>
+                            <div>
                                 <p>Number of bedrooms to be decluttered?</p>
                                 <input
                                     type="number"
                                     value={numBedrooms}
                                     onChange={(event) => setNumBedrooms(event.target.value)}
                                 />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
+                            </div>
+                            <div>
                                 <p>Number of bathrooms to be decluttered?</p>
                                 <input
                                     type="number"
                                     value={numBathrooms}
                                     onChange={(event) => setNumBathrooms(event.target.value)}
                                 />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
+                            </div>
+                            <div>
                                 <p>Number of additional rooms to be decluttered?</p>
                                 <input
                                     type="number"
                                     value={numAdditionalRooms}
                                     onChange={(event) => setNumAdditionalRooms(event.target.value)}
                                 />
-                            </label>
-                        </li>
-                        <li>
-                            <label>
+                            </div>
+                            <div>
                                 <p>Would you like to donate any items today?</p>
                                 <input
                                     type="radio"
@@ -103,17 +104,17 @@ function DeclutterQuestions() {
                                     value="false"
                                     onChange={(event) => setDonationStatus(event.target.value)}
                                 /> No
-                            </label>
-                        </li>
-                    </ol>
-                </div>
-            )}
-            <br />
-            <br />
-            <button className="btn" onClick={goBack}> Back </button>
-            <br />
-            <br />
-            <button className="btn" onClick={nextStep}>Next</button>
+                            </div>
+                        </div>
+                    )}
+                    <br />
+                    <br />
+                    <button className="btn" onClick={goBack}> Back </button>
+                    <br />
+                    <br />
+                    <button className="btn" onClick={nextStep}>Next</button>
+                </Card>
+            </center>
         </>
 
     )
