@@ -34,10 +34,9 @@ function MovingQuestions() {
 
     const goBack = () => { history.goBack() }
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
-        // dispatch({ type: 'GET_HISTORY' });
-    }, []);
+    // useEffect(() => {
+    //     dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
+    // }, []);
 
     const inquiryDetails = useSelector(store => store.inquiryDetails);
 

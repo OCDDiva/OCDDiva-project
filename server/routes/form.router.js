@@ -126,8 +126,36 @@ router.get('/customers/:id', (req, res) => {
 /**
  * GET #5 USER HISTORY route template
  */
-router.get('/', (req, res) => {
+router.get('/allUserInfo', async (req, res) => {
   // GET #5 route code here
+  const client = await pool.connect();
+  try { 
+    await client.query('BEGIN');
+    const queryText =  `SELECT * FROM "user_inquiries";`
+    await client.query(queryText);
+    const customerQuery =  `SELECT * FROM "customers" WHERER "inquiries"."id" = $1;`;
+    await client.query(customerQuery);
+    const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(cleaningQuestions);
+    const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(movingQuestions);
+    const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(organizingQuestions);
+    const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
+    await client.query(declutteringQuestions);
+    const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
+    await client.query(userMedia);
+    await client.query('COMMIT');
+    console.log('Data retrieved successfully.');
+    // TODO Finish this so we can retrieve all data from the tables as a single object and parse through it
+    // res.send(result.rows)
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.log('Error inserting data', error);
+    res.status(500).send('Failed to insert data.');
+  } finally {
+    client.release();
+  }
 });
 
 /**
@@ -149,12 +177,13 @@ router.post('/', async (req, res) => {
       req.body.zip,
       req.body.phone_number,
       req.body.email,
+      req.body.user_id,
     ];
     console.log(values);
     const queryText = `
       INSERT INTO "user_inquiries" 
-      ("firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id";
+      ("firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "user_id") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id";
     `;
     let inquiryResult = await client.query(queryText, values);
     let inquiryId = inquiryResult.rows[0].id;
@@ -171,6 +200,8 @@ router.post('/', async (req, res) => {
     const delcuttQuery = `INSERT INTO "decluttering_questions" ("inquiry_id") 
                           VALUES ($1);`;
     await client.query(delcuttQuery, [inquiryId]);
+    const customerQuery = `INSERT INTO "customer" ("inquiries") VALUES ($1);`;
+    await client.query(customerQuery, [inquiryId]);
     await client.query('COMMIT');
     console.log('Data inserted successfully');
     res.sendStatus(200);
