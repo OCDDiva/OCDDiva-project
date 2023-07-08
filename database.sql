@@ -41,7 +41,7 @@ CREATE TABLE "user_media" (
  CREATE TABLE "moving_questions" (
 	id serial primary key,
 	inquiry_id INT references user_inquiries,
-	"moving" BOOLEAN default false, 
+	"moving" BOOLEAN default false,
 	"moving_to" VARCHAR (10000),
 	"moving_from" VARCHAR (10000),
 	"large_items" VARCHAR (10000)
