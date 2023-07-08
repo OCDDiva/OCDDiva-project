@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { TextField, Typography, Card } from '@mui/material';
 
 
 function Review() {
@@ -17,7 +18,7 @@ function Review() {
     }
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_INQUIRIES' });
+        // dispatch({ type: 'FETCH_INQUIRIES' });
         // dispatch({ type: 'GET_HISTORY' });
     }, []);
 
@@ -28,27 +29,32 @@ function Review() {
     //What displays
     return (
         <div className="customerReview">
-            <h2 className="h2Headers">Review Your Information:</h2>
-            <h3>Customer Information</h3>
-            {
-                customerDetails.map((customer) =>
-                    <div key={customer.id}>
-                        <p>{customer.firstName} {customer.lastName}</p>
-                        <p></p>
-                        <p>{customer.street1}</p>
-                    </div>
-                )
-            }
+            <center>
+                <Card>
+                    <h2 className="h2Headers">Review Your Information:</h2>
+                    <h3>Customer Information</h3>
+                    {
+                        customerDetails.map((customer) =>
+                            <div key={customer.id}>
+                                <p>{customer.firstName} {customer.lastName}</p>
+                                <p></p>
+                                <p>{customer.street1}</p>
+                            </div>
+                        )
+                    }
 
-            <h3>Cleaning Questions</h3>
-            <h3>Moving Questions</h3>
-            <h3>Organizing Questions</h3>
-            <h3>Decluttering Questions</h3>
-            <input type="photo" />
-            <br />
-            <br />
-            <button className="btn" onClick={goBack}> Back </button>
-            <button className="btn" onClick={submitInquiry}>Submit</button>
+                    <h3>Cleaning Questions</h3>
+                    <h3>Moving Questions</h3>
+                    <h3>Organizing Questions</h3>
+                    <h3>Decluttering Questions</h3>
+                    <input type="photo" />
+                    <br />
+                    <br />
+                    <button className="btn" onClick={goBack}> Back </button>
+                    <button className="btn" onClick={submitInquiry}>Submit</button>
+                </Card>
+            </center>
+
         </div>
 
 

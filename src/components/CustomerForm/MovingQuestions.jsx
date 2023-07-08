@@ -11,13 +11,17 @@ function MovingQuestions() {
     const history = useHistory();
     const dispatch = useDispatch();
 
+
     const [moving, setMoving] = useState(false);
     const [movingTo, setMovingTo] = useState('');
     const [movingFrom, setMovingFrom] = useState('');
     const [largeItems, setLargeItems] = useState('');
     const user = useSelector(store => store.user);
+    const inquiryDetails = useSelector(store => store.inquiryDetails);
+    const allUserInfo = useSelector(store => store.allUserInfo);
 
-    const movingValue = (event) => {
+
+    const handleMovingValue = (event) => {
         setMoving(event.target.value)
     };
 
@@ -35,13 +39,11 @@ function MovingQuestions() {
 
     const goBack = () => { history.goBack() }
 
-    // useEffect(() => {
-    //     dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
-    // }, []);
+    useEffect(() => {
+        dispatch({ type: 'FETCH_ALL_INFO' });
+    }, []);
 
-    const inquiryDetails = useSelector(store => store.inquiryDetails);
-
-    console.log('Checking inquiry Details', inquiryDetails)
+    console.log('Checking inquiry Details', allUserInfo)
 
     const nextStep = (event) => {
         event.preventDefault();
@@ -63,57 +65,74 @@ function MovingQuestions() {
     return (
         <>
             <center>
-                <Card>
+                <Card sx={{
+                    width: 'auto',
+                    minWidth: 250,
+                    margin: 1,
+                    padding: 5,
+                    boxShadow: 5,
+                }}>
                     <Typography variant="h4" className="h2Headers">Are you moving?</Typography>
                     <br />
-                    <form onChange={movingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <input type="radio" value={true} name="Yes" /> Yes
-                        <input type="radio" value={false} name="No" /> No
-                    </form>
-                    {moving === "true" && (
-                        <div className="movingQuestions">
-                            <br />
-                            <br />
-                            <ul style={{ listStyle: "none" }}>
-                                <li>
-                                    <label>
-                                        <p>Where are you moving to?</p>
-                                        <input
-                                            type="text"
-                                            value={movingTo}
-                                            onChange={movingToValue}
-                                        />
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <p>Where are you moving from?</p>
-                                        <input
-                                            type="text"
-                                            value={movingFrom}
-                                            onChange={movingFromValue}
-                                        />
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <p>What large items do you have that will need to be moved?</p>
-                                        <input
-                                            type="text"
-                                            value={largeItems}
-                                            onChange={largeItemsValue}
-                                        />
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                    )}
-                    <br />
-                    <br />
-                    <button className="btn" onClick={nextStep}>Next</button>
-                    <br />
-                    <br />
-                    <button className="btn" onClick={goBack}> Back </button>
+                    <center>
+                        <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <input
+                                type="radio"
+                                value={true}
+                                name="Yes"
+                                checked={moving === true}
+                                onChange={handleMovingValue}
+                            /> Yes
+
+                            <input
+                                type="radio"
+                                value={false}
+                                name="No"
+                                checked={moving === false}
+                                onChange={handleMovingValue}
+                            /> No
+                        </form>
+                        {moving === "true" && (
+                            <div className="movingQuestions" style={{ display: 'inline-block' }}>
+                                <br />
+                                <br />
+                                <div>
+                                    <p>Where are you moving to?</p>
+                                    <TextField
+                                        type="text"
+                                        value={movingTo}
+                                        onChange={movingToValue}
+                                    />
+                                </div>
+                                <div>
+                                    <p>Where are you moving from?</p>
+                                    <TextField
+                                        type="text"
+                                        value={movingFrom}
+                                        onChange={movingFromValue}
+                                    />
+                                </div>
+                                <div>
+                                    <p>What large items do you have that will need to be moved?</p>
+                                    <TextField
+                                        type="text"
+                                        value={largeItems}
+                                        onChange={largeItemsValue}
+                                    />
+
+                                </div>
+                            </div>
+                        )}
+                        <br />
+                        <br />
+                        <button className="btn" onClick={goBack}> Back </button>
+                        <br />
+                        <br />
+                        <button className="btn" onClick={nextStep}>Next</button>
+
+                    </center>
+
+
                 </Card>
 
             </center>

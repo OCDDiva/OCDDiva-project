@@ -45,7 +45,13 @@ function DeclutterQuestions() {
     return (
         <>
             <center>
-                <Card>
+                <Card sx={{
+                    width: 'auto',
+                    minWidth: 250,
+                    margin: 1,
+                    padding: 5,
+                    boxShadow: 5,
+                }}>
                     <h2 className="h2Headers">Would you like your space Decluttered?</h2>
                     <br />
                     <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -53,63 +59,55 @@ function DeclutterQuestions() {
                         <input type="radio" value={false} name="No" /> No
                     </form>
                     {declutteringValue === "true" && (
-                        <div className="declutteringQuestions">
-                            <ul style={{ listStyle: 'none' }}>
-                                <li>
-                                    <label>
-                                        <p>Number of bedrooms to be decluttered?</p>
-                                        <input
-                                            type="number"
-                                            value={numBedrooms}
-                                            onChange={(event) => setNumBedrooms(event.target.value)}
-                                        />
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <p>Number of bathrooms to be decluttered?</p>
-                                        <input
-                                            type="number"
-                                            value={numBathrooms}
-                                            onChange={(event) => setNumBathrooms(event.target.value)}
-                                        />
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <p>Number of additional rooms to be decluttered?</p>
-                                        <input
-                                            type="number"
-                                            value={numAdditionalRooms}
-                                            onChange={(event) => setNumAdditionalRooms(event.target.value)}
-                                        />
-                                    </label>
-                                </li>
-                                <li>
-                                    <label>
-                                        <p>Would you like to donate any items today?</p>
-                                        <input
-                                            type="radio"
-                                            value="true"
-                                            onChange={(event) => setDonationStatus(event.target.value)}
-                                        /> Yes
-                                        <br />
-                                        <input
-                                            type="radio"
-                                            value="false"
-                                            onChange={(event) => setDonationStatus(event.target.value)}
-                                        /> No
-                                    </label>
-                                </li>
-                            </ul>
+                        <div className="declutteringQuestions" style={{ display: 'inline-block' }}>
+                            <div>
+                                <p>Number of bedrooms to be decluttered?</p>
+                                <input
+                                    type="number"
+                                    value={numBedrooms}
+                                    onChange={(event) => setNumBedrooms(event.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <p>Number of bathrooms to be decluttered?</p>
+                                <input
+                                    type="number"
+                                    value={numBathrooms}
+                                    onChange={(event) => setNumBathrooms(event.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <p>Number of additional rooms to be decluttered?</p>
+                                <input
+                                    type="number"
+                                    value={numAdditionalRooms}
+                                    onChange={(event) => setNumAdditionalRooms(event.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <p>Would you like to donate any items today?</p>
+                                <input
+                                    type="radio"
+                                    value="true"
+                                    onChange={(event) => setDonationStatus(event.target.value)}
+                                /> Yes
+                                <br />
+                                <input
+                                    type="radio"
+                                    value="false"
+                                    onChange={(event) => setDonationStatus(event.target.value)}
+                                /> No
+                            </div>
                         </div>
                     )}
                     <br />
                     <br />
-                    <button className="btn" onClick={nextStep}>Next</button>
-                    <br />
-                    <br />
                     <button className="btn" onClick={goBack}> Back </button>
+                    <br />
+                    <br />
+                    <button className="btn" onClick={nextStep}>Next</button>
+
+
                 </Card>
             </center>
         </>
