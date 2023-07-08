@@ -52,6 +52,7 @@ CREATE TABLE "user_media" (
 INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
 VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
 
+
 CREATE TABLE "cleaning_questions" (
     id serial primary key,
     inquiry_id INT references user_inquiries,
@@ -97,6 +98,7 @@ VALUES (true, 3, 2, 1, true);
 CREATE TABLE "user_inquiries" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INT REFERENCES users,
+	"services_id" INT REFERENCES services,
 	"date_received" DATE,
 	"date_requested" DATE,
 	"firstName" varchar(100),
@@ -137,10 +139,9 @@ CREATE TABLE "customer" (
 	"id" serial primary key,
 	"user_id" integer REFERENCES users,
 	"inquiries" integer REFERENCES user_inquiries ON DELETE CASCADE,
-	"services_id" integer REFERENCES services,
 	"service_on" date,
 	"notes" VARCHAR(40000)
 );
 
-INSERT INTO "customer" ("id", "user_id", "inquiries", "services_id", "service_on", "notes")
-VALUES (1, 1, 1, 1, '2023-06-30', 'Everett has notes, yo');
+INSERT INTO "customer" ("id", "user_id", "inquiries", "service_on", "notes")
+VALUES (1, 1, 1, '2023-06-30', 'Everett has notes, yo');

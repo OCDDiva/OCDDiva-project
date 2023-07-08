@@ -13,10 +13,19 @@ function* fetchCustomers() {
     }
 }
 
-
+function* fetchCustomersDetails(action) {
+    try {
+        const customersDetails = yield axios.get(`/api/forms/customers/${action.payload}`);
+        yield put({ type: 'SET_CUSTOMERS_DETAILS', payload: customersDetails.data});
+    } catch (error) {
+        console.log(`Error in fetchCustmomersDetails: ${error}`);
+        alert('Something went wrong!')
+    }
+}
 
 function* customerSaga() {
     yield takeEvery('FETCH_CUSTOMERS', fetchCustomers);
+    yield takeEvery('FETCH_CUSTOMERS_DETAILS', fetchCustomersDetails);
 }
 
 
