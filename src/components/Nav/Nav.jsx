@@ -18,7 +18,7 @@ function Nav() {
         <div className="nav">
           <Link to="/home">
 
-            <img src="/ocd-diva-header.jpg" width="300px" />
+            <img src="/ocddiva-diamond-header.png" width="100%" />
 
             <br /> 
 
@@ -60,6 +60,7 @@ function Nav() {
 
             <LogOutButton className="navLink" />
           </center>
+          <hr />
         </>
       )}
       </div>

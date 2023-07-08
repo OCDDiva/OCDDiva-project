@@ -80,7 +80,7 @@ function DefaultQuestions() {
             phone_number: '',
             email: '',
             user_id: user.id
-          });
+        });
         history.push('/cleaningquestions');
     }
 
@@ -92,7 +92,12 @@ function DefaultQuestions() {
         <>
             <center>
                 <br /> <br />
+
                 <Typography variant="h4"> New Inquiry Form</Typography>
+
+                <br />
+
+                <ProgressBar currentStep={0} />
 
                 <br />
 
@@ -103,12 +108,13 @@ function DefaultQuestions() {
                     padding: 5,
                     boxShadow: 5,
                 }}>
-                    <ProgressBar currentStep={0} />
 
-                    <Typography variant="h7"> Please enter the following information.</Typography>
-                    
+                    <Typography variant="h6" sx={{width: '100%',}}> 
+                    Please enter the following information.
+                    </Typography>
 
                     <br /> <br />
+
                     <center>
                         <form onSubmit={submit}>
                             <TextField placeholder="First Name"
