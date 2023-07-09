@@ -1,9 +1,11 @@
+/* blue #27a9e3 purp #642d92 */
+
 .nav {
   /* flex box layout */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #00acb0;
+  background-color: #642d92;
   overflow: hidden;
   justify-content: center;
 }
@@ -13,31 +15,33 @@ h2 {
 }
 .nav a {
   text-decoration: none;
-  background-color:#00acb0;
+  background-color:#642d92;
 
 }
 
 .navBar {
-  background-color:#00acb0;
+  background-color:#642d92;
 }
 
 .nav-title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700px;
-  color: #f2f2f2;
-  padding-left: 10px;
-  margin-bottom: 30px;
+  color: white;
+  margin-bottom: 10px;
+  margin-top: -5px;
 }
 
 .navLink {
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: white;
+  background-color: #642d92;
   text-align: center;
-  padding: 14px 10px;
+  padding: 0px 7px;
   text-decoration: none;
   font-size: 15px;
   display: flexbox;
-  outline-color: black;
+  outline-style:groove;
+  outline: 4px;
+  outline-color: #27a9e3;
   margin-bottom: 10px;
   width: auto;
   
@@ -50,5 +54,15 @@ h2 {
 }
 
 .navLink:hover {
-  background-color: #008183;
+  background-color: #441f62;
+  padding: 5px;
+}
+
+hr {
+  background-color: #27a9e3;
+  border: #27a9e3;
+  border-width: 2px;
+  border-style: solid;
+  width: 100%;
+  height: 6px;
 }

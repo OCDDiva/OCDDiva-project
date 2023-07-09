@@ -88,6 +88,7 @@ function CleaningQuestions() {
   //! What Displays
   return (
     <center>
+        <ProgressBar currentStep={1} />
 
       <Card sx={{
         width: 'auto',
@@ -97,7 +98,6 @@ function CleaningQuestions() {
         boxShadow: 5,
       }}>
 
-        <ProgressBar currentStep={1} />
         <form onSubmit={handleSubmit}>
 
           <br />
@@ -145,6 +145,7 @@ function CleaningQuestions() {
                     <ul>
 
                       <li>
+                        
                         {/* Bedrooms */}
                         <Typography> How many bedrooms do you have? </Typography>
 
