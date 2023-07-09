@@ -129,15 +129,10 @@ function MovingQuestions() {
                         <br />
                         <br />
                         <button className="btn" onClick={nextStep}>Next</button>
-
                     </center>
-
-
                 </Card>
-
             </center>
         </>
-
     )
 } // End MovingQuestions()
 
