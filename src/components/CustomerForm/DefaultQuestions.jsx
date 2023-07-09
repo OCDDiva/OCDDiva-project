@@ -98,7 +98,7 @@ function DefaultQuestions() {
                 <ProgressBar currentStep={0} />
 
                 <br />
-                <ProgressBar currentStep={0} />
+                
                 <Card sx={{
                     width: 'auto',
                     minWidth: 250,
@@ -110,10 +110,7 @@ function DefaultQuestions() {
                     <Typography variant="h6" sx={{ width: '100%', }}>
                         Please enter the following information.
                     </Typography>
-
-                    <Typography variant="h7"> Please enter the following information.</Typography>
                     
-
                     <br /> <br />
 
                     <center>
