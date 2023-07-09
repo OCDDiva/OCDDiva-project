@@ -70,6 +70,7 @@ Button
   font: inherit;
   color: #444;
 }
+
 /* blue #27a9e3 purp #642d92 */
 
 .btn_asLink:hover {
@@ -136,5 +137,5 @@ ul {
   list-style-type: none;
   display: block;
   text-align: center;
-  
+
 }

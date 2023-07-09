@@ -4,9 +4,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
-//TODO Potentially change to hamburger menu
 //TODO Add conditional rendering to restrict views for admin & users
-//TODO Can edit the nav-title text
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -18,7 +16,7 @@ function Nav() {
         <div className="nav">
           <Link to="/home">
 
-            <img src="/ocddiva-diamond-header.png" width="100%" />
+            <img src="/ocddiva-diamond-header.png" width="80%" />
 
             <br /> 
 

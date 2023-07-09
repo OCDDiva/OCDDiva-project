@@ -91,8 +91,6 @@ function DefaultQuestions() {
     return (
         <>
             <center>
-                <br /> <br />
-
                 <Typography variant="h4"> New Inquiry Form</Typography>
 
                 <br />
@@ -109,8 +107,8 @@ function DefaultQuestions() {
                     boxShadow: 5,
                 }}>
 
-                    <Typography variant="h6" sx={{width: '100%',}}> 
-                    Please enter the following information.
+                    <Typography variant="h6" sx={{ width: '100%', }}>
+                        Please enter the following information.
                     </Typography>
 
                     <br /> <br />
