@@ -100,12 +100,14 @@ function OrgQuestions() {
                                     <input
                                         type="radio"
                                         value="true"
+                                        name="Donation"
                                         onChange={(event) => setDonationStatus(event.target.value)}
                                     /> Yes
                                     <br />
                                     <input
                                         type="radio"
                                         value="false"
+                                        name="Donation"
                                         onChange={(event) => setDonationStatus(event.target.value)}
                                     /> No
                                 </div>
