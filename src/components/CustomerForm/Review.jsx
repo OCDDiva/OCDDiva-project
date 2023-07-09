@@ -20,7 +20,7 @@ function Review() {
     }
 
     useEffect(() => {
-        // dispatch({ type: 'FETCH_ALL_INFO' });
+        dispatch({ type: 'FETCH_ALL_INFO' });
         // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 

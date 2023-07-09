@@ -145,9 +145,9 @@ router.get('/allUserInfo', async (req, res) => {
     console.log(queryResult);
     const primaryTableId = queryResult.rows[0].id;
     console.log('Checking the primaryTableId', primaryTableId)
-    // const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
-    // const customerQueryResult = await client.query(customerQuery, [primaryTableId]);
-    // console.log('checking customerQueryResult', customerQueryResult);
+    const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
+    const customerQueryResult = await client.query(customerQuery, [primaryTableId]);
+    console.log('checking customerQueryResult', customerQueryResult);
     const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
     const cleaningResult = await client.query(cleaningQuestions, [primaryTableId]);
     console.log('Cleaning Result', cleaningResult)
@@ -158,7 +158,7 @@ router.get('/allUserInfo', async (req, res) => {
     const orgResult = await client.query(organizingQuestions, [primaryTableId]);
     console.log('Checking orgResult', orgResult);
     const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
-    const decluttResult =await client.query(declutteringQuestions,[primaryTableId]);
+    const decluttResult = await client.query(declutteringQuestions,[primaryTableId]);
     console.log('Checking decluttResult', decluttResult)
     const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
     const mediaResult = await client.query(userMedia, [primaryTableId]);
