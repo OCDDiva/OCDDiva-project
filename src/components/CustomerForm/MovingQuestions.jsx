@@ -12,7 +12,7 @@ function MovingQuestions() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [moving, setMoving] = useState(false);
+    const [moving, setMoving] = useState();
     const [movingTo, setMovingTo] = useState('');
     const [movingFrom, setMovingFrom] = useState('');
     const [largeItems, setLargeItems] = useState('');
@@ -42,7 +42,7 @@ function MovingQuestions() {
 
     const inquiryDetails = useSelector(store => store.inquiryDetails);
 
-    console.log('Checking inquiry Details', inquiryDetails)
+    // console.log('Checking inquiry Details', inquiryDetails)
 
     const nextStep = (event) => {
         event.preventDefault();
