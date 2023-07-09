@@ -1,0 +1,27 @@
+.progress-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+  }
+  
+  .progress-bar {
+    font-size: 10px;
+  }
+  
+  .step-label {
+    font-size: 5px;
+    padding: 2px 4px;
+  }
+  
+  @media (max-width: 375px) {
+    .progress-bar {
+      font-size: 10px;
+    }
+  
+    .step-label {
+      font-size: 6px;
+      padding: 0px 0px;
+    }
+  }
+  
