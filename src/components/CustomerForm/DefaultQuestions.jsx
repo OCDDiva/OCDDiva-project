@@ -92,6 +92,7 @@ function DefaultQuestions() {
         <>
             <center>
                 <Typography variant="h4"> New Inquiry Form</Typography>
+
                 <br />
 
                 <ProgressBar currentStep={0} />

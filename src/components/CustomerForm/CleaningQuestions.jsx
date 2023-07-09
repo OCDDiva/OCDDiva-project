@@ -88,7 +88,7 @@ function CleaningQuestions() {
   //! What Displays
   return (
     <center>
-    <ProgressBar currentStep={1} />        <ProgressBar currentStep={1} />
+    <ProgressBar currentStep={1} />    
 
       <Card sx={{
         width: 'auto',
