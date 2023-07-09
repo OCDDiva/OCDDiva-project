@@ -62,8 +62,8 @@ function DeclutterQuestions() {
                     <h2 className="h2Headers">Would you like your space Decluttered?</h2>
                     <br />
                     <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <input type="radio" value={true} name="Yes" /> Yes
-                        <input type="radio" value={false} name="No" /> No
+                        <input type="radio" value={true} name="Organize" /> Yes
+                        <input type="radio" value={false} name="Organize" /> No
                     </form>
                     {declutteringValue === "true" && (
                         <div className="declutteringQuestions" style={{ display: 'inline-block' }}>

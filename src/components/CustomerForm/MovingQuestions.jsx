@@ -19,7 +19,7 @@ function MovingQuestions() {
     const user = useSelector(store => store.user);
 
     const handleMovingValue = (event) => {
-        setMoving(event.target.value)
+        setMoving(event.target.value);
     };
 
     const movingToValue = (event) => {
@@ -40,7 +40,7 @@ function MovingQuestions() {
     //     dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     // }, []);
 
-    const inquiryDetails = useSelector(store => store.inquiryDetails);
+    // const inquiryDetails = useSelector(store => store.inquiryDetails);
 
     // console.log('Checking inquiry Details', inquiryDetails)
 
@@ -75,21 +75,19 @@ function MovingQuestions() {
                     <Typography variant="h4" className="h2Headers">Are you moving?</Typography>
                     <br />
                     <center>
-                        <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <form  onChange={handleMovingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <input
                                 type="radio"
                                 value={true}
-                                name="Yes"
-                                checked={moving === true}
-                                onChange={handleMovingValue}
+                                name="Moving"
+                                // checked={moving === true}
                             /> Yes
 
                             <input
                                 type="radio"
                                 value={false}
-                                name="No"
-                                checked={moving === false}
-                                onChange={handleMovingValue}
+                                name="Moving"
+                                // checked={moving === false}
                             /> No
                         </form>
                         {moving === "true" && (

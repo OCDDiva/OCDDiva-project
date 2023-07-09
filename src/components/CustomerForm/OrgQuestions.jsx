@@ -65,8 +65,8 @@ function OrgQuestions() {
                     <br />
                     <center>
                         <form onChange={organizing} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <input type="radio" value={true} name="Yes" /> Yes
-                            <input type="radio" value={false} name="No" /> No
+                            <input type="radio" value={true} name="Organize" /> Yes
+                            <input type="radio" value={false} name="Organize" /> No
                         </form>
                         {organizingValue === "true" && (
                             <div className="organizeQuestions" style={{ display: 'inline-block' }}>
