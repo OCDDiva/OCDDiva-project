@@ -12,14 +12,14 @@ function MovingQuestions() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [moving, setMoving] = useState(false);
+    const [moving, setMoving] = useState();
     const [movingTo, setMovingTo] = useState('');
     const [movingFrom, setMovingFrom] = useState('');
     const [largeItems, setLargeItems] = useState('');
     const user = useSelector(store => store.user);
 
     const handleMovingValue = (event) => {
-        setMoving(event.target.value)
+        setMoving(event.target.value);
     };
 
     const movingToValue = (event) => {
@@ -40,9 +40,9 @@ function MovingQuestions() {
     //     dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     // }, []);
 
-    const inquiryDetails = useSelector(store => store.inquiryDetails);
+    // const inquiryDetails = useSelector(store => store.inquiryDetails);
 
-    console.log('Checking inquiry Details', inquiryDetails)
+    // console.log('Checking inquiry Details', inquiryDetails)
 
     const nextStep = (event) => {
         event.preventDefault();
@@ -75,21 +75,19 @@ function MovingQuestions() {
                     <Typography variant="h4" className="h2Headers">Are you moving?</Typography>
                     <br />
                     <center>
-                        <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <form  onChange={handleMovingValue} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <input
                                 type="radio"
                                 value={true}
-                                name="Yes"
-                                checked={moving === true}
-                                onChange={handleMovingValue}
+                                name="Moving"
+                                // checked={moving === true}
                             /> Yes
 
                             <input
                                 type="radio"
                                 value={false}
-                                name="No"
-                                checked={moving === false}
-                                onChange={handleMovingValue}
+                                name="Moving"
+                                // checked={moving === false}
                             /> No
                         </form>
                         {moving === "true" && (
@@ -129,15 +127,10 @@ function MovingQuestions() {
                         <br />
                         <br />
                         <button className="btn" onClick={nextStep}>Next</button>
-
                     </center>
-
-
                 </Card>
-
             </center>
         </>
-
     )
 } // End MovingQuestions()
 

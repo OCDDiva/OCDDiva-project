@@ -15,7 +15,7 @@ router.get('/completion', (req, res) => {
     })
 });
 
-router.put('/', (req, res) => {
+router.put('/completion', (req, res) => {
     // PUT route code goes here
     console.log('In PUT for completion status');
     const queryText = `UPDATE completion SET description WEHRE id = $1;`;
