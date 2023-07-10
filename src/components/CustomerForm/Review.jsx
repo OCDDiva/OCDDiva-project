@@ -9,7 +9,6 @@ function Review() {
     //Code goes here
     const history = useHistory();
     const dispatch = useDispatch();
-    const inquiries = useSelector(store => store.inquiryDetails)
 
 
     const goBack = () => { history.goBack() };
@@ -27,7 +26,6 @@ function Review() {
     const allUserInfo = useSelector(store => store.allUserInfo);
 
     console.log('show me the customers!!!!!', allUserInfo);
-    console.log('Show me in the inquiryID!!!!!!!!!!', inquiries)
 
     //What displays
     return (
@@ -35,15 +33,15 @@ function Review() {
             <ProgressBar currentStep={5} />
             <h2 className="h2Headers">Review Your Information:</h2>
             <h3>Customer Information</h3>
-            {/* {
-                customerDetails.map((customer) =>
-                    <div key={customer.id}>
-                        <p>{customer.firstName} {customer.lastName}</p>
+            {
+                allUserInfo.map((user) =>
+                    <div key={user.id}>
+                        <p>{user.firstName} {user.lastName}</p>
                         <p></p>
-                        <p>{customer.street1}</p>
+                        <p>{user.street1}</p>
                     </div>
                 )
-            } */}
+            }
 
             <h3>Cleaning Questions</h3>
             <h3>Moving Questions</h3>

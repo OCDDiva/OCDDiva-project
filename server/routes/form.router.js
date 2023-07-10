@@ -159,14 +159,13 @@ router.get('/allUserInfo', async (req, res) => {
     console.log('Checking orgResult', orgResult);
     const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
     const decluttResult = await client.query(declutteringQuestions,[primaryTableId]);
-    console.log('Checking decluttResult', decluttResult)
+    console.log('Checking decluttResult', decluttResult);
     const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
     const mediaResult = await client.query(userMedia, [primaryTableId]);
-    console.log('Checking mediaResult', mediaResult)
+    console.log('Checking mediaResult', mediaResult);
     await client.query('COMMIT');
     console.log('All User data retrieved successfully.');
-    // TODO Finish this so we can retrieve all data from the tables as a single object and parse through it
-    // res.send(result.rows)
+    res.send([queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult])
   } catch (error) {
     await client.query('ROLLBACK');
     console.log('Error inserting data', error);

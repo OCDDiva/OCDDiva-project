@@ -5,12 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 import { TextField, Typography, Card } from '@mui/material';
 
-// 1. # Bedrooms to declutter
-// 2. # Bathrooms to declutter
-// 3. # Addtnl declutter rooms
-// 4. Large objects to donate?
-
-
 function DeclutterQuestions() {
     //Code goes here
 
