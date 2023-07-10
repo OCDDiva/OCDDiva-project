@@ -33,7 +33,7 @@ function Review() {
             <ProgressBar currentStep={5} />
             <h2 className="h2Headers">Review Your Information:</h2>
             <h3>Customer Information</h3>
-            {
+            {/* {
                 allUserInfo.map((user) =>
                     <div key={user.id}>
                         <p>{user.firstName} {user.lastName}</p>
@@ -41,7 +41,7 @@ function Review() {
                         <p>{user.street1}</p>
                     </div>
                 )
-            }
+            } */}
 
             <h3>Cleaning Questions</h3>
             <h3>Moving Questions</h3>
