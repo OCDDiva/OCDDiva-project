@@ -142,23 +142,30 @@ router.get('/allUserInfo', async (req, res) => {
     await client.query('BEGIN');
     const queryText =  `SELECT * FROM "user_inquiries";`
     const queryResult = await client.query(queryText)
+    console.log(queryResult);
     const primaryTableId = queryResult.rows[0].id;
+    console.log('Checking the primaryTableId', primaryTableId)
     const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
-    await client.query(customerQuery, [primaryTableId]);
+    const customerQueryResult = await client.query(customerQuery, [primaryTableId]);
+    console.log('checking customerQueryResult', customerQueryResult);
     const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(cleaningQuestions, [primaryTableId]);
+    const cleaningResult = await client.query(cleaningQuestions, [primaryTableId]);
+    console.log('Cleaning Result', cleaningResult)
     const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(movingQuestions, [primaryTableId]);
+    const movingResult = await client.query(movingQuestions, [primaryTableId]);
+    console.log('Checking MovingResult', movingResult);
     const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(organizingQuestions, [primaryTableId]);
+    const orgResult = await client.query(organizingQuestions, [primaryTableId]);
+    console.log('Checking orgResult', orgResult);
     const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
-    await client.query(declutteringQuestions,[primaryTableId]);
+    const decluttResult = await client.query(declutteringQuestions,[primaryTableId]);
+    console.log('Checking decluttResult', decluttResult);
     const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
-    await client.query(userMedia, [primaryTableId]);
+    const mediaResult = await client.query(userMedia, [primaryTableId]);
+    console.log('Checking mediaResult', mediaResult);
     await client.query('COMMIT');
-    console.log('Data retrieved successfully.');
-    // TODO Finish this so we can retrieve all data from the tables as a single object and parse through it
-    // res.send(result.rows)
+    console.log('All User data retrieved successfully.');
+    res.send([queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult])
   } catch (error) {
     await client.query('ROLLBACK');
     console.log('Error inserting data', error);
@@ -167,6 +174,44 @@ router.get('/allUserInfo', async (req, res) => {
     client.release();
   }
 });
+
+/**
+ * GET #5 USER HISTORY route template
+ */
+// router.get('/allUserInfo', async (req, res) => {
+//   // GET #5 route code here
+//   const client = await pool.connect();
+//   try { 
+//     await client.query('BEGIN');
+//     const queryText =  `SELECT * FROM "user_inquiries";`
+//     const queryResult = await client.query(queryText)
+//     console.log(queryResult);
+//     const primaryTableId = queryResult.rows[0].id;
+//     console.log('Checking the primaryTableId', primaryTableId)
+//     const customerQuery =  `SELECT * FROM "customer";`;
+//     await client.query(customerQuery);
+//     const cleaningQuestions = `SELECT * FROM "cleaning_questions";`;
+//     await client.query(cleaningQuestions);
+//     const movingQuestions = `SELECT * FROM "moving_questions";`;
+//     await client.query(movingQuestions);
+//     const organizingQuestions = `SELECT * FROM "organizing_questions";`;
+//     await client.query(organizingQuestions);
+//     const declutteringQuestions = `SELECT * FROM "decluttering_questions";`;
+//     await client.query(declutteringQuestions);
+//     const userMedia = `SELECT * FROM "user_media";`;
+//     await client.query(userMedia);
+//     await client.query('COMMIT');
+//     console.log('All User data retrieved successfully.');
+//     // TODO Finish this so we can retrieve all data from the tables as a single object and parse through it
+//     // res.send(result.rows)
+//   } catch (error) {
+//     await client.query('ROLLBACK');
+//     console.log('Error inserting data', error);
+//     res.status(500).send('Failed to insert data.');
+//   } finally {
+//     client.release();
+//   }
+// });
 
 
 /**
@@ -305,7 +350,6 @@ router.put('/organizing', (req, res) => {
   console.log(`In PUT for Organizing Questions`);
   if (req.isAuthenticated()) {
     const queryValues = [req.body.Organizing, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.body.inquiry_id];
-    console.log(req.inquiryId.id);
     const queryText = `UPDATE "organizing_questions" SET "Organizing" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "inquiry_id" = $6;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {

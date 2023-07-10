@@ -5,12 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 import { TextField, Typography, Card } from '@mui/material';
 
-// 1. # Bedrooms to declutter
-// 2. # Bathrooms to declutter
-// 3. # Addtnl declutter rooms
-// 4. Large objects to donate?
-
-
 function DeclutterQuestions() {
     //Code goes here
 
@@ -62,8 +56,8 @@ function DeclutterQuestions() {
                     <h2 className="h2Headers">Would you like your space Decluttered?</h2>
                     <br />
                     <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <input type="radio" value={true} name="Yes" /> Yes
-                        <input type="radio" value={false} name="No" /> No
+                        <input type="radio" value={true} name="Organize" /> Yes
+                        <input type="radio" value={false} name="Organize" /> No
                     </form>
                     {declutteringValue === "true" && (
                         <div className="declutteringQuestions" style={{ display: 'inline-block' }}>
@@ -96,12 +90,14 @@ function DeclutterQuestions() {
                                 <input
                                     type="radio"
                                     value="true"
+                                    name="Donation"
                                     onChange={(event) => setDonationStatus(event.target.value)}
                                 /> Yes
                                 <br />
                                 <input
                                     type="radio"
                                     value="false"
+                                    name="Donation"
                                     onChange={(event) => setDonationStatus(event.target.value)}
                                 /> No
                             </div>

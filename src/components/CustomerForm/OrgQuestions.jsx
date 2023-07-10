@@ -65,8 +65,8 @@ function OrgQuestions() {
                     <br />
                     <center>
                         <form onChange={organizing} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <input type="radio" value={true} name="Yes" /> Yes
-                            <input type="radio" value={false} name="No" /> No
+                            <input type="radio" value={true} name="Organize" /> Yes
+                            <input type="radio" value={false} name="Organize" /> No
                         </form>
                         {organizingValue === "true" && (
                             <div className="organizeQuestions" style={{ display: 'inline-block' }}>
@@ -100,12 +100,14 @@ function OrgQuestions() {
                                     <input
                                         type="radio"
                                         value="true"
+                                        name="Donation"
                                         onChange={(event) => setDonationStatus(event.target.value)}
                                     /> Yes
                                     <br />
                                     <input
                                         type="radio"
                                         value="false"
+                                        name="Donation"
                                         onChange={(event) => setDonationStatus(event.target.value)}
                                     /> No
                                 </div>
@@ -113,16 +115,14 @@ function OrgQuestions() {
                         )}
                         <br />
                         <br />
-                        <button className="btn" onClick={nextStep}>Next</button>
-                        <br />
-                        <br />
                         <button className="btn" onClick={goBack}> Back </button>
+                        <br />
+                        <br />
+                        <button className="btn" onClick={nextStep}>Next</button>
                     </center>
                 </Card>
             </center>
-
         </>
-
     )
 } // End OrgQuestions()
 
