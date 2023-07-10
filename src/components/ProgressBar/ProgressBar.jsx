@@ -12,15 +12,17 @@ const steps = [
 
 function ProgressBar({ currentStep }) {
   return (
-    <div className="progress-bar-container">
-      <Stepper activeStep={currentStep} alternativeLabel className="progress-bar">
+      <Stepper 
+      activeStep={currentStep} 
+      alternativeLabel 
+      className="progress-bar"
+      >
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel className="step-label">{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
-    </div>
   );
 }
 
