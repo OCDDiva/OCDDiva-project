@@ -6,7 +6,6 @@ function* fetchAllUserInfo() {
     try {
         const allUserInfo = yield axios.get('/api/forms/allUserInfo');
         yield put({ type: 'SET_ALL_USER_INFO', payload: allUserInfo.data });
-        console.log('SHOW ME THE DATA', allUserInfo);
     } catch (error) {
         console.log(`Error in fetchAllUserInfo, ${error}`);
         alert('Something went wrong!');
