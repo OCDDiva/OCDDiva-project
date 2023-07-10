@@ -17,6 +17,7 @@ function DeclutterQuestions() {
     const [numAdditionalRooms, setNumAdditionalRooms] = useState(0);
     const [donation, setDonationStatus] = useState(false);
     const user = useSelector(store => store.user);
+    const allUserInfo = useSelector(store => store.allUserInfo);
 
 
     const decluttering = (event) => {
@@ -33,6 +34,7 @@ function DeclutterQuestions() {
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
                 Donation: donation,
+                inquiry_id: allUserInfo.queryResult.rows[0].id,
             }
 
         })

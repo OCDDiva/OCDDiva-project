@@ -24,16 +24,20 @@ function Review() {
         // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 
-    
-    console.log('show me the info!!!!!!', allUserInfo.cleaningResult);
+    Object.values(allUserInfo);
+
+    console.log('show me the info!!!!!!', allUserInfo);
 
     //What displays
     return (
         <div className="customerReview">
             <ProgressBar currentStep={5} />
-            <h2 className="h2Headers">Review Your Information:</h2>
-            <h3>Customer Information</h3>
-            {/* {
+            <center>
+                <h2 className="h2Headers">Review Your Information:</h2>
+                <h3>Customer Information</h3>
+                {allUserInfo.queryResult.rows[0].firstName}{'   '}
+                {allUserInfo.queryResult.rows[0].lastName}
+                {/* {
                 allUserInfo.map((user) =>
                     <div key={user.id}>
                         <p></p>
@@ -43,15 +47,18 @@ function Review() {
                 )
             } */}
 
-            <h3>Cleaning Questions</h3>
-            <h3>Moving Questions</h3>
-            <h3>Organizing Questions</h3>
-            <h3>Decluttering Questions</h3>
-            <input type="photo" />
-            <br />
-            <br />
-            <button className="btn" onClick={goBack}> Back </button>
-            <button className="btn" onClick={submitInquiry}>Submit</button>
+                <h3>Cleaning Questions</h3>
+                <h3>Moving Questions</h3>
+                <h3>Organizing Questions</h3>
+                <h3>Decluttering Questions</h3>
+                <h3>Upload some photos of your space!</h3>
+                <input type="photo" />
+                <br />
+                <br />
+                <button className="btn" onClick={goBack}> Back </button>
+                <button className="btn" onClick={submitInquiry}>Submit</button>
+            </center>
+
         </div>
     )
 } // End Review()

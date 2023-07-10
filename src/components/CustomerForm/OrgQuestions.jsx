@@ -22,6 +22,7 @@ function OrgQuestions() {
     const [numAdditionalRooms, setNumAdditionalRooms] = useState(0);
     const [donation, setDonationStatus] = useState(false);
     const user = useSelector(store => store.user);
+    const allUserInfo = useSelector(store => store.allUserInfo);
 
 
     const organizing = (event) => {
@@ -43,6 +44,7 @@ function OrgQuestions() {
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
                 Donation: donation,
+                inquiry_id: allUserInfo.queryResult.rows[0].id,
             }
 
         })

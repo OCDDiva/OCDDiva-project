@@ -17,6 +17,7 @@ function MovingQuestions() {
     const [movingFrom, setMovingFrom] = useState('');
     const [largeItems, setLargeItems] = useState('');
     const user = useSelector(store => store.user);
+    const allUserInfo = useSelector(store => store.allUserInfo);
 
     const handleMovingValue = (event) => {
         setMoving(event.target.value);
@@ -36,9 +37,9 @@ function MovingQuestions() {
 
     const goBack = () => { history.goBack() }
 
-    // useEffect(() => {
-    //     dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
-    // }, []);
+    useEffect(() => {
+        dispatch({ type: 'FETCH_ALL_INFO' });
+    }, []);
 
     // const inquiryDetails = useSelector(store => store.inquiryDetails);
 
@@ -52,6 +53,7 @@ function MovingQuestions() {
             moving_to: movingTo,
             moving_from: movingFrom,
             large_items: largeItems,
+            inquiry_id: allUserInfo.queryResult.rows[0].id,
         } 
     })
         history.push('/organizequestions');
