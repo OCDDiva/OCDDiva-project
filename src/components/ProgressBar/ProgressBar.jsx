@@ -12,7 +12,7 @@ const steps = [
 function ProgressBar({ currentStep }) {
   
     return (
-        <Stepper activeStep={currentStep} alternativeLabel sx={{ maxWidth: 25, fontSize: '50%', }}>
+        <Stepper activeStep={currentStep} alternativeLabel >
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
