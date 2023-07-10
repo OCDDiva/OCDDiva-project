@@ -142,30 +142,23 @@ router.get('/allUserInfo', async (req, res) => {
     await client.query('BEGIN');
     const queryText =  `SELECT * FROM "user_inquiries";`
     const queryResult = await client.query(queryText)
-    console.log(queryResult);
     const primaryTableId = queryResult.rows[0].id;
     console.log('Checking the primaryTableId', primaryTableId)
     const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
     const customerQueryResult = await client.query(customerQuery, [primaryTableId]);
-    console.log('checking customerQueryResult', customerQueryResult);
     const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
     const cleaningResult = await client.query(cleaningQuestions, [primaryTableId]);
-    console.log('Cleaning Result', cleaningResult)
     const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
     const movingResult = await client.query(movingQuestions, [primaryTableId]);
-    console.log('Checking MovingResult', movingResult);
     const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
     const orgResult = await client.query(organizingQuestions, [primaryTableId]);
-    console.log('Checking orgResult', orgResult);
     const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
     const decluttResult = await client.query(declutteringQuestions,[primaryTableId]);
-    console.log('Checking decluttResult', decluttResult);
     const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
     const mediaResult = await client.query(userMedia, [primaryTableId]);
-    console.log('Checking mediaResult', mediaResult);
     await client.query('COMMIT');
     console.log('All User data retrieved successfully.');
-    res.send([queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult])
+    res.send({queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult});
   } catch (error) {
     await client.query('ROLLBACK');
     console.log('Error inserting data', error);
