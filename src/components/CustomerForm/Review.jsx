@@ -9,6 +9,7 @@ function Review() {
     //Code goes here
     const history = useHistory();
     const dispatch = useDispatch();
+    const allUserInfo = useSelector(store => store.allUserInfo);
 
 
     const goBack = () => { history.goBack() };
@@ -23,9 +24,8 @@ function Review() {
         // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
 
-    const allUserInfo = useSelector(store => store.allUserInfo);
-
-    console.log('show me the customers!!!!!', allUserInfo);
+    
+    console.log('show me the info!!!!!!', allUserInfo.cleaningResult);
 
     //What displays
     return (
@@ -36,9 +36,9 @@ function Review() {
             {/* {
                 allUserInfo.map((user) =>
                     <div key={user.id}>
-                        <p>{user.firstName} {user.lastName}</p>
                         <p></p>
-                        <p>{user.street1}</p>
+                        <p></p>
+                        <p></p>
                     </div>
                 )
             } */}
@@ -53,8 +53,6 @@ function Review() {
             <button className="btn" onClick={goBack}> Back </button>
             <button className="btn" onClick={submitInquiry}>Submit</button>
         </div>
-
-
     )
 } // End Review()
 

@@ -1,4 +1,4 @@
-const allUserInfo = (state = {}, action) => {
+const allUserInfo = (state = [], action) => {
     switch (action.type) {
         case 'SET_ALL_USER_INFO':
             return action.payload;
