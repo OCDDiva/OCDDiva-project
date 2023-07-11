@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import './UserHistory.css';
 
 
 
@@ -18,11 +19,11 @@ function UserHistory() {
     return (
         // This will be replaced with HistoryCard component as a .map 
 <Container>
-
+            <h1>User History</h1>
     <br/>
     <br/>
     <Grid  justifyContent="center"
-    container spacing={2}>
+    container spacing={5}>
   {
     history.map((history) => (
         <HistoryCard

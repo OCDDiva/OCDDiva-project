@@ -17,8 +17,8 @@ function historyCard({ history }) {
     }, []);
 
     return (
-        <Grid item xs={12} md={4}>
-        <Card  sx={{ minWidth: 555, minHeight:300} }>
+        <Grid item xs={{ minWidth: 700 }}>
+        <Card sx={{ minWidth: 700 }}>
             <CardContent>
                 <br/>
                 <Typography 
