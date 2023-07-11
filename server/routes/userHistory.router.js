@@ -12,7 +12,7 @@ router.get('/userHistory', (req, res) => {
     FROM "user_inquiries"
     JOIN "services" on "user_inquiries"."services_id" = "services"."id"
     JOIN "completion" on "user_inquiries"."completion_status" = "completion"."id"
-    WHERE "user_inquiries"."user_id" = 2`;
+    WHERE "user_inquiries"."user_id" = $1`;
     pool
     .query(queryText)
     .then((result) => {
