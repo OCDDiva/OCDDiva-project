@@ -35,7 +35,7 @@ function InquiryDetails() {
     }
 
     const noteButton = () => {
-        if (inquiryDetails.customerQueryResult.rows[0].notes.length > 0) {
+        if (inquiryDetails.customer.notes > 0) {
             return 'Edit Note'
         } else {
             return 'Add Note'
@@ -43,45 +43,45 @@ function InquiryDetails() {
     }
 
     const serviceConversion = (inquiries) => {
-        if (inquiries.cleaningResult.rows[0].ServiceType === 'Essential') {
+        if (inquiries.cleaning[0].ServiceType === 'Essential') {
             return 'Essential Clean'
-        } else if (inquiries.cleaningResult.rows[0].ServiceType === 'Ultimate') {
+        } else if (inquiries.cleaning[0].ServiceType === 'Ultimate') {
             return 'Ultimate Clean'
-        } else if (inquiries.movingResult.rows[0].moving === true) {
+        } else if (inquiries.moving[0].moving === true) {
             return 'Moving'
-        } else if (inquiries.orgResult.rows[0].Organizing === true) {
+        } else if (inquiries.organize[0].Organizing === true) {
             return 'Organizing'
-        } else if (inquiries.declutt.Result.rows[0].Declutter === true) {
+        } else if (inquiries.declutt[0].Declutter === true) {
             return 'Declutter'
         }
     }
 
     const completionConversion = (inquiries) => {
-        if (inquiries.queryResult.rows[0].completion_status === 5) {
+        if (inquiries.contact[0].completion_status === 5) {
             return 'Complete'
-        } else if (inquiries.queryResult.rows[0].completion_status === 4) {
+        } else if (inquiries.contact[0].completion_status === 4) {
             return 'In Progress'
-        } else if (inquiries.queryResult.rows[0].completion_status === 3) {
+        } else if (inquiries.contact[0].completion_status === 3) {
             return 'Bid Rejected'
-        } else if (inquiries.queryResult.rows[0].completion_status === 2) {
+        } else if (inquiries.contact[0].completion_status === 2) {
             return 'Bid Offered'
-        } else if (inquiries.queryResult.rows[0].completion_status === 1) {
+        } else if (inquiries.contact[0].completion_status === 1) {
             return 'Pending'
         }
     }
 
     const priorityConversion = (inquiryDetails) => {
-        if (inquiryDetails.queryResult.rows[0].priority === 1) {
+        if (inquiryDetails.contact[0].priority === 1) {
             return 'High'
-        } else if (inquiryDetails.queryResult.rows[0].priority === 2) {
+        } else if (inquiryDetails.contact[0].priority === 2) {
             return 'Medium'
-        } else if (inquiryDetails.queryResult.rows[0].priority === 3) {
+        } else if (inquiryDetails.contact[0].priority === 3) {
             return 'Low'
         }
     }
 
     const petConversion = (inquiryDetails) => {
-        if (inquiryDetails.cleaningResult.rows[0].HasPets === true) {
+        if (inquiryDetails.cleaning[0].HasPets === true) {
             return 'Yes'
         } else {
             return 'No'
@@ -89,7 +89,7 @@ function InquiryDetails() {
     }
 
     const donationConversion = (inquiryDetails) => {
-        if (inquiryDetails.decluttResult.rows[0].Donation === true || inquiryDetails.orgResult.rows[0].Donation === true) {
+        if (inquiryDetails.declutt[0].Donation === true || inquiryDetails.organize.Donation === true) {
             return 'Yes'
         } else {
             return 'No'
@@ -97,17 +97,17 @@ function InquiryDetails() {
     }
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate.queryResult.rows[0].date_received).toLocaleDateString('en-EN')
+        const date = new Date(oldDate.contact[0].date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
     const cleaningDisplay = (inquiryDetails) => {
-        if (inquiryDetails.cleaningResult.rows[0].Cleaning === true) {
+        if (inquiryDetails.cleaning[0].Cleaning === true) {
             return <div>
                 <h5>Cleaning Questions:</h5>
-                <p>Number of Doors & Windows: {inquiryDetails.cleaningResult.rows[0].DoorsWindows}</p>
+                <p>Number of Doors & Windows: {inquiryDetails.cleaning[0].DoorsWindows}</p>
                 <p>Has Pets? {petConversion(inquiryDetails)}</p>
-                <p>Hazardous Conditions? {inquiryDetails.cleaningResult.rows[0].HazardousConditions}</p>
+                <p>Hazardous Conditions? {inquiryDetails.cleaning[0].HazardousConditions}</p>
             </div>
         } else {
             return ''
@@ -128,7 +128,7 @@ function InquiryDetails() {
     }
 
     const organizeDeclutterDisplay = (inquiryDetails) => {
-        if (inquiryDetails.orgResult.rows[0].Organizing === true || inquiryDetails.decluttResult.rows[0].Declutter === true) {
+        if (inquiryDetails.organize[0].Organizing === true || inquiryDetails.declutt[0].Declutter === true) {
             return <div>
                 <h5>Organizing/Decluttering Questions:</h5>
                 <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
@@ -142,6 +142,28 @@ function InquiryDetails() {
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
+            <div>
+                <h1>{inquiryDetails.contact[0].firstName} {inquiryDetails.contact[0].lastName}</h1>
+                <h2>
+                    {serviceConversion(inquiryDetails)}
+                </h2>
+                <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
+                <h3> {completionConversion(inquiryDetails)}</h3>
+                <h4> {priorityConversion(inquiryDetails)}</h4>
+                <h2>NOTES:</h2>
+                <p>{inquiryDetails.customer.notes}</p>
+                <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
+                <br />
+                <h3>Customer Responses to Survey:</h3>
+                <h5>Basic Questions:</h5>
+                <p>Number of Bedrooms: {inquiryDetails.cleaning[0].Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails.cleaning[0].Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails.cleaning[0].AdditionalRooms}</p>
+                <p>{cleaningDisplay(inquiryDetails)}</p>
+                <p>{movingDisplay(inquiryDetails)}</p>
+                <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
+                <button onClick={returnToInquiries}>Inquiries List</button>
+            </div>
             <div key={inquiriesId}>
                 {
                     inquiryDetails 
@@ -150,25 +172,22 @@ function InquiryDetails() {
                     && inquiryDetails.queryResult.rows.length > 0
                     && (
                         <>
-                <h1>{inquiryDetails.queryResult.rows[0].firstName} {inquiryDetails.queryResult.rows[0].lastName}</h1>
-                {/* gonna work on a function that only displays specific services but not sure I will get to it tonight */}
+                <h1>{inquiryDetails.contact[0].firstName} {inquiryDetails.contact[0].lastName}</h1>
                 <h2>
                     {serviceConversion(inquiryDetails)}
                 </h2>
-                {/* Do we need this on the inquiries page if they haven't receive service yet? */}
                 <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
                 <h3> {completionConversion(inquiryDetails)}</h3>
-                {/* TODO I know the priority is bugged, will work on a fix */}
                 <h4> {priorityConversion(inquiryDetails)}</h4>
                 <h2>NOTES:</h2>
-                <p>{inquiryDetails.customerQueryResult.rows[0].notes}</p>
+                <p>{inquiryDetails.customer[0].notes}</p>
                 <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
                 <br />
                 <h3>Customer Responses to Survey:</h3>
                 <h5>Basic Questions:</h5>
-                <p>Number of Bedrooms: {inquiryDetails.cleaningResult.rows[0].Bedrooms}</p>
-                <p>Number of Bathrooms: {inquiryDetails.cleaningResult.rows[0].Bathrooms}</p>
-                <p>Number of Additional Rooms: {inquiryDetails.cleaningResult.rows[0].AdditionalRooms}</p>
+                <p>Number of Bedrooms: {inquiryDetails.cleaning[0].Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails.cleaning[0].Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails.cleaning[0].AdditionalRooms}</p>
                 <p>{cleaningDisplay(inquiryDetails)}</p>
                 <p>{movingDisplay(inquiryDetails)}</p>
                 <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
