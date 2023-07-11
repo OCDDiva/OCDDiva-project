@@ -231,7 +231,7 @@ router.post('/', async (req, res) => {
 /**
  * PUT CLEANING route template
  */
-router.put('/', (req, res) => {
+router.put('/cleaning', (req, res) => {
   console.log('router form is:', req.body);
   const values = [
     req.body.cleaningOption,
