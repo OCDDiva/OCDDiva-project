@@ -18,6 +18,9 @@ function CustomerDetails() {
     //     setForm({ ...form, [e.target.name]: e.target.value });
     //   };
 
+    // Test 
+
+    
     const handleAdd = () => {
         history.goBack(); // Redirects to the previous page
     };
