@@ -2,11 +2,11 @@ import { Stepper, Step, StepLabel } from '@mui/material';
 import '../App/App.css';
 
 const steps = [
-  'Step 1',
-  'Step 2',
-  'Step 3',
-  'Step 4',
-  'Step 5',
+  'Contact',
+  'Clean',
+  'Move',
+  'Organize',
+  'Declutter',
   'Review',
 ];
 
@@ -16,10 +16,10 @@ function ProgressBar({ currentStep }) {
       activeStep={currentStep} 
       alternativeLabel 
       className="progress-bar"
-      sx={{ maxWidth: 'fit-content', }}
+      
       >
         {steps.map((label) => (
-          <Step key={label}>
+          <Step key={label} sx={{ maxWidth: '14%',}}>
             <StepLabel className="step-label">{label}</StepLabel>
           </Step>
         ))}

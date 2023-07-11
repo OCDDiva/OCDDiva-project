@@ -83,8 +83,6 @@ function Review() {
                 Donations: {allUserInfo.orgResult.rows[0].Donations}
                 <br />
                 <h3>Decluttering Questions</h3>
-                Declutter: {allUserInfo.decluttResult.rows[0].Declutter}
-                <br />
                 Bedrooms: {allUserInfo.decluttResult.rows[0].Bedrooms}
                 <br />
                 Bathrooms: {allUserInfo.decluttResult.rows[0].Bathrooms}
