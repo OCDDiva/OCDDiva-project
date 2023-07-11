@@ -33,7 +33,7 @@ function InquiryDetails() {
     }
 
     const noteButton = () => {
-        if (inquiryDetails.notes.length> 0) {
+        if (inquiryDetails.notes > 0) {
             return 'Edit Note'
         } else {
             return 'Add Note'

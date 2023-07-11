@@ -10,8 +10,8 @@ function Inquiries() {
     const inquiries = useSelector(store => store.fetchInquiries);
     // const { inquiriesId } = useParams();
 
-    const navToInquiryDetails = (inquiry) => {
-        history.push(`/inquiries/inquirydetails/${inquiry.user_id}`);
+    const navToInquiryDetails = (inquiries) => {
+        history.push(`/inquiries/inquirydetails/${inquiries.queryResult.rows[0].id}`);
     }
 
     useEffect(() => {
@@ -60,13 +60,15 @@ function Inquiries() {
                     <p>No new requests!</p>
                 </div>
             ) : (
-                <div>
+                <div key={inquiries.id}>
                     {/* CUSTOMER INFO AND SERVICES_ID */}
                     <div>
                         <h1>{inquiries.queryResult.rows[0].firstName} {inquiries.queryResult.rows[0].lastName}</h1>
                         <h2>{serviceConversion(inquiries)}</h2>
                         <h3>{dateConversion(inquiries)}</h3>
                         <h3>{completionConversion(inquiries)}</h3>
+                        <h3>{inquiries.customerQueryResult.rows[0].notes}</h3>
+                        <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
                     </div>
                     {/* {inquiries.map(inquiry => {
                         return (
