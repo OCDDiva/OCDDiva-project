@@ -17,6 +17,7 @@ function DeclutterQuestions() {
     const [numAdditionalRooms, setNumAdditionalRooms] = useState(0);
     const [donation, setDonationStatus] = useState(false);
     const user = useSelector(store => store.user);
+    const allUserInfo = useSelector(store => store.allUserInfo);
 
 
     const decluttering = (event) => {
@@ -33,6 +34,7 @@ function DeclutterQuestions() {
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
                 Donation: donation,
+                inquiry_id: allUserInfo.queryResult.rows[0].id,
             }
 
         })
@@ -63,7 +65,7 @@ function DeclutterQuestions() {
                         <div className="declutteringQuestions" style={{ display: 'inline-block' }}>
                             <div>
                                 <p>Number of bedrooms to be decluttered?</p>
-                                <input
+                                <TextField
                                     type="number"
                                     value={numBedrooms}
                                     onChange={(event) => setNumBedrooms(event.target.value)}
@@ -71,7 +73,7 @@ function DeclutterQuestions() {
                             </div>
                             <div>
                                 <p>Number of bathrooms to be decluttered?</p>
-                                <input
+                                <TextField
                                     type="number"
                                     value={numBathrooms}
                                     onChange={(event) => setNumBathrooms(event.target.value)}
@@ -79,7 +81,7 @@ function DeclutterQuestions() {
                             </div>
                             <div>
                                 <p>Number of additional rooms to be decluttered?</p>
-                                <input
+                                <TextField
                                     type="number"
                                     value={numAdditionalRooms}
                                     onChange={(event) => setNumAdditionalRooms(event.target.value)}
