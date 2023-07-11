@@ -40,6 +40,8 @@ function Review() {
                 <br />
                 Address: {allUserInfo.queryResult.rows[0].street1}
                 <br />
+                {allUserInfo.queryResult.rows[0].street2}
+                <br />
                 City: {allUserInfo.queryResult.rows[0].city}
                 <br />
                 State: {allUserInfo.queryResult.rows[0].state}

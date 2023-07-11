@@ -139,10 +139,3 @@ ul {
   text-align: center;
 
 }
-
-.progress-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  max-width: 50%;
-}
