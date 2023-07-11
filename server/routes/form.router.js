@@ -133,7 +133,7 @@ router.get('/customers/:id', (req, res) => {
 });
 
 /**
- * GET #5 USER HISTORY route template
+ * GET #5 ALL USER INFO route template
  */
 router.get('/allUserInfo', async (req, res) => {
   // GET #5 route code here
