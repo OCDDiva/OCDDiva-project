@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Card } from '@mui/material';
@@ -17,10 +17,10 @@ function CleaningQuestions() {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const allUserInfo = useSelector(store => store.allUserInfo);
+  
 
   //! States
-  const [cleaningOption, setCleaningOption] = useState('no');
+  const [cleaningOption, setCleaningOption] = useState();
   const [serviceType, setServiceType] = useState(null);
   const [numberOfBedrooms, setNumberOfBedrooms] = useState(0);
   const [numberOfBathrooms, setNumberOfBathrooms] = useState(0);
@@ -63,6 +63,15 @@ function CleaningQuestions() {
     setHazardousConditions(event.target.value);
   };
 
+  useEffect(() => {
+    dispatch({ type: 'FETCH_ALL_INFO' });
+    
+  }, []);
+
+  const allUserInfo = useSelector(store => store.allUserInfo);
+
+  // console.log('Check inquiry ID', allUserInfo.queryResult.rows[0].id)
+
   //! Submit
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -89,7 +98,7 @@ function CleaningQuestions() {
   //! What Displays
   return (
     <center>
-    <ProgressBar currentStep={1} />    
+      <ProgressBar currentStep={1} />
 
       <Card sx={{
         width: 'auto',
@@ -98,7 +107,7 @@ function CleaningQuestions() {
         padding: 1,
         boxShadow: 5,
       }}>
-        
+
         <form onSubmit={handleSubmit}>
 
           <br />
@@ -146,7 +155,7 @@ function CleaningQuestions() {
                     <ul>
 
                       <li>
-                        
+
                         {/* Bedrooms */}
                         <Typography> How many bedrooms do you have? </Typography>
 
@@ -339,34 +348,34 @@ function CleaningQuestions() {
                           value={hazardousConditions}
                           onChange={handleHazardousConditionsChange}
                         />
-                    </li>
-                  </ul>
+                      </li>
+                    </ul>
 
                     {/* Submit Button */}
-                <button type="submit" className='btn'> Next </button>
+                    <button type="submit" className='btn'> Next </button>
 
-                <br />
+                    <br />
 
+                  </div>
+                )}
+              </FormControl>
             </div>
           )}
-        </FormControl>
-      </div>
+
+          <br />
+          {/* Submit/Next Button */}
+          {cleaningOption === 'no' && (
+            <button className="btn" type="button" onClick={handleSubmit}>
+              Next
+            </button>
           )}
 
-      <br />
-      {/* Submit/Next Button */}
-      {cleaningOption === 'no' && (
-        <button className="btn" type="button" onClick={handleSubmit}>
-          Next
-        </button>
-      )}
+          {/* Back Button */}
+          <button className="btn" type="button" onClick={goBack}>
+            Back
+          </button>
 
-      {/* Back Button */}
-      <button className="btn" type="button" onClick={goBack}>
-        Back
-      </button>
-
-    </form>
+        </form>
       </Card >
     </center >
 

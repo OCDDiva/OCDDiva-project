@@ -232,7 +232,7 @@ router.post('/', async (req, res) => {
  * PUT CLEANING route template
  */
 router.put('/cleaning', (req, res) => {
-  console.log('router form is:', req.body);
+  console.log('Cleaning data is:', req.body);
   const values = [
     req.body.cleaningOption,
     req.body.serviceType,

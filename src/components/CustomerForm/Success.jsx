@@ -15,12 +15,12 @@ function Success() {
         <>
             <center>
                 <Card sx={{
-                    width: 700,
+                    maxWidth:'fit-content',
                     margin: 2,
                     padding: 5,
                     boxShadow: 5,
                 }}>
-                    <Typography variant='h2'>
+                    <Typography variant='h3'>
                         Thank you!
                     </Typography>
 
