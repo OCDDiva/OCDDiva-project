@@ -1,26 +1,29 @@
 import { Stepper, Step, StepLabel } from '@mui/material';
+import './ProgressBar.css';
 
 const steps = [
-    'Default Questions',
-    'Cleaning Services',
-    'Moving Services',
-    'Organization',
-    'Declutter',
-    'Review Page',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
 ];
 
 function ProgressBar({ currentStep }) {
-  
-    return (
-        <Stepper activeStep={currentStep} alternativeLabel >
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      );
-    }
-    
+  return (
+      <Stepper 
+      activeStep={currentStep} 
+      alternativeLabel 
+      className="progress-bar"
+      >
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel className="step-label">{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+  );
+}
 
-export default ProgressBar; 
+export default ProgressBar;
