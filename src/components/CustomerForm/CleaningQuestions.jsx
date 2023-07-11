@@ -17,7 +17,7 @@ function CleaningQuestions() {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
+  const allUserInfo = useSelector(store => store.allUserInfo);
 
   //! States
   const [cleaningOption, setCleaningOption] = useState('no');
@@ -77,6 +77,7 @@ function CleaningQuestions() {
         numberOfDoorsWindows,
         hasPets,
         hazardousConditions,
+        inquiry_id: allUserInfo.queryResult.rows[0].id,
       },
     });
     history.push('/movingquestions');

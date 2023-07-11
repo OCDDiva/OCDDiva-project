@@ -133,14 +133,14 @@ router.get('/customers/:id', (req, res) => {
 });
 
 /**
- * GET #5 USER HISTORY route template
+ * GET #5 ALL USER INFO route template
  */
 router.get('/allUserInfo', async (req, res) => {
   // GET #5 route code here
   const client = await pool.connect();
   try { 
     await client.query('BEGIN');
-    const queryText =  `SELECT * FROM "user_inquiries";`
+    const queryText =  `SELECT * FROM "user_inquiries" ORDER BY id DESC;`
     const queryResult = await client.query(queryText)
     const primaryTableId = queryResult.rows[0].id;
     console.log('Checking the primaryTableId', primaryTableId)
@@ -161,7 +161,7 @@ router.get('/allUserInfo', async (req, res) => {
     res.send({queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult});
   } catch (error) {
     await client.query('ROLLBACK');
-    console.log('Error inserting data', error);
+    console.log('Error retreiving data', error);
     res.status(500).send('Failed to insert data.');
   } finally {
     client.release();
@@ -171,40 +171,6 @@ router.get('/allUserInfo', async (req, res) => {
 /**
  * GET #5 USER HISTORY route template
  */
-// router.get('/allUserInfo', async (req, res) => {
-//   // GET #5 route code here
-//   const client = await pool.connect();
-//   try { 
-//     await client.query('BEGIN');
-//     const queryText =  `SELECT * FROM "user_inquiries";`
-//     const queryResult = await client.query(queryText)
-//     console.log(queryResult);
-//     const primaryTableId = queryResult.rows[0].id;
-//     console.log('Checking the primaryTableId', primaryTableId)
-//     const customerQuery =  `SELECT * FROM "customer";`;
-//     await client.query(customerQuery);
-//     const cleaningQuestions = `SELECT * FROM "cleaning_questions";`;
-//     await client.query(cleaningQuestions);
-//     const movingQuestions = `SELECT * FROM "moving_questions";`;
-//     await client.query(movingQuestions);
-//     const organizingQuestions = `SELECT * FROM "organizing_questions";`;
-//     await client.query(organizingQuestions);
-//     const declutteringQuestions = `SELECT * FROM "decluttering_questions";`;
-//     await client.query(declutteringQuestions);
-//     const userMedia = `SELECT * FROM "user_media";`;
-//     await client.query(userMedia);
-//     await client.query('COMMIT');
-//     console.log('All User data retrieved successfully.');
-//     // TODO Finish this so we can retrieve all data from the tables as a single object and parse through it
-//     // res.send(result.rows)
-//   } catch (error) {
-//     await client.query('ROLLBACK');
-//     console.log('Error inserting data', error);
-//     res.status(500).send('Failed to insert data.');
-//   } finally {
-//     client.release();
-//   }
-// });
 
 
 /**
@@ -262,18 +228,10 @@ router.post('/', async (req, res) => {
     client.release();
   }
 });
-
-/**
- * POST #2 PHOTOS route template
- */
-router.post('/', (req, res) => {
-  // POST #2 route code here
-});
-
 /**
  * PUT CLEANING route template
  */
-router.put('/', (req, res) => {
+router.put('/cleaning', (req, res) => {
   console.log('router form is:', req.body);
   const values = [
     req.body.cleaningOption,
@@ -322,7 +280,6 @@ router.put('/moving', (req, res) => {
   console.log(`In PUT for Moving Questions`);
   if (req.isAuthenticated()) {
     const queryValues = [req.body.moving, req.body.moving_to, req.body.moving_from, req.body.large_items, req.body.inquiry_id];
-    console.log(req.inquiryId);
     const queryText = `UPDATE "moving_questions" SET "moving" = $1, "moving_to" = $2, "moving_from" = $3, "large_items" = $4 WHERE "inquiry_id" = $5;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
