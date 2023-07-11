@@ -1,15 +1,19 @@
 import HistoryCard from './HistoryCard';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import { Typography } from '@mui/material';
+
+
 
 function UserHistory() {
-    //Code here
+    const history = useSelector((store => store.history));
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        const action = { type: 'GET_HISTORY' };
+        dispatch(action);
+    }, []);
     //What displays
     return (
         // This will be replaced with HistoryCard component as a .map 
@@ -19,7 +23,14 @@ function UserHistory() {
     <br/>
     <Grid  justifyContent="center"
     container spacing={2}>
-   <HistoryCard/>
+  {
+    history.map((history) => (
+        <HistoryCard
+        key={history.id}
+        history={history}
+        />
+    ))
+  }
     </Grid>
 </Container>
     )

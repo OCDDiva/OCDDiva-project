@@ -15,7 +15,7 @@ const notesRouter = require('./routes/notes.router');
 const completeRouter = require('./routes/completion.router.js');
 const priorityRouter = require('./routes/priority.router.js');
 const formRouter = require('./routes/form.router');
-const historyRouter = require('.routes/userHistory.router.js');
+const historyRouter = require('./routes/userHistory.router');
 
 
 // Body parser middleware

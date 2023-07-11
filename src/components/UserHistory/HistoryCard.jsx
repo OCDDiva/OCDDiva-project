@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 
-function historyCard() {
+function historyCard({ history }) {
     const dispatch = useDispatch();
-    
+   
+
     useEffect(() => {
         const action  = { type: 'GET_HISTORY' }
         dispatch(action);
@@ -19,31 +20,26 @@ function historyCard() {
         <Grid item xs={12} md={4}>
         <Card  sx={{ minWidth: 555, minHeight:300} }>
             <CardContent>
-                <Typography 
-                variant="h4"
-                >
-                 Name: Example Customer 
-                </Typography>
                 <br/>
                 <Typography 
                 variant="h5"
                 >
-                 Date of Service: 
+                 Date of Service: {history.date_received}
                 </Typography>
                 <Typography 
                 variant="h5"
                 >
-                 Type of service:
+                 Type of service:{history.service}
                 </Typography>
                 <Typography 
                 variant="h5"
                 >
-                 Completion status: 
+                 Completion status: {history.status}
                 </Typography>
                 <Typography 
                 variant="h5"
                 >
-                Notes: 
+                Notes: {history.comments}
                 </Typography>
                 <br/>
             </CardContent>
