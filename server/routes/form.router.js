@@ -158,7 +158,7 @@ router.get('/allUserInfo', async (req, res) => {
     const mediaResult = await client.query(userMedia, [primaryTableId]);
     await client.query('COMMIT');
     console.log('All User data retrieved successfully.');
-    res.send({queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult});
+    res.send({ contact: queryResult.rows, customer: customerQueryResult.rows, cleaning: cleaningResult.rows, moving: movingResult.rows, organize: orgResult.rows, declutt: decluttResult.rows, media: mediaResult.rows });
   } catch (error) {
     await client.query('ROLLBACK');
     console.log('Error retreiving data', error);
