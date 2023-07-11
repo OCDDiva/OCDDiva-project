@@ -5,31 +5,17 @@ const router = express.Router();
 /**
  * GET INQUIRIES route template
  */
-router.get('/inquiries', (req, res) => {
-  // GET route code here
-  console.log('is Authenticated?', req.isAuthenticated());
-  if (req.isAuthenticated()) {
-    console.log('user', req.user);
-    let queryText = `SELECT *,
-    "user_inquiries"."id" AS "inquiries",
-    "completion"."description" AS "completion_status"
-    FROM "customer"
-    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
-    JOIN "cleaning_questions" ON "user_inquiries"."id" = "user_inquiries"."cleaning"
-    JOIN "moving_questions" ON "user_inquiries"."id" = "user_inquiries"."moving"
-    JOIN "organizing_questions" ON "user_inquiries"."id" = "user_inquiries"."organizing"
-    JOIN "decluttering_questions" ON "user_inquiries"."id" = "user_inquiries"."declutting"
-    JOIN "completion" ON "customer"."completion_status" = "completion"."id";`;
+router.get('/inquiries/allUserInfo', async (req, res) => {
+  // GET #5 route code here
+    const queryText =  `SELECT * FROM "user_inquiries" ORDER BY id DESC;`
+    console.log('All User data retrieved successfully.');
     pool.query(queryText).then((result) => {
-      console.log(result.rows);
+      console.log('results', result.rows);
       res.send(result.rows);
     }).catch((error) => {
-      console.log(error);
+      console.log('HERE', error);
       res.sendStatus(500);
     });
-  } else {
-    res.sendStatus(403);
-  }
 });
 
 /**
@@ -57,8 +43,7 @@ router.get('/allUserInfo/:id', async (req, res) => {
     const mediaResult = await pool.query(userMedia, [req.params.id]);
     // await client.query('COMMIT');
     console.log('All User data retrieved successfully.');
-    res.send({queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult});
-  } catch (error) {
+    res.send({ contact: queryResult.rows, customer: customerQueryResult.rows, cleaning: cleaningResult.rows, moving: movingResult.rows, organize: orgResult.rows, declutt: decluttResult.rows, media: mediaResult.rows });  } catch (error) {
     console.log('Error inserting data', error);
     res.status(500).send('Failed to insert data.');
   }

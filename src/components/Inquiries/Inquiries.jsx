@@ -13,45 +13,47 @@ function Inquiries() {
     console.log('User Info as Inquiry Object:', inquiries)
 
     const navToInquiryDetails = (inquiries) => {
-        history.push(`/inquiries/${inquiries.queryResult.rows[0].id}`);
+        history.push(`/inquiries/${inquiries.id}`);
     }
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_INQUIRIES'});
+        dispatch({ type: 'FETCH_INQUIRIES' });
     }, []);
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate.queryResult.rows[0].date_received).toLocaleDateString('en-EN')
+        const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
     const completionConversion = (inquiries) => {
-        if (inquiries.queryResult.rows[0].completion_status === 5) {
+        if (inquiries.completion_status === 5) {
             return 'Complete'
-        } else if (inquiries.queryResult.rows[0].completion_status === 4) {
+        } else if (inquiries.completion_status === 4) {
             return 'In Progress'
-        } else if (inquiries.queryResult.rows[0].completion_status === 3) {
+        } else if (inquiries.completion_status === 3) {
             return 'Bid Rejected'
-        } else if (inquiries.queryResult.rows[0].completion_status === 2) {
+        } else if (inquiries.completion_status === 2) {
             return 'Bid Offered'
-        } else if (inquiries.queryResult.rows[0].completion_status === 1) {
+        } else if (inquiries.completion_status === 1) {
             return 'Pending'
         }
     }
 
     const serviceConversion = (inquiries) => {
-        if (inquiries.cleaningResult.rows[0].ServiceType === 'Essential') {
+        if (inquiries.cleaning.ServiceType === 'Essential') {
             return 'Essential Clean'
-        } else if (inquiries.cleaningResult.rows[0].ServiceType === 'Ultimate') {
+        } else if (inquiries.cleaning.ServiceType === 'Ultimate') {
             return 'Ultimate Clean'
-        } else if (inquiries.movingResult.rows[0].moving === true) {
+        } else if (inquiries.moving.moving === true) {
             return 'Moving'
-        } else if (inquiries.orgResult.rows[0].Organizing === true) {
+        } else if (inquiries.organize.Organizing === true) {
             return 'Organizing'
-        } else if (inquiries.declutt.Result.rows[0].Declutter === true) {
+        } else if (inquiries.declutt.Declutter === true) {
             return 'Declutter'
         }
     }
+
+    console.log('Inquiries List:', inquiries);
 
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
@@ -63,16 +65,29 @@ function Inquiries() {
                 </div>
             ) : (
                 <div key={inquiries.id}>
-                    {/* CUSTOMER INFO AND SERVICES_ID */}
-                    <div>
-                        <h1>{inquiries.queryResult.rows[0].firstName} {inquiries.queryResult.rows[0].lastName}</h1>
-                        <h2>{serviceConversion(inquiries)}</h2>
-                        <h3>{dateConversion(inquiries)}</h3>
-                        <h3>{completionConversion(inquiries)}</h3>
-                        <h3>{inquiries.customerQueryResult.rows[0].notes}</h3>
-                        <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
-                    </div>
+                    {inquiries.map(inquiry => {
+                        return (
+                            <div>
+                                <h1>{inquiry.firstName} {inquiry.lastName}</h1>
+                                <h3>{dateConversion(inquiry)}</h3>
+                                <h3>{completionConversion(inquiry)}</h3>
+                                <p>{inquiry.comments}</p>
+                                <button onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
+                            </div>
+                        )
+                    })}
                 </div>
+                // <div key={inquiries.id}>
+                //     {/* CUSTOMER INFO AND SERVICES_ID */}
+                //     <div>
+                //         <h1>{inquiries.contact.firstName} {inquiries.contact.lastName}</h1>
+                //         <h2>{serviceConversion(inquiries)}</h2>
+                //         <h3>{dateConversion(inquiries)}</h3>
+                //         <h3>{completionConversion(inquiries)}</h3>
+                //         <h3>{inquiries.customer.notes}</h3>
+                //         <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
+                //     </div>
+                // </div>
             )}
         </main>
 

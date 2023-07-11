@@ -19,7 +19,7 @@ function UserHistory() {
     return (
         // This will be replaced with HistoryCard component as a .map 
 <Container>
-            <h1>User History</h1>
+            <h1 className='historyTitle'>User History</h1>
     <br/>
     <br/>
     <Grid  justifyContent="center"
