@@ -65,7 +65,7 @@ function DeclutterQuestions() {
                         <div className="declutteringQuestions" style={{ display: 'inline-block' }}>
                             <div>
                                 <p>Number of bedrooms to be decluttered?</p>
-                                <input
+                                <TextField
                                     type="number"
                                     value={numBedrooms}
                                     onChange={(event) => setNumBedrooms(event.target.value)}
@@ -73,7 +73,7 @@ function DeclutterQuestions() {
                             </div>
                             <div>
                                 <p>Number of bathrooms to be decluttered?</p>
-                                <input
+                                <TextField
                                     type="number"
                                     value={numBathrooms}
                                     onChange={(event) => setNumBathrooms(event.target.value)}
@@ -81,7 +81,7 @@ function DeclutterQuestions() {
                             </div>
                             <div>
                                 <p>Number of additional rooms to be decluttered?</p>
-                                <input
+                                <TextField
                                     type="number"
                                     value={numAdditionalRooms}
                                     onChange={(event) => setNumAdditionalRooms(event.target.value)}
