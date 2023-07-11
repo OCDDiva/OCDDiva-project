@@ -14,16 +14,11 @@ function UserHistory() {
     return (
         // This will be replaced with HistoryCard component as a .map 
 <Container>
-    <form>
-        Search:<input type="text"
-        // value={search}
-        // onChange={(e) => setSearch(e.target.value)}
-        />
-        <input type="submit" />
-    </form>
+
     <br/>
     <br/>
-    <Grid container spacing={2}>
+    <Grid  justifyContent="center"
+    container spacing={2}>
     <Card  sx={{ minWidth: 555, minHeight:300} }>
             <CardContent>
                 <Typography 
