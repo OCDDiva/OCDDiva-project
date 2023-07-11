@@ -22,10 +22,7 @@ function Review() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_ALL_INFO' });
-        // dispatch({ type: 'FETCH_INQUIRY_DETAILS' });
     }, []);
-
-    Object.values(allUserInfo);
 
     console.log('show me the info!!!!!!', allUserInfo);
 
