@@ -140,7 +140,7 @@ router.get('/allUserInfo', async (req, res) => {
   const client = await pool.connect();
   try { 
     await client.query('BEGIN');
-    const queryText =  `SELECT * FROM "user_inquiries";`
+    const queryText =  `SELECT * FROM "user_inquiries" ORDER BY id DESC;`
     const queryResult = await client.query(queryText)
     const primaryTableId = queryResult.rows[0].id;
     console.log('Checking the primaryTableId', primaryTableId)
@@ -161,7 +161,7 @@ router.get('/allUserInfo', async (req, res) => {
     res.send({queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult});
   } catch (error) {
     await client.query('ROLLBACK');
-    console.log('Error inserting data', error);
+    console.log('Error retreiving data', error);
     res.status(500).send('Failed to insert data.');
   } finally {
     client.release();
