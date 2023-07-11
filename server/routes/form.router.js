@@ -195,6 +195,8 @@ router.post('/', async (req, res) => {
       req.body.phone_number,
       req.body.email,
       req.body.user_id,
+      // req.body.priority,
+      // req.body.completion,
     ];
     console.log(values);
     const queryText = `

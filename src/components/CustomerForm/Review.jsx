@@ -101,7 +101,7 @@ function Review() {
                     <input type="photo" />
                     <br />
                     <br />
-                    <h4>Leave us any comments that we should know</h4>
+                    <h4>Leave us any additional comments!</h4>
                     <input type="text" value={comments} onChange={(event) => { setComments(event.target.value) }} />
                 </div>
                 <br />

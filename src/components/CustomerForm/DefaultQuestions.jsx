@@ -17,7 +17,18 @@ function DefaultQuestions() {
     //TODO is there anything else from the DB that needs to be here? Residence type or is that only for the "service" questions?
     //! State
     let [customer, setCustomer] = useState({
-        first_name: '', last_name: '', street1: '', street2: '', city: '', state: '', zip: '', phone_number: '', email: '', user_id: user.id
+        first_name: '', 
+        last_name: '', 
+        street1: '', 
+        street2: '', 
+        city: '', 
+        state: '', 
+        zip: '', 
+        phone_number: '', 
+        email: '', 
+        user_id: user.id, 
+        // priority: 3, 
+        // completion: 1,
     });
 
     //TODO edit this when we get to styling
@@ -79,7 +90,9 @@ function DefaultQuestions() {
             zip: '',
             phone_number: '',
             email: '',
-            user_id: user.id
+            user_id: user.id,
+            // priority: 3,
+            // completion: 1,
         });
         history.push('/cleaningquestions');
     }

@@ -70,8 +70,6 @@ function CleaningQuestions() {
 
   const allUserInfo = useSelector(store => store.allUserInfo);
 
-  console.log('Check inquiry ID', allUserInfo.contact);
-
   //! Submit
   const handleSubmit = (event) => {
     event.preventDefault();
