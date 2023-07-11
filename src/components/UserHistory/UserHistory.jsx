@@ -1,4 +1,4 @@
-import historyCard from './HistoryCard';
+import HistoryCard from './HistoryCard';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
@@ -19,46 +19,7 @@ function UserHistory() {
     <br/>
     <Grid  justifyContent="center"
     container spacing={2}>
-    <Card  sx={{ minWidth: 555, minHeight:300} }>
-            <CardContent>
-                <Typography 
-                variant="h4"
-                >
-                 Name: Example Customer 
-                </Typography>
-                <br/>
-                <Typography 
-                variant="h5"
-                >
-                 Date of Service: 
-                </Typography>
-                <Typography 
-                variant="h5"
-                >
-                 Type of service:
-                </Typography>
-                <Typography 
-                variant="h5"
-                >
-                 Completion status: 
-                </Typography>
-                <Typography 
-                variant="h5"
-                >
-                Notes: 
-                </Typography>
-                <br/>
-            </CardContent>
-            <CardActions>
-                <Button
-                    variant="outlined"
-                    color="error"
-                    // onClick={(e) => saveCard()}
-                    >
-                         Details
-                </Button>
-            </CardActions>
-        </Card>
+   <HistoryCard/>
     </Grid>
 </Container>
     )
