@@ -15,6 +15,7 @@ const notesRouter = require('./routes/notes.router');
 const completeRouter = require('./routes/completion.router.js');
 const priorityRouter = require('./routes/priority.router.js');
 const formRouter = require('./routes/form.router');
+const historyRouter = require('.routes/userHistory.router.js');
 
 
 // Body parser middleware
@@ -36,6 +37,7 @@ app.use('/api/notes', notesRouter);
 app.use('/api/complete', completeRouter);
 app.use('/api/priority', priorityRouter);
 app.use('/api/forms', formRouter);
+app.use('/api/history', historyRouter);
 
 // Serve static files
 app.use(express.static('build'));

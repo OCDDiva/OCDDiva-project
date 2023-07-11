@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/userHistory', (req, res) => {
     console.log('In userHistory Router');
     const queryText = `SELECT 
     "services"."description" AS "service",
@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     })
 });
 
-router.put('/', (req, res) => {
+router.put('/history', (req, res) => {
     // PUT route code goes here
 });
 
