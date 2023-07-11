@@ -7,15 +7,17 @@ function InquiryDetails() {
     //Code goes here
     const dispatch = useDispatch();
     const history = useHistory();
-    const inquiryDetails = useSelector(store => store.inquiryDetails)
+    const inquiryDetails = useSelector(store => store.inquiryDetails);
     const { inquiriesId } = useParams();
-    console.log(inquiryDetails)
+
+    console.log('InquiryDetails Object:', inquiryDetails)
 
     useEffect(() => {
+        console.log('UseEffect Details Running:')
         dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
     }, [inquiriesId]);
 
-    console.log(inquiriesId);
+    console.log('InquiriesID:', inquiriesId);
 
 
     const returnToInquiries = (event) => {
@@ -25,7 +27,7 @@ function InquiryDetails() {
     // TODO see what miguel made for the dispatch for adding notes and edit accordingly
     const changeNote = (e) => {
         e.preventDefault();
-        if (inquiryDetails.notes.length> 0) {
+        if (inquiryDetails.customerQueryResult.rows[0].notes.length > 0) {
             dispatch({ type: 'EDIT_NOTE', payload: { inquiryDetails, inquiriesId, }, history });
         } else {
             dispatch({ type: 'ADD_NOTE', payload: { inquiryDetails }, history })
@@ -33,7 +35,7 @@ function InquiryDetails() {
     }
 
     const noteButton = () => {
-        if (inquiryDetails.notes > 0) {
+        if (inquiryDetails.customerQueryResult.rows[0].notes.length > 0) {
             return 'Edit Note'
         } else {
             return 'Add Note'
@@ -87,7 +89,7 @@ function InquiryDetails() {
     }
 
     const donationConversion = (inquiryDetails) => {
-        if (inquiryDetails.Donation === true) {
+        if (inquiryDetails.decluttResult.rows[0].Donation === true || inquiryDetails.orgResult.rows[0].Donation === true) {
             return 'Yes'
         } else {
             return 'No'
@@ -126,7 +128,7 @@ function InquiryDetails() {
     }
 
     const organizeDeclutterDisplay = (inquiryDetails) => {
-        if (inquiryDetails.Organizing || inquiryDetails.Declutter === true) {
+        if (inquiryDetails.orgResult.rows[0].Organizing === true || inquiryDetails.decluttResult.rows[0].Declutter === true) {
             return <div>
                 <h5>Organizing/Decluttering Questions:</h5>
                 <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
@@ -140,7 +142,14 @@ function InquiryDetails() {
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
-            <div key={inquiryDetails.id}>
+            <div key={inquiriesId}>
+                {
+                    inquiryDetails 
+                    && inquiryDetails.queryResult 
+                    && inquiryDetails.queryResult.rows 
+                    && inquiryDetails.queryResult.rows.length > 0
+                    && (
+                        <>
                 <h1>{inquiryDetails.queryResult.rows[0].firstName} {inquiryDetails.queryResult.rows[0].lastName}</h1>
                 {/* gonna work on a function that only displays specific services but not sure I will get to it tonight */}
                 <h2>
@@ -152,18 +161,21 @@ function InquiryDetails() {
                 {/* TODO I know the priority is bugged, will work on a fix */}
                 <h4> {priorityConversion(inquiryDetails)}</h4>
                 <h2>NOTES:</h2>
-                <p>{inquiryDetails.notes}</p>
-                <button onClick={changeNote}>{noteButton()}</button>
+                <p>{inquiryDetails.customerQueryResult.rows[0].notes}</p>
+                <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
                 <br />
                 <h3>Customer Responses to Survey:</h3>
                 <h5>Basic Questions:</h5>
-                <p>Number of Bedrooms: {inquiryDetails.Bedrooms}</p>
-                <p>Number of Bathrooms: {inquiryDetails.Bathrooms}</p>
-                <p>Number of Additional Rooms: {inquiryDetails.AdditionalRooms}</p>
+                <p>Number of Bedrooms: {inquiryDetails.cleaningResult.rows[0].Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails.cleaningResult.rows[0].Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails.cleaningResult.rows[0].AdditionalRooms}</p>
                 <p>{cleaningDisplay(inquiryDetails)}</p>
                 <p>{movingDisplay(inquiryDetails)}</p>
                 <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
                 <button onClick={returnToInquiries}>Inquiries List</button>
+                        </>
+                    )
+                }
             </div>
         </main>
 

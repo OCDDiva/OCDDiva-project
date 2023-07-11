@@ -38,34 +38,29 @@ router.get('/inquiries', (req, res) => {
 //! We need to update this now because the user inquiries table is different now
 router.get('/allUserInfo/:id', async (req, res) => {
   // GET #2 route code here
-  const client = await pool.connect();
   try { 
-    await client.query('BEGIN');
-    const queryText =  `SELECT * FROM "user_inquiries";`
-    const queryResult = await client.query(queryText)
-    const primaryTableId = queryResult.rows[0].id;
-    console.log('Checking the primaryTableId', primaryTableId)
+    const queryText =  `SELECT * FROM "user_inquiries" WHERE "id"=$1;`
+    const queryResult = await pool.query(queryText, [req.params.id])
+    // const primaryTableId = queryResult.rows[0].id;
+    console.log('Checking the primaryTableId', req.params.id)
     const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
-    const customerQueryResult = await client.query(customerQuery, [primaryTableId]);
+    const customerQueryResult = await pool.query(customerQuery, [req.params.id]);
     const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
-    const cleaningResult = await client.query(cleaningQuestions, [primaryTableId]);
+    const cleaningResult = await pool.query(cleaningQuestions, [req.params.id]);
     const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
-    const movingResult = await client.query(movingQuestions, [primaryTableId]);
+    const movingResult = await pool.query(movingQuestions, [req.params.id]);
     const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
-    const orgResult = await client.query(organizingQuestions, [primaryTableId]);
+    const orgResult = await pool.query(organizingQuestions, [req.params.id]);
     const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
-    const decluttResult = await client.query(declutteringQuestions,[primaryTableId]);
+    const decluttResult = await pool.query(declutteringQuestions, [req.params.id]);
     const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
-    const mediaResult = await client.query(userMedia, [primaryTableId]);
-    await client.query('COMMIT');
+    const mediaResult = await pool.query(userMedia, [req.params.id]);
+    // await client.query('COMMIT');
     console.log('All User data retrieved successfully.');
     res.send({queryResult, customerQueryResult, cleaningResult,movingResult, orgResult, decluttResult, mediaResult});
   } catch (error) {
-    await client.query('ROLLBACK');
     console.log('Error inserting data', error);
     res.status(500).send('Failed to insert data.');
-  } finally {
-    client.release();
   }
 });
 

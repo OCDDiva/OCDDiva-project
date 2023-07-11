@@ -10,8 +10,10 @@ function Inquiries() {
     const inquiries = useSelector(store => store.fetchInquiries);
     // const { inquiriesId } = useParams();
 
+    console.log('User Info as Inquiry Object:', inquiries)
+
     const navToInquiryDetails = (inquiries) => {
-        history.push(`/inquiries/inquirydetails/${inquiries.queryResult.rows[0].id}`);
+        history.push(`/inquiries/${inquiries.queryResult.rows[0].id}`);
     }
 
     useEffect(() => {

@@ -97,7 +97,7 @@ function App() {
               <Inquiries />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/inquiries/inquirydetails/:inquiriesId" >
+            <ProtectedRoute exact path="/inquiries/:inquiriesId" >
               <InquiryDetails />
             </ProtectedRoute>
 
