@@ -40,26 +40,40 @@ function InquiryDetails() {
         }
     }
 
-    const serviceConversion = (inquiryDetails) => {
-        if (inquiryDetails.EssentialClean === true) {
+    const serviceConversion = (inquiries) => {
+        if (inquiries.cleaningResult.rows[0].ServiceType === 'Essential') {
             return 'Essential Clean'
-        } else if (inquiryDetails.UltimateClean === true) {
+        } else if (inquiries.cleaningResult.rows[0].ServiceType === 'Ultimate') {
             return 'Ultimate Clean'
-        } else if (inquiryDetails.Moving === true) {
+        } else if (inquiries.movingResult.rows[0].moving === true) {
             return 'Moving'
-        } else if (inquiryDetails.Organizing === true) {
+        } else if (inquiries.orgResult.rows[0].Organizing === true) {
             return 'Organizing'
-        } else if (inquiryDetails.Declutter === true) {
+        } else if (inquiries.declutt.Result.rows[0].Declutter === true) {
             return 'Declutter'
         }
     }
 
+    const completionConversion = (inquiries) => {
+        if (inquiries.queryResult.rows[0].completion_status === 5) {
+            return 'Complete'
+        } else if (inquiries.queryResult.rows[0].completion_status === 4) {
+            return 'In Progress'
+        } else if (inquiries.queryResult.rows[0].completion_status === 3) {
+            return 'Bid Rejected'
+        } else if (inquiries.queryResult.rows[0].completion_status === 2) {
+            return 'Bid Offered'
+        } else if (inquiries.queryResult.rows[0].completion_status === 1) {
+            return 'Pending'
+        }
+    }
+
     const priorityConversion = (inquiryDetails) => {
-        if (inquiryDetails.priority === 1) {
+        if (inquiryDetails.queryResult.rows[0].priority === 1) {
             return 'High'
-        } else if (inquiryDetails.priority === 2) {
+        } else if (inquiryDetails.queryResult.rows[0].priority === 2) {
             return 'Medium'
-        } else if (inquiryDetails.priority === 3) {
+        } else if (inquiryDetails.queryResult.rows[0].priority === 3) {
             return 'Low'
         }
     }
@@ -126,15 +140,15 @@ function InquiryDetails() {
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
-            <div>
-                <h1>{inquiryDetails.firstName} {inquiryDetails.lastName}</h1>
+            <div key={inquiryDetails.id}>
+                <h1>{inquiryDetails.queryResult.rows[0].firstName} {inquiryDetails.queryResult.rows[0].lastName}</h1>
                 {/* gonna work on a function that only displays specific services but not sure I will get to it tonight */}
                 <h2>
                     {serviceConversion(inquiryDetails)}
                 </h2>
                 {/* Do we need this on the inquiries page if they haven't receive service yet? */}
                 <h3>Date Received: {dateConversion(inquiryDetails.service_on)} </h3>
-                <h3> {inquiryDetails.completion_status}</h3>
+                <h3> {completionConversion(inquiryDetails)}</h3>
                 {/* TODO I know the priority is bugged, will work on a fix */}
                 <h4> {priorityConversion(inquiryDetails)}</h4>
                 <h2>NOTES:</h2>

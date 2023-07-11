@@ -70,19 +70,6 @@ function Inquiries() {
                         <h3>{inquiries.customerQueryResult.rows[0].notes}</h3>
                         <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
                     </div>
-                    {/* {inquiries.map(inquiry => {
-                        return (
-                            <div key={inquiry.id}>
-                                <h1>{inquiry.firstName} {inquiry.lastName}</h1>
-                                <h2>{serviceConversion(inquiry)}</h2>
-                                <h3>{dateConversion(inquiry.service_on)}</h3>
-                                <h3>{inquiry.completion_status}</h3>
-                                <h5>{inquiry.notes}</h5>
-                                <button onClick={() => navToInquiryDetails(inquiry)}>Details</button>
-                            </div>
-                        )
-                    })} */}
-                    
                 </div>
             )}
         </main>
