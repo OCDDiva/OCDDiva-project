@@ -10,8 +10,10 @@ function Inquiries() {
     const inquiries = useSelector(store => store.fetchInquiries);
     // const { inquiriesId } = useParams();
 
-    const navToInquiryDetails = (inquiry) => {
-        history.push(`/inquiries/inquirydetails/${inquiry.user_id}`);
+    console.log('User Info as Inquiry Object:', inquiries)
+
+    const navToInquiryDetails = (inquiries) => {
+        history.push(`/inquiries/${inquiries.queryResult.rows[0].id}`);
     }
 
     useEffect(() => {
@@ -19,20 +21,34 @@ function Inquiries() {
     }, []);
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate).toLocaleDateString('en-EN')
+        const date = new Date(oldDate.queryResult.rows[0].date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
-    const serviceConversion = (inquiry) => {
-        if (inquiry.EssentialClean === true) {
+    const completionConversion = (inquiries) => {
+        if (inquiries.queryResult.rows[0].completion_status === 5) {
+            return 'Complete'
+        } else if (inquiries.queryResult.rows[0].completion_status === 4) {
+            return 'In Progress'
+        } else if (inquiries.queryResult.rows[0].completion_status === 3) {
+            return 'Bid Rejected'
+        } else if (inquiries.queryResult.rows[0].completion_status === 2) {
+            return 'Bid Offered'
+        } else if (inquiries.queryResult.rows[0].completion_status === 1) {
+            return 'Pending'
+        }
+    }
+
+    const serviceConversion = (inquiries) => {
+        if (inquiries.cleaningResult.rows[0].ServiceType === 'Essential') {
             return 'Essential Clean'
-        } else if (inquiry.UltimateClean === true) {
+        } else if (inquiries.cleaningResult.rows[0].ServiceType === 'Ultimate') {
             return 'Ultimate Clean'
-        } else if (inquiry.Moving === true) {
+        } else if (inquiries.movingResult.rows[0].moving === true) {
             return 'Moving'
-        } else if (inquiry.Organizing === true) {
+        } else if (inquiries.orgResult.rows[0].Organizing === true) {
             return 'Organizing'
-        } else if (inquiry.Declutter === true) {
+        } else if (inquiries.declutt.Result.rows[0].Declutter === true) {
             return 'Declutter'
         }
     }
@@ -46,22 +62,16 @@ function Inquiries() {
                     <p>No new requests!</p>
                 </div>
             ) : (
-                <div>
+                <div key={inquiries.id}>
                     {/* CUSTOMER INFO AND SERVICES_ID */}
-                    {inquiries.map(inquiry => {
-                        return (
-                            <div key={inquiry.id}>
-                                <h1>{inquiry.firstName} {inquiry.lastName}</h1>
-                                <h2>{serviceConversion(inquiry)}</h2>
-                                {/* I know this should be a different date */}
-                                <h3>{dateConversion(inquiry.service_on)}</h3>
-                                <h3>{inquiry.completion_status}</h3>
-                                <h5>{inquiry.notes}</h5>
-                                <button onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
-                            </div>
-                        )
-                    })}
-                    
+                    <div>
+                        <h1>{inquiries.queryResult.rows[0].firstName} {inquiries.queryResult.rows[0].lastName}</h1>
+                        <h2>{serviceConversion(inquiries)}</h2>
+                        <h3>{dateConversion(inquiries)}</h3>
+                        <h3>{completionConversion(inquiries)}</h3>
+                        <h3>{inquiries.customerQueryResult.rows[0].notes}</h3>
+                        <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
+                    </div>
                 </div>
             )}
         </main>
