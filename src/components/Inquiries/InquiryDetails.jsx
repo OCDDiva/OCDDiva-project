@@ -79,7 +79,7 @@ function InquiryDetails() {
     }
 
     const petConversion = (inquiryDetails) => {
-        if (inquiryDetails.HasPets === true) {
+        if (inquiryDetails.cleaningResult.rows[0].HasPets === true) {
             return 'Yes'
         } else {
             return 'No'
@@ -95,17 +95,17 @@ function InquiryDetails() {
     }
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate).toLocaleDateString('en-EN')
+        const date = new Date(oldDate.queryResult.rows[0].date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
     const cleaningDisplay = (inquiryDetails) => {
-        if (inquiryDetails.Cleaning === true) {
+        if (inquiryDetails.cleaningResult.rows[0].Cleaning === true) {
             return <div>
                 <h5>Cleaning Questions:</h5>
-                <p>Number of Doors & Windows: {inquiryDetails.DoorsWindows}</p>
+                <p>Number of Doors & Windows: {inquiryDetails.cleaningResult.rows[0].DoorsWindows}</p>
                 <p>Has Pets? {petConversion(inquiryDetails)}</p>
-                <p>Hazardous Conditions? {inquiryDetails.HazardousConditions}</p>
+                <p>Hazardous Conditions? {inquiryDetails.cleaningResult.rows[0].HazardousConditions}</p>
             </div>
         } else {
             return ''
@@ -147,7 +147,7 @@ function InquiryDetails() {
                     {serviceConversion(inquiryDetails)}
                 </h2>
                 {/* Do we need this on the inquiries page if they haven't receive service yet? */}
-                <h3>Date Received: {dateConversion(inquiryDetails.service_on)} </h3>
+                <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
                 <h3> {completionConversion(inquiryDetails)}</h3>
                 {/* TODO I know the priority is bugged, will work on a fix */}
                 <h4> {priorityConversion(inquiryDetails)}</h4>
