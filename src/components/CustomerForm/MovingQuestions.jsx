@@ -16,7 +16,6 @@ function MovingQuestions() {
     const [movingTo, setMovingTo] = useState('');
     const [movingFrom, setMovingFrom] = useState('');
     const [largeItems, setLargeItems] = useState('');
-    const user = useSelector(store => store.user);
     const allUserInfo = useSelector(store => store.allUserInfo);
 
     const handleMovingValue = (event) => {
