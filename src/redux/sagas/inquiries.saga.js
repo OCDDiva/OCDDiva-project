@@ -4,7 +4,7 @@ import Inquiries from '../../components/Inquiries/Inquiries';
 
 function* fetchInquiries() {
     try {
-        const inquiries = yield axios.get('/api/forms/allUserInfo');
+        const inquiries = yield axios.get('/api/forms/inquiries/allUserInfo');
         yield put({ type: 'SET_INQUIRIES', payload: inquiries.data});
         console.log(inquiries);
     } catch (error) {
