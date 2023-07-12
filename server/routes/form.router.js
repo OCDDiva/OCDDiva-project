@@ -292,7 +292,7 @@ router.put('/organizing', (req, res) => {
     pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);
     }).catch((error) => {
-      console.log(`Error in PUT for moving questions ${error}`);
+      console.log(`Error in PUT for organizing questions ${error}`);
       res.sendStatus(500);
     })
   }
@@ -311,7 +311,7 @@ router.put('/decluttering', (req, res) => {
     pool.query(queryText, queryValues).then((res) => {
       res.sendStatus(200);
     }).catch((error) => {
-      console.log(`Error in PUT for moving questions ${error}`);
+      console.log(`Error in PUT for decluttering questions ${error}`);
       res.sendStatus(500);
     })
   }

@@ -110,10 +110,11 @@ CREATE TABLE "user_inquiries" (
 	"zip" varchar(5),
 	"phone_number" varchar(11),
 	"email" varchar(50),
-	"priority" INT REFERENCES priority,
-	"completion_status" INT REFERENCES completion,
+	"priority" INT REFERENCES priority DEFAULT 3,
+	"completion_status" INT REFERENCES completion DEFAULT 1,
 	"comments" VARCHAR(10000)
 );
+
 
 
 INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "firstName", "lastName", "street1", "city", "state", "zip", "phone_number", "email", "priority", "completion_status", "comments")
