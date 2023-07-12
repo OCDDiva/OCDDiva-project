@@ -62,20 +62,38 @@ function Inquiries() {
         }
     }
 
+
+
     const addressFormat = (address) => {
         if (address.street2 !== null) {
-            return  <div>
-                    <h3>Address</h3>
-                    <p>Street: {address.street1}</p>
-                    <p>City: {address.city}</p>
-                    <p>State: {address.state}</p>
-                    <p>ZIP: {address.zip}</p>
-                    </div>
+            return <div>
+                <h3>Address</h3>
+                <p>Street: {address.street1}</p>
+                <p>Street 2: {address.street2}</p>
+                <p>City: {address.city}</p>
+                <p>State: {address.state}</p>
+                <p>ZIP: {address.zip}</p>
+            </div>
         } else {
-            return `Street: ${address.street1}
-                    Street 2: ${address.street2}
-                    City: ${address.city} | State: ${address.state}
-                    ZIP: ${address.zip}`
+            return <div>
+                <h3>Address</h3>
+                <p>Street: {address.street1}</p>
+                <p>City: {address.city}</p>
+                <p>State: {address.state}</p>
+                <p>ZIP: {address.zip}</p>
+            </div>
+        }
+    }
+
+    const priorityConversion = (inquiry) => {
+        if (inquiry.priority === 1) {
+            return 'High'
+        } else if (inquiry.priority === 2) {
+            return 'Medium'
+        } else if (inquiry.priority === 3) {
+            return 'Low'
+        } else {
+            return 'No Priority Set'
         }
     }
 
@@ -96,12 +114,12 @@ function Inquiries() {
                             return (
                                 <div>
                                     <h1>{inquiry.firstName} {inquiry.lastName}</h1>
+                                    <h2>Priority: {priorityConversion(inquiry)}</h2>
                                     <h5>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</h5>
                                     <h5>Email: {inquiry.email}</h5>
                                     <h5>{addressFormat(inquiry)}</h5>
-                                    <h3>{dateConversion(inquiry)}</h3>
-                                    <h3>{completionConversion(inquiry)}</h3>
-                                    <p>{inquiry.comments}</p>
+                                    <h3>Date Submitted: {dateConversion(inquiry)}</h3>
+                                    <h3>Serice Status: {completionConversion(inquiry)}</h3>
                                     <button className="btn" onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
                                 </div>
                             )
