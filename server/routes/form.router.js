@@ -178,8 +178,6 @@ router.post('/', async (req, res) => {
       req.body.phone_number,
       req.body.email,
       req.body.user_id,
-      // req.body.priority,
-      // req.body.completion,
     ];
     console.log(values);
     const queryText = `
@@ -204,6 +202,8 @@ router.post('/', async (req, res) => {
     await client.query(delcuttQuery, [inquiryId]);
     const customerQuery = `INSERT INTO "customer" ("inquiries") VALUES ($1);`;
     await client.query(customerQuery, [inquiryId]);
+    const userMediaQuery = `INSERT INTO "user_media" ("inquiry_id") VALUES ($1);`;
+    await client.query(userMediaQuery, [inquiryId])
     await client.query('COMMIT');
     console.log('Data inserted successfully');
     res.sendStatus(200);

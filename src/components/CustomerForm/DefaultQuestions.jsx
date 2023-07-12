@@ -91,8 +91,6 @@ function DefaultQuestions() {
             phone_number: '',
             email: '',
             user_id: user.id,
-            // priority: 3,
-            // completion: 1,
         });
         history.push('/cleaningquestions');
     }
