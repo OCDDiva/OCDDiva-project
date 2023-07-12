@@ -12,6 +12,7 @@ import fetchInquiries from './fetchInquiries.reducer';
 import defaultQuestionsReducer from './default.reducer';
 import allUserInfo from './allUserInfo.reducer';
 import userComments from './userComments.reducer';
+import requestedDate from './requestedDate.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   defaultQuestionsReducer,
   allUserInfo,
   userComments,
+  requestedDate,
 });
 
 export default rootReducer;

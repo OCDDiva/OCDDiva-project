@@ -12,6 +12,7 @@ import declutteringSaga from './decluttering.saga';
 import defaultSaga from './default.saga';
 import allUserInfoSaga from './allUserInfo.saga';
 import userCommentsSaga from './userComments.saga';
+import requestedDateSaga from './requestedDate.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -35,5 +36,6 @@ export default function* rootSaga() {
     defaultSaga(),
     allUserInfoSaga(),
     userCommentsSaga(),
+    requestedDateSaga(),
   ]);
 }

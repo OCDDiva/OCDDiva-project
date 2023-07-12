@@ -11,12 +11,15 @@ function Review() {
     const dispatch = useDispatch();
     const allUserInfo = useSelector(store => store.allUserInfo);
 
+    //! States f
     const [comments, setComments] = useState('');
+    const [dateRequested, setDateRequested] = useState(null);
 
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
         dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo.contact[0].id, } })
+        dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo.contact[0].id }})
         history.push('/success');
     }
 
@@ -105,6 +108,10 @@ function Review() {
                 </div>
                 <br />
                 <br />
+                <div className="dateRequest">
+                    <h4>Please Request a Date for services:</h4>
+                    <input type="date" value={dateRequested} onChange={(event) => {setDateRequested(event.target.value)}} />
+                </div>
                 <div className="picsAndComments">
                     <h3>Upload some photos of your space!</h3>
                     <input type="photo" />
