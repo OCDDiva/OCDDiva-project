@@ -40,9 +40,9 @@ function Inquiries() {
     }
 
     const serviceConversion = (inquiries) => {
-        if (inquiries.cleaning.ServiceType === 'Essential') {
+        if (inquiries.cleaning.ServiceType === 'essential') {
             return 'Essential Clean'
-        } else if (inquiries.cleaning.ServiceType === 'Ultimate') {
+        } else if (inquiries.cleaning.ServiceType === 'ultimate') {
             return 'Ultimate Clean'
         } else if (inquiries.moving.moving === true) {
             return 'Moving'
@@ -59,7 +59,8 @@ function Inquiries() {
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
-            {inquiries.length === 0 ? (
+            <center>
+                {inquiries.length === 0 ? (
                 <div>
                     <p>No new requests!</p>
                 </div>
@@ -72,7 +73,7 @@ function Inquiries() {
                                 <h3>{dateConversion(inquiry)}</h3>
                                 <h3>{completionConversion(inquiry)}</h3>
                                 <p>{inquiry.comments}</p>
-                                <button onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
+                                <button className="btn" onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
                             </div>
                         )
                     })}
@@ -89,6 +90,7 @@ function Inquiries() {
                 //     </div>
                 // </div>
             )}
+            </center>
         </main>
 
 

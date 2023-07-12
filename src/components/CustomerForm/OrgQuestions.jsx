@@ -5,11 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 import { TextField, Typography, Card } from '@mui/material';
 
-// 1. # Bedrooms to be organized
-// 2. # Bathrooms to be organized
-// 3. # Addtnl organized rooms
-// 4. Would you like to Donate any items?
-
 function OrgQuestions() {
     //Code goes here
 
@@ -44,7 +39,7 @@ function OrgQuestions() {
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
                 Donation: donation,
-                inquiry_id: allUserInfo.queryResult.rows[0].id,
+                inquiry_id: allUserInfo.contact[0].id,
             }
 
         })
@@ -63,7 +58,7 @@ function OrgQuestions() {
                     padding: 5,
                     boxShadow: 5,
                 }}>
-                    <h2 className="h2Headers">Would you like your space organized?</h2>
+                    <Typography className="h2Headers" variant="h5">Would you like your space organized?</Typography>
                     <br />
                     <center>
                         <form onChange={organizing} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

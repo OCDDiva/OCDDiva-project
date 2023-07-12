@@ -164,7 +164,7 @@ function InquiryDetails() {
                 <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
                 <button onClick={returnToInquiries}>Inquiries List</button>
             </div>
-            <div key={inquiriesId}>
+            {/* <div key={inquiriesId}>
                 {
                     inquiryDetails 
                     && inquiryDetails.queryResult 
@@ -195,7 +195,7 @@ function InquiryDetails() {
                         </>
                     )
                 }
-            </div>
+            </div> */}
         </main>
 
 
