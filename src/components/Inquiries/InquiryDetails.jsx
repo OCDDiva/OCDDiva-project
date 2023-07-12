@@ -144,17 +144,20 @@ function InquiryDetails() {
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
-            <p>{inquiryDetails.contact[0].firstName}</p>
             <div key={inquiriesId}>
-                            {
-                    inquiryDetails 
-                    && inquiryDetails.contact 
-                    && inquiryDetails.contact.rows 
+                {
+                    inquiryDetails
+                    && inquiryDetails.contact
+                    && inquiryDetails.contact.rows
                     && inquiryDetails.contact.rows.length > 0
                     && (
                         <>
+                        </>
+                    )
+                }
+            </div>
+            <div>
                 <h1>{inquiryDetails.contact[0].firstName} {inquiryDetails.contact[0].lastName}</h1>
-                <p>{JSON.stringify(inquiryDetails)}</p>
                 <h2>{serviceConversion(inquiryDetails)}</h2>
                 <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
                 <h3> {completionConversion(inquiryDetails)}</h3>
@@ -172,9 +175,6 @@ function InquiryDetails() {
                 <p>{movingDisplay(inquiryDetails)}</p>
                 <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
                 <button onClick={returnToInquiries}>Inquiries List</button>
-                                        </>
-                    )
-                }
             </div>
 
         </main>
@@ -183,37 +183,4 @@ function InquiryDetails() {
     )
 } // End Inquiries()
 
-
-{/* <div key={inquiriesId}>
-                {
-                    inquiryDetails
-                    && inquiryDetails.contact
-                    && inquiryDetails.contact.rows
-                    && inquiryDetails.contact.rows.length > 0
-                    && (
-                        <>
-                            <h1>{inquiryDetails.contact.firstName} {inquiryDetails.contact.lastName}</h1>
-                            <h2>
-                                {serviceConversion(inquiryDetails)}
-                            </h2>
-                            <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
-                            <h3> {completionConversion(inquiryDetails)}</h3>
-                            <h4> {priorityConversion(inquiryDetails)}</h4>
-                            <h2>NOTES:</h2>
-                            <p>{inquiryDetails.customer[0].notes}</p>
-                            <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
-                            <br />
-                            <h3>Customer Responses to Survey:</h3>
-                            <h5>Basic Questions:</h5>
-                            <p>Number of Bedrooms: {inquiryDetails.cleaning[0].Bedrooms}</p>
-                            <p>Number of Bathrooms: {inquiryDetails.cleaning[0].Bathrooms}</p>
-                            <p>Number of Additional Rooms: {inquiryDetails.cleaning[0].AdditionalRooms}</p>
-                            <p>{cleaningDisplay(inquiryDetails)}</p>
-                            <p>{movingDisplay(inquiryDetails)}</p>
-                            <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
-                            <button onClick={returnToInquiries}>Inquiries List</button>
-                        </>
-                    )
-                }
-            </div> */}
 export default InquiryDetails;
