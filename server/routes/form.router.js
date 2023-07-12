@@ -61,8 +61,7 @@ router.get('/customers', (req, res) => {
     let queryText = `SELECT
     "customer"."id",
     "user_inquiries"."firstName", 
-    "user_inquiries"."lastName", 
-    "services"."description" AS "services_id", 
+    "user_inquiries"."lastName",
     "user_inquiries"."completion_status", 
     "customer"."service_on",
     "customer"."notes"
@@ -96,7 +95,6 @@ router.get('/customers/:id', (req, res) => {
         "customer"."id",
         "user_inquiries"."firstName", 
         "user_inquiries"."lastName", 
-        "services"."description" AS "services_id", 
         "user_inquiries"."completion_status", 
         "customer"."service_on",
         "customer"."notes"
@@ -186,8 +184,8 @@ router.post('/', async (req, res) => {
     console.log(values);
     const queryText = `
       INSERT INTO "user_inquiries" 
-      ("firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "user_id") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id";
+      ("date_received", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "user_id") 
+      VALUES (NOW(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id";
     `;
     let inquiryResult = await client.query(queryText, values);
     let inquiryId = inquiryResult.rows[0].id;
