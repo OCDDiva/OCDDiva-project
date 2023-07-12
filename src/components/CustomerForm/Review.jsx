@@ -16,7 +16,7 @@ function Review() {
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
-        dispatch({ type: 'SUBMIT_INQUIRY' })
+        dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo.contact[0].id, } })
         history.push('/success');
     }
 

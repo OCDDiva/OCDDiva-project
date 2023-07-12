@@ -18,13 +18,13 @@ function historyCard({ history }) {
 
     return (
         <Grid item xs={{ minWidth: 700 }}>
-        <Card sx={{ minWidth: 700 }}>
+        <Card sx={{  maxWidth: 'fit-content' }}>
             <CardContent>
                 <br/>
                 <Typography 
                 variant="h5"
                 >
-                 Date of Service: {history.date_received}
+                 Date of Inquiry: {history.date_received}
                 </Typography>
                 <Typography 
                 variant="h5"
@@ -34,12 +34,13 @@ function historyCard({ history }) {
                 <Typography 
                 variant="h5"
                 >
-                 Completion status: {history.status}
+                 Completion status: 
+                 <Typography variant="h6">{history.status}</Typography>
                 </Typography>
                 <Typography 
                 variant="h5"
                 >
-                Notes: {history.comments}
+                Comments: {history.comments}
                 </Typography>
                 <br/>
             </CardContent>

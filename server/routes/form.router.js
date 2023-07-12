@@ -321,13 +321,13 @@ router.put('/userComments', (req, res) => {
   // PUT #4 route code here
   console.log(`In PUT for UserCommments`);
   if (req.isAuthenticated()) {
-    const queryValues = [req.body.comments];
-    const queryText = `UPDATE "user_inquiries" SET "comments" = $1 WHERE "inquiry_id" = $2;`;
+    const queryValues = [req.body.comments, req.body.inquiry_id];
+    const queryText = `UPDATE "user_inquiries" SET "comments" = $1 WHERE "id" = $2;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);
     }).catch((error) => {
-      console.log(`Error in PUT for moving questions ${error}`);
+      console.log(`Error in PUT for userComments: ${error}`);
       res.sendStatus(500);
     })
   }
