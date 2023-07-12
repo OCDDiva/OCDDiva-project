@@ -54,8 +54,7 @@ function Inquiries() {
     }
 
     const phoneNumberFormatter = (inquiry) => {
-        console.log('in phone formatter', inquiry)
-        if (typeof(inquiry) !== 'string') inquiry = inquiry.toString()
+        if (typeof (inquiry) !== 'string') inquiry = inquiry.toString()
         if (inquiry.length === 10) {
             return inquiry.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
         } else {
@@ -63,20 +62,22 @@ function Inquiries() {
         }
     }
 
-    const phoneFormat = (input) => {
-        if(!input || isNaN(input.phone_number)) return `input must be a number was sent ${input.phone_number}`
-        console.log(input.phone_number)
-        if(typeof(input.phone_number) !== 'string') input.phone_number = input.toString()
-        if(input.length === 10){
-          return input.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-        } else if(input.length < 10) {
-          return 'was not supplied enough numbers please pass a 10 digit number'
-        } else if(input.length > 10) {
-          return 'was supplied too many numbers please pass a 10 digit number'
-        }else{
-          return 'something went wrong'
+    const addressFormat = (address) => {
+        if (address.street2 !== null) {
+            return  <div>
+                    <h3>Address</h3>
+                    <p>Street: {address.street1}</p>
+                    <p>City: {address.city}</p>
+                    <p>State: {address.state}</p>
+                    <p>ZIP: {address.zip}</p>
+                    </div>
+        } else {
+            return `Street: ${address.street1}
+                    Street 2: ${address.street2}
+                    City: ${address.city} | State: ${address.state}
+                    ZIP: ${address.zip}`
         }
-      }
+    }
 
     console.log('Inquiries List:', inquiries);
 
@@ -86,36 +87,38 @@ function Inquiries() {
         <main>
             <center>
                 {inquiries.length === 0 ? (
-                <div>
-                    <p>No new requests!</p>
-                </div>
-            ) : (
-                <div key={inquiries.id}>
-                    {inquiries.map(inquiry => {
-                        return (
-                            <div>
-                                <h1>{inquiry.firstName} {inquiry.lastName}</h1>
-                                <h5>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</h5>
-                                <h3>{dateConversion(inquiry)}</h3>
-                                <h3>{completionConversion(inquiry)}</h3>
-                                <p>{inquiry.comments}</p>
-                                <button className="btn" onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
-                            </div>
-                        )
-                    })}
-                </div>
-                // <div key={inquiries.id}>
-                //     {/* CUSTOMER INFO AND SERVICES_ID */}
-                //     <div>
-                //         <h1>{inquiries.contact.firstName} {inquiries.contact.lastName}</h1>
-                //         <h2>{serviceConversion(inquiries)}</h2>
-                //         <h3>{dateConversion(inquiries)}</h3>
-                //         <h3>{completionConversion(inquiries)}</h3>
-                //         <h3>{inquiries.customer.notes}</h3>
-                //         <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
-                //     </div>
-                // </div>
-            )}
+                    <div>
+                        <p>No new requests!</p>
+                    </div>
+                ) : (
+                    <div key={inquiries.id}>
+                        {inquiries.map(inquiry => {
+                            return (
+                                <div>
+                                    <h1>{inquiry.firstName} {inquiry.lastName}</h1>
+                                    <h5>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</h5>
+                                    <h5>Email: {inquiry.email}</h5>
+                                    <h5>{addressFormat(inquiry)}</h5>
+                                    <h3>{dateConversion(inquiry)}</h3>
+                                    <h3>{completionConversion(inquiry)}</h3>
+                                    <p>{inquiry.comments}</p>
+                                    <button className="btn" onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    // <div key={inquiries.id}>
+                    //     {/* CUSTOMER INFO AND SERVICES_ID */}
+                    //     <div>
+                    //         <h1>{inquiries.contact.firstName} {inquiries.contact.lastName}</h1>
+                    //         <h2>{serviceConversion(inquiries)}</h2>
+                    //         <h3>{dateConversion(inquiries)}</h3>
+                    //         <h3>{completionConversion(inquiries)}</h3>
+                    //         <h3>{inquiries.customer.notes}</h3>
+                    //         <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
+                    //     </div>
+                    // </div>
+                )}
             </center>
         </main>
 
