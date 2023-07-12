@@ -16,6 +16,11 @@ function historyCard({ history }) {
         dispatch(action);
     }, []);
 
+    const dateConversion = (oldDate) => {
+        const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
+        return `${date}`
+    }
+
     return (
         <Grid item xs={{ minWidth: 700 }}>
         <Card sx={{  maxWidth: 'fit-content' }}>
@@ -24,7 +29,7 @@ function historyCard({ history }) {
                 <Typography 
                 variant="h5"
                 >
-                 Date of Inquiry: {history.date_received}
+                 Date of Inquiry: {dateConversion(history)}
                 </Typography>
                 <br />
                 {/* <Typography 
