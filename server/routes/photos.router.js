@@ -26,9 +26,6 @@ router.put('/photos', (req, res) => {
   }
 });
 
-
-
-
 router.delete('/', (req, res) => {
     // DELETE route code goes here
 });
