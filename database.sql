@@ -34,8 +34,8 @@ VALUES ('High'), ('Medium'), ('Low');
 CREATE TABLE "user_media" (
 	id serial primary key,
 	inquiry_id INT references user_inquiries,
-	blob_data BYTEA,
-	customer_id int references customer
+	url varchar(10000),
+	blob_data BYTEA
 );
 
  CREATE TABLE "moving_questions" (
