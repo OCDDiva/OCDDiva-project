@@ -13,7 +13,8 @@ function Review() {
 
     //! States f
     const [comments, setComments] = useState('');
-    const [dateRequested, setDateRequested] = useState(null);
+    const [dateRequested, setDateRequested] = useState();
+    const [photosToUpload, setPhotosToUpload] = useState();
 
     const goBack = () => { history.goBack() };
 
@@ -110,11 +111,11 @@ function Review() {
                 <br />
                 <div className="dateRequest">
                     <h4>Please Request a Date for services:</h4>
-                    <input type="date" value={dateRequested} onChange={(event) => {setDateRequested(event.target.value)}} />
+                    <input type="date" value={dateRequested} onChange={(event) => {setDateRequested(event.target.value )}} />
                 </div>
                 <div className="picsAndComments">
                     <h3>Upload some photos of your space!</h3>
-                    <input type="photo" />
+                    <input type="file" value={photosToUpload} onChange={(event) => {setPhotosToUpload(event.target.value )}} />
                     <br />
                     <br />
                     <h4>Leave us any additional comments!</h4>

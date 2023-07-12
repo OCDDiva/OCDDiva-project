@@ -98,7 +98,6 @@ VALUES (true, 3, 2, 1, true);
 CREATE TABLE "user_inquiries" (
 	"id" SERIAL PRIMARY KEY,
 	"user_id" INT REFERENCES users,
-	"services_id" INT REFERENCES services,
 	"date_received" DATE,
 	"date_requested" DATE,
 	"firstName" varchar(100),
