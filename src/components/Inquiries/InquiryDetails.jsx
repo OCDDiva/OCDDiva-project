@@ -142,8 +142,9 @@ function InquiryDetails() {
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
         <main>
-            <div>
+            <div key={inquiriesId}>
                 <h1>{inquiryDetails.contact[0].firstName} {inquiryDetails.contact[0].lastName}</h1>
+                <p></p>
                 <h2>
                     {serviceConversion(inquiryDetails)}
                 </h2>
@@ -164,15 +165,22 @@ function InquiryDetails() {
                 <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
                 <button onClick={returnToInquiries}>Inquiries List</button>
             </div>
-            <div key={inquiriesId}>
+
+        </main>
+
+
+    )
+} // End Inquiries()
+
+            {/* <div key={inquiriesId}>
                 {
                     inquiryDetails 
-                    && inquiryDetails.queryResult 
-                    && inquiryDetails.queryResult.rows 
-                    && inquiryDetails.queryResult.rows.length > 0
+                    && inquiryDetails.contact 
+                    && inquiryDetails.contact.rows 
+                    && inquiryDetails.contact.rows.length > 0
                     && (
                         <>
-                <h1>{inquiryDetails.contact[0].firstName} {inquiryDetails.contact[0].lastName}</h1>
+                <h1>{inquiryDetails.contact.firstName} {inquiryDetails.contact.lastName}</h1>
                 <h2>
                     {serviceConversion(inquiryDetails)}
                 </h2>
@@ -195,11 +203,6 @@ function InquiryDetails() {
                         </>
                     )
                 }
-            </div>
-        </main>
-
-
-    )
-} // End Inquiries()
+            </div> */}
 
 export default InquiryDetails;

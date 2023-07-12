@@ -53,6 +53,31 @@ function Inquiries() {
         }
     }
 
+    const phoneNumberFormatter = (inquiry) => {
+        console.log('in phone formatter', inquiry)
+        if (typeof(inquiry) !== 'string') inquiry = inquiry.toString()
+        if (inquiry.length === 10) {
+            return inquiry.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+        } else {
+            return 'Not a valid phone number'
+        }
+    }
+
+    const phoneFormat = (input) => {
+        if(!input || isNaN(input.phone_number)) return `input must be a number was sent ${input.phone_number}`
+        console.log(input.phone_number)
+        if(typeof(input.phone_number) !== 'string') input.phone_number = input.toString()
+        if(input.length === 10){
+          return input.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+        } else if(input.length < 10) {
+          return 'was not supplied enough numbers please pass a 10 digit number'
+        } else if(input.length > 10) {
+          return 'was supplied too many numbers please pass a 10 digit number'
+        }else{
+          return 'something went wrong'
+        }
+      }
+
     console.log('Inquiries List:', inquiries);
 
     //What displays
@@ -70,6 +95,7 @@ function Inquiries() {
                         return (
                             <div>
                                 <h1>{inquiry.firstName} {inquiry.lastName}</h1>
+                                <h5>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</h5>
                                 <h3>{dateConversion(inquiry)}</h3>
                                 <h3>{completionConversion(inquiry)}</h3>
                                 <p>{inquiry.comments}</p>
