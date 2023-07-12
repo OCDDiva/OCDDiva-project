@@ -22,7 +22,7 @@ router.get('/inquiries/allUserInfo', async (req, res) => {
  * GET #2 INQUIRY DETAILS (hint: by id) route template
  */
 //! We need to update this now because the user inquiries table is different now
-router.get('/allUserInfo/:id', async (req, res) => {
+router.get('/inquiries/allUserInfo/:id', async (req, res) => {
   // GET #2 route code here
   try { 
     const queryText =  `SELECT * FROM "user_inquiries" WHERE "id"=$1;`
