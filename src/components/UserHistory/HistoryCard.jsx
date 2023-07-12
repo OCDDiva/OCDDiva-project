@@ -26,22 +26,22 @@ function historyCard({ history }) {
                 >
                  Date of Inquiry: {history.date_received}
                 </Typography>
-                <Typography 
+                <br />
+                {/* <Typography 
                 variant="h5"
                 >
                  Type of service:{history.service}
-                </Typography>
+                </Typography> */}
                 <Typography 
                 variant="h5"
                 >
-                 Completion status: 
+                 Completion status:
+                 <br />
                  <Typography variant="h6">{history.status}</Typography>
+                 <br />
                 </Typography>
-                <Typography 
-                variant="h5"
-                >
-                Comments: {history.comments}
-                </Typography>
+                <Typography variant="h5">Comments: </Typography>
+                <p>{history.comments}</p>
                 <br/>
             </CardContent>
         </Card>

@@ -11,7 +11,7 @@ router.get('/userHistory', (req, res) => {
     FROM "user_inquiries"
     JOIN "completion" on "user_inquiries"."completion_status" = "completion"."id"
     WHERE "user_inquiries"."user_id" = 1
-    ORDER BY "user_inquiries"."user_id" DESC`;
+    ORDER BY "user_inquiries"."id" DESC`;
     pool
     .query(queryText)
     .then((result) => {
