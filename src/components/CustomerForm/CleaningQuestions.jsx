@@ -70,8 +70,6 @@ function CleaningQuestions() {
 
   const allUserInfo = useSelector(store => store.allUserInfo);
 
-  // console.log('Check inquiry ID', allUserInfo.queryResult.rows[0].id)
-
   //! Submit
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -86,7 +84,7 @@ function CleaningQuestions() {
         numberOfDoorsWindows,
         hasPets,
         hazardousConditions,
-        inquiry_id: allUserInfo.queryResult.rows[0].id,
+        inquiry_id: allUserInfo.contact[0].id,
       },
     });
     history.push('/movingquestions');

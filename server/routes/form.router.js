@@ -61,8 +61,7 @@ router.get('/customers', (req, res) => {
     let queryText = `SELECT
     "customer"."id",
     "user_inquiries"."firstName", 
-    "user_inquiries"."lastName", 
-    "services"."description" AS "services_id", 
+    "user_inquiries"."lastName",
     "user_inquiries"."completion_status", 
     "customer"."service_on",
     "customer"."notes"
@@ -96,7 +95,6 @@ router.get('/customers/:id', (req, res) => {
         "customer"."id",
         "user_inquiries"."firstName", 
         "user_inquiries"."lastName", 
-        "services"."description" AS "services_id", 
         "user_inquiries"."completion_status", 
         "customer"."service_on",
         "customer"."notes"
@@ -145,7 +143,7 @@ router.get('/allUserInfo', async (req, res) => {
     const mediaResult = await client.query(userMedia, [primaryTableId]);
     await client.query('COMMIT');
     console.log('All User data retrieved successfully.');
-    res.send({queryResult, customerQueryResult, cleaningResult, movingResult, orgResult, decluttResult, mediaResult});
+    res.send({ contact: queryResult.rows, customer: customerQueryResult.rows, cleaning: cleaningResult.rows, moving: movingResult.rows, organize: orgResult.rows, declutt: decluttResult.rows, media: mediaResult.rows });
   } catch (error) {
     await client.query('ROLLBACK');
     console.log('Error retreiving data', error);
@@ -184,8 +182,8 @@ router.post('/', async (req, res) => {
     console.log(values);
     const queryText = `
       INSERT INTO "user_inquiries" 
-      ("firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "user_id") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id";
+      ("date_received", "firstName", "lastName", "street1", "street2", "city", "state", "zip", "phone_number", "email", "user_id") 
+      VALUES (NOW(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id";
     `;
     let inquiryResult = await client.query(queryText, values);
     let inquiryId = inquiryResult.rows[0].id;
@@ -204,6 +202,8 @@ router.post('/', async (req, res) => {
     await client.query(delcuttQuery, [inquiryId]);
     const customerQuery = `INSERT INTO "customer" ("inquiries") VALUES ($1);`;
     await client.query(customerQuery, [inquiryId]);
+    const userMediaQuery = `INSERT INTO "user_media" ("inquiry_id") VALUES ($1);`;
+    await client.query(userMediaQuery, [inquiryId])
     await client.query('COMMIT');
     console.log('Data inserted successfully');
     res.sendStatus(200);
@@ -292,7 +292,7 @@ router.put('/organizing', (req, res) => {
     pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);
     }).catch((error) => {
-      console.log(`Error in PUT for moving questions ${error}`);
+      console.log(`Error in PUT for organizing questions ${error}`);
       res.sendStatus(500);
     })
   }
@@ -311,7 +311,39 @@ router.put('/decluttering', (req, res) => {
     pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);
     }).catch((error) => {
-      console.log(`Error in PUT for moving questions ${error}`);
+      console.log(`Error in PUT for decluttering questions ${error}`);
+      res.sendStatus(500);
+    })
+  }
+});
+
+router.put('/userComments', (req, res) => {
+  // PUT #5 route code here
+  console.log(`In PUT for UserCommments`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.comments, req.body.inquiry_id];
+    const queryText = `UPDATE "user_inquiries" SET "comments" = $1 WHERE "id" = $2;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for userComments: ${error}`);
+      res.sendStatus(500);
+    })
+  }
+});
+
+router.put('/dateRequest', (req, res) => {
+  // PUT #6 route code here
+  console.log(`In PUT for dateRequest`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.date_requested, req.body.inquiry_id];
+    const queryText = `UPDATE "user_inquiries" SET "date_requested" = $1 WHERE "id" = $2;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for userComments: ${error}`);
       res.sendStatus(500);
     })
   }

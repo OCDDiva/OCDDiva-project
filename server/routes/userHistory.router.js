@@ -5,14 +5,12 @@ const router = express.Router();
 router.get('/userHistory', (req, res) => {
     console.log('In userHistory Router');
     const queryText = `SELECT 
-    "services"."description" AS "service",
     "user_inquiries"."date_received" AS "date_received",
     "completion"."description" AS "status",
     "user_inquiries"."comments" AS "comments"
     FROM "user_inquiries"
-    JOIN "services" on "user_inquiries"."services_id" = "services"."id"
     JOIN "completion" on "user_inquiries"."completion_status" = "completion"."id"
-    WHERE "user_inquiries"."user_id" = 1`;
+    WHERE "user_inquiries"."user_id" = 2`;
     pool
     .query(queryText)
     .then((result) => {

@@ -18,22 +18,22 @@ function UserHistory() {
     //What displays
     return (
         // This will be replaced with HistoryCard component as a .map 
-<Container>
+        <Container>
             <h1 className='historyTitle'>User History</h1>
-    <br/>
-    <br/>
-    <Grid  justifyContent="center"
-    container spacing={5}>
-  {
-    history.map((history) => (
-        <HistoryCard
-        key={history.id}
-        history={history}
-        />
-    ))
-  }
-    </Grid>
-</Container>
+            <br />
+            <br />
+            <Grid justifyContent="center"
+                container spacing={5}>
+                {
+                    history.map((history) => (
+                        <HistoryCard
+                            key={history.id}
+                            history={history}
+                        />
+                    ))
+                }
+            </Grid>
+        </Container>
     )
 } //End UserHistory()
 
