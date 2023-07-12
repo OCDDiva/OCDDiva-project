@@ -26,6 +26,18 @@ function Review() {
 
     console.log('show me the info!!!!!!', allUserInfo);
 
+    const donationConversion = (allUserInfo) => {
+        if (allUserInfo.organize.Donations === true) {
+            return 'Yes'
+        } else if (allUserInfo.organize.Donations === false) {
+            return 'No'
+        } else if (allUserInfo.declutt.Donations === true) {
+            return 'Yes'
+        } else if (allUserInfo.declutt.Donations === false) {
+            return 'No'
+        }
+    }
+
     //What displays
     return (
         <div className="reviewPage" >

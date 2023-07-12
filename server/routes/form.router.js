@@ -308,7 +308,7 @@ router.put('/decluttering', (req, res) => {
     const queryValues = [req.body.Declutter, req.body.Bedrooms, req.body.Bathrooms, req.body.AdditionalRooms, req.body.Donation, req.body.inquiry_id];
     const queryText = `UPDATE "decluttering_questions" SET "Declutter" = $1, "Bedrooms" = $2, "Bathrooms" = $3, "AdditionalRooms" = $4, "Donation" = $5 WHERE "inquiry_id" = $6;`;
     console.log(queryValues);
-    pool.query(queryText, queryValues).then((res) => {
+    pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);
     }).catch((error) => {
       console.log(`Error in PUT for decluttering questions ${error}`);
@@ -324,7 +324,7 @@ router.put('/userComments', (req, res) => {
     const queryValues = [req.body.comments];
     const queryText = `UPDATE "user_inquiries" SET "comments" = $1 WHERE "inquiry_id" = $2;`;
     console.log(queryValues);
-    pool.query(queryText, queryValues).then((res) => {
+    pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);
     }).catch((error) => {
       console.log(`Error in PUT for moving questions ${error}`);
