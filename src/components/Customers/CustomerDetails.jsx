@@ -109,14 +109,14 @@ function CustomerDetails() {
                         {/* Add more form fields based on your form structure */}
                     </form>
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-                        <button className="btn" onClick={handleEdit}>
+                        {/* <button className="btn" onClick={handleEdit}>
                             Edit
                         </button>
                         <button className="btn" onClick={handleSave}>
                             Save
-                        </button>
+                        </button> */}
                         <button className="btn" onClick={handleDelete}>
-                            Delete
+                            Delete Customer
                         </button>
                     </div>
                 </Container>

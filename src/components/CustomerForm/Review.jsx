@@ -14,7 +14,7 @@ function Review() {
     //! States f
     const [comments, setComments] = useState('');
     const [dateRequested, setDateRequested] = useState();
-    const [photosToUpload, setPhotosToUpload] = useState();
+    const [photosToUpload, setPhotosToUpload] = useState('');
 
     const goBack = () => { history.goBack() };
 
@@ -22,6 +22,16 @@ function Review() {
         dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo.contact[0].id, } })
         dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo.contact[0].id }})
         history.push('/success');
+    }
+
+    const photoUpload = (event) => {
+        const fileToUpload = event.target.files[0];
+        const acceptedImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (acceptedImageTypes.includes(fileToUpload.type)) {
+            setPhotosToUpload(fileToUpload);
+          } else {
+            alert('Please select an image');
+          }
     }
 
     useEffect(() => {
@@ -115,7 +125,7 @@ function Review() {
                 </div>
                 <div className="picsAndComments">
                     <h3>Upload some photos of your space!</h3>
-                    <input type="file" value={photosToUpload} onChange={(event) => {setPhotosToUpload(event.target.value )}} />
+                    <input type="file" accept="image/*" onChange={photoUpload} />
                     <br />
                     <br />
                     <h4>Leave us any additional comments!</h4>
