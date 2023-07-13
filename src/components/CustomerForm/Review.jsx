@@ -119,7 +119,7 @@ function Review() {
                     <br />
                     <br />
                     <h4>Leave us any additional comments!</h4>
-                    <input type="text" value={comments} onChange={(event) => { setComments(event.target.value) }} />
+                    <input type="text" value={comments} onChange={(event) => {setComments(event.target.value) }} />
                 </div>
                 <br />
                 <br />
