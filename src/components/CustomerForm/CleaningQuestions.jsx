@@ -26,7 +26,7 @@ function CleaningQuestions() {
   const [numberOfBathrooms, setNumberOfBathrooms] = useState(0);
   const [numberOfAdditionalRooms, setNumberOfAdditionalRooms] = useState(0);
   const [numberOfDoorsWindows, setNumberOfDoorsWindows] = useState(0);
-  const [hasPets, setHasPets] = useState(false);
+  const [hasPets, setHasPets] = useState('None');
   const [hazardousConditions, setHazardousConditions] = useState('None');
 
   //! Handle Changes
@@ -56,7 +56,7 @@ function CleaningQuestions() {
   };
 
   const handleHasPetsChange = (event) => {
-    setHasPets(event.target.value === 'yes');
+    setHasPets(event.target.value);
   };
 
   const handleHazardousConditionsChange = (event) => {
@@ -205,18 +205,13 @@ function CleaningQuestions() {
                         {/* Pets Question*/}
 
                         <FormControl>
-
-                          <Typography > Do you have pets? </Typography>
-
-                          <RadioGroup sx={{ display: 'block' }}
-                            row
-                            className='rowCleaningQuestion'
-                            name="radio-btn-row-cleaning-question" >
-
-                            <FormControlLabel value="yes" id="hasPetsYes" checked={hasPets === true} control={<Radio />} label="Yes" onChange={handleHasPetsChange} labelPlacement="bottom" />
-                            <FormControlLabel value="no" id="hasPetsNo" checked={hasPets === false} control={<Radio />} label="No" onChange={handleHasPetsChange} labelPlacement="bottom" />
-
-                          </RadioGroup>
+                          <Typography>Do you have pets?</Typography>
+                          <TextField
+                            id="hasPets"
+                            value={hasPets}
+                            onChange={handleHasPetsChange}
+                            variant="outlined"
+                          />
                         </FormControl>
 
                       </li>
@@ -315,19 +310,14 @@ function CleaningQuestions() {
 
                       {/* Pets Question*/}
                       <li>
-                        <FormControl>
-
-                          <Typography > Do you have pets? </Typography>
-
-                          <RadioGroup sx={{ display: 'block' }}
-                            row
-                            className='rowCleaningQuestion'
-                            name="radio-btn-row-cleaning-question" >
-
-                            <FormControlLabel value="yes" id="hasPetsYes" checked={hasPets === true} control={<Radio />} label="Yes" onChange={handleHasPetsChange} labelPlacement="bottom" />
-                            <FormControlLabel value="no" id="hasPetsNo" checked={hasPets === false} control={<Radio />} label="No" onChange={handleHasPetsChange} labelPlacement="bottom" />
-
-                          </RadioGroup>
+                      <FormControl>
+                          <Typography>Do you have pets?</Typography>
+                          <TextField
+                            id="hasPets"
+                            value={hasPets}
+                            onChange={handleHasPetsChange}
+                            variant="outlined"
+                          />
                         </FormControl>
                       </li>
 
