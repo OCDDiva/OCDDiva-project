@@ -92,7 +92,9 @@ function Inquiries() {
 
     const [priorityLevel, setPriorityLevel] = useState(3)
     const handlePriorityLevel = (event) => {
+        console.log('Priority Changed', priorityLevel)
         setPriorityLevel(event.target.value);
+        dispatch ({ type: 'EDIT_PRIORITY', payload: { priorityLevel }, history })
     }
 
     console.log(priorityLevel)
