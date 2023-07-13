@@ -8,12 +8,11 @@ function Inquiries() {
     const dispatch = useDispatch();
     const history = useHistory();
     const inquiries = useSelector(store => store.fetchInquiries);
-    // const { inquiriesId } = useParams();
 
     console.log('User Info as Inquiry Object:', inquiries)
 
     const navToInquiryDetails = (inquiries) => {
-        history.push(`/inquiries/${inquiries.id}`);
+        history.push(`/inquirydetails/${inquiries.id}`);
     }
 
     useEffect(() => {
@@ -120,7 +119,7 @@ function Inquiries() {
                                     <h5>{addressFormat(inquiry)}</h5>
                                     <h3>Date Submitted: {dateConversion(inquiry)}</h3>
                                     <h3>Serice Status: {completionConversion(inquiry)}</h3>
-                                    <button className="btn" onClick={(event) => navToInquiryDetails(inquiry)}>Details</button>
+                                    <button className="btn" onClick={() => navToInquiryDetails(inquiry)}>Details</button>
                                 </div>
                             )
                         })}
