@@ -14,7 +14,7 @@ router.put('/photos', (req, res) => {
     // PUT route code here
     console.log(`In PUT for photos`);
   if (req.isAuthenticated()) {
-    const queryValues = [req.body.date_requested, req.body.inquiry_id];
+    const queryValues = [req.body.url, req.body.inquiry_id];
     const queryText = `UPDATE "user_media" SET "url" = $1 WHERE "inquiry_id" = $2;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {

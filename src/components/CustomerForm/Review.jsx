@@ -21,6 +21,7 @@ function Review() {
     const submitInquiry = () => {
         dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo.contact[0].id, } })
         dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo.contact[0].id }})
+        dispatch({ type: 'UPLOAD_PHOTOS', payload: { url: photosToUpload, inquiry_id: allUserInfo.contact[0].id} })
         history.push('/success');
     }
 
@@ -41,13 +42,13 @@ function Review() {
     console.log('show me the info!!!!!!', allUserInfo);
 
     const donationConversion = (allUserInfo) => {
-        if (allUserInfo.organize.Donations === true) {
+        if (allUserInfo.organize[0].Donations === true) {
             return 'Yes'
-        } else if (allUserInfo.organize.Donations === false) {
+        } else if (allUserInfo.organize[0].Donations === false) {
             return 'No'
-        } else if (allUserInfo.declutt.Donations === true) {
+        } else if (allUserInfo.declutt[0].Donations === true) {
             return 'Yes'
-        } else if (allUserInfo.declutt.Donations === false) {
+        } else if (allUserInfo.declutt[0].Donations === false) {
             return 'No'
         }
     }
