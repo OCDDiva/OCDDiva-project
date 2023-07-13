@@ -7,47 +7,53 @@ const router = express.Router();
  */
 router.get('/inquiries/allUserInfo', async (req, res) => {
   // GET #5 route code here
+  if (req.isAuthenticated()) {
+    console.log('user', req.user);
     const queryText =  `SELECT * FROM "user_inquiries" ORDER BY id DESC;`
     console.log('All User data retrieved successfully.');
     pool.query(queryText).then((result) => {
-      console.log('results', result.rows);
+      console.log('for all inquiries (line13)', result.rows);
       res.send(result.rows);
     }).catch((error) => {
       console.log('HERE', error);
       res.sendStatus(500);
     });
+} else {
+  res.sendStatus(403);
+}
 });
 
 /**
  * GET #2 INQUIRY DETAILS (hint: by id) route template
  */
 //! We need to update this now because the user inquiries table is different now
-router.get('/allUserInfo/:id', async (req, res) => {
-  // GET #2 route code here
-  try { 
-    const queryText =  `SELECT * FROM "user_inquiries" WHERE "id"=$1;`
-    const queryResult = await pool.query(queryText, [req.params.id])
-    // const primaryTableId = queryResult.rows[0].id;
-    console.log('Checking the primaryTableId', req.params.id)
-    const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
-    const customerQueryResult = await pool.query(customerQuery, [req.params.id]);
-    const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
-    const cleaningResult = await pool.query(cleaningQuestions, [req.params.id]);
-    const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
-    const movingResult = await pool.query(movingQuestions, [req.params.id]);
-    const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
-    const orgResult = await pool.query(organizingQuestions, [req.params.id]);
-    const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
-    const decluttResult = await pool.query(declutteringQuestions, [req.params.id]);
-    const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
-    const mediaResult = await pool.query(userMedia, [req.params.id]);
-    // await client.query('COMMIT');
-    console.log('All User data retrieved successfully.');
-    res.send({ contact: queryResult.rows, customer: customerQueryResult.rows, cleaning: cleaningResult.rows, moving: movingResult.rows, organize: orgResult.rows, declutt: decluttResult.rows, media: mediaResult.rows });  } catch (error) {
-    console.log('Error inserting data', error);
-    res.status(500).send('Failed to insert data.');
-  }
-});
+// router.get('/inquirydetails/allUserInfo/:id', async (req, res) => {
+//   // GET #2 route code here
+//   try { 
+//     const queryText =  `SELECT * FROM "user_inquiries" WHERE "id"=$1;`
+//     const queryResult = await pool.query(queryText, [req.params.id])
+//     // const primaryTableId = queryResult.rows[0].id;
+//     console.log('Checking the primaryTableId', req.params.id)
+//     const customerQuery =  `SELECT * FROM "customer" WHERE inquiries = $1;`;
+//     const customerQueryResult = await pool.query(customerQuery, [req.params.id]);
+//     const cleaningQuestions = `SELECT * FROM "cleaning_questions" WHERE "inquiry_id" = $1;`;
+//     const cleaningResult = await pool.query(cleaningQuestions, [req.params.id]);
+//     const movingQuestions = `SELECT * FROM "moving_questions" WHERE "inquiry_id" = $1;`;
+//     const movingResult = await pool.query(movingQuestions, [req.params.id]);
+//     const organizingQuestions = `SELECT * FROM "organizing_questions" WHERE "inquiry_id" = $1;`;
+//     const orgResult = await pool.query(organizingQuestions, [req.params.id]);
+//     const declutteringQuestions = `SELECT * FROM "decluttering_questions" WHERE "inquiry_id" = $1;`;
+//     const decluttResult = await pool.query(declutteringQuestions, [req.params.id]);
+//     const userMedia = `SELECT * FROM "user_media" WHERE "inquiry_id" = $1;`;
+//     const mediaResult = await pool.query(userMedia, [req.params.id]);
+//     // await client.query('COMMIT');
+//     console.log('CHecking shit out:', customerQueryResult)
+//     console.log('All User data retrieved successfully.');
+//     res.send({ contact: queryResult.rows, customer: customerQueryResult.rows, cleaning: cleaningResult.rows, moving: movingResult.rows, organize: orgResult.rows, declutt: decluttResult.rows, media: mediaResult.rows });  } catch (error) {
+//     console.log('Error inserting data', error);
+//     res.status(500).send('Failed to insert data.');
+//   }
+// });
 
 /**
  * GET #3 CUSTOMERS route template

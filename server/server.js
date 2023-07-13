@@ -16,6 +16,7 @@ const completeRouter = require('./routes/completion.router.js');
 const priorityRouter = require('./routes/priority.router.js');
 const formRouter = require('./routes/form.router');
 const historyRouter = require('./routes/userHistory.router');
+const inquiryDetailsRouter = require('./routes/inquirydetails.router');
 
 
 // Body parser middleware
@@ -32,7 +33,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 // app.use('/api/customers', customerRouter);
-// app.use('/api/user_inquiries', userInquiries);
+app.use('/api/inquirydetails', inquiryDetailsRouter);
 app.use('/api/notes', notesRouter);
 app.use('/api/complete', completeRouter);
 app.use('/api/priority', priorityRouter);
