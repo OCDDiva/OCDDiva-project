@@ -12,10 +12,14 @@ function InquiryDetails() {
 
     console.log('InquiryDetails Object:', inquiryDetails)
 
-    useEffect(() => {
-        console.log('UseEffect Details Running:')
-        dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
-    }, [inquiriesId]);
+    if (inquiriesId){
+        useEffect(() => {
+            console.log('UseEffect Details Running:')
+            dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
+        }, [inquiriesId]);
+    }
+
+
 
     console.log('InquiriesID:', inquiriesId);
 

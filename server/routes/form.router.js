@@ -7,6 +7,8 @@ const router = express.Router();
  */
 router.get('/inquiries/allUserInfo', async (req, res) => {
   // GET #5 route code here
+  if (req.isAuthenticated()) {
+    console.log('user', req.user);
     const queryText =  `SELECT * FROM "user_inquiries" ORDER BY id DESC;`
     console.log('All User data retrieved successfully.');
     pool.query(queryText).then((result) => {
@@ -16,6 +18,9 @@ router.get('/inquiries/allUserInfo', async (req, res) => {
       console.log('HERE', error);
       res.sendStatus(500);
     });
+} else {
+  res.sendStatus(403);
+}
 });
 
 /**

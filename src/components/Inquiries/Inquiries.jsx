@@ -9,8 +9,6 @@ function Inquiries() {
     const history = useHistory();
     const inquiries = useSelector(store => store.fetchInquiries);
 
-    console.log('User Info as Inquiry Object:', inquiries)
-
     const navToInquiryDetails = (inquiries) => {
         history.push(`/inquirydetails/${inquiries.id}`);
     }

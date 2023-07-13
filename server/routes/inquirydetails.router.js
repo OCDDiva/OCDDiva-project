@@ -4,6 +4,8 @@ const router = express.Router();
 
 router.get('/inquirydetails/allUserInfo/:id', async (req, res) => {
     // GET #2 route code here
+    if (req.isAuthenticated()) {
+        console.log('user', req.user);
     try { 
       const queryText =  `SELECT * FROM "user_inquiries" WHERE "id"=$1;`
       const queryResult = await pool.query(queryText, [req.params.id])
@@ -27,7 +29,10 @@ router.get('/inquirydetails/allUserInfo/:id', async (req, res) => {
       res.send({ contact: queryResult.rows, customer: customerQueryResult.rows, cleaning: cleaningResult.rows, moving: movingResult.rows, organize: orgResult.rows, declutt: decluttResult.rows, media: mediaResult.rows });  } catch (error) {
       console.log('Error inserting data', error);
       res.status(500).send('Failed to insert data.');
-    }
-  });
+    } 
+  } else {
+    res.sendStatus(403);
+}
+});
 
   module.exports = router;
