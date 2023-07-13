@@ -7,12 +7,18 @@ function InquiryDetails() {
     //Code goes here
     const dispatch = useDispatch();
     const history = useHistory();
+    const inquiries = useSelector(store => store.fetchInquiries);
     const inquiryDetails = useSelector(store => store.inquiryDetails);
     const { inquiriesId } = useParams();
 
     console.log('InquiryDetails Object:', inquiryDetails)
+    console.log('InquiryList:', inquiries)
 
-    if (inquiriesId){
+    useEffect(() => {
+        dispatch({ type: 'FETCH_INQUIRIES' });
+    }, [inquiriesId]);
+
+    if (inquiriesId) {
         useEffect(() => {
             console.log('UseEffect Details Running:')
             dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
@@ -84,13 +90,13 @@ function InquiryDetails() {
         }
     }
 
-    const petConversion = (inquiryDetails) => {
-        if (inquiryDetails.cleaning[0].HasPets === true) {
-            return 'Yes'
-        } else {
-            return 'No'
-        }
-    }
+    // const petConversion = (inquiryDetails) => {
+    //     if (inquiryDetails.cleaning[0].HasPets === true) {
+    //         return 'Yes'
+    //     } else {
+    //         return 'No'
+    //     }
+    // }
 
     const donationConversion = (inquiryDetails) => {
         if (inquiryDetails.declutt[0].Donation === true || inquiryDetails.organize.Donation === true) {
@@ -109,8 +115,11 @@ function InquiryDetails() {
         if (inquiryDetails.cleaning[0].Cleaning === true) {
             return <div>
                 <h5>Cleaning Questions:</h5>
+                <p>Number of Bedrooms: {inquiryDetails.cleaning[0].Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails.cleaning[0].Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails.cleaning[0].AdditionalRooms}</p>
                 <p>Number of Doors & Windows: {inquiryDetails.cleaning[0].DoorsWindows}</p>
-                <p>Has Pets? {petConversion(inquiryDetails)}</p>
+                <p>Has Pets? {inquiryDetails.hasPets}</p>
                 <p>Hazardous Conditions? {inquiryDetails.cleaning[0].HazardousConditions}</p>
             </div>
         } else {
@@ -135,6 +144,12 @@ function InquiryDetails() {
         if (inquiryDetails.organize[0].Organizing === true || inquiryDetails.declutt[0].Declutter === true) {
             return <div>
                 <h5>Organizing/Decluttering Questions:</h5>
+                <p>Number of Bedrooms: {inquiryDetails.organize[0].Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails.organize[0].Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails.organize[0].AdditionalRooms}</p>
+                <p>Number of Bedrooms: {inquiryDetails.declutt[0].Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails.declutt[0].Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails.declutt[0].AdditionalRooms}</p>
                 <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
             </div>
         } else {
@@ -142,7 +157,6 @@ function InquiryDetails() {
         }
     }
 
-    console.log(inquiryDetails)
     //What displays
     return (
         <main>
@@ -150,8 +164,10 @@ function InquiryDetails() {
                 <p>Inquiries ID: {inquiriesId}</p>
                 {
                     inquiryDetails
-                    && (
-                        <>
+                    &&
+                    inquiries &&
+                    (
+                        <div key={inquiries.id}>
                             <h1>{inquiryDetails.contact[0].firstName} {inquiryDetails.contact[0].lastName}</h1>
                             <h2>
                                 {serviceConversion(inquiryDetails)}
@@ -164,15 +180,12 @@ function InquiryDetails() {
                             <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
                             <br />
                             <h3>Customer Responses to Survey:</h3>
-                            <h5>Basic Questions:</h5>
-                            <p>Number of Bedrooms: {inquiryDetails.cleaning[0].Bedrooms}</p>
-                            <p>Number of Bathrooms: {inquiryDetails.cleaning[0].Bathrooms}</p>
-                            <p>Number of Additional Rooms: {inquiryDetails.cleaning[0].AdditionalRooms}</p>
                             <p>{cleaningDisplay(inquiryDetails)}</p>
                             <p>{movingDisplay(inquiryDetails)}</p>
                             <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
+                            <p>Additional Comments: {inquiryDetails.contact[0].comments}</p>
                             <button onClick={returnToInquiries}>Inquiries List</button>
-                        </>
+                        </div>
                     )
                 }
             </div>

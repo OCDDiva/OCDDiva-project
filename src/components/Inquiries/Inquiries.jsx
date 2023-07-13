@@ -9,6 +9,7 @@ function Inquiries() {
     const history = useHistory();
     const inquiries = useSelector(store => store.fetchInquiries);
 
+    // ! THIS IS CHANGED FOR TESTING -- ERASE AFTER TESTING
     const navToInquiryDetails = (inquiries) => {
         history.push(`/inquirydetails/${inquiries.id}`);
     }
@@ -36,19 +37,6 @@ function Inquiries() {
         }
     }
 
-    const serviceConversion = (inquiries) => {
-        if (inquiries.cleaning.ServiceType === 'essential') {
-            return 'Essential Clean'
-        } else if (inquiries.cleaning.ServiceType === 'ultimate') {
-            return 'Ultimate Clean'
-        } else if (inquiries.moving.moving === true) {
-            return 'Moving'
-        } else if (inquiries.organize.Organizing === true) {
-            return 'Organizing'
-        } else if (inquiries.declutt.Declutter === true) {
-            return 'Declutter'
-        }
-    }
 
     const phoneNumberFormatter = (inquiry) => {
         if (typeof (inquiry) !== 'string') inquiry = inquiry.toString()
