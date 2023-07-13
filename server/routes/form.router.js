@@ -52,72 +52,87 @@ router.get('/allUserInfo/:id', async (req, res) => {
 /**
  * GET #3 CUSTOMERS route template
  */
-//! We need to update this now because the user inquiries table is different now
-router.get('/customers', (req, res) => {
-  console.log('is Authenticated?', req.isAuthenticated());
-  console.log('HERE /customers')
+// //! We need to update this now because the user inquiries table is different now
+router.get('/customers', async (req, res) => {
+  console.log('Is authenticated?', req.isAuthenticated());
+  console.log('HERE /customers');
   if (req.isAuthenticated()) {
-    console.log('user', req.user);
-    let queryText = `SELECT
-    "customer"."id",
-    "user_inquiries"."firstName", 
-    "user_inquiries"."lastName", 
-    "services"."description" AS "services_id", 
-    "user_inquiries"."completion_status", 
-    "customer"."service_on",
-    "customer"."notes"
-    FROM "customer"
-    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
-    JOIN "services" ON "customer"."services_id" = "services"."id";`;
-    pool.query(queryText).then((result) => {
-      console.log('results', result.rows);
+    console.log('User:', req.user);
+    const queryText = `
+      SELECT
+        "customer"."id",
+        "user_inquiries"."firstName",
+        "user_inquiries"."lastName",
+        "services"."description" AS "services_id",
+        "completion"."description" AS "completion_status",
+        "customer"."service_on",
+        "customer"."notes"
+      FROM "customer"
+      JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+      JOIN "services" ON "user_inquiries"."services_id" = "services"."id"
+      JOIN "completion" ON "user_inquiries"."completion_status" = "completion"."id" 
+      WHERE "completion"."id" = 5;
+      
+    `;
+    try {
+      const result = await pool.query(queryText);
+      console.log('Results:', result.rows);
       res.send(result.rows);
-    }).catch((error) => {
-      console.log('HERE', error);
+    } catch (error) {
+      console.log('Error:', error);
       res.sendStatus(500);
-    });
+    }
   } else {
     res.sendStatus(403);
   }
 });
+
+
 
 /**
  * GET #4 CUSTOMERS DETAILS (hint: by id) route template
  */
 //! We need to update this now because the user inquiries table is different now
-router.get('/customers/:id', (req, res) => {
+router.get('/customers/:id', async (req, res) => {
   const customerId = req.params.id;
-  console.log('is Authenticated?', req.isAuthenticated());
+  console.log('Is authenticated?', req.isAuthenticated());
 
   if (req.isAuthenticated()) {
-    console.log('user', req.user);
-    let queryText = `
+    console.log('User:', req.user);
+    const queryText = `
       SELECT
-        "customer"."id",
-        "user_inquiries"."firstName", 
-        "user_inquiries"."lastName", 
-        "services"."description" AS "services_id", 
-        "user_inquiries"."completion_status", 
+        "services"."description" AS "services_id",
+        "completion"."description" AS "completion_status",
         "customer"."service_on",
-        "customer"."notes"
+        "customer"."notes",
+        "cleaning_questions"."inquiry_id" AS "cleaning_question",
+        "organizing_questions"."inquiry_id" AS "organizing_question",
+        "decluttering_questions"."inquiry_id" AS "decluttering_question",
+        "user_media"."media_url"
       FROM "customer"
       JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
-      JOIN "services" ON "customer"."services_id" = "services"."id"
+      JOIN "services" ON "user_inquiries"."services_id" = "services"."id"
+      JOIN "completion" ON "user_inquiries"."completion_status" = "completion"."id"
+      JOIN "moving_questions" ON "moving_questions"."inquiry_id" = "user_inquiries"."id"
+      JOIN "cleaning_questions" ON "cleaning_questions"."inquiry_id" = "user_inquiries"."id"
+      JOIN "organizing_questions" ON "organizing_questions"."inquiry_id" = "user_inquiries"."id"
+      JOIN "decluttering_questions" ON  "decluttering_questions"."inquiry_id" = "user_inquiries"."id"
+      JOIN "user_media" ON "user_media"."inquiry_id" = "user_inquiries"."id"
       WHERE "customer"."id" = $1;
-    `; // Use the customer ID parameter in the query
-    pool.query(queryText, [customerId])
-      .then((result) => {
-        console.log(result.rows);
-        res.send(result.rows);
-      })
-      .catch((error) => {
-        console.log(error);
-        res.sendStatus(500);
-      });
+    `;
+    try {
+      const result = await pool.query(queryText, [customerId]);
+      console.log('Results:', result.rows);
+      res.send(result.rows);
+    } catch (error) {
+      console.log('Error:', error);
+      res.sendStatus(500);
+    }
   } else {
     res.sendStatus(403);
   }
 });
+
 
 /**
  * GET #5 ALL USER INFO route template
@@ -320,8 +335,18 @@ router.put('/decluttering', (req, res) => {
 /**
  * DELETE BY ID route template
  */
-router.delete('/', (req, res) => {
-  // DELETE route code here
+router.delete('/:id', (req, res) => {
+  const customerId = req.params.id;
+  const query = 'DELETE FROM "customer" WHERE "id" = $1';
+  const values = [customerId];
+  pool.query(query, values)
+    .then(() => {
+      res.sendStatus(204); // Send a 204 No Content response if successful
+    })
+    .catch((error) => {
+      console.log(`Error in DELETE /forms/${customerId}:`, error);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

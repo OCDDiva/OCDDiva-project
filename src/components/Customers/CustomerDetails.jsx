@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Typography, Button, TextField, Box, Card, CardContent, CardActions } from '@mui/material';
+import axios from 'axios';
 const luxon = require('luxon');
 const dateTime = luxon.DateTime;
 
@@ -12,15 +13,7 @@ function CustomerDetails() {
     const customerDetails = useSelector(store => store.customerReducer);
     
 
-    //   const [form, setForm] = useState(customer.form); // Assuming form data is stored in `form` property
 
-    //   const handleInputChange = (e) => {
-    //     setForm({ ...form, [e.target.name]: e.target.value });
-    //   };
-
-    // Test 
-
-    
     const handleAdd = () => {
         history.goBack(); // Redirects to the previous page
     };
@@ -33,16 +26,28 @@ function CustomerDetails() {
         history.goBack(); // Redirects to the previous page
     };
 
-    const handleDelete = () => {
-        history.goBack(); // Redirects to the previous page
-    };
-
+    // const handleDelete = () => {
+    //     history.goBack(); // Redirects to the previous page
+    // };
 
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_CUSTOMERS_DETAILS', payload: customerId });
+        dispatch({ type: 'FETCH_CUSTOMERS_DETAILS', payload: customerId});
     }, [customerId]);
 
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure you want to delete this dog?')) {
+            axios
+                .delete(`/api/forms/customers/${id}`)
+                .then((result) => {
+                    dispatch({ type: 'FETCH_CUSTOMERS_DETAILS' });
+                })
+                .catch((error) => {
+                    console.log(`Error in DELETE: ${error}`);
+                    alert(`Failed to delete dog!`);
+                });
+        }
+    };
 
     // Function to transform the date format
     function transformDate(date) {
@@ -92,20 +97,7 @@ function CustomerDetails() {
                     <br />
                     <Typography variant="h4" style={{ textAlign: "center" }}>Customer's Form(s):</Typography>
                     <form>
-                        {/* <TextField
-          name="firstName"
-          label="First Name"
-          value={customer?.firstName || ''}
-        //   onChange={handleInputChange}
-          fullWidth
-        />
-        <TextField
-          name="lastName"
-          label="Last Name"
-          value={customer?.lastName || ''}
-        //   onChange={handleInputChange}
-          fullWidth
-        /> */}
+                        
                         {/* Add more form fields based on your form structure */}
                     </form>
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
