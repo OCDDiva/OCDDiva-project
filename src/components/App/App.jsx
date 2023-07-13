@@ -99,7 +99,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/inquirydetails/:inquiriesId" >
-              <SpecificInquiry />
+              <InquiryDetails />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/userhistory" >

@@ -37,7 +37,7 @@ function InquiryDetails() {
     // TODO see what miguel made for the dispatch for adding notes and edit accordingly
     const changeNote = (e) => {
         e.preventDefault();
-        if (inquiryDetails.customerQueryResult.rows[0].notes.length > 0) {
+        if (inquiryDetails?.customer?.notes !== null) {
             dispatch({ type: 'EDIT_NOTE', payload: { inquiryDetails, inquiriesId, }, history });
         } else {
             dispatch({ type: 'ADD_NOTE', payload: { inquiryDetails }, history })
@@ -45,7 +45,7 @@ function InquiryDetails() {
     }
 
     const noteButton = () => {
-        if (inquiryDetails.customer.notes > 0) {
+        if (inquiryDetails?.customer?.notes !== null) {
             return 'Edit Note'
         } else {
             return 'Add Note'
@@ -67,39 +67,31 @@ function InquiryDetails() {
     }
 
     const completionConversion = (inquiries) => {
-        if (inquiries.contact[0].completion_status === 5) {
+        if (inquiries?.contact?.completion_status === 5) {
             return 'Complete'
-        } else if (inquiries.contact[0].completion_status === 4) {
+        } else if (inquiries?.contact?.completion_status === 4) {
             return 'In Progress'
-        } else if (inquiries.contact[0].completion_status === 3) {
+        } else if (inquiries?.contact?.completion_status === 3) {
             return 'Bid Rejected'
-        } else if (inquiries.contact[0].completion_status === 2) {
+        } else if (inquiries?.contact?.completion_status === 2) {
             return 'Bid Offered'
-        } else if (inquiries.contact[0].completion_status === 1) {
+        } else if (inquiries?.contact?.completion_status === 1) {
             return 'Pending'
         }
     }
 
     const priorityConversion = (inquiryDetails) => {
-        if (inquiryDetails.contact[0].priority === 1) {
+        if (inquiryDetails?.contact?.priority === 1) {
             return 'High'
-        } else if (inquiryDetails.contact[0].priority === 2) {
+        } else if (inquiryDetails?.contact?.priority === 2) {
             return 'Medium'
-        } else if (inquiryDetails.contact[0].priority === 3) {
+        } else if (inquiryDetails?.contact?.priority === 3) {
             return 'Low'
         }
     }
 
-    // const petConversion = (inquiryDetails) => {
-    //     if (inquiryDetails.cleaning[0].HasPets === true) {
-    //         return 'Yes'
-    //     } else {
-    //         return 'No'
-    //     }
-    // }
-
     const donationConversion = (inquiryDetails) => {
-        if (inquiryDetails.declutt[0].Donation === true || inquiryDetails.organize.Donation === true) {
+        if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
             return 'Yes'
         } else {
             return 'No'
@@ -107,20 +99,20 @@ function InquiryDetails() {
     }
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate.contact[0].date_received).toLocaleDateString('en-EN')
+        const date = new Date(oldDate?.contact?.date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
     const cleaningDisplay = (inquiryDetails) => {
-        if (inquiryDetails.cleaning[0].Cleaning === true) {
+        if (inquiryDetails?.cleaning?.Cleaning === true) {
             return <div>
                 <h5>Cleaning Questions:</h5>
-                <p>Number of Bedrooms: {inquiryDetails.cleaning[0].Bedrooms}</p>
-                <p>Number of Bathrooms: {inquiryDetails.cleaning[0].Bathrooms}</p>
-                <p>Number of Additional Rooms: {inquiryDetails.cleaning[0].AdditionalRooms}</p>
-                <p>Number of Doors & Windows: {inquiryDetails.cleaning[0].DoorsWindows}</p>
-                <p>Has Pets? {inquiryDetails.hasPets}</p>
-                <p>Hazardous Conditions? {inquiryDetails.cleaning[0].HazardousConditions}</p>
+                <p>Number of Bedrooms: {inquiryDetails?.cleaning?.Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails?.cleaning?.Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails?.cleaning?.AdditionalRooms}</p>
+                <p>Number of Doors & Windows: {inquiryDetails?.cleaning?.DoorsWindows}</p>
+                <p>Has Pets? {inquiryDetails?.cleaning?.hasPets}</p>
+                <p>Hazardous Conditions? {inquiryDetails?.cleaning?.HazardousConditions}</p>
             </div>
         } else {
             return ''
@@ -128,28 +120,39 @@ function InquiryDetails() {
     }
 
     const movingDisplay = (inquiryDetails) => {
-        if (inquiryDetails.Moving === true) {
+        if (inquiryDetails?.moving?.moving === true) {
             return <div>
                 <h5>Moving Questions:</h5>
-                <p>New Address: {inquiryDetails.moving_to}</p>
-                <p>Old Address: {inquiryDetails.moving_from}</p>
-                <p>Any Large Items? {inquiryDetails.large_items}</p>
+                <p>New Address: {inquiryDetails?.moving?.moving_to}</p>
+                <p>Old Address: {inquiryDetails?.moving?.moving_from}</p>
+                <p>Any Large Items? {inquiryDetails?.moving?.large_items}</p>
             </div>
         } else {
             return ''
         }
     }
 
-    const organizeDeclutterDisplay = (inquiryDetails) => {
-        if (inquiryDetails.organize[0].Organizing === true || inquiryDetails.declutt[0].Declutter === true) {
+    const organizeDisplay = (inquiryDetails) => {
+        if (inquiryDetails?.organize?.Organizing === true) {
             return <div>
-                <h5>Organizing/Decluttering Questions:</h5>
-                <p>Number of Bedrooms: {inquiryDetails.organize[0].Bedrooms}</p>
-                <p>Number of Bathrooms: {inquiryDetails.organize[0].Bathrooms}</p>
-                <p>Number of Additional Rooms: {inquiryDetails.organize[0].AdditionalRooms}</p>
-                <p>Number of Bedrooms: {inquiryDetails.declutt[0].Bedrooms}</p>
-                <p>Number of Bathrooms: {inquiryDetails.declutt[0].Bathrooms}</p>
-                <p>Number of Additional Rooms: {inquiryDetails.declutt[0].AdditionalRooms}</p>
+                <h5>Organizing Questions:</h5>
+                <p>Number of Bedrooms: {inquiryDetails?.organize?.Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails?.organize?.Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails?.organize?.AdditionalRooms}</p>
+                <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
+            </div>
+        } else {
+            return ''
+        }
+    }
+
+    const declutterDisplay = (inquiryDetails) => {
+        if (inquiryDetails?.declutt?.Declutter === true) {
+            return <div>
+                <h5>Decluttering Questions:</h5>
+                <p>Number of Bedrooms: {inquiryDetails?.declutt?.Bedrooms}</p>
+                <p>Number of Bathrooms: {inquiryDetails?.declutt?.Bathrooms}</p>
+                <p>Number of Additional Rooms: {inquiryDetails?.declutt?.AdditionalRooms}</p>
                 <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
             </div>
         } else {
@@ -162,32 +165,26 @@ function InquiryDetails() {
         <main>
             <div key={inquiriesId}>
                 <p>Inquiries ID: {inquiriesId}</p>
-                {
-                    inquiryDetails
-                    &&
-                    inquiries &&
-                    (
                         <div key={inquiries.id}>
-                            <h1>{inquiryDetails.contact[0].firstName} {inquiryDetails.contact[0].lastName}</h1>
-                            <h2>
+                            <h1>{inquiryDetails?.contact?.firstName} {inquiryDetails?.contact?.lastName}</h1>
+                            {/* <h2>
                                 {serviceConversion(inquiryDetails)}
-                            </h2>
+                            </h2> */}
                             <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
                             <h3> {completionConversion(inquiryDetails)}</h3>
                             <h4> {priorityConversion(inquiryDetails)}</h4>
                             <h2>NOTES:</h2>
-                            <p>{inquiryDetails.customer[0].notes}</p>
+                            <p>{inquiryDetails?.customer?.notes}</p>
                             <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
                             <br />
                             <h3>Customer Responses to Survey:</h3>
                             <p>{cleaningDisplay(inquiryDetails)}</p>
                             <p>{movingDisplay(inquiryDetails)}</p>
-                            <p>{organizeDeclutterDisplay(inquiryDetails)}</p>
-                            <p>Additional Comments: {inquiryDetails.contact[0].comments}</p>
+                            <p>{organizeDisplay(inquiryDetails)}</p>
+                            <p>{declutterDisplay(inquiryDetails)}</p>
+                            <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
                             <button onClick={returnToInquiries}>Inquiries List</button>
                         </div>
-                    )
-                }
             </div>
         </main>
 

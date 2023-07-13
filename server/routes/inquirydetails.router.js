@@ -26,7 +26,7 @@ router.get('/inquirydetails/allUserInfo/:id', async (req, res) => {
             // await client.query('COMMIT');
             console.log('Checking shit out:', queryResult.rows)
             console.log('All User data retrieved successfully.');
-            res.send({ contact: queryResult.rows, customer: customerQueryResult.rows, cleaning: cleaningResult.rows, moving: movingResult.rows, organize: orgResult.rows, declutt: decluttResult.rows, media: mediaResult.rows });
+            res.send({ contact: queryResult.rows[0], customer: customerQueryResult.rows[0], cleaning: cleaningResult.rows[0], moving: movingResult.rows[0], organize: orgResult.rows[0], declutt: decluttResult.rows[0], media: mediaResult.rows[0] });
         } catch (error) {
             console.log('Error inserting data', error);
             res.status(500).send('Failed to insert data.');

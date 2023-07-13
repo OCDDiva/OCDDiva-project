@@ -9,11 +9,6 @@ function Inquiries() {
     const history = useHistory();
     const inquiries = useSelector(store => store.fetchInquiries);
 
-    // ! THIS IS CHANGED FOR TESTING -- ERASE AFTER TESTING
-    const navToInquiryDetails = (inquiries) => {
-        history.push(`/inquirydetails/${inquiries.id}`);
-    }
-
     useEffect(() => {
         dispatch({ type: 'FETCH_INQUIRIES' });
     }, []);
@@ -84,6 +79,11 @@ function Inquiries() {
 
     console.log('Inquiries List:', inquiries);
 
+    // ! THIS IS CHANGED FOR TESTING -- ERASE AFTER TESTING
+    const navToInquiryDetails = (inquiries) => {
+        history.push(`/inquirydetails/${inquiries.id}`);
+    }
+
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
@@ -110,17 +110,6 @@ function Inquiries() {
                             )
                         })}
                     </div>
-                    // <div key={inquiries.id}>
-                    //     {/* CUSTOMER INFO AND SERVICES_ID */}
-                    //     <div>
-                    //         <h1>{inquiries.contact.firstName} {inquiries.contact.lastName}</h1>
-                    //         <h2>{serviceConversion(inquiries)}</h2>
-                    //         <h3>{dateConversion(inquiries)}</h3>
-                    //         <h3>{completionConversion(inquiries)}</h3>
-                    //         <h3>{inquiries.customer.notes}</h3>
-                    //         <button onClick={() => navToInquiryDetails(inquiries)}>Details</button>
-                    //     </div>
-                    // </div>
                 )}
             </center>
         </main>
