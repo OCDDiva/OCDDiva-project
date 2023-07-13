@@ -58,15 +58,10 @@ router.get('/customers', (req, res) => {
   console.log('HERE /customers')
   if (req.isAuthenticated()) {
     console.log('user', req.user);
-    let queryText = `SELECT
-    "customer"."id",
-    "user_inquiries"."firstName", 
-    "user_inquiries"."lastName",
-    "user_inquiries"."completion_status", 
-    "customer"."service_on",
-    "customer"."notes"
+    let queryText = `SELECT "customer"."id","user_inquiries"."firstName", "user_inquiries"."lastName","user_inquiries"."completion_status", "customer"."service_on","customer"."notes" 
     FROM "customer"
-    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id";`;
+    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+    WHERE "user_inquiries".completion_status = 5`;
     pool.query(queryText).then((result) => {
       console.log('results', result.rows);
       res.send(result.rows);
