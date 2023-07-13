@@ -15,7 +15,7 @@ function* fetchInquiries() {
 
 function* fetchInquiryDetails(action) {
     try {
-        const inquiryDetails = yield axios.get(`/api/forms/allUserInfo/${action.payload}`);
+        const inquiryDetails = yield axios.get(`/api/inquirydetails/inquirydetails/allUserInfo/${action.payload}`);
         yield put({ type: 'SET_INQUIRY_DETAILS', payload: inquiryDetails.data});
         console.log(inquiryDetails);
     } catch (error) {
