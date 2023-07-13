@@ -15,6 +15,8 @@ function UserHistory() {
         const action = { type: 'GET_HISTORY' };
         dispatch(action);
     }, []);
+
+    console.log('Checking history', history)
     //What displays
     return (
         // This will be replaced with HistoryCard component as a .map 

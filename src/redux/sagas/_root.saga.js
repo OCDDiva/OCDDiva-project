@@ -13,6 +13,7 @@ import defaultSaga from './default.saga';
 import allUserInfoSaga from './allUserInfo.saga';
 import userCommentsSaga from './userComments.saga';
 import requestedDateSaga from './requestedDate.saga';
+import photosSaga from './photos.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -37,5 +38,6 @@ export default function* rootSaga() {
     allUserInfoSaga(),
     userCommentsSaga(),
     requestedDateSaga(),
+    photosSaga(),
   ]);
 }

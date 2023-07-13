@@ -21,6 +21,20 @@ function historyCard({ history }) {
         return `${date}`
     }
 
+    const serviceConversion = (history) => {
+        if (history.cleaning.ServiceType === 'essential') {
+            return 'Essential Clean'
+        } else if (history.cleaning.ServiceType === 'ultimate') {
+            return 'Ultimate Clean'
+        } else if (history.moving.moving === true) {
+            return 'Moving'
+        } else if (history.organize.Organizing === true) {
+            return 'Organizing'
+        } else if (history.declutt.Declutter === true) {
+            return 'Declutter'
+        }
+    }
+
     return (
         <Grid item xs={{ minWidth: 700 }}>
         <Card sx={{  maxWidth: 'fit-content' }}>
@@ -32,11 +46,12 @@ function historyCard({ history }) {
                  Date of Inquiry: {dateConversion(history)}
                 </Typography>
                 <br />
-                {/* <Typography 
+                <Typography 
                 variant="h5"
                 >
                  Type of service:{history.service}
-                </Typography> */}
+                </Typography>
+                <br />
                 <Typography 
                 variant="h5"
                 >

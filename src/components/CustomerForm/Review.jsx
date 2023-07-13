@@ -13,14 +13,26 @@ function Review() {
 
     //! States f
     const [comments, setComments] = useState('');
-    const [dateRequested, setDateRequested] = useState(null);
+    const [dateRequested, setDateRequested] = useState();
+    const [photosToUpload, setPhotosToUpload] = useState('');
 
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
         dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo.contact[0].id, } })
         dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo.contact[0].id }})
+        dispatch({ type: 'UPLOAD_PHOTOS', payload: { url: photosToUpload, inquiry_id: allUserInfo.contact[0].id} })
         history.push('/success');
+    }
+
+    const photoUpload = (event) => {
+        const fileToUpload = event.target.files[0];
+        const acceptedImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (acceptedImageTypes.includes(fileToUpload.type)) {
+            setPhotosToUpload(fileToUpload);
+          } else {
+            alert('Please select an image');
+          }
     }
 
     useEffect(() => {
@@ -30,13 +42,13 @@ function Review() {
     console.log('show me the info!!!!!!', allUserInfo);
 
     const donationConversion = (allUserInfo) => {
-        if (allUserInfo.organize.Donations === true) {
+        if (allUserInfo.organize[0].Donations === true) {
             return 'Yes'
-        } else if (allUserInfo.organize.Donations === false) {
+        } else if (allUserInfo.organize[0].Donations === false) {
             return 'No'
-        } else if (allUserInfo.declutt.Donations === true) {
+        } else if (allUserInfo.declutt[0].Donations === true) {
             return 'Yes'
-        } else if (allUserInfo.declutt.Donations === false) {
+        } else if (allUserInfo.declutt[0].Donations === false) {
             return 'No'
         }
     }
@@ -110,15 +122,15 @@ function Review() {
                 <br />
                 <div className="dateRequest">
                     <h4>Please Request a Date for services:</h4>
-                    <input type="date" value={dateRequested} onChange={(event) => {setDateRequested(event.target.value)}} />
+                    <input type="date" value={dateRequested} onChange={(event) => {setDateRequested(event.target.value )}} />
                 </div>
                 <div className="picsAndComments">
                     <h3>Upload some photos of your space!</h3>
-                    <input type="photo" />
+                    <input type="file" accept="image/*" onChange={photoUpload} />
                     <br />
                     <br />
                     <h4>Leave us any additional comments!</h4>
-                    <input type="text" value={comments} onChange={(event) => { setComments(event.target.value) }} />
+                    <input type="text" value={comments} onChange={(event) => {setComments(event.target.value) }} />
                 </div>
                 <br />
                 <br />

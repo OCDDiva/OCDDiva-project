@@ -10,7 +10,7 @@ function CustomerDetails() {
     const history = useHistory();
     const dispatch = useDispatch();
     const customerDetails = useSelector(store => store.customerReducer);
-    
+
 
     //   const [form, setForm] = useState(customer.form); // Assuming form data is stored in `form` property
 
@@ -20,7 +20,7 @@ function CustomerDetails() {
 
     // Test 
 
-    
+
     const handleAdd = () => {
         history.goBack(); // Redirects to the previous page
     };
@@ -75,48 +75,57 @@ function CustomerDetails() {
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             </CardContent>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <button className="btn" onClick={handleAdd}>
+                                    Add Note
+                                </button>
+                                <button className="btn" onClick={handleEdit}>
+                                    Edit Note
+                                </button>
+                                <button className="btn" onClick={handleDelete}>
+                                    Delete
+                                </button>
+                            </div>
+                            <br />
+                            <Typography variant="h4" style={{ textAlign: "center" }}>Customer's Form(s):</Typography>
+                            <div className="customerHistoryForm">
+                                <center>
+                                    <h3>Contact Information:</h3>
+                                    <p>Address: {customer.street1}  {customer.street2}</p>
+                                    <p>{customer.city}</p>
+                                    <p>{customer.state}</p>
+                                    <p>{customer.zip}</p>
+                                    <p>{customer.phone_number}</p>
+                                    <p>{customer.email}</p>
+                                    <h3>Cleaning Questions:</h3>
+                                    <h4>Cleaning Service</h4>
+                                    <p>{customer.ServiceType}</p>
+                                    <p>Bedrooms: {customer.Bedrooms}</p>
+                                    <p>Bathrooms: {customer.Bathrooms}</p>
+                                    <p>Additional Rooms: {customer.AdditionalRooms}</p>
+                                    <p>Doors & Windows: {customer.DoorsWindows}</p>
+                                    <p>Pets: {customer.HasPets}</p>
+                                    <h3>Moving Questions</h3>
+                                    <h3>Organizing Questions</h3>
+                                    <h3>Decluttering Questions</h3>
+                                    <h3>Customer Photos</h3>
+                                    <p></p>
+                                </center>
+
+                            </div>
                         </div>
                     ))}
                     <br />
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <button className="btn" onClick={handleAdd}>
-                            Add Note
-                        </button>
-                        <button className="btn" onClick={handleEdit}>
-                            Edit Note
-                        </button>
-                        <button className="btn" onClick={handleDelete}>
-                            Delete
-                        </button>
-                    </div>
-                    <br />
-                    <Typography variant="h4" style={{ textAlign: "center" }}>Customer's Form(s):</Typography>
-                    <form>
-                        {/* <TextField
-          name="firstName"
-          label="First Name"
-          value={customer?.firstName || ''}
-        //   onChange={handleInputChange}
-          fullWidth
-        />
-        <TextField
-          name="lastName"
-          label="Last Name"
-          value={customer?.lastName || ''}
-        //   onChange={handleInputChange}
-          fullWidth
-        /> */}
-                        {/* Add more form fields based on your form structure */}
-                    </form>
+
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-                        <button className="btn" onClick={handleEdit}>
+                        {/* <button className="btn" onClick={handleEdit}>
                             Edit
                         </button>
                         <button className="btn" onClick={handleSave}>
                             Save
-                        </button>
+                        </button> */}
                         <button className="btn" onClick={handleDelete}>
-                            Delete
+                            Delete Customer
                         </button>
                     </div>
                 </Container>
