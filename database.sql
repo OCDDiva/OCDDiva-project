@@ -62,7 +62,7 @@ CREATE TABLE "cleaning_questions" (
     "Bathrooms" INT,
     "AdditionalRooms" INT,
     "DoorsWindows" INT,
-    "HasPets" BOOLEAN default false,
+    "HasPets" VARCHAR(500),
     "HazardousConditions" VARCHAR(10000)
 );
 

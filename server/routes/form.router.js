@@ -66,8 +66,7 @@ router.get('/customers', (req, res) => {
     "customer"."service_on",
     "customer"."notes"
     FROM "customer"
-    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
-    JOIN "services" ON "customer"."services_id" = "services"."id";`;
+    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id";`;
     pool.query(queryText).then((result) => {
       console.log('results', result.rows);
       res.send(result.rows);
@@ -90,18 +89,15 @@ router.get('/customers/:id', (req, res) => {
 
   if (req.isAuthenticated()) {
     console.log('user', req.user);
-    let queryText = `
-      SELECT
-        "customer"."id",
-        "user_inquiries"."firstName", 
-        "user_inquiries"."lastName", 
-        "user_inquiries"."completion_status", 
-        "customer"."service_on",
-        "customer"."notes"
-      FROM "customer"
-      JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
-      JOIN "services" ON "customer"."services_id" = "services"."id"
-      WHERE "customer"."id" = $1;
+    let queryText = `SELECT * FROM "customer"
+    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+    JOIN "completion" ON "user_inquiries"."completion_status" = "completion"."id"
+    JOIN "moving_questions" ON "moving_questions"."inquiry_id" = "customer"."inquiries"
+    JOIN "cleaning_questions" ON "cleaning_questions"."inquiry_id" = "customer"."inquiries"
+    JOIN "organizing_questions" ON "organizing_questions"."inquiry_id" = "customer"."inquiries"
+    JOIN "decluttering_questions" ON  "decluttering_questions"."inquiry_id" = "customer"."inquiries"
+    JOIN "user_media" ON "user_media"."inquiry_id" = "customer"."inquiries"
+    WHERE "customer"."id" = $1;
     `; // Use the customer ID parameter in the query
     pool.query(queryText, [customerId])
       .then((result) => {
