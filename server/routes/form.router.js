@@ -154,9 +154,23 @@ router.get('/allUserInfo', async (req, res) => {
 });
 
 /**
- * GET #5 USER HISTORY route template
+ * GET #5 notes route template
  */
-
+router.put('/notes', (req, res) => {
+  // PUT #5 route code here
+  console.log(`In PUT for notes`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.notes, req.body.inquiry_id];
+    const queryText = `UPDATE "customer" SET "notes" = $1 WHERE "inquiries" = $2;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for notes: ${error}`);
+      res.sendStatus(500);
+    })
+  }
+});
 
 /**
  * POST ESSENTIAL CUSTOMER INFO(default) route template
