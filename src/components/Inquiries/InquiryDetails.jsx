@@ -174,8 +174,8 @@ function InquiryDetails() {
         }
     }
 
-    const [priorityLevel, setPriorityLevel] = useState({});
-    const [completionStatus, setCompletionStatus] = useState({});
+    const [priorityLevel, setPriorityLevel] = useState([]);
+    const [completionStatus, setCompletionStatus] = useState([]);
 
     const handlePriorityLevel = (event) => {
         setPriorityLevel(event.target.value);
