@@ -66,20 +66,6 @@ function InquiryDetails() {
         }
     }
 
-    // const serviceConversion = (inquiries) => {
-    //     if (inquiries?.cleaning?.ServiceType === 'essential' && inquiries?.moving?.moving === true && inquiries?.organize?.Organizing === true && inquiries?.declutt?.Declutter === true) {
-    //         return '| Essential Clean | Moving | Organizing | Declutter |'
-    //     } else if (inquiries?.cleaning?.ServiceType === 'ultimate' && inquiries?.moving?.moving === true && inquiries?.organize?.Organizing === true && inquiries?.declutt?.Declutter === true) {
-    //         return '| Ultimate Clean | Moving | Organizing | Declutter |'
-    //     } else if (inquiries?.moving?.moving === true) {
-    //         return 'Moving |'
-    //     } else if (inquiries?.organize?.Organizing === true) {
-    //         return 'Organizing |'
-    //     } else if (inquiries?.declutt?.Declutter === true) {
-    //         return 'Declutter |'
-    //     }
-    // }
-
     const cleaningConversion = (inquiry) => {
         if (inquiry?.cleaning?.ServiceType === 'essential') {
             return 'Essential Clean'
@@ -277,6 +263,8 @@ function InquiryDetails() {
                     <p>{organizeDisplay(inquiryDetails)}</p>
                     <p>{declutterDisplay(inquiryDetails)}</p>
                     <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
+                    <h4>Photos:</h4>
+                    
                     <button className='btn' onClick={returnToInquiries}>Return to Inquiries List & Save Edits</button>
                 </div>
             </div>
