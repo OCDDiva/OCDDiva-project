@@ -42,6 +42,22 @@ router.put('/inquiries/priority', (req, res) => {
   }
 });
 
+router.put('/inquiries/completion', (req, res) => {
+  // PUT #2 route code here
+  console.log(`In PUT for Priority Level`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.completion_status, req.body.id];
+    const queryText = `UPDATE "user_inquiries" SET "completion_status" = $1 WHERE "id" = $2;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for Completion Status ${error}`);
+      res.sendStatus(500);
+    })
+  }
+});
+
 /**
  * GET #3 CUSTOMERS route template
  */
