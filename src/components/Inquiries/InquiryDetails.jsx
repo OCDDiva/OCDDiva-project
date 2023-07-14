@@ -2,6 +2,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import Select from '@mui/material/Select';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { InputLabel, Typography } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
 
 function InquiryDetails() {
     //Code goes here
@@ -9,12 +15,14 @@ function InquiryDetails() {
     const history = useHistory();
     const inquiries = useSelector(store => store.fetchInquiries);
     const inquiryDetails = useSelector(store => store.inquiryDetails);
+    const priorities = useSelector(store => store.priorityList)
     const { inquiriesId } = useParams();
 
     console.log('InquiryDetails Object:', inquiryDetails)
     console.log('InquiryList:', inquiries)
 
     useEffect(() => {
+        dispatch({ type: 'FETCH_PRIORITIES' });
         dispatch({ type: 'FETCH_INQUIRIES' });
     }, [inquiriesId]);
 
@@ -22,15 +30,18 @@ function InquiryDetails() {
         useEffect(() => {
             console.log('UseEffect Details Running:')
             dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: inquiriesId });
+
         }, [inquiriesId]);
     }
 
 
+    console.log('Priorities', priorities)
 
     console.log('InquiriesID:', inquiriesId);
 
 
     const returnToInquiries = (event) => {
+        dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId } })
         history.push('/inquiries')
     }
 
@@ -160,31 +171,58 @@ function InquiryDetails() {
         }
     }
 
+    const [priorityLevel, setPriorityLevel] = useState({})
+
+    const handlePriorityLevel = (event) => {
+        console.log('Priority Changed', priorityLevel)
+        setPriorityLevel(event.target.value)
+    }
+
+    console.log(priorityLevel)
+
     //What displays
     return (
         <main>
             <div key={inquiriesId}>
                 <p>Inquiries ID: {inquiriesId}</p>
-                        <div key={inquiries.id}>
-                            <h1>{inquiryDetails?.contact?.firstName} {inquiryDetails?.contact?.lastName}</h1>
-                            {/* <h2>
+                <div key={inquiries.id}>
+                    <h1>{inquiryDetails?.contact?.firstName} {inquiryDetails?.contact?.lastName}</h1>
+                    {/* <h2>
                                 {serviceConversion(inquiryDetails)}
                             </h2> */}
-                            <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
-                            <h3> {completionConversion(inquiryDetails)}</h3>
-                            <h4> {priorityConversion(inquiryDetails)}</h4>
-                            <h2>NOTES:</h2>
-                            <p>{inquiryDetails?.customer?.notes}</p>
-                            <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
-                            <br />
-                            <h3>Customer Responses to Survey:</h3>
-                            <p>{cleaningDisplay(inquiryDetails)}</p>
-                            <p>{movingDisplay(inquiryDetails)}</p>
-                            <p>{organizeDisplay(inquiryDetails)}</p>
-                            <p>{declutterDisplay(inquiryDetails)}</p>
-                            <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
-                            <button onClick={returnToInquiries}>Inquiries List</button>
-                        </div>
+                    <h2>
+                        <FormLabel>Priority Level:</FormLabel>
+                        <FormControl fullWidth>
+                            <InputLabel >{priorityConversion(inquiryDetails)}</InputLabel>
+                            <Select
+                                labelId='priority-select-label'
+                                id='priority-select'
+
+                                label='Priority Level'
+                                onChange={handlePriorityLevel}
+                            >
+                                {priorities.map(priority => {
+                                    return (
+                                        <MenuItem key={priority.id} value={priority.id}>{priority.description}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
+                    </h2>
+                    <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
+                    <h3> {completionConversion(inquiryDetails)}</h3>
+                    <h2>NOTES:</h2>
+                    <p>{inquiryDetails?.customer?.notes}</p>
+                    <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
+                    <br />
+                    <h3>Customer Responses to Survey:</h3>
+                    <p>{cleaningDisplay(inquiryDetails)}</p>
+                    <p>{movingDisplay(inquiryDetails)}</p>
+                    <p>{organizeDisplay(inquiryDetails)}</p>
+                    <p>{declutterDisplay(inquiryDetails)}</p>
+                    <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
+                    <button onClick={returnToInquiries}>Inquiries List</button>
+                </div>
             </div>
         </main>
 

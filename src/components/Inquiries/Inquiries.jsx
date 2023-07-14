@@ -90,14 +90,7 @@ function Inquiries() {
         history.push(`/inquirydetails/${inquiries.id}`);
     }
 
-    const [priorityLevel, setPriorityLevel] = useState(3)
-    const handlePriorityLevel = (event) => {
-        console.log('Priority Changed', priorityLevel)
-        setPriorityLevel(event.target.value);
-        dispatch ({ type: 'EDIT_PRIORITY', payload: { priorityLevel }, history })
-    }
 
-    console.log(priorityLevel)
 
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
@@ -114,27 +107,12 @@ function Inquiries() {
                             return (
                                 <div>
                                     <h1>{inquiry.firstName} {inquiry.lastName}</h1>
-                                    <h2>
-                                        <FormControl fullWidth>
-                                            <FormLabel>Priority Level:</FormLabel>
-                                            <Select
-                                                labelId='priority-select-label'
-                                                id='priority-select'
-                                                value={priorityLevel}
-                                                label='Priority Level'
-                                                onChange={handlePriorityLevel}
-                                            >
-                                                <MenuItem value={1}>High</MenuItem>
-                                                <MenuItem value={2}>Medium</MenuItem>
-                                                <MenuItem value={3}>Low</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </h2>
+                                    <h2>{priorityConversion(inquiry)}</h2>
                                     <h5>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</h5>
                                     <h5>Email: {inquiry.email}</h5>
                                     <h5>{addressFormat(inquiry)}</h5>
                                     <h3>Date Submitted: {dateConversion(inquiry)}</h3>
-                                    <h3>Serice Status: {completionConversion(inquiry)}</h3>
+                                    <h3>Service Status: {completionConversion(inquiry)}</h3>
                                     <button className="btn" onClick={() => navToInquiryDetails(inquiry)}>Details</button>
                                 </div>
                             )
