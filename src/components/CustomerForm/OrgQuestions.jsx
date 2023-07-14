@@ -38,7 +38,7 @@ function OrgQuestions() {
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
                 Donation: donation,
-                inquiry_id: allUserInfo.contact[0].id,
+                inquiry_id: allUserInfo?.contact?.id,
             }
 
         })
