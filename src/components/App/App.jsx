@@ -94,11 +94,11 @@ function App() {
               <InfoPage />
             </ProtectedRoute>
 
-            <ProtectedRoute accessLevel= {2} exact path="/inquiries" >
+            <ProtectedRoute exact path="/inquiries" >
               <Inquiries />
             </ProtectedRoute>
 
-            <ProtectedRoute accessLevel= {2} exact path="/inquirydetails/:inquiriesId" >
+            <ProtectedRoute exact path="/inquirydetails/:inquiriesId" >
               <InquiryDetails />
             </ProtectedRoute>
 
@@ -142,11 +142,11 @@ function App() {
               <Success />
             </ProtectedRoute>
 
-            <ProtectedRoute accessLevel={2} exact path="/customerhistory">
+            <ProtectedRoute exact path="/customerhistory">
               <Customers />
             </ProtectedRoute>
 
-            <ProtectedRoute accessLevel={2} exact path="/customer-details/:customerId" component={CustomerDetails}>
+            <ProtectedRoute exact path="/customer-details/:customerId" component={CustomerDetails}>
               {/* <CustomerDetails /> */}
             </ProtectedRoute>
 
