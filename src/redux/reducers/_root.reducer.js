@@ -16,6 +16,7 @@ import requestedDate from './requestedDate.reducer';
 import photosToUpload from './photos.reducer';
 import priorityList from './priorityList.reducer';
 import completionStatus from './completionStatus.reducer';
+import fetchNotes from './notes.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   photosToUpload,
   priorityList,
   completionStatus,
+  fetchNotes,
 });
 
 export default rootReducer;

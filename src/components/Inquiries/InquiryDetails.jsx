@@ -17,6 +17,7 @@ function InquiryDetails() {
     const inquiryDetails = useSelector(store => store.inquiryDetails);
     const priorities = useSelector(store => store.priorityList);
     const completionStatuses = useSelector(store => store.completionStatus);
+    const notes = useSelector(store => store.fetchNotes);
     const { inquiriesId } = useParams();
 
     console.log('InquiryDetails Object:', inquiryDetails)
@@ -26,7 +27,7 @@ function InquiryDetails() {
         dispatch({ type: 'FETCH_PRIORITIES' });
         dispatch({ type: 'FETCH_STATUS' });
         dispatch({ type: 'FETCH_INQUIRIES' });
-        dispatch({ type: 'FETCH_NOTES'});
+        dispatch({ type: 'FETCH_NOTES' });
     }, [inquiriesId]);
 
     if (inquiriesId) {
@@ -38,29 +39,8 @@ function InquiryDetails() {
     }
 
 
-    console.log('Priorities', priorities)
-    console.log('Statuses', completionStatuses);
-    console.log('InquiriesID:', inquiriesId);
-    console.log('Notes', inquiryDetails?.customer?.notes)
-
-
     const returnToInquiries = (event) => {
-        // if (priorityLevel === false) {
-        //     dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
-        //     dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
-        //     history.push('/inquiries')
-        // } else if (completionStatus === false) {
-        //     dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
-        //     dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
-        //     history.push('/inquiries')
-        // } else if (priorityLevel === false && completionStatus === false) {
-        //     dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
-        //     history.push('/inquiries')
-        // } else
-        dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
-        dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
-        dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
-        history.push('/inquiries')
+        history.push(`/inquiries`)
     }
 
     const cleaningConversion = (inquiry) => {
@@ -196,7 +176,7 @@ function InquiryDetails() {
 
     const [priorityLevel, setPriorityLevel] = useState([]);
     const [completionStatus, setCompletionStatus] = useState([]);
-    const [notes, setNotes] = useState([]);
+    const [newNotes, setNewNotes] = useState([]);
 
     const handlePriorityLevel = (event) => {
         setPriorityLevel(event.target.value);
@@ -207,8 +187,29 @@ function InquiryDetails() {
     }
 
     const handleNotes = (event) => {
-        setNotes(event.target.value);
+        setNewNotes(event.target.value);
     }
+
+    const saveButton = () => {
+            dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
+            dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
+            dispatch({ type: 'EDIT_NOTE', payload: { notes: newNotes, inquiry_id: inquiriesId, }, history });
+            history.push('/inquiries')
+
+    }
+
+    const displaySave = () => {
+        if (notes.length > 0 || completionStatus.value > 0 || priorityLevel.value > 0) {
+            return <button className='btn' onClick={saveButton()}>Save Changes</button>
+        } else {
+            return ''
+        }
+    }
+
+    console.log('Priorities', priorities)
+    console.log('Statuses', completionStatuses);
+    console.log('InquiriesID:', inquiriesId);
+    console.log('Notes', inquiryDetails?.customer?.notes)
 
     //What displays
     return (
@@ -257,9 +258,10 @@ function InquiryDetails() {
                     </FormControl>
                     <h2>NOTES:</h2>
                     <textarea name="notes"
+                        type="text"
                         id="notesOfCustomer"
                         cols="40" rows="10"
-                        value={notes}
+                        value={newNotes}
                         onChange={handleNotes}
                         placeholder={inquiryDetails?.customer?.notes}>
                     </textarea>
@@ -271,8 +273,10 @@ function InquiryDetails() {
                     <p>{declutterDisplay(inquiryDetails)}</p>
                     <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
                     <h4>Photos:</h4>
-
-                    <button className='btn' onClick={returnToInquiries}>Return to Inquiries List & Save Edits</button>
+                    
+                    <button className='btn' onClick={returnToInquiries}>Return to Inquiries List</button>
+                    <span />
+                    <button className='btn' onClick={saveButton}>Save Any Changes</button>
                 </div>
             </div>
         </main>
