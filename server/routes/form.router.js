@@ -9,7 +9,7 @@ router.get('/inquiries/allUserInfo', async (req, res) => {
   // GET #5 route code here
   if (req.isAuthenticated()) {
     console.log('user', req.user);
-    const queryText =  `SELECT * FROM "user_inquiries" ORDER BY id DESC;`
+    const queryText =  `SELECT * FROM "user_inquiries" WHERE "completion_status" < 5 ORDER BY id DESC;`
     console.log('All User data retrieved successfully.');
     pool.query(queryText).then((result) => {
       console.log('for all inquiries (line13)', result.rows);
