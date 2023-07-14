@@ -45,24 +45,22 @@ function InquiryDetails() {
 
 
     const returnToInquiries = (event) => {
-        dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId } })
-        dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId } })
+        // if (priorityLevel === false) {
+        //     dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
+        //     dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
+        //     history.push('/inquiries')
+        // } else if (completionStatus === false) {
+        //     dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
+        //     dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
+        //     history.push('/inquiries')
+        // } else if (priorityLevel === false && completionStatus === false) {
+        //     dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
+        //     history.push('/inquiries')
+        // } else
+        dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
+        dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
         dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
         history.push('/inquiries')
-    }
-
-    // TODO see what miguel made for the dispatch for adding notes and edit accordingly
-    const changeNote = (e) => {
-        e.preventDefault();
-        // dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
-    }
-
-    const noteButton = () => {
-        if (inquiryDetails?.customer?.notes !== null) {
-            return 'Update Note'
-        } else {
-            return 'Add Note'
-        }
     }
 
     const cleaningConversion = (inquiry) => {
@@ -209,7 +207,6 @@ function InquiryDetails() {
     }
 
     const handleNotes = (event) => {
-        event.preventDefault();
         setNotes(event.target.value);
     }
 
@@ -259,17 +256,6 @@ function InquiryDetails() {
                         </Select>
                     </FormControl>
                     <h2>NOTES:</h2>
-                    <form>
-                        <textarea name="notes"
-                            id="notesOfCustomer"
-                            cols="40" rows="10"
-                            value={notes}
-                            onChange={handleNotes}
-                            placeholder={inquiryDetails?.customer?.notes}>
-                        </textarea>
-                        <br />
-                        {/* <button onClick={handleNotes}>{noteButton(inquiryDetails)}</button> */}
-                    </form>
                     <textarea name="notes"
                         id="notesOfCustomer"
                         cols="40" rows="10"
@@ -277,10 +263,6 @@ function InquiryDetails() {
                         onChange={handleNotes}
                         placeholder={inquiryDetails?.customer?.notes}>
                     </textarea>
-                    <br />
-                    {/* <button onClick={handleNotes}>{noteButton(inquiryDetails)}</button> */}
-                    {/* <p>{inquiryDetails?.customer?.notes}</p> */}
-                    {/* <button onClick={changeNote}>{noteButton(inquiryDetails)}</button> */}
                     <br />
                     <h3>Customer Responses to Survey:</h3>
                     <p>{cleaningDisplay(inquiryDetails)}</p>
