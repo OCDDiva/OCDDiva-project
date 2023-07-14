@@ -90,8 +90,6 @@ function Inquiries() {
         history.push(`/inquirydetails/${inquiries.id}`);
     }
 
-
-
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
