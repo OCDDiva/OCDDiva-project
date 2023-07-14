@@ -24,11 +24,33 @@ function* fetchInquiryDetails(action) {
     }
 }
 
+function* fetchPriority() {
+    try {
+        const priorities = yield axios.get('/api/priority/priorities');
+        yield put({ type: 'SET_PRIORITY', payload: priorities.data});
+        console.log(priorities)
+    } catch (error) {
+        console.log(`Error in fetchPriority ${error}`)
+        alert('Something went wrong!')
+    }
+}
+
+function* editPriority(action) {
+    try {
+        yield axios.put(`/api/forms/inquiries/priority`, action.payload);
+        console.log('Priority Level in Saga', action.payload)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 function* inquiriesSaga() {
     yield takeEvery('FETCH_INQUIRIES', fetchInquiries);
     yield takeEvery('FETCH_INQUIRY_DETAILS', fetchInquiryDetails);
+    yield takeEvery('EDIT_PRIORITY', editPriority);
+    yield takeEvery('FETCH_PRIORITIES', fetchPriority);
 }
 
 export default inquiriesSaga;

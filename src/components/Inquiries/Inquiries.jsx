@@ -2,6 +2,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import Select from '@mui/material/Select';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { InputLabel, Typography } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
 
 function Inquiries() {
     //Code goes here
@@ -84,6 +90,8 @@ function Inquiries() {
         history.push(`/inquirydetails/${inquiries.id}`);
     }
 
+
+
     //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
@@ -99,12 +107,12 @@ function Inquiries() {
                             return (
                                 <div>
                                     <h1>{inquiry.firstName} {inquiry.lastName}</h1>
-                                    <h2>Priority: {priorityConversion(inquiry)}</h2>
+                                    <h2>{priorityConversion(inquiry)}</h2>
                                     <h5>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</h5>
                                     <h5>Email: {inquiry.email}</h5>
                                     <h5>{addressFormat(inquiry)}</h5>
                                     <h3>Date Submitted: {dateConversion(inquiry)}</h3>
-                                    <h3>Serice Status: {completionConversion(inquiry)}</h3>
+                                    <h3>Service Status: {completionConversion(inquiry)}</h3>
                                     <button className="btn" onClick={() => navToInquiryDetails(inquiry)}>Details</button>
                                 </div>
                             )
