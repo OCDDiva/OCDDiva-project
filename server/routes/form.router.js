@@ -226,7 +226,8 @@ router.put('/cleaning', (req, res) => {
     req.body.numberOfBedrooms,
     req.body.numberOfBathrooms,
     req.body.numberOfAdditionalRooms,
-    req.body.numberOfDoorsWindows,
+    req.body.numberOfDoors,
+    req.body.numberOfWindows,
     req.body.hasPets,
     req.body.hazardousConditions,
     req.body.inquiry_id,
@@ -240,10 +241,11 @@ router.put('/cleaning', (req, res) => {
       "Bedrooms" = $3,
       "Bathrooms" = $4,
       "AdditionalRooms" = $5,
-      "DoorsWindows" = $6,
-      "HasPets" = $7,
-      "HazardousConditions" = $8
-      WHERE "inquiry_id" = $9
+      "Doors" = $6,
+      "Windows" = $7,
+      "HasPets" = $8,
+      "HazardousConditions" = $9
+      WHERE "inquiry_id" = $10
   `;
   pool.query(queryText, values)
     .then(() => {
