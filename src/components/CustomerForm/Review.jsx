@@ -19,9 +19,9 @@ function Review() {
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
-        dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo.contact[0].id, } })
-        dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo.contact[0].id }})
-        dispatch({ type: 'UPLOAD_PHOTOS', payload: { url: photosToUpload, inquiry_id: allUserInfo.contact[0].id} })
+        dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
+        dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
+        dispatch({ type: 'UPLOAD_PHOTOS', payload: { url: photosToUpload, inquiry_id: allUserInfo?.contact?.id} })
         history.push('/success');
     }
 
@@ -41,17 +41,17 @@ function Review() {
 
     console.log('show me the info!!!!!!', allUserInfo);
 
-    const donationConversion = (allUserInfo) => {
-        if (allUserInfo.organize[0].Donations === true) {
-            return 'Yes'
-        } else if (allUserInfo.organize[0].Donations === false) {
-            return 'No'
-        } else if (allUserInfo.declutt[0].Donations === true) {
-            return 'Yes'
-        } else if (allUserInfo.declutt[0].Donations === false) {
-            return 'No'
-        }
-    }
+    // const donationConversion = (allUserInfo) => {
+    //     if (allUserInfo.organize[0].Donations === true) {
+    //         return 'Yes'
+    //     } else if (allUserInfo.organize[0].Donations === false) {
+    //         return 'No'
+    //     } else if (allUserInfo.declutt[0].Donations === true) {
+    //         return 'Yes'
+    //     } else if (allUserInfo.declutt[0].Donations === false) {
+    //         return 'No'
+    //     }
+    // }
 
     //What displays
     return (
@@ -62,61 +62,61 @@ function Review() {
                 <br />
                 <div className="customerReview" >
                     <h3>Customer Information</h3>
-                    Name: {allUserInfo.contact[0].firstName}{'    '}
-                    {allUserInfo.contact[0].lastName}
+                    Name: {allUserInfo?.contact?.firstName}{'    '}
+                    {allUserInfo?.contact?.lastName}
                     <br />
-                    Address: {allUserInfo.contact[0].street1}
+                    Address: {allUserInfo?.contact?.street1}
                     <br />
-                    {allUserInfo.contact[0].street2}
+                    {allUserInfo?.contact?.street2}
                     <br />
-                    City: {allUserInfo.contact[0].city}
+                    City: {allUserInfo?.contact?.city}
                     <br />
-                    State: {allUserInfo.contact[0].state}
+                    State: {allUserInfo?.contact?.state}
                     <br />
-                    Zip: {allUserInfo.contact[0].zip}
+                    Zip: {allUserInfo?.contact?.zip}
                     <br />
-                    Phone Number: {allUserInfo.contact[0].phone_number}
+                    Phone Number: {allUserInfo?.contact?.phone_number}
                     <br />
-                    Email: {allUserInfo.contact[0].email}
+                    Email: {allUserInfo?.contact?.email}
                     <br />
                     <h3>Cleaning Questions</h3>
-                    Requested Cleaning Service: {allUserInfo.cleaning[0].ServiceType}
+                    Requested Cleaning Service: {allUserInfo?.cleaning?.ServiceType}
                     <br />
-                    Number of Bedrooms: {allUserInfo.cleaning[0].Bedrooms}
+                    Number of Bedrooms: {allUserInfo?.cleaning?.Bedrooms}
                     <br />
-                    Number of Bathrooms: {allUserInfo.cleaning[0].Bathrooms}
+                    Number of Bathrooms: {allUserInfo?.cleaning?.Bathrooms}
                     <br />
-                    Number of Additional Rooms: {allUserInfo.cleaning[0].AdditionalRooms}
+                    Number of Additional Rooms: {allUserInfo?.cleaning?.AdditionalRooms}
                     <br />
                     {/* TODO add in conditional rendering for this to show if it only has results */}
-                    Any Pets: {allUserInfo.cleaning[0].HasPets}
+                    Any Pets: {allUserInfo?.cleaning?.HasPets}
                     <br />
-                    Hazardous Conditions: {allUserInfo.cleaning[0].HazardousConditions}
+                    Hazardous Conditions: {allUserInfo?.cleaning?.HazardousConditions}
                     <br />
                     <h3>Moving Questions</h3>
-                    Moving To: {allUserInfo.moving[0].moving_to}
+                    Moving To: {allUserInfo?.moving?.moving_to}
                     <br />
-                    Moving From: {allUserInfo.moving[0].moving_from}
+                    Moving From: {allUserInfo?.moving?.moving_from}
                     <br />
-                    Large Items: {allUserInfo.moving[0].large_items}
+                    Large Items: {allUserInfo?.moving?.large_items}
                     <br />
                     <h3>Organizing Questions</h3>
-                    Bedrooms: {allUserInfo.organize[0].Bedrooms}
+                    Bedrooms: {allUserInfo?.organize?.Bedrooms}
                     <br />
-                    Bathrooms: {allUserInfo.organize[0].Bathrooms}
+                    Bathrooms: {allUserInfo?.organize?.Bathrooms}
                     <br />
-                    Additional Rooms: {allUserInfo.organize[0].AdditionalRooms}
+                    Additional Rooms: {allUserInfo?.organize?.AdditionalRooms}
                     <br />
-                    Donations: {allUserInfo.organize[0].Donations}
+                    Donations: {allUserInfo?.organize?.Donations}
                     <br />
                     <h3>Decluttering Questions</h3>
-                    Bedrooms: {allUserInfo.declutt[0].Bedrooms}
+                    Bedrooms: {allUserInfo.declutt?.Bedrooms}
                     <br />
-                    Bathrooms: {allUserInfo.declutt[0].Bathrooms}
+                    Bathrooms: {allUserInfo.declutt?.Bathrooms}
                     <br />
-                    Additional Rooms: {allUserInfo.declutt[0].AdditionalRooms}
+                    Additional Rooms: {allUserInfo.declutt?.AdditionalRooms}
                     <br />
-                    Donations: {allUserInfo.declutt[0].Donations}
+                    Donations: {allUserInfo.declutt?.Donations}
                 </div>
                 <br />
                 <br />
