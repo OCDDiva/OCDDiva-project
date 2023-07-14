@@ -65,6 +65,16 @@ function* editStatus(action) {
     }
 }
 
+function* editNotes(action) {
+    try {
+        yield axios.put('/api/forms/notes', action.payload)
+        console.log('Updated Notes:', action.payload)
+    } catch (error) {
+        console.log(`Error in Edit Notes: ${error}`)
+        alert('Something Went Wrong!')
+    }
+}
+
 
 
 function* inquiriesSaga() {
@@ -74,6 +84,7 @@ function* inquiriesSaga() {
     yield takeEvery('FETCH_PRIORITIES', fetchPriority);
     yield takeEvery('FETCH_STATUS', fetchCompletionStatus);
     yield takeEvery('EDIT_STATUS', editStatus);
+    yield takeEvery('EDIT_NOTES', editNotes)
 }
 
 export default inquiriesSaga;
