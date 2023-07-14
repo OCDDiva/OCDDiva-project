@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-// const fileUpload = require('express-fileupload');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -20,7 +20,7 @@ const historyRouter = require('./routes/userHistory.router');
 const inquiryDetailsRouter = require('./routes/inquirydetails.router');
 
 // Photo Upload Only
-// app.use(fileUpload());
+app.use(fileUpload());
 
 
 // Body parser middleware
