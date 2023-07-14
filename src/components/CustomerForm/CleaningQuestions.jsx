@@ -70,6 +70,8 @@ function CleaningQuestions() {
 
   const allUserInfo = useSelector(store => store.allUserInfo);
 
+  console.log('Check allUserInfo', allUserInfo?.contact?.id)
+
   //! Submit
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -84,7 +86,7 @@ function CleaningQuestions() {
         numberOfDoorsWindows,
         hasPets,
         hazardousConditions,
-        inquiry_id: allUserInfo.contact[0].id,
+        inquiry_id: allUserInfo?.contact?.id,
       },
     });
     history.push('/movingquestions');
@@ -141,14 +143,14 @@ function CleaningQuestions() {
 
                   <br /><br />
 
-                  <MenuItem value="essential">Essential Cleaning</MenuItem>
-                  <MenuItem value="ultimate">Ultimate Cleaning</MenuItem>
+                  <MenuItem value="Essential">Essential Cleaning</MenuItem>
+                  <MenuItem value="Ultimate">Ultimate Cleaning</MenuItem>
 
                 </Select>
                 <br />
 
                 {/* ESSENTIAL Clean */}
-                {serviceType === 'essential' && (
+                {serviceType === 'Essential' && (
                   <div>
                     <ul>
 
@@ -240,7 +242,7 @@ function CleaningQuestions() {
                 )}
 
                 {/* ULTIMATE Clean */}
-                {serviceType === 'ultimate' && (
+                {serviceType === 'Ultimate' && (
                   <div>
                     <ul>
 
