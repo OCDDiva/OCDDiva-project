@@ -175,7 +175,7 @@ function InquiryDetails() {
     }
 
     const [priorityLevel, setPriorityLevel] = useState([]);
-    const [completionStatus, setCompletionStatus] = useState([]);
+    const [completionStatus, setCompletionStatus] = useState(1);
 
     const handlePriorityLevel = (event) => {
         console.log('Priority Changed', priorityLevel)

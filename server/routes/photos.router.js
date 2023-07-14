@@ -9,6 +9,7 @@ router.get('/photos', (req, res) => {
 router.post('/photos', (req, res) => {
     // POST route code here
     // TODO Add route here for POST to S3 bucket? Not sure if we need POST or PUT since the field is NULL in the table already
+    
 });
 
 router.put('/photos', (req, res) => {
