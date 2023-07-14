@@ -25,7 +25,8 @@ function CleaningQuestions() {
   const [numberOfBedrooms, setNumberOfBedrooms] = useState(0);
   const [numberOfBathrooms, setNumberOfBathrooms] = useState(0);
   const [numberOfAdditionalRooms, setNumberOfAdditionalRooms] = useState(0);
-  const [numberOfDoorsWindows, setNumberOfDoorsWindows] = useState(0);
+  const [numberOfDoors, setNumberOfDoors] = useState(0);
+  const [numberOfWindows, setNumberOfWindows] = useState(0);
   const [hasPets, setHasPets] = useState('None');
   const [hazardousConditions, setHazardousConditions] = useState('None');
 
@@ -51,8 +52,12 @@ function CleaningQuestions() {
     setNumberOfAdditionalRooms(event.target.value);
   };
 
-  const handleNumberOfDoorsWindowsChange = (event) => {
-    setNumberOfDoorsWindows(event.target.value);
+  const handleNumberOfDoorsChange = (event) => {
+    setNumberOfDoors(event.target.value);
+  };
+
+  const handleNumberOfWindowsChange = (event) => {
+    setNumberOfWindows(event.target.value);
   };
 
   const handleHasPetsChange = (event) => {
@@ -83,7 +88,8 @@ function CleaningQuestions() {
         numberOfBedrooms,
         numberOfBathrooms,
         numberOfAdditionalRooms,
-        numberOfDoorsWindows,
+        numberOfDoors,
+        numberOfWindows,
         hasPets,
         hazardousConditions,
         inquiry_id: allUserInfo?.contact?.id,
@@ -294,21 +300,36 @@ function CleaningQuestions() {
                       <br />
 
                       <li>
-                        {/* Doors and Windows */}
+                        {/* Doors */}
                         {/*//! This should be split into separate inputs.. */}
 
-                        <Typography> How many doors and windows need to be cleaned? </Typography>
+                        <Typography> How many doors need to be cleaned? </Typography>
 
                         <TextField
                           type='number'
-                          id='numberOfDoorsWindows'
-                          name='numberOfDoorsWindows'
-                          value={numberOfDoorsWindows}
-                          onChange={handleNumberOfDoorsWindowsChange}
+                          id='numberOfDoors'
+                          name='numberOfDoors'
+                          value={numberOfDoors}
+                          onChange={handleNumberOfDoorsChange}
                         />
                       </li>
 
                       <br />
+
+                      <li>
+                        {/* Windows */}
+                        {/*//! This should be split into separate inputs.. */}
+
+                        <Typography> How many windows need to be cleaned? </Typography>
+
+                        <TextField
+                          type='number'
+                          id='numberOfWindows'
+                          name='numberOfWindows'
+                          value={numberOfWindows}
+                          onChange={handleNumberOfWindowsChange}
+                        />
+                      </li>
 
                       {/* Pets Question*/}
                       <li>
