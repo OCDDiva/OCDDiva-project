@@ -44,7 +44,7 @@ function InquiryDetails() {
 
     const returnToInquiries = (event) => {
         dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId } })
-        dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }})
+        dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId } })
         history.push('/inquiries')
     }
 
@@ -66,19 +66,56 @@ function InquiryDetails() {
         }
     }
 
-    const serviceConversion = (inquiries) => {
-        if (inquiries.cleaning[0].ServiceType === 'Essential') {
+    // const serviceConversion = (inquiries) => {
+    //     if (inquiries?.cleaning?.ServiceType === 'essential' && inquiries?.moving?.moving === true && inquiries?.organize?.Organizing === true && inquiries?.declutt?.Declutter === true) {
+    //         return '| Essential Clean | Moving | Organizing | Declutter |'
+    //     } else if (inquiries?.cleaning?.ServiceType === 'ultimate' && inquiries?.moving?.moving === true && inquiries?.organize?.Organizing === true && inquiries?.declutt?.Declutter === true) {
+    //         return '| Ultimate Clean | Moving | Organizing | Declutter |'
+    //     } else if (inquiries?.moving?.moving === true) {
+    //         return 'Moving |'
+    //     } else if (inquiries?.organize?.Organizing === true) {
+    //         return 'Organizing |'
+    //     } else if (inquiries?.declutt?.Declutter === true) {
+    //         return 'Declutter |'
+    //     }
+    // }
+
+    const cleaningConversion = (inquiry) => {
+        if (inquiry?.cleaning?.ServiceType === 'essential') {
             return 'Essential Clean'
-        } else if (inquiries.cleaning[0].ServiceType === 'Ultimate') {
+        } else if (inquiry?.cleaning?.ServiceType === 'ultimate') {
             return 'Ultimate Clean'
-        } else if (inquiries.moving[0].moving === true) {
-            return 'Moving'
-        } else if (inquiries.organize[0].Organizing === true) {
-            return 'Organizing'
-        } else if (inquiries.declutt[0].Declutter === true) {
-            return 'Declutter'
+        } else {
+            return ''
         }
     }
+
+    const movingConversion = (inquiry) => {
+        if (inquiry?.moving?.moving === true) {
+            return 'Moving'
+        } else {
+            return ''
+        }
+    }
+
+
+    const organizeConversion = (inquiry) => {
+        if (inquiry?.organize?.Organizing === true) {
+            return 'Organize'
+        } else {
+            return ''
+        }
+    }
+
+
+    const decluttConversion = (inquiry) => {
+        if (inquiry?.declutt?.Declutter === true) {
+            return 'Declutter'
+        } else {
+            return ''
+        }
+    }
+
 
     const completionConversion = (inquiries) => {
         if (inquiries?.contact?.completion_status === 5) {
@@ -178,15 +215,12 @@ function InquiryDetails() {
     const [completionStatus, setCompletionStatus] = useState([]);
 
     const handlePriorityLevel = (event) => {
-        console.log('Priority Changed', priorityLevel)
         setPriorityLevel(event.target.value);
     }
 
     const handleCompletionStatus = (event) => {
         setCompletionStatus(event.target.value);
     }
-
-    console.log(priorityLevel)
 
     //What displays
     return (
@@ -195,9 +229,10 @@ function InquiryDetails() {
                 <p>Inquiries ID: {inquiriesId}</p>
                 <div key={inquiries.id}>
                     <h1>{inquiryDetails?.contact?.firstName} {inquiryDetails?.contact?.lastName}</h1>
-                    {/* <h2>
-                                {serviceConversion(inquiryDetails)}
-                            </h2> */}
+                    <h2>{cleaningConversion(inquiryDetails)}</h2><span />
+                    <h2>{movingConversion(inquiryDetails)}</h2><span />
+                    <h2>{organizeConversion(inquiryDetails)}</h2><span />
+                    <h2>{decluttConversion(inquiryDetails)}</h2>
                     <h2>
                         <FormLabel>Priority Level:</FormLabel>
                         <FormControl fullWidth>
@@ -225,14 +260,13 @@ function InquiryDetails() {
                             id="completion-select"
                             label="Completion Status"
                             onChange={handleCompletionStatus}>
-                                {completionStatuses.map(status => {
-                                    return (
-                                        <MenuItem key={status.id} value={status.id}>{status.description}</MenuItem>
-                                    )
-                                })}
+                            {completionStatuses.map(status => {
+                                return (
+                                    <MenuItem key={status.id} value={status.id}>{status.description}</MenuItem>
+                                )
+                            })}
                         </Select>
                     </FormControl>
-                    <h3> </h3>
                     <h2>NOTES:</h2>
                     <p>{inquiryDetails?.customer?.notes}</p>
                     <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
@@ -243,7 +277,7 @@ function InquiryDetails() {
                     <p>{organizeDisplay(inquiryDetails)}</p>
                     <p>{declutterDisplay(inquiryDetails)}</p>
                     <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
-                    <button onClick={returnToInquiries}>Inquiries List</button>
+                    <button className='btn' onClick={returnToInquiries}>Return to Inquiries List & Save Edits</button>
                 </div>
             </div>
         </main>
