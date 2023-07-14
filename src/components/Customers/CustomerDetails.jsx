@@ -52,6 +52,7 @@ function CustomerDetails() {
         return `${time.month}/${time.day}/${slice}`;
     }
 
+
     return (
         <React.Fragment>
             <Typography variant="h4" style={{ textAlign: "center" }}>Customer Details</Typography>
@@ -71,7 +72,6 @@ function CustomerDetails() {
                                     Customer Name: {customer.firstName} {customer.lastName}
                                 </Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {transformDate(customer.service_on)}</Typography>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>Type of service: {customer.services_id}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             </CardContent>

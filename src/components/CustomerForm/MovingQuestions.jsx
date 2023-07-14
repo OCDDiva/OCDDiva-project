@@ -46,13 +46,13 @@ function MovingQuestions() {
 
     const nextStep = (event) => {
         event.preventDefault();
-        console.log(moving, movingTo, movingFrom, largeItems, allUserInfo.contact[0].id)
+        console.log(moving, movingTo, movingFrom, largeItems, allUserInfo?.contact?.id)
         dispatch({ type: 'UPDATE_MOVING', payload: {
             moving: moving,
             moving_to: movingTo,
             moving_from: movingFrom,
             large_items: largeItems,
-            inquiry_id: allUserInfo.contact[0].id,
+            inquiry_id: allUserInfo?.contact?.id,
         } 
     })
         history.push('/organizequestions');
