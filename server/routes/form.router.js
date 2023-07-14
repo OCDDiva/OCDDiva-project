@@ -161,7 +161,7 @@ router.put('/notes', (req, res) => {
   console.log(`In PUT for notes`);
   if (req.isAuthenticated()) {
     const queryValues = [req.body.notes, req.body.inquiry_id];
-    const queryText = `UPDATE "customer" SET "notes" = $1 WHERE "inquiry_id" = $2;`;
+    const queryText = `UPDATE "customer" SET "notes" = $1 WHERE "inquiries" = $2;`;
     console.log(queryValues);
     pool.query(queryText, queryValues).then((result) => {
       res.sendStatus(200);

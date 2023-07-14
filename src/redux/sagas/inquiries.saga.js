@@ -65,6 +65,17 @@ function* editStatus(action) {
     }
 }
 
+function* fetchNotes() {
+    try {
+        const notes = yield axios.get('/api/notes/')
+        yield put({ type: 'SET_NOTES', payload: notes.data})
+        console.log('notes saga', notes)
+    } catch (error) {
+        console.log('Error in fetchNotes', error)
+        alert('something went wrong')
+    }
+}
+
 function* editNotes(action) {
     try {
         yield axios.put('/api/forms/notes', action.payload)
@@ -84,7 +95,8 @@ function* inquiriesSaga() {
     yield takeEvery('FETCH_PRIORITIES', fetchPriority);
     yield takeEvery('FETCH_STATUS', fetchCompletionStatus);
     yield takeEvery('EDIT_STATUS', editStatus);
-    yield takeEvery('EDIT_NOTES', editNotes)
+    yield takeEvery('FETCH_NOTES', fetchNotes);
+    yield takeEvery('EDIT_NOTE', editNotes);
 }
 
 export default inquiriesSaga;

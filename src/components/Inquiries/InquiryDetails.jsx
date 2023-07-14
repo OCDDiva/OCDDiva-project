@@ -26,6 +26,7 @@ function InquiryDetails() {
         dispatch({ type: 'FETCH_PRIORITIES' });
         dispatch({ type: 'FETCH_STATUS' });
         dispatch({ type: 'FETCH_INQUIRIES' });
+        dispatch({ type: 'FETCH_NOTES'});
     }, [inquiriesId]);
 
     if (inquiriesId) {
@@ -40,27 +41,25 @@ function InquiryDetails() {
     console.log('Priorities', priorities)
     console.log('Statuses', completionStatuses);
     console.log('InquiriesID:', inquiriesId);
+    console.log('Notes', inquiryDetails?.customer?.notes)
 
 
     const returnToInquiries = (event) => {
         dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId } })
         dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId } })
+        dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
         history.push('/inquiries')
     }
 
     // TODO see what miguel made for the dispatch for adding notes and edit accordingly
     const changeNote = (e) => {
         e.preventDefault();
-        if (inquiryDetails?.customer?.notes !== null) {
-            dispatch({ type: 'EDIT_NOTE', payload: { inquiryDetails, inquiriesId, }, history });
-        } else {
-            dispatch({ type: 'ADD_NOTE', payload: { inquiryDetails }, history })
-        }
+        // dispatch({ type: 'EDIT_NOTE', payload: { notes: notes, inquiry_id: inquiriesId, }, history });
     }
 
     const noteButton = () => {
         if (inquiryDetails?.customer?.notes !== null) {
-            return 'Edit Note'
+            return 'Update Note'
         } else {
             return 'Add Note'
         }
@@ -199,6 +198,7 @@ function InquiryDetails() {
 
     const [priorityLevel, setPriorityLevel] = useState([]);
     const [completionStatus, setCompletionStatus] = useState([]);
+    const [notes, setNotes] = useState([]);
 
     const handlePriorityLevel = (event) => {
         setPriorityLevel(event.target.value);
@@ -206,6 +206,11 @@ function InquiryDetails() {
 
     const handleCompletionStatus = (event) => {
         setCompletionStatus(event.target.value);
+    }
+
+    const handleNotes = (event) => {
+        event.preventDefault();
+        setNotes(event.target.value);
     }
 
     //What displays
@@ -254,8 +259,28 @@ function InquiryDetails() {
                         </Select>
                     </FormControl>
                     <h2>NOTES:</h2>
-                    <p>{inquiryDetails?.customer?.notes}</p>
-                    <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
+                    <form>
+                        <textarea name="notes"
+                            id="notesOfCustomer"
+                            cols="40" rows="10"
+                            value={notes}
+                            onChange={handleNotes}
+                            placeholder={inquiryDetails?.customer?.notes}>
+                        </textarea>
+                        <br />
+                        {/* <button onClick={handleNotes}>{noteButton(inquiryDetails)}</button> */}
+                    </form>
+                    <textarea name="notes"
+                        id="notesOfCustomer"
+                        cols="40" rows="10"
+                        value={notes}
+                        onChange={handleNotes}
+                        placeholder={inquiryDetails?.customer?.notes}>
+                    </textarea>
+                    <br />
+                    {/* <button onClick={handleNotes}>{noteButton(inquiryDetails)}</button> */}
+                    {/* <p>{inquiryDetails?.customer?.notes}</p> */}
+                    {/* <button onClick={changeNote}>{noteButton(inquiryDetails)}</button> */}
                     <br />
                     <h3>Customer Responses to Survey:</h3>
                     <p>{cleaningDisplay(inquiryDetails)}</p>
@@ -264,7 +289,7 @@ function InquiryDetails() {
                     <p>{declutterDisplay(inquiryDetails)}</p>
                     <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
                     <h4>Photos:</h4>
-                    
+
                     <button className='btn' onClick={returnToInquiries}>Return to Inquiries List & Save Edits</button>
                 </div>
             </div>
