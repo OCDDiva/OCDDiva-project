@@ -19,10 +19,10 @@ function Review() {
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
-        dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
-        dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
+        // dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
+        // dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
         dispatch({ type: 'UPLOAD_PHOTOS', payload: { url: photosToUpload, inquiry_id: allUserInfo?.contact?.id} })
-        history.push('/success');
+        // history.push('/success');
     }
 
     const photoUpload = (event) => {
