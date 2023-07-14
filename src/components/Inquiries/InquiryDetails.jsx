@@ -178,15 +178,12 @@ function InquiryDetails() {
     const [completionStatus, setCompletionStatus] = useState({});
 
     const handlePriorityLevel = (event) => {
-        console.log('Priority Changed', priorityLevel)
         setPriorityLevel(event.target.value);
     }
 
     const handleCompletionStatus = (event) => {
         setCompletionStatus(event.target.value);
     }
-
-    console.log(priorityLevel)
 
     //What displays
     return (
