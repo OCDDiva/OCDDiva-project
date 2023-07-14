@@ -194,16 +194,6 @@ function InquiryDetails() {
             dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
             dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
             dispatch({ type: 'EDIT_NOTE', payload: { notes: newNotes, inquiry_id: inquiriesId, }, history });
-            history.push('/inquiries')
-
-    }
-
-    const displaySave = () => {
-        if (notes.length > 0 || completionStatus.value > 0 || priorityLevel.value > 0) {
-            return <button className='btn' onClick={saveButton()}>Save Changes</button>
-        } else {
-            return ''
-        }
     }
 
     console.log('Priorities', priorities)
@@ -229,7 +219,7 @@ function InquiryDetails() {
                             <Select
                                 labelId='priority-select-label'
                                 id='priority-select'
-
+                                value={priorities.value}
                                 label='Priority Level'
                                 onChange={handlePriorityLevel}
                             >
@@ -248,7 +238,8 @@ function InquiryDetails() {
                         <Select labelId="completion-select-label"
                             id="completion-select"
                             label="Completion Status"
-                            onChange={handleCompletionStatus}>
+                            onChange={handleCompletionStatus}
+                            value={completionStatuses.value}>
                             {completionStatuses.map(status => {
                                 return (
                                     <MenuItem key={status.id} value={status.id}>{status.description}</MenuItem>
