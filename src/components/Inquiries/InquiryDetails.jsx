@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { InputLabel, Typography } from '@mui/material';
+import { InputLabel, Typography, Card, CardContent, Box } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 
 function InquiryDetails() {
@@ -44,9 +44,9 @@ function InquiryDetails() {
     }
 
     const cleaningConversion = (inquiry) => {
-        if (inquiry?.cleaning?.ServiceType === 'essential') {
+        if (inquiry?.cleaning?.ServiceType === 'Essential') {
             return 'Essential Clean'
-        } else if (inquiry?.cleaning?.ServiceType === 'ultimate') {
+        } else if (inquiry?.cleaning?.ServiceType === 'Ultimate') {
             return 'Ultimate Clean'
         } else {
             return ''
@@ -106,7 +106,7 @@ function InquiryDetails() {
 
     const donationConversion = (inquiryDetails) => {
         console.log('Here', inquiryDetails)
-        if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
+        if (inquiryDetails?.declutt?.Donation === true) {
             return 'Yes'
         } else {
             return 'No'
@@ -121,12 +121,13 @@ function InquiryDetails() {
     const cleaningDisplay = (inquiryDetails) => {
         if (inquiryDetails?.cleaning?.Cleaning === true) {
             return <div>
-                <h5>Cleaning Questions:</h5>
+                <h3>Cleaning Questions:</h3>
                 <p>Number of Bedrooms: {inquiryDetails?.cleaning?.Bedrooms}</p>
                 <p>Number of Bathrooms: {inquiryDetails?.cleaning?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {inquiryDetails?.cleaning?.AdditionalRooms}</p>
-                <p>Number of Doors & Windows: {inquiryDetails?.cleaning?.DoorsWindows}</p>
-                <p>Has Pets? {inquiryDetails?.cleaning?.hasPets}</p>
+                <p>Number of Doors: {inquiryDetails?.cleaning?.Doors}</p>
+                <p>Number of Windows: {inquiryDetails?.cleaning?.Windows}</p>
+                <p>Pets? {inquiryDetails?.cleaning?.HasPets}</p>
                 <p>Hazardous Conditions? {inquiryDetails?.cleaning?.HazardousConditions}</p>
             </div>
         } else {
@@ -137,7 +138,7 @@ function InquiryDetails() {
     const movingDisplay = (inquiryDetails) => {
         if (inquiryDetails?.moving?.moving === true) {
             return <div>
-                <h5>Moving Questions:</h5>
+                <h3>Moving Questions:</h3>
                 <p>New Address: {inquiryDetails?.moving?.moving_to}</p>
                 <p>Old Address: {inquiryDetails?.moving?.moving_from}</p>
                 <p>Any Large Items? {inquiryDetails?.moving?.large_items}</p>
@@ -150,11 +151,10 @@ function InquiryDetails() {
     const organizeDisplay = (inquiryDetails) => {
         if (inquiryDetails?.organize?.Organizing === true) {
             return <div>
-                <h5>Organizing Questions:</h5>
+                <h3>Organizing Questions:</h3>
                 <p>Number of Bedrooms: {inquiryDetails?.organize?.Bedrooms}</p>
                 <p>Number of Bathrooms: {inquiryDetails?.organize?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {inquiryDetails?.organize?.AdditionalRooms}</p>
-                <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
             </div>
         } else {
             return ''
@@ -164,7 +164,7 @@ function InquiryDetails() {
     const declutterDisplay = (inquiryDetails) => {
         if (inquiryDetails?.declutt?.Declutter === true) {
             return <div>
-                <h5>Decluttering Questions:</h5>
+                <h3>Decluttering Questions:</h3>
                 <p>Number of Bedrooms: {inquiryDetails?.declutt?.Bedrooms}</p>
                 <p>Number of Bathrooms: {inquiryDetails?.declutt?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {inquiryDetails?.declutt?.AdditionalRooms}</p>
@@ -212,82 +212,132 @@ function InquiryDetails() {
     //What displays
     return (
         <main>
-            <div key={inquiriesId}>
-                <p>Inquiries ID: {inquiriesId}</p>
-                <div key={inquiries.id}>
-                    <h1>{inquiryDetails?.contact?.firstName} {inquiryDetails?.contact?.lastName}</h1>
-                    <h2>{cleaningConversion(inquiryDetails)}</h2><span />
-                    <h2>{movingConversion(inquiryDetails)}</h2><span />
-                    <h2>{organizeConversion(inquiryDetails)}</h2><span />
-                    <h2>{decluttConversion(inquiryDetails)}</h2>
-                    <h2>
-                        <FormLabel>Priority Level:</FormLabel>
+            <Box display="flex" justifyContent="center" alignItems="center" height="280vh">
+                <Card>
+                    <CardContent>
+                        {/* <Typography variant="h6" style= {{textAlign: 'center'}} component="p" gutterBottom>
+                            Inquiries ID: {inquiriesId}
+                        </Typography> */}
+                        <Typography variant="h3" style={{ textAlign: 'center', fontWeight: 'bold' }} component="h1" gutterBottom>
+                            {inquiryDetails?.contact?.firstName} {inquiryDetails?.contact?.lastName}
+                        </Typography>
+                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                        <Typography variant="h5" style={{ textAlign: 'center' }} component="h2" gutterBottom>
+                            {cleaningConversion(inquiryDetails)}
+                        </Typography>
+                        <Typography variant="h5" style={{ textAlign: 'center' }} component="h2" gutterBottom>
+                            {movingConversion(inquiryDetails)}
+                        </Typography>
+                        <Typography variant="h5" style={{ textAlign: 'center' }} component="h2" gutterBottom>
+                            {organizeConversion(inquiryDetails)}
+                        </Typography>
+                        <Typography variant="h5" style={{ textAlign: 'center' }} component="h2" gutterBottom>
+                            {decluttConversion(inquiryDetails)}
+                        </Typography>
+                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                        <br />
                         <FormControl fullWidth>
-                            <InputLabel >{priorityConversion(inquiryDetails)}</InputLabel>
+                            <FormLabel style={{ textAlign: 'center' }}>Priority Level:</FormLabel>
                             <Select
-                                labelId='priority-select-label'
-                                id='priority-select'
-                                // value={priorityLevel}
-                                label='Priority Level'
+                                labelId="priority-select-label"
+                                id="priority-select"
                                 onChange={handlePriorityLevel}
+                                value={priorityLevel}
                                 placeholder={priorityConversion(inquiryDetails)}
                             >
-                                {priorities.map(priority => {
-                                    return (
-                                        <MenuItem key={priority.id} value={priority.id}>{priority.description}</MenuItem>
-                                    )
-                                })}
+                                {priorities.map(priority => (
+                                    <MenuItem key={priority.id} value={priority.id}>{priority.description}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                         <br />
-                        <button className='btn' onClick={savePriority}>Save Any Priority Changes</button>
-                    </h2>
-                    <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
-                    <FormLabel>Status:</FormLabel>
-                    <FormControl fullWidth>
-                        <InputLabel>{completionConversion(inquiryDetails)}</InputLabel>
-                        <Select labelId="completion-select-label"
-                            id="completion-select"
-                            label="Completion Status"
-                            onChange={handleCompletionStatus}
-                            // value={completionStatus}
-                            placeholder={completionConversion(inquiryDetails)}>
-
-                            {completionStatuses.map(status => {
-                                return (
+                        <br />
+                        <Box display="flex" justifyContent="center">
+                           <button className='btn' onClick={savePriority}>Save Any Priority Changes</button> 
+                        </Box>
+                        <br />
+                        <br />
+                        <Typography variant="h5"  style={{ textAlign: 'center' }} gutterBottom>
+                            Date Received: {dateConversion(inquiryDetails)}
+                        </Typography>
+                        <br />
+                        <FormControl fullWidth>
+                            <FormLabel style={{ textAlign: 'center' }}>Status:</FormLabel>
+                            <Select
+                                labelId="completion-select-label"
+                                id="completion-select"
+                                onChange={handleCompletionStatus}
+                                value={completionStatus}
+                                placeholder={completionConversion(inquiryDetails)}
+                            >
+                                {completionStatuses.map(status => (
                                     <MenuItem key={status.id} value={status.id}>{status.description}</MenuItem>
-                                )
-                            })}
-                        </Select>
-                    </FormControl>
-                    <br />
-                    <button className='btn' onClick={saveCompletion}>Save Any Completion Status Changes</button>
-                    <h2>NOTES:</h2>
-                    <textarea name="notes"
-                        type="text"
-                        id="notesOfCustomer"
-                        cols="40" rows="10"
-                        value={newNotes}
-                        onChange={handleNotes}
-                        placeholder={inquiryDetails?.customer?.notes}>
-                    </textarea>
-                    <br />
-                    <button className='btn' onClick={saveNotes}>Save Any Notes Changes</button>
-                    <br />
-                    <h3>Customer Responses to Survey:</h3>
-                    <p>{cleaningDisplay(inquiryDetails)}</p>
-                    <p>{movingDisplay(inquiryDetails)}</p>
-                    <p>{organizeDisplay(inquiryDetails)}</p>
-                    <p>{declutterDisplay(inquiryDetails)}</p>
-                    <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
-                    <h4>Photos:</h4>
-
-                    <button className='btn' onClick={returnToInquiries}>Return to Inquiries List</button>
-                </div>
-            </div>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <br />
+                        <br />
+                        <Box display="flex" justifyContent="center">
+                        <button className='btn' onClick={saveCompletion}>Save Any Completion Status Changes</button>
+                        </Box>
+                        <br />
+                        <Typography  style={{ textAlign: 'center' }} variant="h5" component="h2" gutterBottom>
+                            NOTES:
+                        </Typography>
+                        <div className="centered-textarea" style={{ display: 'flex', justifyContent: 'center' }}>
+                        <textarea
+                            name="notes"
+                            type="text"
+                            id="notesOfCustomer"
+                            cols="40"
+                            rows="10"
+                            value={newNotes}
+                            onChange={handleNotes}
+                            placeholder={inquiryDetails?.customer?.notes}
+                        ></textarea>
+                        </div>
+                        <br />
+                        <br />
+                        <Box display="flex" justifyContent="center">
+                        <button className='btn' onClick={saveNotes}>Save Any Notes Changes</button>
+                        </Box>
+                        <br />
+                        <div className="centered-content" style={{ textAlign: 'center' }}>
+                        <Typography variant="h4" component="h2" gutterBottom>
+                            Customer Responses to Survey:
+                        </Typography>
+                        <Typography variant="h6" component="p" gutterBottom>
+                            {cleaningDisplay(inquiryDetails)}
+                        </Typography>
+                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                        <Typography variant="h6" component="p" gutterBottom>
+                            {movingDisplay(inquiryDetails)}
+                        </Typography>
+                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                        <Typography variant="h6" component="p" gutterBottom>
+                            {organizeDisplay(inquiryDetails)}
+                        </Typography>
+                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                        <Typography variant="h6" component="p" gutterBottom>
+                            {declutterDisplay(inquiryDetails)}
+                        </Typography>
+                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                        <Typography variant="h6" component="p">
+                            Additional Comments: {inquiryDetails?.contact?.comments}
+                        </Typography>
+                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                        <Typography variant="h6" component="h2" gutterBottom>
+                            Photos:
+                        </Typography>
+                        </div>
+                        <Box display="flex" justifyContent="center">
+                        <button className='btn' onClick={returnToInquiries}>Return to Inquiries List</button>
+                        </Box>
+                    </CardContent>
+                </Card>
+            </Box>
         </main>
-
-
+        
     )
 } // End Inquiries()
 

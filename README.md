@@ -49,13 +49,6 @@ CREATE TABLE "users" (
     "access_level" INTEGER
 );
 
-CREATE TABLE "services" (
-	id serial primary key,
-	description varchar(2000)
-);
-
-INSERT INTO "services" ("description")
-VALUES ('Essential Cleaning'),('Ultimate Cleaning'), ('Moving In'), ('Moving Out'), ('Organize'), ('Declutter');
 
 -- MAKE SURE TO FILL COMPLETION WITH DATA BEFORE USING APP WITH THE INSERT
 
@@ -96,11 +89,6 @@ CREATE TABLE "user_inquiries" (
 	"comments" VARCHAR(10000)
 );
 
-INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "firstName", "lastName", "street1", "city", "state", "zip", "phone_number", "email", "priority", "completion_status", "comments")
-VALUES (1, 1, 1, '2023-06-29', '2023-07-01', 'Everett', 'Butler', '123 Vista Wayyy', 'Chiefs-Kingdom', 'MO', '12345', '8165555555', 'chiefsrule@email.com', 1, 5, 'Everett was here');
-
-INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "firstName", "lastName", "street1", "city", "state", "zip", "phone_number", "email", "priority", "completion_status", "comments")
-VALUES (2, 2, 2, '2023-06-25', '2023-07-05', 'Miguel', 'Torres', '1234 Bob Ave', 'Chiefs-Kingdom!', 'KS', '54321', '9135555555', 'chiefsrule@gmail.com', 2, 4, 'Miguel was here');
 
 CREATE TABLE "customer" (
 	"id" serial primary key,
@@ -110,8 +98,6 @@ CREATE TABLE "customer" (
 	"notes" VARCHAR(40000)
 );
 
-INSERT INTO "customer" ("id", "user_id", "inquiries", "service_on", "notes")
-VALUES (1, 1, 1, '2023-06-30', 'Everett has notes, yo');
 
 CREATE TABLE "user_media" (
 	id serial primary key,
@@ -131,10 +117,6 @@ CREATE TABLE "user_media" (
 	-- question5 VARCHAR (10000)
 );
 
-INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
-VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
-
-
 
 CREATE TABLE "cleaning_questions" (
     id serial primary key,
@@ -150,8 +132,6 @@ CREATE TABLE "cleaning_questions" (
     "HazardousConditions" VARCHAR(10000)
 );
 
-INSERT INTO "cleaning_questions" ("Cleaning", "ServiceType", "Bedrooms", "Bathrooms", "AdditionalRooms", "Doors", "Windows", "HasPets", "HazardousConditions")
-VALUES (true, null, 3, 2, 1, 0, 0, false, 'None');
 
 CREATE TABLE "organizing_questions" (
 	id serial primary key,
@@ -163,8 +143,6 @@ CREATE TABLE "organizing_questions" (
 	"Donation" BOOLEAN default false
 );
 
-INSERT INTO "organizing_questions" ("Organizing", "Bedrooms", "Bathrooms", "AdditionalRooms", "Donation")
-VALUES (true, 3, 2, 1, true);
 
 CREATE TABLE "decluttering_questions" (
 	id serial primary key,
@@ -175,16 +153,12 @@ CREATE TABLE "decluttering_questions" (
 	"AdditionalRooms" INT,
 	"Donation" BOOLEAN default false
 );
-
-INSERT INTO "decluttering_questions" ("Declutter", "Bedrooms", "Bathrooms", "AdditionalRooms", "Donation")
-VALUES (true, 3, 2, 1, true);
-
 ```
 
 ## Development Setup Instructions
 
 - Run `npm install`
-- You will need to sign up for AWS and create an s3 bucket named "blackheartcustoms" and IAM user. 
+- You will need to sign up for AWS and create an s3 bucket named "examplebucket" and IAM user. 
 - Create a `.env` file at the root of the project and paste this line into the file:
   ```
   SERVER_SESSION_SECRET=superDuperSecret

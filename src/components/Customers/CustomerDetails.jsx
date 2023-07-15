@@ -41,7 +41,7 @@ function CustomerDetails() {
 
     const donationConversion = (inquiryDetails) => {
         console.log('There', inquiryDetails)
-        if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
+        if (inquiryDetails?.declutt?.Donation === true) {
             return 'Yes'
         } else {
             return 'No'
@@ -88,7 +88,7 @@ function CustomerDetails() {
                                     <p>{customer.zip}</p>
                                     <p>{customer.phone_number}</p>
                                     <p>{customer.email}</p>
-                                    <hr/> 
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Cleaning Questions:</h3>
                                     <h4>Cleaning Service</h4>
                                     <p>{customer.ServiceType}</p>
@@ -99,26 +99,22 @@ function CustomerDetails() {
                                     <p>Windows: {customer.Windows}</p>
                                     <p>Pets: {customer.HasPets}</p>
                                     <p>Hazardous Conditions: {customer.HazardousConditions} </p>
-                                    <hr/> 
-
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Moving Questions</h3>
                                     <p>Moving To: {customer.moving_to}</p>
                                     <p>Moving From: {customer.moving_from}</p>
                                     <p>Large_items: {customer.large_items}</p>
-                                    <hr/>
-
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Organizing Questions</h3>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Additionals Rooms: {customer.AdditionalRooms}</p>
-                                    <p>Donation: {donationConversion(inquiryDetails)}</p>
-                                    <hr/>
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Decluttering Questions</h3>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Donations: {donationConversion(inquiryDetails)}</p>
-                                    <hr/>
-
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Customer Photos</h3>
                                     <p></p>
                                 </center>

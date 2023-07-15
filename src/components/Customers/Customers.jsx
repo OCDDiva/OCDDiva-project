@@ -62,7 +62,6 @@ function Customers() {
                                     <br />
                                     <Typography variant="h5" align="center">Date of Service: {dateConversion(customer)}</Typography>
                                     <Typography variant="h5" align="center">Completion status: {customer.completion_status === 5 ? 'Completed' : customer.completion_status}</Typography>
-                                    <Typography variant="h5" align="center">Notes: {customer.notes}</Typography>
                                     <br />
                                 </CardContent>
                                 <CardActions style={{ justifyContent: 'center' }}>
