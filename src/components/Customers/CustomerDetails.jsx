@@ -13,7 +13,7 @@ function CustomerDetails() {
 
 
     const handleEdit = () => {
-        history.goBack(); // Redirects to the previous page
+        history.push(`/inquirydetails/${customerId}`); // Navigate to the page for editing notes
     };
 
     
@@ -34,17 +34,23 @@ function CustomerDetails() {
 
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
+        const date = new Date(oldDate.date_requested).toLocaleDateString('en-EN')
         return `${date}`
     }
 
-    const donationConversion = (inquiryDetails) => {
-        if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
-            return 'Yes'
+
+    const donationConversion = (customer) => {
+        if (customer?.Donation === true) {
+          return 'Yes';
         } else {
-            return 'No'
+          return 'No';
         }
-    }
+      };
+
+     
+
+    console.log('GoodBye', customerDetails)
+
 
     return (
         <React.Fragment>
@@ -93,6 +99,7 @@ function CustomerDetails() {
                                     <p>Additional Rooms: {customer.AdditionalRooms}</p>
                                     <p>Doors & Windows: {customer.DoorsWindows}</p>
                                     <p>Pets: {customer.HasPets}</p>
+                                    <p>Hazardous Conditions: {customer.HazardousConditions} </p>
                                     <hr/> 
 
                                     <h3>Moving Questions</h3>
@@ -105,12 +112,12 @@ function CustomerDetails() {
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Additionals Rooms: {customer.AdditionalRooms}</p>
-                                    <p>Donation: {donationConversion(customer.Donation)}</p>
+                                    <p>Donation: {donationConversion(customer)}</p>
                                     <hr/>
                                     <h3>Decluttering Questions</h3>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
-                                    <p>Donations: {donationConversion(customer.Donation)}</p>
+                                    <p>Donations: {donationConversion(customer)}</p>
                                     <hr/>
 
                                     <h3>Customer Photos</h3>

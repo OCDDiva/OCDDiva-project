@@ -4,10 +4,14 @@ const customerReducer = (state = [], action) => {
         case 'SET_CUSTOMERS_LIST':
             return action.payload;
         case 'SET_CUSTOMERS_DETAILS':
-            return action.payload ;
+            return action.payload;
+        case 'SET_NOTES':
+            return action.payload;
         default:
             return state;
     }
 };
+
+
 
 export default customerReducer;
