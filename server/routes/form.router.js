@@ -61,27 +61,48 @@ router.put('/inquiries/completion', (req, res) => {
 /**
  * GET #3 CUSTOMERS route template
  */
-//! We need to update this now because the user inquiries table is different now
-router.get('/customers', (req, res) => {
-  console.log('is Authenticated?', req.isAuthenticated());
-  console.log('HERE /customers')
+// //! We need to update this now because the user inquiries table is different now
+router.get('/customers', async (req, res) => {
+  // GET #5 route code here
   if (req.isAuthenticated()) {
     console.log('user', req.user);
-    let queryText = `SELECT "customer"."id","user_inquiries"."firstName", "user_inquiries"."lastName","user_inquiries"."completion_status", "customer"."service_on","customer"."notes" 
-    FROM "customer"
-    JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
-    WHERE "user_inquiries".completion_status = 5`;
+    const queryText =  `SELECT * FROM "user_inquiries" WHERE "completion_status" = 5 ORDER BY id DESC;`
+    console.log('All User data retrieved successfully.');
     pool.query(queryText).then((result) => {
-      console.log('results', result.rows);
+      console.log('for all inquiries (line13)', result.rows);
       res.send(result.rows);
     }).catch((error) => {
       console.log('HERE', error);
       res.sendStatus(500);
     });
-  } else {
-    res.sendStatus(403);
-  }
+} else {
+  res.sendStatus(403);
+}
 });
+// router.get('/customers', (req, res) => {
+//   console.log('is Authenticated?', req.isAuthenticated());
+//   console.log('HERE /customers')
+//   if (req.isAuthenticated()) {
+//     console.log('user', req.user);
+//     let queryText = `SELECT "customer"."id","user_inquiries"."firstName", "user_inquiries"."lastName","cleaning_questions"."ServiceType", "user_inquiries"."completion_status", "customer"."service_on","customer"."notes" 
+//     FROM "customer"
+//     JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
+//     JOIN "cleaning_questions" ON "user_inquiries"."id" = "cleaning_questions"."inquiry_id"
+//     WHERE "user_inquiries".completion_status = 5`;
+//     pool.query(queryText).then((result) => {
+//       console.log('results', result.rows);
+//       res.send(result.rows);
+//     }).catch((error) => {
+//       console.log('HERE', error);
+//       res.sendStatus(500);
+//     });
+//   } else {
+//     res.sendStatus(403);
+//   }
+// });
+
+
+
 
 /**
  * GET #4 CUSTOMERS DETAILS (hint: by id) route template
@@ -101,7 +122,7 @@ router.get('/customers/:id', (req, res) => {
     JOIN "organizing_questions" ON "organizing_questions"."inquiry_id" = "customer"."inquiries"
     JOIN "decluttering_questions" ON  "decluttering_questions"."inquiry_id" = "customer"."inquiries"
     JOIN "user_media" ON "user_media"."inquiry_id" = "customer"."inquiries"
-    WHERE "customer"."id" = $1;
+    WHERE "customer"."inquiries" = $1;
     `; // Use the customer ID parameter in the query
     pool.query(queryText, [customerId])
       .then((result) => {
@@ -116,6 +137,7 @@ router.get('/customers/:id', (req, res) => {
     res.sendStatus(403);
   }
 });
+
 
 /**
  * GET #5 ALL USER INFO route template
@@ -369,8 +391,21 @@ router.put('/dateRequest', (req, res) => {
 /**
  * DELETE BY ID route template
  */
-router.delete('/', (req, res) => {
-  // DELETE route code here
+router.delete('/customers/:id', (req, res) => {
+  const customerId = req.params.id;
+  console.log('hello', req.params.id)
+  const query = 'DELETE FROM "user_inquiries" WHERE "id" = $1';
+  const values = [customerId];
+  
+  pool.query(query, values)
+    .then(() => {
+      res.sendStatus(204); // Send a 204 No Content response if successful
+    })
+    .catch((error) => {
+      console.log(`Error in DELETE /forms/customers/${customerId}:`, error);
+      res.sendStatus(500);
+    });
 });
+
 
 module.exports = router;
