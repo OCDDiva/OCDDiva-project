@@ -33,14 +33,17 @@ function Customers() {
     return (
         <Container>
             <h1 style={{ textAlign: "center" }} >Customers</h1>
+            <br/>
             <form>
-                Search:
-                <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
+                <div style={{ textAlign: "center" }}>
+                    Search:
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                 <button type="submit" onClick={() => handleSearch()}>Search</button>
+                </div>
             </form>
             <br />
             <br />
@@ -58,7 +61,7 @@ function Customers() {
                                     </Typography>
                                     <br />
                                     <Typography variant="h5" align="center">Date of Service: {dateConversion(customer)}</Typography>
-                                    <Typography variant="h5" align="center">Completion status: {customer.completion_status}</Typography>
+                                    <Typography variant="h5" align="center">Completion status: {customer.completion_status === 5 ? 'Completed' : customer.completion_status}</Typography>
                                     <Typography variant="h5" align="center">Notes: {customer.notes}</Typography>
                                     <br />
                                 </CardContent>

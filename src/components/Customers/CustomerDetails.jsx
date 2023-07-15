@@ -69,7 +69,7 @@ function CustomerDetails() {
                                     Customer Name: {customer.firstName} {customer.lastName}
                                 </Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {dateConversion(customer)}</Typography>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
+                                <Typography variant="h5" align="center"> Completion status: {customer.completion_status === 5 ? 'Completed' : customer.completion_status}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             </CardContent>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
