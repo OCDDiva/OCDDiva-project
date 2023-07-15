@@ -21,9 +21,9 @@ function Review() {
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
-        // dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
-        // dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
-        // history.push('/success');
+        dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
+        dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
+        history.push('/success');
     }
 
     const sendPhotoToServer = (event) => {
