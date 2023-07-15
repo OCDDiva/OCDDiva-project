@@ -1,21 +1,20 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-
 function* setPhotosToUpload(action) {
     try {
-        console.log(action.payload);
-        const selectedFile= action.payload.photoUpload;
-        const inquiryId= action.payload.inquiry_id;
-        const fileName = encodeURIComponent(selectedFile.name);
-        console.log(fileName)
-        const formData = new FormData();
-        formData.append('image', selectedFile);
-        yield axios.put(`/api/photos?name=${fileName}&inquiryId=${inquiryId}`, formData)
-        console.log('Updating Photos', action.payload);
+        const { photoUpload, fileName, fileType, inquiry_id } = action.payload;
+        console.log('Checking the payload file:', photoUpload)
+        console.log('Checking the inquiry id:', inquiry_id)
+        // const formData = new FormData();
+        // formData.append('file', selectedFile);
+        // formData.append('inquiry_id', inquiryId);
+        let postUrl = `/api/photos/upload?imageName=${fileName}&imageType=${fileType}&inquiryId=${inquiry_id}`;
+        yield axios.post(postUrl, photoUpload)
+        console.log('Updating Photos');
         yield put({ type: 'SET_PHOTOS' });
     } catch (error) {
-        console.log(`Error in posting photos to upload ${error}`);
+        console.log(`Error in updating photos to upload ${error}`);
         alert('Something went wrong!');
     }
 }

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
-
+// import { readAndCompressImage } from 'browser-image-resizer';
 
 function Review() {
     //Code goes here
@@ -11,24 +11,54 @@ function Review() {
     const dispatch = useDispatch();
     const allUserInfo = useSelector(store => store.allUserInfo);
 
-    //! States f
+    //! States 
     const [comments, setComments] = useState('');
-    const [dateRequested, setDateRequested] = useState();
-    const [photosToUpload, setPhotosToUpload] = useState([]);
+    const [dateRequested, setDateRequested] = useState('');
+    const [photosToUpload, setPhotosToUpload] = useState();
+    const [fileName, setFileName] = useState('');
+    const [fileType, setFileType] = useState('');
 
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
         // dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
         // dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
-        dispatch({ type: 'UPLOAD_PHOTOS', payload: { photoUpload: photosToUpload, inquiry_id: allUserInfo?.contact?.id } })
         // history.push('/success');
     }
 
-    const photoUpload = (event) => {
+    const sendPhotoToServer = (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        console.log('Checking Photos', photosToUpload);
+        formData.append('image', photosToUpload);
+        dispatch({ 
+            type: 'UPLOAD_PHOTOS', 
+            payload: { 
+                photoUpload: formData,
+                fileName,
+                fileType,
+                inquiry_id: allUserInfo?.contact?.id 
+        }})
+    }
+
+    const onFileChange = async (event) => {
+        // const selectedFile = event.target.files[0];
         const fileToUpload = event.target.files[0];
-        const acceptedImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        console.log("checking fileToUpload", fileToUpload)
+        // Resize and compress the image. Remove this if using something other
+        // than an image upload.
+        const copyFile = new Blob([fileToUpload], { type: fileToUpload.type, name: fileToUpload.name });
+        // const resizedFile = await readAndCompressImage(copyFile, {
+        // quality: 1.0,    // 100% quality
+        // maxHeight: 1000, // max height of the image
+        // });
+
+        // Limit to specific file types
+
+        const acceptedImageTypes = ['image/jpeg', 'image/png', 'impage/jpg'];
         if (acceptedImageTypes.includes(fileToUpload.type)) {
+            setFileName(encodeURIComponent(fileToUpload.name));
+            setFileType(encodeURIComponent(fileToUpload.type));
             setPhotosToUpload(fileToUpload);
         } else {
             alert('Please select an image');
@@ -38,8 +68,6 @@ function Review() {
     useEffect(() => {
         dispatch({ type: 'FETCH_ALL_INFO' });
     }, []);
-
-    console.log('show me the info!!!!!!', allUserInfo);
 
     const cleaningDisplay = (allUserInfo) => {
         if (allUserInfo?.cleaning?.Cleaning === true) {
@@ -149,7 +177,15 @@ function Review() {
                 </div>
                 <div className="picsAndComments">
                     <h3>Upload some photos of your space!</h3>
-                    <input type="file" multiple="multiple" accept="image/*" onChange={photoUpload} />
+                    <form onSubmit={sendPhotoToServer}>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={onFileChange}
+                        />
+                        <br />
+                        <button type="submit">Submit</button>
+                    </form>
                     <br />
                     <br />
                     <h4>Leave us any additional comments!</h4>
