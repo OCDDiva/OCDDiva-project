@@ -42,6 +42,7 @@ function CustomerDetails() {
         return `${time.month}/${time.day}/${slice}`;
     }
 
+
     return (
         <React.Fragment>
             <Typography variant="h4" style={{ textAlign: "center" }}>Customer Details</Typography>
