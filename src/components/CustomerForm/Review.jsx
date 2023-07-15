@@ -41,6 +41,22 @@ function Review() {
 
     console.log('show me the info!!!!!!', allUserInfo);
 
+    const cleaningDisplay = (allUserInfo) => {
+        if (allUserInfo?.cleaning?.Cleaning === true) {
+            return <div>
+                <h3>Cleaning Questions:</h3>
+                <p>Number of Bedrooms: {allUserInfo?.cleaning?.Bedrooms}</p>
+                <p>Number of Bathrooms: {allUserInfo?.cleaning?.Bathrooms}</p>
+                <p>Number of Additional Rooms: {allUserInfo?.cleaning?.AdditionalRooms}</p>
+                <p>Number of Doors & Windows: {allUserInfo?.cleaning?.DoorsWindows}</p>
+                <p>Has Pets? {allUserInfo?.cleaning?.hasPets}</p>
+                <p>Hazardous Conditions? {allUserInfo?.cleaning?.HazardousConditions}</p>
+            </div>
+        } else {
+            return ''
+        }
+    }
+
     const movingDisplay = (allUserInfo) => {
         if (allUserInfo?.moving?.moving === true) {
             return <div>
@@ -103,9 +119,7 @@ function Review() {
                     Name: {allUserInfo?.contact?.firstName}{'    '}
                     {allUserInfo?.contact?.lastName}
                     <br />
-                    Address: {allUserInfo?.contact?.street1}
-                    <br />
-                    {allUserInfo?.contact?.street2}
+                    Address: {allUserInfo?.contact?.street1}{'    '}{allUserInfo?.contact?.street2}
                     <br />
                     City: {allUserInfo?.contact?.city}
                     <br />
@@ -117,23 +131,7 @@ function Review() {
                     <br />
                     Email: {allUserInfo?.contact?.email}
                     <br />
-                    <h3>Cleaning Questions</h3>
-                    Requested Cleaning Service: {allUserInfo?.cleaning?.ServiceType}
-                    <br />
-                    Number of Bedrooms: {allUserInfo?.cleaning?.Bedrooms}
-                    <br />
-                    Number of Bathrooms: {allUserInfo?.cleaning?.Bathrooms}
-                    <br />
-                    Number of Additional Rooms: {allUserInfo?.cleaning?.AdditionalRooms}
-                    <br />
-                    {/* TODO add in conditional rendering for this to show if it only has results */}
-                    Number of Doors: {allUserInfo?.cleaning?.Doors}
-                    <br />
-                    Number of Windows: {allUserInfo?.cleaning?.Windows}
-                    <br />
-                    Any Pets: {allUserInfo?.cleaning?.HasPets}
-                    <br />
-                    Hazardous Conditions: {allUserInfo?.cleaning?.HazardousConditions}
+                    <>{cleaningDisplay(allUserInfo)}</>
                     <br />
                     <p>{movingDisplay(allUserInfo)}</p>
                     <br />
