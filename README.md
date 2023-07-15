@@ -1,12 +1,16 @@
+# OCD Diva Organize, Clean, and Declutter
 
-# Prime Solo Project Starting Repo
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+## About The Project 
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+The OCD Diva application aims to provide an interactive and immersive form for new and old customers to OCD Diva, enabling them to provide detailed information about the services they are interested in. The application includes a multi-step form that guides users through the registration process and collects information such as name, address, service details, photos of the space, and other relevant specifications. Customer inquiries are stored in a database and can be accessed through an Admin view.
 
-## Use the Template for This Repository (Don't Clone)
+## Need for the Application
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account. Make the project `PUBLIC`!
+The OCD Diva application addresses the need for a more organized and comprehensive approach to customer inquiries and service requests. By providing a structured form, the application ensures that customers provide all the necessary information upfront, reducing the need for back-and-forth communication and minimizing potential misunderstandings.
+
+The application's Admin view empowers OCD Diva and its employees by offering a centralized platform to manage customer inquiries, track their progress, and assign services to specific employees. This streamlined process enhances efficiency and allows OCD Diva to provide prompt and personalized service to its customers.
+
+Overall, the OCD Diva application significantly improves the customer experience by simplifying the service request process, enhancing communication between customers and OCD Diva, and providing effective tools for inquiry management.
 
 
 ## Prerequisites
@@ -17,26 +21,180 @@ Before you get started, make sure you have the following software installed on y
 - [PostrgeSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
 
+## Technology
+
+- [![React][react.js]][react-url]
+- [![Redux][redux.js]][redux-url]
+- [![Redux-Saga][redux-saga.js]][redux-saga-url]
+- [![PostgreSQL][postgresql]][postgresql-url]
+- [![Material-UI][material-ui]][material-ui-url]
+- [![Express][express.js]][express-url]
+- [![Node][node.js]][node-url]
+- [![React-Router][react-router]][react-router-url]
+- [![Heroku][heroku]][heroku-url]
+- [![NPM][npm]][npm-url]
+
 ## Create database and table
 
-Create a new database called `prime_app` and create a `user` table:
+Create a new database called `ocd_diva`. If you would like to name your database something else, you will need to change `ocd_diva` to the name of your new database name in `server/modules/pool.js`. You will get started by creating your first `users` table: After this you will create the rest of the tables from top to bottom. 
 
 ```SQL
-CREATE TABLE "user" (
+
+-- REGISTER A USER AFTER CREATING THIS TABLE BEFORE MAKING THE REST OF THE TABLES
+
+CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+    "password" VARCHAR (1000) NOT NULL,
+    "access_level" INTEGER
 );
-```
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+CREATE TABLE "services" (
+	id serial primary key,
+	description varchar(2000)
+);
+
+INSERT INTO "services" ("description")
+VALUES ('Essential Cleaning'),('Ultimate Cleaning'), ('Moving In'), ('Moving Out'), ('Organize'), ('Declutter');
+
+-- MAKE SURE TO FILL COMPLETION WITH DATA BEFORE USING APP WITH THE INSERT
+
+CREATE TABLE "completion" (
+	id serial primary key,
+	description varchar(2000)
+);
+
+INSERT INTO "completion" ("description")
+VALUES ('Pending'), ('Bid Offered'), ('Bid Rejected'), ('In Progress'), ('Complete');
+
+-- MAKE SURE TO FILL PRIORITY TABLE WITH DATA BEFORE USING APP WITH THE INSERT
+
+CREATE TABLE "priority" (
+	id serial primary key,
+	description varchar(2000)
+);
+
+INSERT INTO "priority" ("description")
+VALUES ('High'), ('Medium'), ('Low');
+
+CREATE TABLE "user_inquiries" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" INT REFERENCES users,
+	"date_received" DATE,
+	"date_requested" DATE,
+	"firstName" varchar(100),
+	"lastName" varchar(250),
+	"street1" varchar(1000),
+	"street2" varchar(1000),
+	"city" varchar(1000),
+	"state" varchar(2),
+	"zip" varchar(5),
+	"phone_number" varchar(11),
+	"email" varchar(50),
+	"priority" INT REFERENCES priority DEFAULT 3,
+	"completion_status" INT REFERENCES completion DEFAULT 1,
+	"comments" VARCHAR(10000)
+);
+
+INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "firstName", "lastName", "street1", "city", "state", "zip", "phone_number", "email", "priority", "completion_status", "comments")
+VALUES (1, 1, 1, '2023-06-29', '2023-07-01', 'Everett', 'Butler', '123 Vista Wayyy', 'Chiefs-Kingdom', 'MO', '12345', '8165555555', 'chiefsrule@email.com', 1, 5, 'Everett was here');
+
+INSERT INTO "user_inquiries" ("id", "user_id", "services_id", "date_received", "date_requested", "firstName", "lastName", "street1", "city", "state", "zip", "phone_number", "email", "priority", "completion_status", "comments")
+VALUES (2, 2, 2, '2023-06-25', '2023-07-05', 'Miguel', 'Torres', '1234 Bob Ave', 'Chiefs-Kingdom!', 'KS', '54321', '9135555555', 'chiefsrule@gmail.com', 2, 4, 'Miguel was here');
+
+CREATE TABLE "customer" (
+	"id" serial primary key,
+	"user_id" integer REFERENCES users,
+	"inquiries" integer REFERENCES user_inquiries ON DELETE CASCADE,
+	"service_on" date,
+	"notes" VARCHAR(40000)
+);
+
+INSERT INTO "customer" ("id", "user_id", "inquiries", "service_on", "notes")
+VALUES (1, 1, 1, '2023-06-30', 'Everett has notes, yo');
+
+CREATE TABLE "user_media" (
+	id serial primary key,
+	inquiry_id INT references user_inquiries,
+	url varchar(10000),
+	blob_data BYTEA
+);
+
+ CREATE TABLE "moving_questions" (
+	id serial primary key,
+	inquiry_id INT references user_inquiries,
+	"moving" BOOLEAN default false,
+	"moving_to" VARCHAR (10000),
+	"moving_from" VARCHAR (10000),
+	"large_items" VARCHAR (10000)
+	-- question4 VARCHAR (10000),
+	-- question5 VARCHAR (10000)
+);
+
+INSERT INTO "moving_questions" ("moving", "moving_to", "moving_from", "large_items")
+VALUES (false, 'movingAnswer1', 'movingAnswer2', 'movingAnswer3');
+
+
+
+CREATE TABLE "cleaning_questions" (
+    id serial primary key,
+    inquiry_id INT references user_inquiries,
+    "Cleaning" BOOLEAN default false,
+    "ServiceType" VARCHAR(100),
+    "Bedrooms" INT,
+    "Bathrooms" INT,
+    "AdditionalRooms" INT,
+    "Doors" INT,
+	"Windows" INT,
+    "HasPets" varchar(500),
+    "HazardousConditions" VARCHAR(10000)
+);
+
+INSERT INTO "cleaning_questions" ("Cleaning", "ServiceType", "Bedrooms", "Bathrooms", "AdditionalRooms", "Doors", "Windows", "HasPets", "HazardousConditions")
+VALUES (true, null, 3, 2, 1, 0, 0, false, 'None');
+
+CREATE TABLE "organizing_questions" (
+	id serial primary key,
+	inquiry_id INT references user_inquiries,
+	"Organizing" BOOLEAN default false,
+	"Bedrooms" INT,
+	"Bathrooms" INT,
+	"AdditionalRooms" INT,
+	"Donation" BOOLEAN default false
+);
+
+INSERT INTO "organizing_questions" ("Organizing", "Bedrooms", "Bathrooms", "AdditionalRooms", "Donation")
+VALUES (true, 3, 2, 1, true);
+
+CREATE TABLE "decluttering_questions" (
+	id serial primary key,
+	inquiry_id INT references user_inquiries,
+	"Declutter" BOOLEAN default false,
+	"Bedrooms" INT,
+	"Bathrooms" INT,
+	"AdditionalRooms" INT,
+	"Donation" BOOLEAN default false
+);
+
+INSERT INTO "decluttering_questions" ("Declutter", "Bedrooms", "Bathrooms", "AdditionalRooms", "Donation")
+VALUES (true, 3, 2, 1, true);
+
+```
 
 ## Development Setup Instructions
 
 - Run `npm install`
+- You will need to sign up for AWS and create an s3 bucket named "blackheartcustoms" and IAM user. 
 - Create a `.env` file at the root of the project and paste this line into the file:
   ```
   SERVER_SESSION_SECRET=superDuperSecret
+
+  AWS_ACCESS_KEY_ID=EnterYourAccessKeyID
+
+  AWS_SECRET_ACCESS_KEY=EnterYourSecretAccessKey
+
+  AWS_REGION=EnterYourRegion
+
   ```
   While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
 - Start postgres if not running already by using `brew services start postgresql`
@@ -44,67 +202,13 @@ If you would like to name your database something else, you will need to change 
 - Run `npm run client`
 - Navigate to `localhost:3000`
 
-## Debugging
-
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
-
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
-
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
-
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
-
-## Testing Routes with Postman
-
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
-
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
-
-1. Start the server - `npm run server`
-2. Import the sample routes JSON file [v2](./PostmanPrimeSoloRoutesv2.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
-
-After running the login route above, you can try any other route you've created that requires a logged in user!
-
 ## Production Build
 
 Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
 
 - Start postgres if not running already by using `brew services start postgresql`
 - Run `npm start`
-- Navigate to `localhost:5000`
-
-## Lay of the Land
-
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
-
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
-
-Directory Structure:
-
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
+- Navigate to `localhost:5042`
 
 ## Deployment
 
@@ -116,6 +220,21 @@ This code is also heavily commented. We recommend reading through the comments, 
 1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
 1. In the deploy section, select manual deploy
 
+## Acknowledgement
+
+Creator:
+- Kalia McKinley
+
+Developers:
+- Everett Butler
+- Leigh Stephenson
+- Miguel Torres
+- Stephen Vertucci
+- Seth Woodson
+- Sam Gossie
+
+
 ## Update Documentation
 
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2 -->
+
