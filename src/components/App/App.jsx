@@ -94,6 +94,9 @@ function App() {
               <InfoPage />
             </ProtectedRoute>
 
+            {/* Access Level 2 pages */}
+            {user.access_level === 2 && (
+            <>
             <ProtectedRoute exact path="/inquiries" >
               <Inquiries />
             </ProtectedRoute>
@@ -101,6 +104,12 @@ function App() {
             <ProtectedRoute exact path="/inquirydetails/:inquiriesId" >
               <InquiryDetails />
             </ProtectedRoute>
+
+            <ProtectedRoute exact path="/customerhistory">
+              <Customers />
+            </ProtectedRoute>
+            </>
+            )}
 
             <ProtectedRoute exact path="/userhistory" >
               <UserHistory />
@@ -140,10 +149,6 @@ function App() {
 
             <ProtectedRoute exact path="/success">
               <Success />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/customerhistory">
-              <Customers />
             </ProtectedRoute>
 
             <ProtectedRoute exact path="/customer-details/:customerId" component={CustomerDetails}>
