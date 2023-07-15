@@ -1,0 +1,10 @@
+const fetchNotes = (state = [], action) => {
+    switch(action.type) {
+        case 'SET_PRIORITY':
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
+export default fetchNotes;

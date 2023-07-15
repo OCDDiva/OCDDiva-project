@@ -14,7 +14,7 @@ CREATE TABLE "services" (
 
 INSERT INTO "services" ("description")
 VALUES ('Essential Cleaning'),('Ultimate Cleaning'), ('Moving In'), ('Moving Out'), ('Organize'), ('Declutter');
-
+-- MAKE SURE TO FILL COMPLETION WITH DATA BEFORE USING APP
 CREATE TABLE "completion" (
 	id serial primary key,
 	description varchar(2000)
@@ -22,7 +22,7 @@ CREATE TABLE "completion" (
 
 INSERT INTO "completion" ("description")
 VALUES ('Pending'), ('Bid Offered'), ('Bid Rejected'), ('In Progress'), ('Complete');
-
+-- MAKE SURE TO FILL PRIO TABLE WITH DATA BEFORE USING APP 
 CREATE TABLE "priority" (
 	id serial primary key,
 	description varchar(2000)
@@ -99,13 +99,14 @@ CREATE TABLE "cleaning_questions" (
     "Bedrooms" INT,
     "Bathrooms" INT,
     "AdditionalRooms" INT,
-    "DoorsWindows" INT,
+    "Doors" INT,
+	"Windows" INT,
     "HasPets" varchar(500),
     "HazardousConditions" VARCHAR(10000)
 );
 
-INSERT INTO "cleaning_questions" ("Cleaning", "ServiceType", "Bedrooms", "Bathrooms", "AdditionalRooms", "DoorsWindows", "HasPets", "HazardousConditions")
-VALUES (true, null, 3, 2, 1, 0, false, 'None');
+INSERT INTO "cleaning_questions" ("Cleaning", "ServiceType", "Bedrooms", "Bathrooms", "AdditionalRooms", "Doors", "Windows", "HasPets", "HazardousConditions")
+VALUES (true, null, 3, 2, 1, 0, 0, false, 'None');
 
 CREATE TABLE "organizing_questions" (
 	id serial primary key,

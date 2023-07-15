@@ -154,9 +154,23 @@ router.get('/allUserInfo', async (req, res) => {
 });
 
 /**
- * GET #5 USER HISTORY route template
+ * GET #5 notes route template
  */
-
+router.put('/notes', (req, res) => {
+  // PUT #5 route code here
+  console.log(`In PUT for notes`);
+  if (req.isAuthenticated()) {
+    const queryValues = [req.body.notes, req.body.inquiry_id];
+    const queryText = `UPDATE "customer" SET "notes" = $1 WHERE "inquiries" = $2;`;
+    console.log(queryValues);
+    pool.query(queryText, queryValues).then((result) => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      console.log(`Error in PUT for notes: ${error}`);
+      res.sendStatus(500);
+    })
+  }
+});
 
 /**
  * POST ESSENTIAL CUSTOMER INFO(default) route template
@@ -226,7 +240,8 @@ router.put('/cleaning', (req, res) => {
     req.body.numberOfBedrooms,
     req.body.numberOfBathrooms,
     req.body.numberOfAdditionalRooms,
-    req.body.numberOfDoorsWindows,
+    req.body.numberOfDoors,
+    req.body.numberOfWindows,
     req.body.hasPets,
     req.body.hazardousConditions,
     req.body.inquiry_id,
@@ -240,10 +255,11 @@ router.put('/cleaning', (req, res) => {
       "Bedrooms" = $3,
       "Bathrooms" = $4,
       "AdditionalRooms" = $5,
-      "DoorsWindows" = $6,
-      "HasPets" = $7,
-      "HazardousConditions" = $8
-      WHERE "inquiry_id" = $9
+      "Doors" = $6,
+      "Windows" = $7,
+      "HasPets" = $8,
+      "HazardousConditions" = $9
+      WHERE "inquiry_id" = $10
   `;
   pool.query(queryText, values)
     .then(() => {

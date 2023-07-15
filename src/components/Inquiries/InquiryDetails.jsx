@@ -17,6 +17,7 @@ function InquiryDetails() {
     const inquiryDetails = useSelector(store => store.inquiryDetails);
     const priorities = useSelector(store => store.priorityList);
     const completionStatuses = useSelector(store => store.completionStatus);
+    const notes = useSelector(store => store.fetchNotes);
     const { inquiriesId } = useParams();
 
     console.log('InquiryDetails Object:', inquiryDetails)
@@ -26,6 +27,7 @@ function InquiryDetails() {
         dispatch({ type: 'FETCH_PRIORITIES' });
         dispatch({ type: 'FETCH_STATUS' });
         dispatch({ type: 'FETCH_INQUIRIES' });
+        dispatch({ type: 'FETCH_NOTES' });
     }, [inquiriesId]);
 
     if (inquiriesId) {
@@ -37,48 +39,9 @@ function InquiryDetails() {
     }
 
 
-    console.log('Priorities', priorities)
-    console.log('Statuses', completionStatuses);
-    console.log('InquiriesID:', inquiriesId);
-
-
     const returnToInquiries = (event) => {
-        dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId } })
-        dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId } })
-        history.push('/inquiries')
+        history.push(`/inquiries`)
     }
-
-    // TODO see what miguel made for the dispatch for adding notes and edit accordingly
-    const changeNote = (e) => {
-        e.preventDefault();
-        if (inquiryDetails?.customer?.notes !== null) {
-            dispatch({ type: 'EDIT_NOTE', payload: { inquiryDetails, inquiriesId, }, history });
-        } else {
-            dispatch({ type: 'ADD_NOTE', payload: { inquiryDetails }, history })
-        }
-    }
-
-    const noteButton = () => {
-        if (inquiryDetails?.customer?.notes !== null) {
-            return 'Edit Note'
-        } else {
-            return 'Add Note'
-        }
-    }
-
-    // const serviceConversion = (inquiries) => {
-    //     if (inquiries?.cleaning?.ServiceType === 'essential' && inquiries?.moving?.moving === true && inquiries?.organize?.Organizing === true && inquiries?.declutt?.Declutter === true) {
-    //         return '| Essential Clean | Moving | Organizing | Declutter |'
-    //     } else if (inquiries?.cleaning?.ServiceType === 'ultimate' && inquiries?.moving?.moving === true && inquiries?.organize?.Organizing === true && inquiries?.declutt?.Declutter === true) {
-    //         return '| Ultimate Clean | Moving | Organizing | Declutter |'
-    //     } else if (inquiries?.moving?.moving === true) {
-    //         return 'Moving |'
-    //     } else if (inquiries?.organize?.Organizing === true) {
-    //         return 'Organizing |'
-    //     } else if (inquiries?.declutt?.Declutter === true) {
-    //         return 'Declutter |'
-    //     }
-    // }
 
     const cleaningConversion = (inquiry) => {
         if (inquiry?.cleaning?.ServiceType === 'essential') {
@@ -212,7 +175,8 @@ function InquiryDetails() {
     }
 
     const [priorityLevel, setPriorityLevel] = useState([]);
-    const [completionStatus, setCompletionStatus] = useState(1);
+    const [completionStatus, setCompletionStatus] = useState([]);
+    const [newNotes, setNewNotes] = useState([]);
 
     const handlePriorityLevel = (event) => {
         setPriorityLevel(event.target.value);
@@ -221,6 +185,21 @@ function InquiryDetails() {
     const handleCompletionStatus = (event) => {
         setCompletionStatus(event.target.value);
     }
+
+    const handleNotes = (event) => {
+        setNewNotes(event.target.value);
+    }
+
+    const saveButton = () => {
+            dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
+            dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
+            dispatch({ type: 'EDIT_NOTE', payload: { notes: newNotes, inquiry_id: inquiriesId, }, history });
+    }
+
+    console.log('Priorities', priorities)
+    console.log('Statuses', completionStatuses);
+    console.log('InquiriesID:', inquiriesId);
+    console.log('Notes', inquiryDetails?.customer?.notes)
 
     //What displays
     return (
@@ -240,7 +219,7 @@ function InquiryDetails() {
                             <Select
                                 labelId='priority-select-label'
                                 id='priority-select'
-
+                                value={priorities.value}
                                 label='Priority Level'
                                 onChange={handlePriorityLevel}
                             >
@@ -259,7 +238,8 @@ function InquiryDetails() {
                         <Select labelId="completion-select-label"
                             id="completion-select"
                             label="Completion Status"
-                            onChange={handleCompletionStatus}>
+                            onChange={handleCompletionStatus}
+                            value={completionStatuses.value}>
                             {completionStatuses.map(status => {
                                 return (
                                     <MenuItem key={status.id} value={status.id}>{status.description}</MenuItem>
@@ -268,8 +248,14 @@ function InquiryDetails() {
                         </Select>
                     </FormControl>
                     <h2>NOTES:</h2>
-                    <p>{inquiryDetails?.customer?.notes}</p>
-                    <button onClick={changeNote}>{noteButton(inquiryDetails)}</button>
+                    <textarea name="notes"
+                        type="text"
+                        id="notesOfCustomer"
+                        cols="40" rows="10"
+                        value={newNotes}
+                        onChange={handleNotes}
+                        placeholder={inquiryDetails?.customer?.notes}>
+                    </textarea>
                     <br />
                     <h3>Customer Responses to Survey:</h3>
                     <p>{cleaningDisplay(inquiryDetails)}</p>
@@ -277,7 +263,11 @@ function InquiryDetails() {
                     <p>{organizeDisplay(inquiryDetails)}</p>
                     <p>{declutterDisplay(inquiryDetails)}</p>
                     <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
-                    <button className='btn' onClick={returnToInquiries}>Return to Inquiries List & Save Edits</button>
+                    <h4>Photos:</h4>
+                    
+                    <button className='btn' onClick={returnToInquiries}>Return to Inquiries List</button>
+                    <span />
+                    <button className='btn' onClick={saveButton}>Save Any Changes</button>
                 </div>
             </div>
         </main>
