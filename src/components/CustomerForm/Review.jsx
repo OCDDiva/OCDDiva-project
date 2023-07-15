@@ -21,7 +21,7 @@ function Review() {
     const submitInquiry = () => {
         // dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
         // dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
-        dispatch({ type: 'UPLOAD_PHOTOS', payload: { photoUpload: photosToUpload, inquiry_id: allUserInfo?.contact?.id} })
+        dispatch({ type: 'UPLOAD_PHOTOS', payload: { photoUpload: photosToUpload, inquiry_id: allUserInfo?.contact?.id } })
         // history.push('/success');
     }
 
@@ -30,9 +30,9 @@ function Review() {
         const acceptedImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
         if (acceptedImageTypes.includes(fileToUpload.type)) {
             setPhotosToUpload(fileToUpload);
-          } else {
+        } else {
             alert('Please select an image');
-          }
+        }
     }
 
     useEffect(() => {
@@ -40,6 +40,47 @@ function Review() {
     }, []);
 
     console.log('show me the info!!!!!!', allUserInfo);
+
+    const movingDisplay = (allUserInfo) => {
+        if (allUserInfo?.moving?.moving === true) {
+            return <div>
+                <h3>Moving Questions</h3>
+                <p>New Address: {allUserInfo?.moving?.moving_to}</p>
+                <p>Old Address: {allUserInfo?.moving?.moving_from}</p>
+                <p>Any Large Items? {allUserInfo?.moving?.large_items}</p>
+            </div>
+        } else {
+            return ''
+        }
+    }
+
+    const organizeDisplay = (allUserInfo) => {
+        if (allUserInfo?.organize?.Organizing === true) {
+            return <div>
+                <h3>Organizing Questions:</h3>
+                <p>Number of Bedrooms: {allUserInfo?.organize?.Bedrooms}</p>
+                <p>Number of Bathrooms: {allUserInfo?.organize?.Bathrooms}</p>
+                <p>Number of Additional Rooms: {allUserInfo?.organize?.AdditionalRooms}</p>
+                <p>Wanting to Donate? {donationConversion(allUserInfo)}</p>
+            </div>
+        } else {
+            return ''
+        }
+    }
+
+    const declutterDisplay = (allUserInfo) => {
+        if (allUserInfo?.declutt?.Declutter === true) {
+            return <div>
+                <h3>Decluttering Questions:</h3>
+                <p>Number of Bedrooms: {allUserInfo?.declutt?.Bedrooms}</p>
+                <p>Number of Bathrooms: {allUserInfo?.declutt?.Bathrooms}</p>
+                <p>Number of Additional Rooms: {allUserInfo?.declutt?.AdditionalRooms}</p>
+                <p>Wanting to Donate? {donationConversion(allUserInfo)}</p>
+            </div>
+        } else {
+            return ''
+        }
+    }
 
 
     const donationConversion = (allUserInfo) => {
@@ -94,34 +135,17 @@ function Review() {
                     <br />
                     Hazardous Conditions: {allUserInfo?.cleaning?.HazardousConditions}
                     <br />
-                    <h3>Moving Questions</h3>
-                    Moving To: {allUserInfo?.moving?.moving_to}
+                    <p>{movingDisplay(allUserInfo)}</p>
                     <br />
-                    Moving From: {allUserInfo?.moving?.moving_from}
+                    <>{organizeDisplay(allUserInfo)}</>
                     <br />
-                    Large Items: {allUserInfo?.moving?.large_items}
-                    <br />
-                    <h3>Organizing Questions</h3>
-                    Bedrooms: {allUserInfo?.organize?.Bedrooms}
-                    <br />
-                    Bathrooms: {allUserInfo?.organize?.Bathrooms}
-                    <br />
-                    Additional Rooms: {allUserInfo?.organize?.AdditionalRooms}
-                    <br />
-                    <h3>Decluttering Questions</h3>
-                    Bedrooms: {allUserInfo?.declutt?.Bedrooms}
-                    <br />
-                    Bathrooms: {allUserInfo?.declutt?.Bathrooms}
-                    <br />
-                    Additional Rooms: {allUserInfo?.declutt?.AdditionalRooms}
-                    <br />
-                    Donation: {donationConversion(allUserInfo)}
+                    <p>{declutterDisplay(allUserInfo)}</p>
                 </div>
                 <br />
                 <br />
                 <div className="dateRequest">
                     <h4>Please Request a Date for services:</h4>
-                    <input type="date" value={dateRequested} onChange={(event) => {setDateRequested(event.target.value )}} />
+                    <input type="date" value={dateRequested} onChange={(event) => { setDateRequested(event.target.value) }} />
                 </div>
                 <div className="picsAndComments">
                     <h3>Upload some photos of your space!</h3>
@@ -129,7 +153,7 @@ function Review() {
                     <br />
                     <br />
                     <h4>Leave us any additional comments!</h4>
-                    <input type="text" value={comments} onChange={(event) => {setComments(event.target.value) }} />
+                    <input type="text" value={comments} onChange={(event) => { setComments(event.target.value) }} />
                 </div>
                 <br />
                 <br />
