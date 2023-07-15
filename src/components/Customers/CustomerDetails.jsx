@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Typography, Button, TextField, Box, Card, CardContent, CardActions } from '@mui/material';
-const luxon = require('luxon');
-const dateTime = luxon.DateTime;
+
+
 
 function CustomerDetails() {
     const { customerId } = useParams();
@@ -12,31 +12,20 @@ function CustomerDetails() {
     const customerDetails = useSelector(store => store.customerReducer);
 
 
-    //   const [form, setForm] = useState(customer.form); // Assuming form data is stored in `form` property
-
-    //   const handleInputChange = (e) => {
-    //     setForm({ ...form, [e.target.name]: e.target.value });
-    //   };
-
-    // Test 
-
-
-    const handleAdd = () => {
-        history.goBack(); // Redirects to the previous page
-    };
-
     const handleEdit = () => {
         history.goBack(); // Redirects to the previous page
     };
 
-    const handleSave = () => {
-        history.goBack(); // Redirects to the previous page
+    
+
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure you want to delete this customer?')) {
+            dispatch({ type: 'DELETE_CUSTOMERS', payload:id});
+            history.push('/customerhistory')
+        }
     };
 
-    const handleDelete = () => {
-        history.goBack(); // Redirects to the previous page
-    };
-
+    console.log(customerId)
 
 
     useEffect(() => {
@@ -44,14 +33,18 @@ function CustomerDetails() {
     }, [customerId]);
 
 
-    // Function to transform the date format
-    function transformDate(date) {
-        let time = dateTime.fromISO(date);
-        let year = `${time.year}`;
-        let slice = year.slice(2);
-        return `${time.month}/${time.day}/${slice}`;
+    const dateConversion = (oldDate) => {
+        const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
+        return `${date}`
     }
 
+    const donationConversion = (inquiryDetails) => {
+        if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
+            return 'Yes'
+        } else {
+            return 'No'
+        }
+    }
 
     return (
         <React.Fragment>
@@ -71,19 +64,13 @@ function CustomerDetails() {
                                 <Typography variant="h5" style={{ textAlign: "center" }}>
                                     Customer Name: {customer.firstName} {customer.lastName}
                                 </Typography>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {transformDate(customer.service_on)}</Typography>
+                                <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {dateConversion(customer)}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             </CardContent>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <button className="btn" onClick={handleAdd}>
-                                    Add Note
-                                </button>
                                 <button className="btn" onClick={handleEdit}>
                                     Edit Note
-                                </button>
-                                <button className="btn" onClick={handleDelete}>
-                                    Delete
                                 </button>
                             </div>
                             <br />
@@ -97,6 +84,7 @@ function CustomerDetails() {
                                     <p>{customer.zip}</p>
                                     <p>{customer.phone_number}</p>
                                     <p>{customer.email}</p>
+                                    <hr/> 
                                     <h3>Cleaning Questions:</h3>
                                     <h4>Cleaning Service</h4>
                                     <p>{customer.ServiceType}</p>
@@ -105,9 +93,26 @@ function CustomerDetails() {
                                     <p>Additional Rooms: {customer.AdditionalRooms}</p>
                                     <p>Doors & Windows: {customer.DoorsWindows}</p>
                                     <p>Pets: {customer.HasPets}</p>
+                                    <hr/> 
+
                                     <h3>Moving Questions</h3>
+                                    <p>Moving To: {customer.moving_to}</p>
+                                    <p>Moving From: {customer.moving_from}</p>
+                                    <p>Large_items: {customer.large_items}</p>
+                                    <hr/>
+
                                     <h3>Organizing Questions</h3>
+                                    <p>Bedrooms: {customer.Bedrooms}</p>
+                                    <p>Bathrooms: {customer.Bathrooms}</p>
+                                    <p>Additionals Rooms: {customer.AdditionalRooms}</p>
+                                    <p>Donation: {donationConversion(customer.Donation)}</p>
+                                    <hr/>
                                     <h3>Decluttering Questions</h3>
+                                    <p>Bedrooms: {customer.Bedrooms}</p>
+                                    <p>Bathrooms: {customer.Bathrooms}</p>
+                                    <p>Donations: {donationConversion(customer.Donation)}</p>
+                                    <hr/>
+
                                     <h3>Customer Photos</h3>
                                     <p></p>
                                 </center>
@@ -118,13 +123,7 @@ function CustomerDetails() {
                     <br />
 
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-                        {/* <button className="btn" onClick={handleEdit}>
-                            Edit
-                        </button>
-                        <button className="btn" onClick={handleSave}>
-                            Save
-                        </button> */}
-                        <button className="btn" onClick={handleDelete}>
+                        <button className="btn" onClick={(event) => handleDelete(customerId)}>
                             Delete Customer
                         </button>
                     </div>
