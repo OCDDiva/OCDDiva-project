@@ -60,7 +60,7 @@ function CustomerDetails() {
                 </button>
             </div>
             <br />
-            <Box border={1} p={2} maxWidth={600} style={{ margin: '0 auto' }}>
+            <Box border={1} p={2} maxWidth={600} style={{ maxWidth:'fit-content', margin: '0 auto' }}>
                 <Container>
                     {customerDetails.map((customer) => (
                         <div key={customer.id} sx={{ minWidth: 555, minHeight: 300 }}>
