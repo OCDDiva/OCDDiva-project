@@ -328,6 +328,8 @@ function InquiryDetails() {
                         <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                         <Typography variant="h6" component="h2" gutterBottom>
                             Photos:
+                            <br />
+                           <img src={inquiryDetails?.media?.url} />
                         </Typography>
                         </div>
                         <Box display="flex" justifyContent="center">
