@@ -116,6 +116,7 @@ function CustomerDetails() {
                                     <p>Donations: {donationConversion(inquiryDetails)}</p>
                                     <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Customer Photos</h3>
+                                    <img src={inquiryDetails?.media?.url} />
                                     <p></p>
                                 </center>
 
