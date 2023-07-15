@@ -41,14 +41,11 @@ function Review() {
 
     console.log('show me the info!!!!!!', allUserInfo);
 
+
     const donationConversion = (allUserInfo) => {
-        if (allUserInfo?.organize?.Donations === true) {
+        if (allUserInfo?.declutt?.Donation === true) {
             return 'Yes'
-        } else if (allUserInfo?.organize?.Donations === false) {
-            return 'No'
-        } else if (allUserInfo?.declutt?.Donations === true) {
-            return 'Yes'
-        } else if (allUserInfo?.declutt?.Donations === false) {
+        } else if (allUserInfo?.declutt?.Donation === false) {
             return 'No'
         }
     }
@@ -112,13 +109,13 @@ function Review() {
                     Additional Rooms: {allUserInfo?.organize?.AdditionalRooms}
                     <br />
                     <h3>Decluttering Questions</h3>
-                    Bedrooms: {allUserInfo.declutt?.Bedrooms}
+                    Bedrooms: {allUserInfo?.declutt?.Bedrooms}
                     <br />
-                    Bathrooms: {allUserInfo.declutt?.Bathrooms}
+                    Bathrooms: {allUserInfo?.declutt?.Bathrooms}
                     <br />
-                    Additional Rooms: {allUserInfo.declutt?.AdditionalRooms}
+                    Additional Rooms: {allUserInfo?.declutt?.AdditionalRooms}
                     <br />
-                    Donations: {donationConversion(allUserInfo)}
+                    Donation: {donationConversion(allUserInfo)}
                 </div>
                 <br />
                 <br />
