@@ -9,7 +9,7 @@ function* setPhotosToUpload(action) {
         const fileName = encodeURIComponent(selectedFile.name);
         const formData = new FormData();
         formData.append('image', selectedFile);
-        yield axios.post(`/api/photos/photos?name=${fileName}&inquiryId=${inquiryId}`, formData)
+        yield axios.post(`/api/photos?name=${fileName}&inquiryId=${inquiryId}`, formData)
         console.log('Updating Photos', action.payload);
         yield put({ type: 'SET_PHOTOS' });
     } catch (error) {

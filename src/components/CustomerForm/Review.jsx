@@ -14,14 +14,14 @@ function Review() {
     //! States f
     const [comments, setComments] = useState('');
     const [dateRequested, setDateRequested] = useState();
-    const [photosToUpload, setPhotosToUpload] = useState('');
+    const [photosToUpload, setPhotosToUpload] = useState([]);
 
     const goBack = () => { history.goBack() };
 
     const submitInquiry = () => {
         // dispatch({ type: 'UPDATE_COMMENTS', payload: { comments: comments, inquiry_id: allUserInfo?.contact?.id, } })
         // dispatch({ type: 'UPDATE_DATES', payload: { date_requested: dateRequested, inquiry_id: allUserInfo?.contact?.id }})
-        dispatch({ type: 'UPLOAD_PHOTOS', payload: { url: photosToUpload, inquiry_id: allUserInfo?.contact?.id} })
+        dispatch({ type: 'UPLOAD_PHOTOS', payload: { photoUpload: photosToUpload, inquiry_id: allUserInfo?.contact?.id} })
         // history.push('/success');
     }
 
@@ -126,7 +126,7 @@ function Review() {
                 </div>
                 <div className="picsAndComments">
                     <h3>Upload some photos of your space!</h3>
-                    <input type="file" accept="image/*" onChange={photoUpload} />
+                    <input type="file" multiple="multiple" accept="image/*" onChange={photoUpload} />
                     <br />
                     <br />
                     <h4>Leave us any additional comments!</h4>

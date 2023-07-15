@@ -2,6 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const aws = require('aws-sdk');
+const multer = require('multer');
+var upload = multer();
 
 const s3Client = new aws.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -13,7 +15,7 @@ router.get('/photos', (req, res) => {
     // GET route code here
 });
 
-router.post('/photos', async (req, res) => {
+router.post('/', upload.array('uploadedImages', 5), async (req, res) => {
     // POST route code here
     // TODO Add route here for POST to S3 bucket? Not sure if we need POST or PUT since the field is NULL in the table already
     try {
@@ -28,7 +30,7 @@ router.post('/photos', async (req, res) => {
       }).promise()
       console.log(s3Res.Location);
       const queryText = `INSERT INTO "photos" ("url")
-      VALUES ($1, $2)`;
+      VALUES ($1)`;
       await pool.query(queryText, [s3Res.Location])
       res.sendStatus(201)
   } catch (error) {
