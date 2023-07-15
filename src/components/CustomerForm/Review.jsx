@@ -45,10 +45,12 @@ function Review() {
         if (allUserInfo?.cleaning?.Cleaning === true) {
             return <div>
                 <h3>Cleaning Questions:</h3>
+                <p>Requested Service: {allUserInfo?.cleaning?.ServiceType}</p>
                 <p>Number of Bedrooms: {allUserInfo?.cleaning?.Bedrooms}</p>
                 <p>Number of Bathrooms: {allUserInfo?.cleaning?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {allUserInfo?.cleaning?.AdditionalRooms}</p>
-                <p>Number of Doors & Windows: {allUserInfo?.cleaning?.DoorsWindows}</p>
+                <p>Number of Doors: {allUserInfo?.cleaning?.Doors}</p>
+                <p>Number of Windows: {allUserInfo?.cleaning?.Windows}</p>
                 <p>Has Pets? {allUserInfo?.cleaning?.hasPets}</p>
                 <p>Hazardous Conditions? {allUserInfo?.cleaning?.HazardousConditions}</p>
             </div>
@@ -60,7 +62,7 @@ function Review() {
     const movingDisplay = (allUserInfo) => {
         if (allUserInfo?.moving?.moving === true) {
             return <div>
-                <h3>Moving Questions</h3>
+                <h3>Moving Questions:</h3>
                 <p>New Address: {allUserInfo?.moving?.moving_to}</p>
                 <p>Old Address: {allUserInfo?.moving?.moving_from}</p>
                 <p>Any Large Items? {allUserInfo?.moving?.large_items}</p>

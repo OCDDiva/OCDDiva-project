@@ -11,7 +11,7 @@ function* setPhotosToUpload(action) {
         console.log(fileName)
         const formData = new FormData();
         formData.append('image', selectedFile);
-        yield axios.post(`/api/photos?name=${fileName}&inquiryId=${inquiryId}`, formData)
+        yield axios.put(`/api/photos?name=${fileName}&inquiryId=${inquiryId}`, formData)
         console.log('Updating Photos', action.payload);
         yield put({ type: 'SET_PHOTOS' });
     } catch (error) {

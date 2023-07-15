@@ -18,6 +18,7 @@ const priorityRouter = require('./routes/priority.router.js');
 const formRouter = require('./routes/form.router');
 const historyRouter = require('./routes/userHistory.router');
 const inquiryDetailsRouter = require('./routes/inquirydetails.router');
+const photosRouter = require('./routes/photos.router')
 
 // Photo Upload Only
 app.use(fileUpload());
@@ -43,6 +44,7 @@ app.use('/api/complete', completeRouter);
 app.use('/api/priority', priorityRouter);
 app.use('/api/forms', formRouter);
 app.use('/api/history', historyRouter);
+app.use('/api/photos', photosRouter);
 
 // Serve static files
 app.use(express.static('build'));
