@@ -5,15 +5,18 @@ import { Container, Typography, Button, TextField, Box, Card, CardContent, CardA
 
 
 
+
+
 function CustomerDetails() {
     const { customerId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const customerDetails = useSelector(store => store.customerReducer);
+    const inquiryDetails = useSelector(store => store.inquiryDetails);
 
 
     const handleEdit = () => {
-        history.goBack(); // Redirects to the previous page
+        history.push(`/inquirydetails/${customerId}`); // Navigate to the page for editing notes
     };
 
     
@@ -24,8 +27,6 @@ function CustomerDetails() {
             history.push('/customerhistory')
         }
     };
-
-    console.log(customerId)
 
 
     useEffect(() => {
@@ -39,12 +40,15 @@ function CustomerDetails() {
     }
 
     const donationConversion = (inquiryDetails) => {
-        if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
+        console.log('There', inquiryDetails)
+        if (inquiryDetails?.declutt?.Donation === true) {
             return 'Yes'
         } else {
             return 'No'
         }
     }
+     
+
 
     return (
         <React.Fragment>
@@ -65,7 +69,7 @@ function CustomerDetails() {
                                     Customer Name: {customer.firstName} {customer.lastName}
                                 </Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {dateConversion(customer)}</Typography>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
+                                <Typography variant="h5" align="center"> Completion status: {customer.completion_status === 5 ? 'Completed' : customer.completion_status}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             </CardContent>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -84,35 +88,33 @@ function CustomerDetails() {
                                     <p>{customer.zip}</p>
                                     <p>{customer.phone_number}</p>
                                     <p>{customer.email}</p>
-                                    <hr/> 
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Cleaning Questions:</h3>
                                     <h4>Cleaning Service</h4>
                                     <p>{customer.ServiceType}</p>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Additional Rooms: {customer.AdditionalRooms}</p>
-                                    <p>Doors & Windows: {customer.DoorsWindows}</p>
+                                    <p>Doors: {customer.Doors}</p>
+                                    <p>Windows: {customer.Windows}</p>
                                     <p>Pets: {customer.HasPets}</p>
-                                    <hr/> 
-
+                                    <p>Hazardous Conditions: {customer.HazardousConditions} </p>
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Moving Questions</h3>
                                     <p>Moving To: {customer.moving_to}</p>
                                     <p>Moving From: {customer.moving_from}</p>
                                     <p>Large_items: {customer.large_items}</p>
-                                    <hr/>
-
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Organizing Questions</h3>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Additionals Rooms: {customer.AdditionalRooms}</p>
-                                    <p>Donation: {donationConversion(customer.Donation)}</p>
-                                    <hr/>
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Decluttering Questions</h3>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
-                                    <p>Donations: {donationConversion(customer.Donation)}</p>
-                                    <hr/>
-
+                                    <p>Donations: {donationConversion(inquiryDetails)}</p>
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Customer Photos</h3>
                                     <p></p>
                                 </center>
