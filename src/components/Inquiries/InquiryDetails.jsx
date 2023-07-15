@@ -190,16 +190,23 @@ function InquiryDetails() {
         setNewNotes(event.target.value);
     }
 
-    const saveButton = () => {
-            dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
-            dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
-            dispatch({ type: 'EDIT_NOTE', payload: { notes: newNotes, inquiry_id: inquiriesId, }, history });
+    const saveNotes = () => {
+        dispatch({ type: 'EDIT_NOTE', payload: { notes: newNotes, inquiry_id: inquiriesId, }, history })
     }
 
     console.log('Priorities', priorities)
     console.log('Statuses', completionStatuses);
     console.log('InquiriesID:', inquiriesId);
     console.log('Notes', inquiryDetails?.customer?.notes)
+
+    const savePriority = () => {
+        dispatch({ type: 'EDIT_PRIORITY', payload: { priority: priorityLevel, id: inquiriesId }, history })
+    }
+
+    const saveCompletion = () => {
+        dispatch({ type: 'EDIT_STATUS', payload: { completion_status: completionStatus, id: inquiriesId }, history })
+    }
+
 
     //What displays
     return (
@@ -219,9 +226,10 @@ function InquiryDetails() {
                             <Select
                                 labelId='priority-select-label'
                                 id='priority-select'
-                                value={priorities.value}
+                                // value={priorityLevel}
                                 label='Priority Level'
                                 onChange={handlePriorityLevel}
+                                placeholder={priorityConversion(inquiryDetails)}
                             >
                                 {priorities.map(priority => {
                                     return (
@@ -230,6 +238,8 @@ function InquiryDetails() {
                                 })}
                             </Select>
                         </FormControl>
+                        <br />
+                        <button className='btn' onClick={savePriority}>Save Any Priority Changes</button>
                     </h2>
                     <h3>Date Received: {dateConversion(inquiryDetails)} </h3>
                     <FormLabel>Status:</FormLabel>
@@ -239,7 +249,9 @@ function InquiryDetails() {
                             id="completion-select"
                             label="Completion Status"
                             onChange={handleCompletionStatus}
-                            value={completionStatuses.value}>
+                            // value={completionStatus}
+                            placeholder={completionConversion(inquiryDetails)}>
+
                             {completionStatuses.map(status => {
                                 return (
                                     <MenuItem key={status.id} value={status.id}>{status.description}</MenuItem>
@@ -247,6 +259,8 @@ function InquiryDetails() {
                             })}
                         </Select>
                     </FormControl>
+                    <br />
+                    <button className='btn' onClick={saveCompletion}>Save Any Completion Status Changes</button>
                     <h2>NOTES:</h2>
                     <textarea name="notes"
                         type="text"
@@ -257,6 +271,8 @@ function InquiryDetails() {
                         placeholder={inquiryDetails?.customer?.notes}>
                     </textarea>
                     <br />
+                    <button className='btn' onClick={saveNotes}>Save Any Notes Changes</button>
+                    <br />
                     <h3>Customer Responses to Survey:</h3>
                     <p>{cleaningDisplay(inquiryDetails)}</p>
                     <p>{movingDisplay(inquiryDetails)}</p>
@@ -264,10 +280,8 @@ function InquiryDetails() {
                     <p>{declutterDisplay(inquiryDetails)}</p>
                     <p>Additional Comments: {inquiryDetails?.contact?.comments}</p>
                     <h4>Photos:</h4>
-                    
+
                     <button className='btn' onClick={returnToInquiries}>Return to Inquiries List</button>
-                    <span />
-                    <button className='btn' onClick={saveButton}>Save Any Changes</button>
                 </div>
             </div>
         </main>
