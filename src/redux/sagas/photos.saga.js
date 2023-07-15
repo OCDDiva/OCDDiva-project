@@ -5,9 +5,10 @@ import axios from 'axios';
 function* setPhotosToUpload(action) {
     try {
         console.log(action.payload);
-        const selectedFile= action.payload.photoUpload
-        const inquiryId= action.payload.inquiry_id
+        const selectedFile= action.payload.photoUpload;
+        const inquiryId= action.payload.inquiry_id;
         const fileName = encodeURIComponent(selectedFile.name);
+        console.log(fileName)
         const formData = new FormData();
         formData.append('image', selectedFile);
         yield axios.post(`/api/photos?name=${fileName}&inquiryId=${inquiryId}`, formData)

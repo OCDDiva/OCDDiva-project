@@ -131,13 +131,13 @@ function Review() {
                     <br />
                     Email: {allUserInfo?.contact?.email}
                     <br />
-                    <>{cleaningDisplay(allUserInfo)}</>
+                    <div>{cleaningDisplay(allUserInfo)}</div>
                     <br />
-                    <p>{movingDisplay(allUserInfo)}</p>
+                    <div>{movingDisplay(allUserInfo)}</div>
                     <br />
-                    <>{organizeDisplay(allUserInfo)}</>
+                    <div>{organizeDisplay(allUserInfo)}</div>
                     <br />
-                    <p>{declutterDisplay(allUserInfo)}</p>
+                    <div>{declutterDisplay(allUserInfo)}</div>
                 </div>
                 <br />
                 <br />
