@@ -41,17 +41,17 @@ function Review() {
 
     console.log('show me the info!!!!!!', allUserInfo);
 
-    // const donationConversion = (allUserInfo) => {
-    //     if (allUserInfo.organize[0].Donations === true) {
-    //         return 'Yes'
-    //     } else if (allUserInfo.organize[0].Donations === false) {
-    //         return 'No'
-    //     } else if (allUserInfo.declutt[0].Donations === true) {
-    //         return 'Yes'
-    //     } else if (allUserInfo.declutt[0].Donations === false) {
-    //         return 'No'
-    //     }
-    // }
+    const donationConversion = (allUserInfo) => {
+        if (allUserInfo?.organize?.Donations === true) {
+            return 'Yes'
+        } else if (allUserInfo?.organize?.Donations === false) {
+            return 'No'
+        } else if (allUserInfo?.declutt?.Donations === true) {
+            return 'Yes'
+        } else if (allUserInfo?.declutt?.Donations === false) {
+            return 'No'
+        }
+    }
 
     //What displays
     return (
@@ -89,6 +89,10 @@ function Review() {
                     Number of Additional Rooms: {allUserInfo?.cleaning?.AdditionalRooms}
                     <br />
                     {/* TODO add in conditional rendering for this to show if it only has results */}
+                    Number of Doors: {allUserInfo?.cleaning?.Doors}
+                    <br />
+                    Number of Windows: {allUserInfo?.cleaning?.Windows}
+                    <br />
                     Any Pets: {allUserInfo?.cleaning?.HasPets}
                     <br />
                     Hazardous Conditions: {allUserInfo?.cleaning?.HazardousConditions}
@@ -107,8 +111,6 @@ function Review() {
                     <br />
                     Additional Rooms: {allUserInfo?.organize?.AdditionalRooms}
                     <br />
-                    Donations: {allUserInfo?.organize?.Donations}
-                    <br />
                     <h3>Decluttering Questions</h3>
                     Bedrooms: {allUserInfo.declutt?.Bedrooms}
                     <br />
@@ -116,7 +118,7 @@ function Review() {
                     <br />
                     Additional Rooms: {allUserInfo.declutt?.AdditionalRooms}
                     <br />
-                    Donations: {allUserInfo.declutt?.Donations}
+                    Donations: {donationConversion(allUserInfo)}
                 </div>
                 <br />
                 <br />

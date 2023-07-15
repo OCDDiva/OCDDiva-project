@@ -4,7 +4,8 @@ import axios from 'axios';
 
 function* setPhotosToUpload(action) {
     try {
-        const selectedFile= action.payload.photosToUpload
+        console.log(action.payload);
+        const selectedFile= action.payload.photoUpload
         const inquiryId= action.payload.inquiry_id
         const fileName = encodeURIComponent(selectedFile.name);
         const formData = new FormData();
