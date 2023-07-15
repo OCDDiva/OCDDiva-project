@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { Container, Grid, Card, Button } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
-const luxon = require('luxon');
-const dateTime = luxon.DateTime;
+
 
 
 function Customers() {
@@ -15,21 +14,17 @@ function Customers() {
     
 
 
-    // const viewCustomerDetails = (customerId) => {
-    //     history.push(`/forms/${customerId}`);
-    // };
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CUSTOMERS' });
     }, []);
 
 
-    // Function to transform the date format
-    function transformDate(date) {
-        let time = dateTime.fromISO(date);
-        let year = `${time.year}`;
-        let slice = year.slice(2);
-        return `${time.month}/${time.day}/${slice}`;
+    
+
+    const dateConversion = (oldDate) => {
+        const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
+        return `${date}`
     }
 
     console.log(customers)
@@ -51,7 +46,7 @@ function Customers() {
                             <Typography variant="h4" style={{ textAlign: "center" }}> Name: {customer.firstName} {customer.lastName}
                             </Typography>
                             <br />
-                            <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {transformDate(customer.service_on)}</Typography>
+                            <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {dateConversion(customer)}</Typography>
                             <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
                             <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             <br />
