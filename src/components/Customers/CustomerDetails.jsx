@@ -5,11 +5,14 @@ import { Container, Typography, Button, TextField, Box, Card, CardContent, CardA
 
 
 
+
+
 function CustomerDetails() {
     const { customerId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const customerDetails = useSelector(store => store.customerReducer);
+    const inquiryDetails = useSelector(store => store.inquiryDetails);
 
 
     const handleEdit = () => {
@@ -25,8 +28,6 @@ function CustomerDetails() {
         }
     };
 
-    console.log(customerId)
-
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CUSTOMERS_DETAILS', payload: customerId });
@@ -34,22 +35,19 @@ function CustomerDetails() {
 
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate.date_requested).toLocaleDateString('en-EN')
+        const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
-
-    const donationConversion = (customer) => {
-        if (customer?.Donation === true) {
-          return 'Yes';
+    const donationConversion = (inquiryDetails) => {
+        console.log('There', inquiryDetails)
+        if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
+            return 'Yes'
         } else {
-          return 'No';
+            return 'No'
         }
-      };
-
+    }
      
-
-    console.log('GoodBye', customerDetails)
 
 
     return (
@@ -97,7 +95,8 @@ function CustomerDetails() {
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Additional Rooms: {customer.AdditionalRooms}</p>
-                                    <p>Doors & Windows: {customer.DoorsWindows}</p>
+                                    <p>Doors: {customer.Doors}</p>
+                                    <p>Windows: {customer.Windows}</p>
                                     <p>Pets: {customer.HasPets}</p>
                                     <p>Hazardous Conditions: {customer.HazardousConditions} </p>
                                     <hr/> 
@@ -112,12 +111,12 @@ function CustomerDetails() {
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Additionals Rooms: {customer.AdditionalRooms}</p>
-                                    <p>Donation: {donationConversion(customer)}</p>
+                                    <p>Donation: {donationConversion(inquiryDetails)}</p>
                                     <hr/>
                                     <h3>Decluttering Questions</h3>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
-                                    <p>Donations: {donationConversion(customer)}</p>
+                                    <p>Donations: {donationConversion(inquiryDetails)}</p>
                                     <hr/>
 
                                     <h3>Customer Photos</h3>

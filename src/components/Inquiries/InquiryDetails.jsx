@@ -105,6 +105,7 @@ function InquiryDetails() {
     }
 
     const donationConversion = (inquiryDetails) => {
+        console.log('Here', inquiryDetails)
         if (inquiryDetails?.declutt?.Donation === true || inquiryDetails?.organize?.Donation === true) {
             return 'Yes'
         } else {
