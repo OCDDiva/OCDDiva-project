@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
-import { TextField, Typography, Card } from '@mui/material';
+import { TextField, Typography, Card, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio } from '@mui/material';
 
 function DeclutterQuestions() {
     //Code goes here
@@ -34,7 +34,7 @@ function DeclutterQuestions() {
                 Bathrooms: numBathrooms,
                 AdditionalRooms: numAdditionalRooms,
                 Donation: donation,
-                inquiry_id: allUserInfo.queryResult.rows[0].id,
+                inquiry_id: allUserInfo.contact[0].id,
             }
 
         })
@@ -55,7 +55,7 @@ function DeclutterQuestions() {
                     padding: 5,
                     boxShadow: 5,
                 }}>
-                    <h2 className="h2Headers">Would you like your space Decluttered?</h2>
+                    <Typography variant="h5" className="h2Headers">Would you like your space Decluttered?</Typography>
                     <br />
                     <form onChange={decluttering} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <input type="radio" value={true} name="Organize" /> Yes
@@ -64,7 +64,7 @@ function DeclutterQuestions() {
                     {declutteringValue === "true" && (
                         <div className="declutteringQuestions" style={{ display: 'inline-block' }}>
                             <div>
-                                <p>Number of bedrooms to be decluttered?</p>
+                                <Typography>Number of bedrooms to be decluttered?</Typography>
                                 <TextField
                                     type="number"
                                     value={numBedrooms}
@@ -72,7 +72,7 @@ function DeclutterQuestions() {
                                 />
                             </div>
                             <div>
-                                <p>Number of bathrooms to be decluttered?</p>
+                                <Typography>Number of bathrooms to be decluttered?</Typography>
                                 <TextField
                                     type="number"
                                     value={numBathrooms}
@@ -80,7 +80,7 @@ function DeclutterQuestions() {
                                 />
                             </div>
                             <div>
-                                <p>Number of additional rooms to be decluttered?</p>
+                                <Typography>Number of additional rooms to be decluttered?</Typography>
                                 <TextField
                                     type="number"
                                     value={numAdditionalRooms}
@@ -88,7 +88,7 @@ function DeclutterQuestions() {
                                 />
                             </div>
                             <div>
-                                <p>Would you like to donate any items today?</p>
+                                <Typography>Would you like to donate any items today?</Typography>
                                 <input
                                     type="radio"
                                     value="true"

@@ -29,6 +29,7 @@ import InquiryDetails from '../Inquiries/InquiryDetails';
 import Customers from '../Customers/Customers';
 import CustomerDetails from '../Customers/CustomerDetails';
 import HistoryCard from '../UserHistory/HistoryCard';
+import SpecificInquiry from '../Inquiries/SpecificInquiry';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './App.css';
 
@@ -97,7 +98,7 @@ function App() {
               <Inquiries />
             </ProtectedRoute>
 
-            <ProtectedRoute exact path="/inquiries/:inquiriesId" >
+            <ProtectedRoute exact path="/inquirydetails/:inquiriesId" >
               <InquiryDetails />
             </ProtectedRoute>
 

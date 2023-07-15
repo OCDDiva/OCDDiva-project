@@ -15,7 +15,7 @@ function* fetchCustomers() {
 
 function* fetchCustomersDetails(action) {
     try {
-        const customersDetails = yield axios.get(`/api/forms/customers${action.payload}`);
+        const customersDetails = yield axios.get(`/api/forms/customers/${action.payload}`);
         yield put({ type: 'SET_CUSTOMERS_DETAILS', payload: customersDetails.data});
     } catch (error) {
         console.log(`Error in fetchCustmomersDetails: ${error}`);
@@ -25,8 +25,8 @@ function* fetchCustomersDetails(action) {
 
 function* deleteCustomers(action) {
     try {
-      yield axios.delete(`/api/forms/customers${action.payload}`);
-      yield put({ type: 'FETCH_DOGS' });
+      yield axios.delete(`/api/forms/customers/${action.payload}`);
+      yield put({ type: 'FETCH_CUSTOMERS'});
     } catch (error) {
       console.log('Error in deleting dog:', error);
     }

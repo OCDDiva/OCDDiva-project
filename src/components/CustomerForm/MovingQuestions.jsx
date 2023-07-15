@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
-import { TextField, Typography, Card } from '@mui/material';
+import { TextField, Typography, Card, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio } from '@mui/material';
 
 
 function MovingQuestions() {
@@ -46,13 +46,13 @@ function MovingQuestions() {
 
     const nextStep = (event) => {
         event.preventDefault();
-        console.log(moving, movingTo, movingFrom, largeItems, allUserInfo.queryResult.rows[0].id)
+        console.log(moving, movingTo, movingFrom, largeItems, allUserInfo.contact[0].id)
         dispatch({ type: 'UPDATE_MOVING', payload: {
             moving: moving,
             moving_to: movingTo,
             moving_from: movingFrom,
             large_items: largeItems,
-            inquiry_id: allUserInfo.queryResult.rows[0].id,
+            inquiry_id: allUserInfo.contact[0].id,
         } 
     })
         history.push('/organizequestions');

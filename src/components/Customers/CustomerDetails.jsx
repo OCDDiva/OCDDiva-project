@@ -2,52 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Typography, Button, TextField, Box, Card, CardContent, CardActions } from '@mui/material';
-import axios from 'axios';
 const luxon = require('luxon');
 const dateTime = luxon.DateTime;
+
 
 function CustomerDetails() {
     const { customerId } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
     const customerDetails = useSelector(store => store.customerReducer);
-    
 
-
-    const handleAdd = () => {
-        history.goBack(); // Redirects to the previous page
-    };
 
     const handleEdit = () => {
         history.goBack(); // Redirects to the previous page
     };
 
-    const handleSave = () => {
-        history.goBack(); // Redirects to the previous page
+    
+
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure you want to delete this customer?')) {
+            dispatch({ type: 'DELETE_CUSTOMERS', payload:id});
+            history.push('/customerhistory')
+        }
     };
 
-    // const handleDelete = () => {
-    //     history.goBack(); // Redirects to the previous page
-    // };
+    console.log(customerId)
 
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_CUSTOMERS_DETAILS', payload: customerId});
+        dispatch({ type: 'FETCH_CUSTOMERS_DETAILS', payload: customerId });
     }, [customerId]);
 
-    const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this dog?')) {
-            axios
-                .delete(`/api/forms/customers/${id}`)
-                .then((result) => {
-                    dispatch({ type: 'FETCH_CUSTOMERS_DETAILS' });
-                })
-                .catch((error) => {
-                    console.log(`Error in DELETE: ${error}`);
-                    alert(`Failed to delete dog!`);
-                });
-        }
-    };
 
     // Function to transform the date format
     function transformDate(date) {
@@ -76,39 +61,48 @@ function CustomerDetails() {
                                     Customer Name: {customer.firstName} {customer.lastName}
                                 </Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {transformDate(customer.service_on)}</Typography>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>Type of service: {customer.services_id}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Completion status: {customer.completion_status}</Typography>
                                 <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
                             </CardContent>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <button className="btn" onClick={handleEdit}>
+                                    Edit Note
+                                </button>
+                            </div>
+                            <br />
+                            <Typography variant="h4" style={{ textAlign: "center" }}>Customer's Form(s):</Typography>
+                            <div className="customerHistoryForm">
+                                <center>
+                                    <h3>Contact Information:</h3>
+                                    <p>Address: {customer.street1}  {customer.street2}</p>
+                                    <p>{customer.city}</p>
+                                    <p>{customer.state}</p>
+                                    <p>{customer.zip}</p>
+                                    <p>{customer.phone_number}</p>
+                                    <p>{customer.email}</p>
+                                    <h3>Cleaning Questions:</h3>
+                                    <h4>Cleaning Service</h4>
+                                    <p>{customer.ServiceType}</p>
+                                    <p>Bedrooms: {customer.Bedrooms}</p>
+                                    <p>Bathrooms: {customer.Bathrooms}</p>
+                                    <p>Additional Rooms: {customer.AdditionalRooms}</p>
+                                    <p>Doors & Windows: {customer.DoorsWindows}</p>
+                                    <p>Pets: {customer.HasPets}</p>
+                                    <h3>Moving Questions</h3>
+                                    <h3>Organizing Questions</h3>
+                                    <h3>Decluttering Questions</h3>
+                                    <h3>Customer Photos</h3>
+                                    <p></p>
+                                </center>
+
+                            </div>
                         </div>
                     ))}
                     <br />
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <button className="btn" onClick={handleAdd}>
-                            Add Note
-                        </button>
-                        <button className="btn" onClick={handleEdit}>
-                            Edit Note
-                        </button>
-                        <button className="btn" onClick={handleDelete}>
-                            Delete
-                        </button>
-                    </div>
-                    <br />
-                    <Typography variant="h4" style={{ textAlign: "center" }}>Customer's Form(s):</Typography>
-                    <form>
-                        
-                        {/* Add more form fields based on your form structure */}
-                    </form>
+
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
-                        <button className="btn" onClick={handleEdit}>
-                            Edit
-                        </button>
-                        <button className="btn" onClick={handleSave}>
-                            Save
-                        </button>
-                        <button className="btn" onClick={handleDelete}>
-                            Delete
+                        <button className="btn" onClick={(event) => handleDelete(customerId)}>
+                            Delete Customer
                         </button>
                     </div>
                 </Container>

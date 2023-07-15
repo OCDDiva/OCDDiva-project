@@ -1,5 +1,5 @@
 .historyTitle {
-    width:500px;
+    max-width: auto;
     margin: 0 auto;
     background: #642d92;
     text-align: center;
