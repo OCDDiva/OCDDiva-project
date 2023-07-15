@@ -251,6 +251,7 @@ router.post('/', async (req, res) => {
     client.release();
   }
 });
+
 /**
  * PUT CLEANING route template
  */

@@ -108,7 +108,6 @@ function CustomerDetails() {
                                     <p>Donation: {donationConversion(customer.Donation)}</p>
                                     <hr/>
                                     <h3>Decluttering Questions</h3>
-                                    <p>Declutter: {customer.Declutter}</p>
                                     <p>Bedrooms: {customer.Bedrooms}</p>
                                     <p>Bathrooms: {customer.Bathrooms}</p>
                                     <p>Donations: {donationConversion(customer.Donation)}</p>
