@@ -21,15 +21,15 @@ function UserPage() {
 
         <h2>Welcome, {user.username}!</h2>
 
-        <p>Your ID is: {user.id}</p>
+        {user.access_level === 1 && (
+          <>
+            <button className='btn' onClick={toNewInquiry}> New Inquiry</button>
+            <br /> <br />
 
-        <button className='btn' onClick={toNewInquiry}> New Inquiry</button>
-
-        <br /> <br />
-
-        <button className='btn' onClick={toHistory}> History</button>
-
-        <br /> <br />
+            <button className='btn' onClick={toHistory}> History</button>
+            <br /> <br />
+          </>
+        )}
 
         <LogOutButton className="btn" />
 
