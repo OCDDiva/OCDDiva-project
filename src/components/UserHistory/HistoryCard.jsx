@@ -88,7 +88,8 @@ function historyCard({ history }) {
                  <br />
                 </Typography>
                 <Typography variant="h5">Comments: </Typography>
-                <p>{history.comments}</p>
+                <br />
+                <Typography variant="h6">{history.comments} </Typography>
                 <br/>
             </CardContent>
         </Card>
