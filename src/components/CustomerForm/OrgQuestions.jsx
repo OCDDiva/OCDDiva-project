@@ -113,8 +113,7 @@ function OrgQuestions() {
                         <br />
                         <br />
                         <button className="btn" onClick={goBack}> Back </button>
-                        <br />
-                        <br />
+                        
                         <button className="btn" onClick={nextStep}>Next</button>
                     </center>
                 </Card>

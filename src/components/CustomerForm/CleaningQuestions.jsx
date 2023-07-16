@@ -376,20 +376,19 @@ function CleaningQuestions() {
           <br />
           {/* Submit/Next Button */}
           {cleaningOption === 'no' && (
-            <button className="btn" type="button" onClick={handleSubmit}>
-              Next
-            </button>
+            <>
+              <button className="btn" type="button" onClick={goBack}>
+                Back
+              </button>
+
+              <button className="btn" type="button" onClick={handleSubmit}>
+                Next
+              </button>
+            </>
           )}
-
-          {/* Back Button */}
-          <button className="btn" type="button" onClick={goBack}>
-            Back
-          </button>
-
         </form>
       </Card >
     </center >
-
   );
 };
 

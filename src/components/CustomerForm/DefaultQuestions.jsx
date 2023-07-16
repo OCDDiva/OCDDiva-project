@@ -206,7 +206,6 @@ function DefaultQuestions() {
                             {/* Back button */}
                             <button className="btn" onClick={goBack}> Back </button>
 
-                            <br /> <br />
 
                             {/* Next/Submit button */}
                             <button className="btn" onClick={submit}> Next </button>
