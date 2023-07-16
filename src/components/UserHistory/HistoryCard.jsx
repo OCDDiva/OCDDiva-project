@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 
 function historyCard({ history }) {
     const dispatch = useDispatch();
+    const historyDetails = useSelector(store => store.history);
 
 
     useEffect(() => {
@@ -16,7 +17,7 @@ function historyCard({ history }) {
         dispatch(action);
     }, []);
 
-    console.log('Check history', history)
+    console.log('Check history', historyDetails)
 
     const dateReceivedConversion = (oldDate) => {
         const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
@@ -88,7 +89,8 @@ function historyCard({ history }) {
                  <br />
                 </Typography>
                 <Typography variant="h5">Comments: </Typography>
-                <p>{history.comments}</p>
+                <br />
+                <Typography variant="h6">{history.comments}</Typography>
                 <br/>
             </CardContent>
         </Card>
