@@ -74,8 +74,7 @@ function Customers() {
                             </Grid>
                         ))}
                 </Grid>
-            </center>
-
+            </center>   
         </Container>
     );
 }
