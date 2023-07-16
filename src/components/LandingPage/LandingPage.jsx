@@ -15,38 +15,22 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
-
-      <div className="grid">
-        <div className="grid-col grid-col_8">
-          <p>
-          Bird is a word.
-          </p>
-
-          <p>
-         Why did the chicken cross the road.
-          </p>
-
-          <p>
-            Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
-            Suspendisse posuere dapibus maximus. Aliquam vitae felis libero. In
-            vehicula sapien at semper ultrices. Vivamus sed feugiat libero. Sed
-            sagittis neque id diam euismod, ut egestas felis ultricies. Nullam
-            non fermentum mauris. Sed in enim ac turpis faucibus pretium in sit
-            amet nisi.
-          </p>
+      <center>
+        <h2>{heading}</h2>
+        <div className="grid">
+          <div className="grid-col grid-col_8">
+          </div>
+          <div className="grid-col grid-col_4">
+            <RegisterForm />
+            <center>
+              <h4>Already a Member?</h4>
+              <button className="btn btn_sizeSm" onClick={onLogin}>
+                Login
+              </button>
+            </center>
+          </div>
         </div>
-        <div className="grid-col grid-col_4">
-          <RegisterForm />
-
-          <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
-          </center>
-        </div>
-      </div>
+      </center>
     </div>
   );
 }

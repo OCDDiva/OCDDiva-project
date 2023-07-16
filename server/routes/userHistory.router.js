@@ -4,18 +4,13 @@ const router = express.Router();
 
 router.get('/userHistory', (req, res) => {
     console.log('In userHistory Router');
-    const queryText = `SELECT 
-    "user_inquiries"."date_received" AS "date_received",
-    "completion"."description" AS "status",
-    "user_inquiries"."comments" AS "comments"
-    FROM "user_inquiries"
-    JOIN "completion" on "user_inquiries"."completion_status" = "completion"."id"
+    const queryText = `SELECT * FROM "user_inquiries"
     JOIN "moving_questions" ON "moving_questions"."inquiry_id" = "user_inquiries"."id"
     JOIN "cleaning_questions" ON "cleaning_questions"."inquiry_id" = "user_inquiries"."id"
     JOIN "organizing_questions" ON "organizing_questions"."inquiry_id" = "user_inquiries"."id"
     JOIN "decluttering_questions" ON  "decluttering_questions"."inquiry_id" = "user_inquiries"."id"
-    WHERE "user_inquiries"."user_id" = 1
-    ORDER BY "user_inquiries"."id" DESC;`;
+    JOIN "user_media" ON "user_media"."inquiry_id" = "user_inquiries"."id"
+    WHERE "user_inquiries"."user_id" = 1;`;
     pool.query(queryText).then((result) => {
         console.log('Checking results', result.rows);
         res.send(result.rows);
