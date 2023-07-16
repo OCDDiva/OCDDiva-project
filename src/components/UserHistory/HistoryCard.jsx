@@ -57,7 +57,7 @@ function historyCard({ history }) {
                 <Typography 
                 variant="h5"
                 >
-                 Type of service:{history.service}
+                 {/* Type of service: {serviceConversion(history)} */}
                 </Typography>
                 <br />
                 <Typography 
