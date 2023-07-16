@@ -92,7 +92,7 @@ function Review() {
 
                 <p>Number of Windows: {allUserInfo?.cleaning?.Windows}</p>
 
-                <p>Has Pets? {allUserInfo?.cleaning?.hasPets}</p>
+                <p>Has Pets? {allUserInfo?.cleaning?.HasPets}</p>
 
                 <p>Hazardous Conditions? {allUserInfo?.cleaning?.HazardousConditions}</p>
                 <br />
