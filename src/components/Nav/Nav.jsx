@@ -44,17 +44,23 @@ function Nav() {
               Home
             </Link>
 
+            {user.access_level === 2 && (
             <Link className="navLink" to="/inquiries">
               Inquiries
             </Link>
+            )}
 
+            {user.access_level === 1 && (
             <Link className="navLink" to="/userhistory">
               User History
             </Link>
+            )}
 
+            {user.access_level === 2 && (
             <Link className="navLink" to="/customerhistory">
               Customer History
             </Link>
+            )}
 
             <LogOutButton className="navLink" />
           </center>
