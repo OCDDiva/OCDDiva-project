@@ -212,7 +212,7 @@ function InquiryDetails() {
     //What displays
     return (
         <main>
-            <Box display="flex" justifyContent="center" alignItems="center" height="280vh">
+            <Box display="flex" justifyContent="center" alignItems="center" >
                 <Card>
                     <CardContent>
                         {/* <Typography variant="h6" style= {{textAlign: 'center'}} component="p" gutterBottom>
@@ -339,7 +339,7 @@ function InquiryDetails() {
                 </Card>
             </Box>
         </main>
-        
+
     )
 } // End Inquiries()
 

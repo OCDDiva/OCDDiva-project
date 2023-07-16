@@ -55,7 +55,7 @@ function Customers() {
                     })
                     .map((customer) => (
                         <Grid item key={customer.id} xs={12}>
-                            <Card sx={{ minWidth: 555, minHeight: 300, marginBottom: '20px' }}>
+                            <Card sx={{ maxWidth:600, margin: '0 auto', marginBottom: '20px' }}>
                                 <CardContent>
                                     <Typography variant="h4" align="center"> Name: {customer.firstName} {customer.lastName}
                                     </Typography>
