@@ -7,7 +7,8 @@ router.get('/userHistory', (req, res) => {
     const queryText = `SELECT 
     "user_inquiries"."date_received" AS "date_received",
     "completion"."description" AS "status",
-    "user_inquiries"."comments" AS "comments"
+    "user_inquiries"."comments" AS "comments",
+    "user_inquiries"."date_requested" AS "requested"
     FROM "user_inquiries"
     JOIN "completion" on "user_inquiries"."completion_status" = "completion"."id"
     JOIN "moving_questions" ON "moving_questions"."inquiry_id" = "user_inquiries"."id"

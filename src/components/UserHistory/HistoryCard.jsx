@@ -16,6 +16,8 @@ function historyCard({ history }) {
         dispatch(action);
     }, []);
 
+    console.log('Check history', history)
+
     const dateConversion = (oldDate) => {
         const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
         return `${date}`
@@ -49,6 +51,12 @@ function historyCard({ history }) {
                 <Typography 
                 variant="h5"
                 >
+                 Date Requested: {dateConversion(history)}
+                </Typography>
+                <br />
+                <Typography 
+                variant="h5"
+                >
                  Type of service:{history.service}
                 </Typography>
                 <br />
@@ -65,6 +73,7 @@ function historyCard({ history }) {
                 <br/>
             </CardContent>
         </Card>
+        <br />
     </Grid>
     )
 } //End historyCard()

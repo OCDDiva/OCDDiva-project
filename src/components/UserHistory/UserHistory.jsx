@@ -16,25 +16,27 @@ function UserHistory() {
         dispatch(action);
     }, []);
 
-    console.log('Checking history', history)
+    console.log('Checking history in UserHistory', history)
     //What displays
     return (
         // This will be replaced with HistoryCard component as a .map 
         <Container>
-            <h1 className='historyTitle'>User History</h1>
-            <br />
-            <br />
-            <Grid justifyContent="center"
-                container spacing={5}>
-                {
-                    history.map((history) => (
-                        <HistoryCard
-                            key={history.id}
-                            history={history}
-                        />
-                    ))
-                }
-            </Grid>
+            <center>
+                <h1 className='historyTitle'>User History</h1>
+                <br />
+                <br />
+                <Grid justifyContent="center">
+                    {
+                        history.map((history) => (
+                            <HistoryCard
+                                key={history.id}
+                                history={history}
+                            />
+                        ))
+                    }
+                </Grid>
+            </center>
+
         </Container>
     )
 } //End UserHistory()
