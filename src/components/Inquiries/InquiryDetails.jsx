@@ -339,7 +339,7 @@ function InquiryDetails() {
                 </Card>
             </Box>
         </main>
-        
+
     )
 } // End Inquiries()
 
