@@ -40,7 +40,7 @@ function CustomerDetails() {
     }
 
     const donationConversion = (inquiryDetails) => {
-        console.log('There', inquiryDetails)
+        console.log('There inquiryDetails', inquiryDetails)
         if (inquiryDetails?.declutt?.Donation === true) {
             return 'Yes'
         } else {
@@ -48,8 +48,9 @@ function CustomerDetails() {
         }
     }
      
+    console.log('Checking image', inquiryDetails?.media?.url)
 
-
+    console.log('Checking customer reducer', customerDetails);
     return (
         <React.Fragment>
             <Typography variant="h4" style={{ textAlign: "center" }}>Customer Details</Typography>
@@ -60,7 +61,7 @@ function CustomerDetails() {
                 </button>
             </div>
             <br />
-            <Box border={1} p={2} maxWidth={600} style={{ margin: '0 auto' }}>
+            <Box border={1} p={2} maxWidth={600} style={{ maxWidth:'fit-content', margin: '0 auto' }}>
                 <Container>
                     {customerDetails.map((customer) => (
                         <div key={customer.id} sx={{ minWidth: 555, minHeight: 300 }}>
@@ -116,7 +117,7 @@ function CustomerDetails() {
                                     <p>Donations: {donationConversion(inquiryDetails)}</p>
                                     <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                                     <h3>Customer Photos</h3>
-                                    <img src={inquiryDetails?.media?.url} />
+                                    <img src={customer.url} />
                                     <p></p>
                                 </center>
 

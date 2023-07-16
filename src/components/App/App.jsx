@@ -96,19 +96,22 @@ function App() {
 
             {/* Access Level 2 pages */}
             {user.access_level === 2 && (
-            <>
-            <ProtectedRoute exact path="/inquiries" >
-              <Inquiries />
-            </ProtectedRoute>
+              <>
+                <ProtectedRoute exact path="/inquiries" >
+                  <Inquiries />
+                </ProtectedRoute>
 
-            <ProtectedRoute exact path="/inquirydetails/:inquiriesId" >
-              <InquiryDetails />
-            </ProtectedRoute>
+                <ProtectedRoute exact path="/inquirydetails/:inquiriesId" >
+                  <InquiryDetails />
+                </ProtectedRoute>
 
-            <ProtectedRoute exact path="/customerhistory">
-              <Customers />
-            </ProtectedRoute>
-            </>
+                <ProtectedRoute exact path="/customerhistory">
+                  <Customers />
+                </ProtectedRoute>
+                <ProtectedRoute exact path="/customer-details/:customerId" component={CustomerDetails}>
+                  {/* <CustomerDetails /> */}
+                </ProtectedRoute>
+              </>
             )}
 
             <ProtectedRoute exact path="/userhistory" >
@@ -149,10 +152,6 @@ function App() {
 
             <ProtectedRoute exact path="/success">
               <Success />
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path="/customer-details/:customerId" component={CustomerDetails}>
-              {/* <CustomerDetails /> */}
             </ProtectedRoute>
 
 

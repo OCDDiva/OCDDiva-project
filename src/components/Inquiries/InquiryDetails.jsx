@@ -129,6 +129,7 @@ function InquiryDetails() {
                 <p>Number of Windows: {inquiryDetails?.cleaning?.Windows}</p>
                 <p>Pets? {inquiryDetails?.cleaning?.HasPets}</p>
                 <p>Hazardous Conditions? {inquiryDetails?.cleaning?.HazardousConditions}</p>
+                <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
             </div>
         } else {
             return ''
@@ -142,6 +143,7 @@ function InquiryDetails() {
                 <p>New Address: {inquiryDetails?.moving?.moving_to}</p>
                 <p>Old Address: {inquiryDetails?.moving?.moving_from}</p>
                 <p>Any Large Items? {inquiryDetails?.moving?.large_items}</p>
+                <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
             </div>
         } else {
             return ''
@@ -155,6 +157,7 @@ function InquiryDetails() {
                 <p>Number of Bedrooms: {inquiryDetails?.organize?.Bedrooms}</p>
                 <p>Number of Bathrooms: {inquiryDetails?.organize?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {inquiryDetails?.organize?.AdditionalRooms}</p>
+                <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
             </div>
         } else {
             return ''
@@ -169,6 +172,7 @@ function InquiryDetails() {
                 <p>Number of Bathrooms: {inquiryDetails?.declutt?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {inquiryDetails?.declutt?.AdditionalRooms}</p>
                 <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
+                <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
             </div>
         } else {
             return ''
@@ -309,19 +313,15 @@ function InquiryDetails() {
                         <Typography variant="h6" component="p" gutterBottom>
                             {cleaningDisplay(inquiryDetails)}
                         </Typography>
-                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                         <Typography variant="h6" component="p" gutterBottom>
                             {movingDisplay(inquiryDetails)}
                         </Typography>
-                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                         <Typography variant="h6" component="p" gutterBottom>
                             {organizeDisplay(inquiryDetails)}
                         </Typography>
-                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                         <Typography variant="h6" component="p" gutterBottom>
                             {declutterDisplay(inquiryDetails)}
                         </Typography>
-                        <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
                         <Typography variant="h6" component="p">
                             Additional Comments: {inquiryDetails?.contact?.comments}
                         </Typography>
