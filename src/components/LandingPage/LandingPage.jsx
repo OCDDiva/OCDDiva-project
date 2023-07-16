@@ -14,13 +14,9 @@ function LandingPage() {
   };
 
   return (
-    <div className="container">
+    <div className="landingPage">
       <center>
         <h2>{heading}</h2>
-        <div className="grid">
-          <div className="grid-col grid-col_8">
-          </div>
-          <div className="grid-col grid-col_4">
             <RegisterForm />
             <center>
               <h4>Already a Member?</h4>
@@ -28,8 +24,6 @@ function LandingPage() {
                 Login
               </button>
             </center>
-          </div>
-        </div>
       </center>
     </div>
   );

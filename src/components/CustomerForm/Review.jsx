@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
-// import { readAndCompressImage } from 'browser-image-resizer';
+import { readAndCompressImage } from 'browser-image-resizer';
 
 function Review() {
     //Code goes here
@@ -39,6 +39,7 @@ function Review() {
                 fileType,
                 inquiry_id: allUserInfo?.contact?.id 
         }})
+        alert('Success!')
     }
 
     const onFileChange = async (event) => {
@@ -48,10 +49,10 @@ function Review() {
         // Resize and compress the image. Remove this if using something other
         // than an image upload.
         const copyFile = new Blob([fileToUpload], { type: fileToUpload.type, name: fileToUpload.name });
-        // const resizedFile = await readAndCompressImage(copyFile, {
-        // quality: 1.0,    // 100% quality
-        // maxHeight: 1000, // max height of the image
-        // });
+        const resizedFile = await readAndCompressImage(copyFile, {
+        quality: 1.0,    // 100% quality
+        maxHeight: 1000, // max height of the image
+        });
 
         // Limit to specific file types
 
@@ -59,7 +60,7 @@ function Review() {
         if (acceptedImageTypes.includes(fileToUpload.type)) {
             setFileName(encodeURIComponent(fileToUpload.name));
             setFileType(encodeURIComponent(fileToUpload.type));
-            setPhotosToUpload(fileToUpload);
+            setPhotosToUpload(resizedFile);
         } else {
             alert('Please select an image');
         }
@@ -71,7 +72,8 @@ function Review() {
 
     const cleaningDisplay = (allUserInfo) => {
         if (allUserInfo?.cleaning?.Cleaning === true) {
-            return <div>
+            return (
+                <div>
                 <h3>Cleaning Questions:</h3>
                 <p>Requested Service: {allUserInfo?.cleaning?.ServiceType}</p>
                 <p>Number of Bedrooms: {allUserInfo?.cleaning?.Bedrooms}</p>
@@ -82,6 +84,7 @@ function Review() {
                 <p>Has Pets? {allUserInfo?.cleaning?.hasPets}</p>
                 <p>Hazardous Conditions? {allUserInfo?.cleaning?.HazardousConditions}</p>
             </div>
+            )
         } else {
             return ''
         }
