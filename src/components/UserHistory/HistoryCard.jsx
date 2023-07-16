@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 
 function historyCard({ history }) {
     const dispatch = useDispatch();
-   
+
 
     useEffect(() => {
         const action  = { type: 'GET_HISTORY' }
@@ -18,21 +18,40 @@ function historyCard({ history }) {
 
     console.log('Check history', history)
 
-    const dateConversion = (oldDate) => {
+    const dateReceivedConversion = (oldDate) => {
         const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
+    const dateRequestedConversion = (oldDate) => {
+        const date = new Date(oldDate.date_requested).toLocaleDateString('en-EN')
+        return `${date}`
+    }
+
+    const completionConversion = (history) => {
+        if (history.completion_status === 5) {
+            return 'Complete'
+        } else if (history.completion_status === 4) {
+            return 'In Progress'
+        } else if (history.completion_status === 3) {
+            return 'Bid Rejected'
+        } else if (history.completion_status === 2) {
+            return 'Bid Offered'
+        } else if (history.completion_status === 1) {
+            return 'Pending'
+        }
+    }
+
     const serviceConversion = (history) => {
-        if (history.cleaning.ServiceType === 'essential') {
+        if (history.Cleaning === 'essential') {
             return 'Essential Clean'
-        } else if (history.cleaning.ServiceType === 'ultimate') {
+        } else if (history.Cleaning === 'ultimate') {
             return 'Ultimate Clean'
-        } else if (history.moving.moving === true) {
+        } else if (history.moving === true) {
             return 'Moving'
-        } else if (history.organize.Organizing === true) {
+        } else if (history.Organizing === true) {
             return 'Organizing'
-        } else if (history.declutt.Declutter === true) {
+        } else if (history.Declutter === true) {
             return 'Declutter'
         }
     }
@@ -45,25 +64,25 @@ function historyCard({ history }) {
                 <Typography 
                 variant="h5"
                 >
-                 Date of Inquiry: {dateConversion(history)}
+                 Date of Inquiry: {dateReceivedConversion(history)}
                 </Typography>
                 <br />
                 <Typography 
                 variant="h5"
                 >
-                 Date Requested: 
+                 Date Requested: {dateRequestedConversion(history)}
                 </Typography>
                 <br />
                 <Typography 
                 variant="h5"
                 >
-                 {/* Type of service: {serviceConversion(history)} */}
+                 Type of service: {serviceConversion(history)}
                 </Typography>
                 <br />
                 <Typography 
                 variant="h5"
                 >
-                 Completion status:
+                 Completion status: {completionConversion(history)}
                  <br />
                  <Typography variant="h6">{history.status}</Typography>
                  <br />
