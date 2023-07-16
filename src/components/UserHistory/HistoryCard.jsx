@@ -51,7 +51,7 @@ function historyCard({ history }) {
                 <Typography 
                 variant="h5"
                 >
-                 Date Requested: {dateConversion(history)}
+                 Date Requested: 
                 </Typography>
                 <br />
                 <Typography 
