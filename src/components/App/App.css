@@ -140,6 +140,10 @@ ul {
 
 }
 
+.reviewCategories {
+  color: #642d92;
+}
+
 /* .customerReview {
   column-count: 2;
   column-fill: inherit;
