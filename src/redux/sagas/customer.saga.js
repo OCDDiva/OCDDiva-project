@@ -28,7 +28,7 @@ function* deleteCustomers(action) {
       yield axios.delete(`/api/forms/customers/${action.payload}`);
       yield put({ type: 'FETCH_CUSTOMERS'});
     } catch (error) {
-      console.log('Error in deleting dog:', error);
+      console.log('Error in deleting customer:', error);
     }
   }
 

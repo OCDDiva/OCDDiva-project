@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 import { TextField, Typography, Card, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio } from '@mui/material';
+
 function OrgQuestions() {
     //Code goes here
 
@@ -91,7 +92,7 @@ function OrgQuestions() {
                                         onChange={(event) => setNumAdditionalRooms(event.target.value)}
                                     />
                                 </div>
-                                <div>
+                                {/* <div>
                                     <p>Would you like to donate any items today?</p>
                                     <input
                                         type="radio"
@@ -106,7 +107,7 @@ function OrgQuestions() {
                                         name="Donation"
                                         onChange={(event) => setDonationStatus(event.target.value)}
                                     /> No
-                                </div>
+                                </div> */}
                             </div>
                         )}
                         <br />

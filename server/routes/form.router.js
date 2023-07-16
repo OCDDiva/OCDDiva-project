@@ -79,29 +79,6 @@ router.get('/customers', async (req, res) => {
   res.sendStatus(403);
 }
 });
-// router.get('/customers', (req, res) => {
-//   console.log('is Authenticated?', req.isAuthenticated());
-//   console.log('HERE /customers')
-//   if (req.isAuthenticated()) {
-//     console.log('user', req.user);
-//     let queryText = `SELECT "customer"."id","user_inquiries"."firstName", "user_inquiries"."lastName","cleaning_questions"."ServiceType", "user_inquiries"."completion_status", "customer"."service_on","customer"."notes" 
-//     FROM "customer"
-//     JOIN "user_inquiries" ON "customer"."inquiries" = "user_inquiries"."id"
-//     JOIN "cleaning_questions" ON "user_inquiries"."id" = "cleaning_questions"."inquiry_id"
-//     WHERE "user_inquiries".completion_status = 5`;
-//     pool.query(queryText).then((result) => {
-//       console.log('results', result.rows);
-//       res.send(result.rows);
-//     }).catch((error) => {
-//       console.log('HERE', error);
-//       res.sendStatus(500);
-//     });
-//   } else {
-//     res.sendStatus(403);
-//   }
-// });
-
-
 
 
 /**
@@ -238,8 +215,8 @@ router.post('/', async (req, res) => {
     await client.query(delcuttQuery, [inquiryId]);
     const customerQuery = `INSERT INTO "customer" ("inquiries") VALUES ($1);`;
     await client.query(customerQuery, [inquiryId]);
-    const userMediaQuery = `INSERT INTO "user_media" ("inquiry_id") VALUES ($1);`;
-    await client.query(userMediaQuery, [inquiryId])
+    // const userMediaQuery = `INSERT INTO "user_media" ("inquiry_id") VALUES ($1);`;
+    // await client.query(userMediaQuery, [inquiryId])
     await client.query('COMMIT');
     console.log('Data inserted successfully');
     res.sendStatus(200);
