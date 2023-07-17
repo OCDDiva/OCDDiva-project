@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import { Typography } from '@mui/material';
 import './UserHistory.css';
-
-
 
 function UserHistory() {
     const history = useSelector((store => store.history));
@@ -17,14 +16,16 @@ function UserHistory() {
     }, []);
 
     console.log('Checking history in UserHistory', history)
-    //What displays
+
+    //!What displays
     return (
-        // This will be replaced with HistoryCard component as a .map 
+
         <Container>
             <center>
-                <h1 className='historyTitle'>User History</h1>
+                <Typography variant='h4' className='historyTitle'> Inquiry History </Typography>
+
                 <br />
-                <br />
+
                 <Grid justifyContent="center">
                     {
                         history.map((history) => (

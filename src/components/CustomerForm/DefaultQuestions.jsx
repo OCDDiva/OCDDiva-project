@@ -6,15 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card } from '@mui/material';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
-//TODO Add MUI icons to back and next button in the return 
-//TODO Add multi-step progress bar to all the form components?
-
 function DefaultQuestions() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(store => store.user);
 
-    //TODO is there anything else from the DB that needs to be here? Residence type or is that only for the "service" questions?
     //! State
     let [customer, setCustomer] = useState({
         first_name: '', 
@@ -75,7 +71,6 @@ function DefaultQuestions() {
         setCustomer({ ...customer, email: event.target.value });
     }
 
-    //TODO need to finish setting up the redux and server side to complete this
     //! Submit
     const submit = (event) => {
         event.preventDefault();
