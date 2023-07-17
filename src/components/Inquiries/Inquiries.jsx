@@ -2,18 +2,15 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import './Inquiries.css';
-
 import Select from '@mui/material/Select';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { InputLabel, Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import { Card } from '@mui/material';
 
 function Inquiries() {
-
+    //Code goes here
     const dispatch = useDispatch();
     const history = useHistory();
     const inquiries = useSelector(store => store.fetchInquiries);
@@ -56,7 +53,7 @@ function Inquiries() {
     const addressFormat = (address) => {
         if (address.street2 !== null) {
             return <div>
-                <Typography>Address</Typography>
+                <h3>Address</h3>
                 <p>Street: {address.street1}</p>
                 <p>Street 2: {address.street2}</p>
                 <p>City: {address.city}</p>
@@ -93,16 +90,10 @@ function Inquiries() {
         history.push(`/inquirydetails/${inquiries.id}`);
     }
 
-    //!What displays
+    //What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
-        <Card sx={{
-            width: 'auto',
-            minWidth: 250,
-            margin: 1,
-            padding: 5,
-            boxShadow: 5,
-        }}>
+        <main>
             <center>
                 {inquiries.length === 0 ? (
                     <div>
@@ -113,23 +104,13 @@ function Inquiries() {
                         {inquiries.map(inquiry => {
                             return (
                                 <div>
-                                    <Typography variant="h7" sx={{ fontStyle: 'italic' }}> Customer name:</Typography>
-                                    <Typography variant="h4">{inquiry.firstName} {inquiry.lastName}</Typography>
-
-                                    <hr />
-
-                                    <Typography> Priority: {priorityConversion(inquiry)}</Typography>
-
-                                    <Typography>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</Typography>
-
-                                    <Typography>Email: {inquiry.email}</Typography>
-
-                                    <Typography>{addressFormat(inquiry)}</Typography>
-
-                                    <Typography>Date Submitted: {dateConversion(inquiry)}</Typography>
-
-                                    <Typography>Service Status: {completionConversion(inquiry)}</Typography>
-
+                                    <h1>{inquiry.firstName} {inquiry.lastName}</h1>
+                                    <h2>{priorityConversion(inquiry)}</h2>
+                                    <h5>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</h5>
+                                    <h5>Email: {inquiry.email}</h5>
+                                    <h5>{addressFormat(inquiry)}</h5>
+                                    <h3>Date Submitted: {dateConversion(inquiry)}</h3>
+                                    <h3>Service Status: {completionConversion(inquiry)}</h3>
                                     <button className="btn" onClick={() => navToInquiryDetails(inquiry)}>Details</button>
                                 </div>
                             )
@@ -137,7 +118,7 @@ function Inquiries() {
                     </div>
                 )}
             </center>
-        </Card>
+        </main>
 
 
     )

@@ -23,16 +23,16 @@ Before you get started, make sure you have the following software installed on y
 
 ## Technology
 
-- [![React][react.js]][react-url]
-- [![Redux][redux.js]][redux-url]
-- [![Redux-Saga][redux-saga.js]][redux-saga-url]
-- [![PostgreSQL][postgresql]][postgresql-url]
-- [![Material-UI][material-ui]][material-ui-url]
-- [![Express][express.js]][express-url]
-- [![Node][node.js]][node-url]
-- [![React-Router][react-router]][react-router-url]
-- [![Heroku][heroku]][heroku-url]
-- [![NPM][npm]][npm-url]
+- React: ![React][react.js]
+- Redux: ![Redux][redux.js]
+- Redux-Saga: ![Redux-Saga][redux-saga.js]
+- PostgreSQL: ![PostgreSQL][postgresql]
+- Material-UI: ![Material-UI][material-ui]
+- Express: ![Express][express.js]
+- Node.js: ![Node.js][node.js]
+- React Router: ![React-Router][react-router]
+- Heroku: ![Heroku][heroku]
+- NPM: ![NPM][npm]
 
 ## Create database and table
 
