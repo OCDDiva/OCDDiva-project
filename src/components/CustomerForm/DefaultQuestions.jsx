@@ -14,7 +14,6 @@ function DefaultQuestions() {
     const history = useHistory();
     const user = useSelector(store => store.user);
 
-    //TODO is there anything else from the DB that needs to be here? Residence type or is that only for the "service" questions?
     //! State
     let [customer, setCustomer] = useState({
         first_name: '', 
@@ -75,7 +74,6 @@ function DefaultQuestions() {
         setCustomer({ ...customer, email: event.target.value });
     }
 
-    //TODO need to finish setting up the redux and server side to complete this
     //! Submit
     const submit = (event) => {
         event.preventDefault();

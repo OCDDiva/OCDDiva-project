@@ -175,8 +175,10 @@ function Review() {
 
                     <div className="customerReview" >
                         <br />
-                        
-                        <Typography className="reviewCategories" variant="h5"> Customer Information: </Typography>
+
+                        {/* //! Date request */}
+
+                        <Typography variant="h5"> Customer Information: </Typography>
 
                         Name: {allUserInfo?.contact?.firstName}{'    '}
                         {allUserInfo?.contact?.lastName}
@@ -201,8 +203,7 @@ function Review() {
 
                         <br />
                         <br />
-                        <br />
-
+                    
                         <div>{cleaningDisplay(allUserInfo)}</div>
 
                         <div>{movingDisplay(allUserInfo)}</div>
@@ -236,6 +237,7 @@ function Review() {
                             <input
                                 type="file"
                                 accept="image/*"
+                                className="imageUpload"
                                 onChange={onFileChange}
                             />
                             <br />
@@ -244,8 +246,6 @@ function Review() {
 
                         <br />
                         <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
-
-
 
                         {/* //! Additional Comments */}
                         <Typography variant="h5">Additional comments: </Typography>
