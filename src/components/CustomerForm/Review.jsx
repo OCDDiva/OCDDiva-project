@@ -75,6 +75,11 @@ function Review() {
         dispatch({ type: 'FETCH_ALL_INFO' });
     }, []);
 
+    //! Use effect to make the page load at the postion I want
+    useEffect(() => {
+        window.scrollTo(0, 265)
+    }, [])
+
     //! Cleaning 
     const cleaningDisplay = (allUserInfo) => {
         if (allUserInfo?.cleaning?.Cleaning === true) {
@@ -108,7 +113,7 @@ function Review() {
                 <Typography className="reviewCategories" variant="h5"> Moving Questions: </Typography>
                 <p>New Address: {allUserInfo?.moving?.moving_to}</p>
                 <p>Old Address: {allUserInfo?.moving?.moving_from}</p>
-                <p>Any Large Items? {allUserInfo?.moving?.large_items}</p>
+                <p>Large Items to Move: {allUserInfo?.moving?.large_items}</p>
                 <br />
             </div>
         } else {
@@ -124,6 +129,7 @@ function Review() {
                 <p>Number of Bathrooms: {allUserInfo?.organize?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {allUserInfo?.organize?.AdditionalRooms}</p>
                 <p>Wanting to Donate? {donationConversion(allUserInfo)}</p>
+                <br/>
             </div>
         } else {
             return ''
@@ -139,6 +145,7 @@ function Review() {
                 <p>Number of Bathrooms: {allUserInfo?.declutt?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {allUserInfo?.declutt?.AdditionalRooms}</p>
                 <p>Wanting to Donate? {donationConversion(allUserInfo)}</p>
+                <br/>
             </div>
         } else {
             return ''
@@ -163,7 +170,7 @@ function Review() {
             <Card sx={{
                 width: 'auto',
                 minWidth: 250,
-                margin: 1,
+                margin: 2,
                 padding: 5,
                 boxShadow: 5,
             }}>
@@ -178,32 +185,40 @@ function Review() {
 
                         {/* //! Date request */}
 
-                        <Typography variant="h5"> Customer Information: </Typography>
-
+                        <Typography variant="h5" className="reviewCategories"> Customer Information: </Typography>
+                        <br />
+                        
                         Name: {allUserInfo?.contact?.firstName}{'    '}
                         {allUserInfo?.contact?.lastName}
+                        <br />
                         <br />
 
                         Address: {allUserInfo?.contact?.street1}{'    '}{allUserInfo?.contact?.street2}
                         <br />
+                        <br />
 
                         City: {allUserInfo?.contact?.city}
+                        <br />
                         <br />
 
                         State: {allUserInfo?.contact?.state}
                         <br />
+                        <br />
 
                         Zip: {allUserInfo?.contact?.zip}
                         <br />
+                        <br />
 
                         Phone Number: {allUserInfo?.contact?.phone_number}
+                        <br />
                         <br />
 
                         Email: {allUserInfo?.contact?.email}
 
                         <br />
                         <br />
-                    
+                        <br/>
+
                         <div>{cleaningDisplay(allUserInfo)}</div>
 
                         <div>{movingDisplay(allUserInfo)}</div>

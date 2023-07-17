@@ -142,7 +142,7 @@ ul {
 }
 
 .reviewCategories {
-  color: #642d92;
+  color: rgb(82, 0, 82);
 }
 
 /* .customerReview {
@@ -152,3 +152,7 @@ ul {
 
 .imageUpload {
 background-color: #e8e8e8;}
+
+.historyCardTitle {
+  background-color: #e8e8e8;
+}

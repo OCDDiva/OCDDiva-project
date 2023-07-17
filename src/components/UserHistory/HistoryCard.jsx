@@ -67,19 +67,17 @@ function historyCard({ history }) {
             }}>
                 <CardContent>
                     <br />
+                    <Typography variant="h5" > Service type: {serviceConversion(history)} </Typography>
 
-                    <Typography variant="h6">
+                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                    
+                    <Typography variant="h6" >
                         Date of inquiry submission: {dateReceivedConversion(history)}
                     </Typography>
                     <br />
 
                     <Typography variant="h6">
                         Date requested for service: {dateRequestedConversion(history)}
-                    </Typography>
-                    <br />
-
-                    <Typography variant="h6">
-                        Type of service: {serviceConversion(history)}
                     </Typography>
                     <br />
 
