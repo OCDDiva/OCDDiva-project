@@ -59,7 +59,7 @@ function historyCard({ history }) {
 
     return (
         <Grid item xs={{ minWidth: 700 }}>
-        <Card sx={{  maxWidth: 'fit-content' }}>
+        <Card sx={{  maxWidth: 'fit-content', boxShadow: '4px' }}>
             <CardContent>
                 <br/>
                 <Typography 
