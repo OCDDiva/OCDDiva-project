@@ -77,7 +77,7 @@ Button
 .btn_asLink:hover {
   background-color: transparent;
   border-color: #642d92;
-  color: #008183;
+  color: #642d92;
 }
 
 /* --------------------------------------------------------------------------------
@@ -140,3 +140,20 @@ ul {
   text-align: center;
 
 }
+
+.reviewCategories {
+  color: rgb(82, 0, 82);
+}
+
+/* .customerReview {
+  column-count: 2;
+  column-fill: inherit;
+} */
+
+.imageUpload {
+background-color: #e8e8e8;}
+
+.historyCardTitle {
+  background-color: #e8e8e8;
+}
+

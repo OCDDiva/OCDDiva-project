@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
+import { Typography } from '@mui/material';
+
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
@@ -14,16 +16,22 @@ function LandingPage() {
   };
 
   return (
-    <div className="landingPage">
+    <div>
       <center>
-        <h2>{heading}</h2>
+        <br/>
+      <Typography variant="h5"> Please register or log in to continue.</Typography>
+         <br/>
+
+          <div>
+
             <RegisterForm />
-            <center>
+
               <h4>Already a Member?</h4>
+
               <button className="btn btn_sizeSm" onClick={onLogin}>
                 Login
               </button>
-            </center>
+          </div>
       </center>
     </div>
   );
