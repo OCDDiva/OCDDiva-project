@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 import { Card, TextField, Typography } from '@mui/material';
 
-// import { readAndCompressImage } from 'browser-image-resizer';
+import { readAndCompressImage } from 'browser-image-resizer';
 
 function Review() {
 
@@ -41,9 +41,9 @@ function Review() {
                 photoUpload: formData,
                 fileName,
                 fileType,
-                inquiry_id: allUserInfo?.contact?.id
-            }
-        })
+                inquiry_id: allUserInfo?.contact?.id 
+        }})
+        alert('Success!')
     }
 
     const onFileChange = async (event) => {
@@ -53,10 +53,10 @@ function Review() {
         // Resize and compress the image. Remove this if using something other
         // than an image upload.
         const copyFile = new Blob([fileToUpload], { type: fileToUpload.type, name: fileToUpload.name });
-        // const resizedFile = await readAndCompressImage(copyFile, {
-        // quality: 1.0,    // 100% quality
-        // maxHeight: 1000, // max height of the image
-        // });
+        const resizedFile = await readAndCompressImage(copyFile, {
+        quality: 1.0,    // 100% quality
+        maxHeight: 1000, // max height of the image
+        });
 
         // Limit to specific file types
 
@@ -64,7 +64,7 @@ function Review() {
         if (acceptedImageTypes.includes(fileToUpload.type)) {
             setFileName(encodeURIComponent(fileToUpload.name));
             setFileType(encodeURIComponent(fileToUpload.type));
-            setPhotosToUpload(fileToUpload);
+            setPhotosToUpload(resizedFile);
         } else {
             alert('Please select an image');
         }

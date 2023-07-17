@@ -9,7 +9,6 @@ router.get('/userHistory', (req, res) => {
     JOIN "cleaning_questions" ON "cleaning_questions"."inquiry_id" = "user_inquiries"."id"
     JOIN "organizing_questions" ON "organizing_questions"."inquiry_id" = "user_inquiries"."id"
     JOIN "decluttering_questions" ON  "decluttering_questions"."inquiry_id" = "user_inquiries"."id"
-    JOIN "user_media" ON "user_media"."inquiry_id" = "user_inquiries"."id"
     WHERE "user_inquiries"."user_id" = 1;`;
     pool.query(queryText).then((result) => {
         console.log('Checking results', result.rows);

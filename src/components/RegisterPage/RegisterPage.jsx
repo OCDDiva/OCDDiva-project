@@ -8,9 +8,8 @@ function RegisterPage() {
 
   return (
     <div>
-      <RegisterForm />
-
       <center>
+        <RegisterForm />
         <button
           type="button"
           className="btn btn_asLink"
