@@ -56,9 +56,7 @@ function Inquiries() {
     const addressFormat = (address) => {
         if (address.street2 !== null) {
             return <div>
-                <Typography>Address</Typography>
-                <p>Street: {address.street1}</p>
-                <p>Street 2: {address.street2}</p>
+                <p>Street: {address.street1} {address.street2}</p>
                 <p>City: {address.city}</p>
                 <p>State: {address.state}</p>
                 <p>ZIP: {address.zip}</p>
@@ -96,48 +94,55 @@ function Inquiries() {
     //!What displays
     // TODO DISPLAY ONLY THE CUSTOMER NAME, THE SERVICES REQUESTED, DATE RECEIVED, COMPLETEION STATUS, NOTES, DETAILS BUTTON
     return (
-        <Card sx={{
-            width: 'auto',
-            minWidth: 250,
-            margin: 1,
-            padding: 5,
-            boxShadow: 5,
-        }}>
-            <center>
-                {inquiries.length === 0 ? (
-                    <div>
-                        <p>No new requests!</p>
-                    </div>
-                ) : (
-                    <div key={inquiries.id}>
-                        {inquiries.map(inquiry => {
-                            return (
+
+        <center>
+            {inquiries.length === 0 ? (
+                <div>
+                    <p>No new requests!</p>
+                </div>
+            ) : (
+                <div key={inquiries.id}>
+                    {inquiries.map(inquiry => {
+                        return (
+                            <Card sx={{
+                                width: 'auto',
+                                minWidth: 250,
+                                margin: 1,
+                                padding: 5,
+                                boxShadow: 5,
+                            }}>
                                 <div>
                                     <Typography variant="h7" sx={{ fontStyle: 'italic' }}> Customer name:</Typography>
+
                                     <Typography variant="h4">{inquiry.firstName} {inquiry.lastName}</Typography>
 
-                                    <hr />
+                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
 
                                     <Typography> Priority: {priorityConversion(inquiry)}</Typography>
+                                    <br />
 
                                     <Typography>Phone Number: {phoneNumberFormatter(inquiry.phone_number)}</Typography>
-
+                                    <br />
+                                    
                                     <Typography>Email: {inquiry.email}</Typography>
 
                                     <Typography>{addressFormat(inquiry)}</Typography>
 
                                     <Typography>Date Submitted: {dateConversion(inquiry)}</Typography>
+                                    <br />
 
                                     <Typography>Service Status: {completionConversion(inquiry)}</Typography>
+                                    <br />
 
                                     <button className="btn" onClick={() => navToInquiryDetails(inquiry)}>Details</button>
                                 </div>
-                            )
-                        })}
-                    </div>
-                )}
-            </center>
-        </Card>
+                            </Card>
+
+                        )
+                    })}
+                </div>
+            )}
+        </center>
 
 
     )

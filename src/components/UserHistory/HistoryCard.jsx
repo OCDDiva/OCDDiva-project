@@ -13,7 +13,7 @@ function historyCard({ history }) {
 
 
     useEffect(() => {
-        const action  = { type: 'GET_HISTORY' }
+        const action = { type: 'GET_HISTORY' }
         dispatch(action);
     }, []);
 
@@ -59,43 +59,49 @@ function historyCard({ history }) {
 
     return (
         <Grid item xs={{ minWidth: 700 }}>
-        <Card sx={{  maxWidth: 'fit-content', boxShadow: '4px' }}>
-            <CardContent>
-                <br/>
-                <Typography 
-                variant="h5"
-                >
-                 Date of Inquiry: {dateReceivedConversion(history)}
-                </Typography>
-                <br />
-                <Typography 
-                variant="h5"
-                >
-                 Date Requested: {dateRequestedConversion(history)}
-                </Typography>
-                <br />
-                <Typography 
-                variant="h5"
-                >
-                 Type of service: {serviceConversion(history)}
-                </Typography>
-                <br />
-                <Typography 
-                variant="h5"
-                >
-                 Completion status: {completionConversion(history)}
-                 <br />
-                 <Typography variant="h6">{history.status}</Typography>
-                 <br />
-                </Typography>
-                <Typography variant="h5">Comments: </Typography>
-                <br />
-                <Typography variant="h6">{history.comments}</Typography>
-                <br/>
-            </CardContent>
-        </Card>
-        <br />
-    </Grid>
+            <Card sx={{
+                maxWidth: 'fit-content',
+                width: 'auto',
+                minWidth: 250,
+                margin: 1,
+                boxShadow: 5,
+            }}>
+                <CardContent>
+                    <br />
+                    <Typography variant="h5" > Service type: {serviceConversion(history)} </Typography>
+
+                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                    
+                    <Typography variant="h6" >
+                        Date of inquiry submission: {dateReceivedConversion(history)}
+                    </Typography>
+                    <br />
+
+                    <Typography variant="h6">
+                        Date requested for service: {dateRequestedConversion(history)}
+                    </Typography>
+                    <br />
+
+                    <Typography variant="h6">
+                        Completion status: {completionConversion(history)}
+                        <br />
+
+                        <Typography variant="h6">{history.status}</Typography>
+                        <br />
+
+                    </Typography>
+
+                    <Typography variant="h6"> Additional comments: </Typography>
+
+                    <Typography variant="h6">{history.comments} </Typography>
+                    <br />
+
+                </CardContent>
+            </Card>
+
+            <br />
+
+        </Grid>
     )
 } //End historyCard()
 

@@ -1,16 +1,21 @@
 import { useHistory } from 'react-router-dom'
 import { Card, Typography } from '@mui/material';
+import { useEffect } from 'react';
 
 function Success() {
     const history = useHistory();
+
+   //! Use effect to make the page load at the postion I want
+   useEffect(() => {
+    window.scrollTo(0, 50)
+}, [])
 
     //! Takes user back to dashboard
     const backToHome = () => {
         history.push('/home')
     };
 
-    //What displays
-    //TODO need to add breakpoints to everything so that the display will adjust to size of device
+    //!What displays
     return (
         <>
             <center>
@@ -28,7 +33,7 @@ function Success() {
 
                     <Typography variant="h6">
                         Your inquiry has been sent.
-                        <br />
+                        <br /> <br/>
                         We will be in touch as soon as we can.
                     </Typography>
 

@@ -6,9 +6,7 @@ function CustomerForm() {
     //What displays
     return (
         <>
-        Everett was here: The Squeakquel
         </>
-
     )
 } // End CustomerForm()
 
