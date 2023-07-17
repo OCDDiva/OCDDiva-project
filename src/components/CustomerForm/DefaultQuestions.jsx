@@ -6,9 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card } from '@mui/material';
 import ProgressBar from '../ProgressBar/ProgressBar.jsx';
 
-//TODO Add MUI icons to back and next button in the return 
-//TODO Add multi-step progress bar to all the form components?
-
 function DefaultQuestions() {
     const dispatch = useDispatch();
     const history = useHistory();
