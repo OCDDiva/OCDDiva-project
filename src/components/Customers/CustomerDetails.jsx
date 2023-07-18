@@ -51,6 +51,7 @@ function CustomerDetails() {
     console.log('Checking image', inquiryDetails?.media?.url)
 
     console.log('Checking customer reducer', customerDetails);
+    
     return (
         <React.Fragment>
             <Typography variant="h4" style={{ textAlign: "center" }}>Customer Details</Typography>

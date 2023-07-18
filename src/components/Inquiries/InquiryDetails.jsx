@@ -260,7 +260,7 @@ function InquiryDetails() {
                         <br />
 
                         <FormControl fullWidth>
-                            <FormLabel style={{ textAlign: 'center' }}>Priority Level:</FormLabel>
+                            <FormLabel style={{ textAlign: 'center' }}>Current priority Level: {priorityConversion(inquiryDetails)}</FormLabel>
                             <Select
                                 labelId="priority-select-label"
                                 id="priority-select"
@@ -291,7 +291,7 @@ function InquiryDetails() {
                         <br />
 
                         <FormControl fullWidth>
-                            <FormLabel style={{ textAlign: 'center' }}>Status:</FormLabel>
+                            <FormLabel style={{ textAlign: 'center' }}> Current Status: {completionConversion(inquiryDetails)}</FormLabel>
                             <Select
                                 labelId="completion-select-label"
                                 id="completion-select"
