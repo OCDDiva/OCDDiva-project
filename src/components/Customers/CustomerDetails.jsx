@@ -14,28 +14,99 @@ function CustomerDetails() {
     const customerDetails = useSelector(store => store.customerReducer);
     const inquiryDetails = useSelector(store => store.inquiryDetails);
 
+    console.log('Inquiry Details', inquiryDetails);
+
+    const cleaningDisplay = (inquiryDetails) => {
+        if (inquiryDetails?.cleaning?.Cleaning === true) {
+            return (
+                <div>
+                    <h3>Cleaning Questions:</h3>
+                    <p>Number of Bedrooms: {inquiryDetails?.cleaning?.Bedrooms}</p>
+                    <p>Number of Bathrooms: {inquiryDetails?.cleaning?.Bathrooms}</p>
+                    <p>Number of Additional Rooms: {inquiryDetails?.cleaning?.AdditionalRooms}</p>
+                    <p>Number of Doors: {inquiryDetails?.cleaning?.Doors}</p>
+                    <p>Number of Windows: {inquiryDetails?.cleaning?.Windows}</p>
+                    <p>Pets? {inquiryDetails?.cleaning?.HasPets}</p>
+                    <p>Hazardous Conditions? {inquiryDetails?.cleaning?.HazardousConditions}</p>
+                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                </div>
+            );
+        } else {
+            return null;
+        }
+    };
+
+    const movingDisplay = (inquiryDetails) => {
+        if (inquiryDetails?.moving?.moving === true) {
+            return (
+                <div>
+                    <h3>Moving Questions:</h3>
+                    <p>New Address: {inquiryDetails?.moving?.moving_to}</p>
+                    <p>Old Address: {inquiryDetails?.moving?.moving_from}</p>
+                    <p>Large Items to Move: {inquiryDetails?.moving?.large_items}</p>
+                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                </div>
+            );
+        } else {
+            return null;
+        }
+    };
+
+    const organizeDisplay = (inquiryDetails) => {
+        if (inquiryDetails?.organize?.Organizing === true) {
+            return (
+                <div>
+                    <h3>Organizing Questions:</h3>
+                    <p>Number of Bedrooms: {inquiryDetails?.organize?.Bedrooms}</p>
+                    <p>Number of Bathrooms: {inquiryDetails?.organize?.Bathrooms}</p>
+                    <p>Number of Additional Rooms: {inquiryDetails?.organize?.AdditionalRooms}</p>
+                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                </div>
+            );
+        } else {
+            return null;
+        }
+    };
+
+    const declutterDisplay = (inquiryDetails) => {
+        if (inquiryDetails?.declutt?.Declutter === true) {
+            return (
+                <div>
+                    <h3>Decluttering Questions:</h3>
+                    <p>Number of Bedrooms: {inquiryDetails?.declutt?.Bedrooms}</p>
+                    <p>Number of Bathrooms: {inquiryDetails?.declutt?.Bathrooms}</p>
+                    <p>Number of Additional Rooms: {inquiryDetails?.declutt?.AdditionalRooms}</p>
+                    <p>Wanting to Donate? {donationConversion(inquiryDetails)}</p>
+                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                </div>
+            );
+        } else {
+            return null;
+        }
+    };
+
 
     const handleEdit = () => {
         history.push(`/inquirydetails/${customerId}`); // Navigate to the page for editing notes
     };
 
-    
+
 
     const handleDelete = (id) => {
         if (window.confirm('Are you sure you want to delete this customer?')) {
-            dispatch({ type: 'DELETE_CUSTOMERS', payload:id});
+            dispatch({ type: 'DELETE_CUSTOMERS', payload: id });
             history.push('/customerhistory')
         }
     };
 
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_CUSTOMERS_DETAILS', payload: customerId });
+        dispatch({ type: 'FETCH_INQUIRY_DETAILS', payload: customerId });
     }, [customerId]);
 
 
     const dateConversion = (oldDate) => {
-        const date = new Date(oldDate.date_received).toLocaleDateString('en-EN')
+        const date = new Date(oldDate?.contact?.date_received).toLocaleDateString('en-EN')
         return `${date}`
     }
 
@@ -47,11 +118,10 @@ function CustomerDetails() {
             return 'No'
         }
     }
-     
+
     console.log('Checking image', inquiryDetails?.media?.url)
 
     console.log('Checking customer reducer', customerDetails);
-    
     return (
         <React.Fragment>
             <Typography variant="h4" style={{ textAlign: "center" }}>Customer Details</Typography>
@@ -62,17 +132,17 @@ function CustomerDetails() {
                 </button>
             </div>
             <br />
-            <Box border={1} p={2} maxWidth={600} style={{ maxWidth:'fit-content', margin: '0 auto' }}>
+            <Box border={1} p={2} maxWidth={600} style={{ maxWidth: 'fit-content', margin: '0 auto' }}>
                 <Container>
-                    {customerDetails.map((customer) => (
-                        <div key={customer.id} sx={{ minWidth: 555, minHeight: 300 }}>
+                        <div sx={{ minWidth: 555, minHeight: 300 }}>
                             <CardContent>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>
-                                    Customer Name: {customer.firstName} {customer.lastName}
+                                <Typography variant="h4" style={{ textAlign: "center" }}>
+                                {inquiryDetails?.contact?.firstName} {inquiryDetails?.contact?.lastName}
                                 </Typography>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {dateConversion(customer)}</Typography>
-                                <Typography variant="h5" align="center"> Completion status: {customer.completion_status === 5 ? 'Completed' : customer.completion_status}</Typography>
-                                <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {customer.notes}</Typography>
+                                <br />
+                                <Typography variant="h5" style={{ textAlign: "center" }}>Date of Service: {dateConversion(inquiryDetails)}</Typography>
+                                <Typography variant="h5" align="center"> Completion status: {inquiryDetails?.contact?.completion_status === 5 ? 'Completed' : inquiryDetails?.contact?.completion_status}</Typography>
+                                <Typography variant="h5" style={{ textAlign: "center" }}>Notes: {inquiryDetails?.customer?.notes}</Typography>
                             </CardContent>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <button className="btn" onClick={handleEdit}>
@@ -84,47 +154,23 @@ function CustomerDetails() {
                             <div className="customerHistoryForm">
                                 <center>
                                     <h3>Contact Information:</h3>
-                                    <p>Address: {customer.street1}  {customer.street2}</p>
-                                    <p>{customer.city}</p>
-                                    <p>{customer.state}</p>
-                                    <p>{customer.zip}</p>
-                                    <p>{customer.phone_number}</p>
-                                    <p>{customer.email}</p>
+                                    <p>Address: {inquiryDetails?.contact?.street1}  {inquiryDetails?.contact?.street2}</p>
+                                    <p>{inquiryDetails?.contact?.city}</p>
+                                    <p>{inquiryDetails?.contact?.state}</p>
+                                    <p>{inquiryDetails?.contact?.zip}</p>
+                                    <p>{inquiryDetails?.contact?.phone_number}</p>
+                                    <p>{inquiryDetails?.contact?.email}</p>
                                     <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
-                                    <h3>Cleaning Questions:</h3>
-                                    <h4>Cleaning Service</h4>
-                                    <p>{customer.ServiceType}</p>
-                                    <p>Bedrooms: {customer.Bedrooms}</p>
-                                    <p>Bathrooms: {customer.Bathrooms}</p>
-                                    <p>Additional Rooms: {customer.AdditionalRooms}</p>
-                                    <p>Doors: {customer.Doors}</p>
-                                    <p>Windows: {customer.Windows}</p>
-                                    <p>Pets: {customer.HasPets}</p>
-                                    <p>Hazardous Conditions: {customer.HazardousConditions} </p>
-                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
-                                    <h3>Moving Questions</h3>
-                                    <p>Moving To: {customer.moving_to}</p>
-                                    <p>Moving From: {customer.moving_from}</p>
-                                    <p>Large_items: {customer.large_items}</p>
-                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
-                                    <h3>Organizing Questions</h3>
-                                    <p>Bedrooms: {customer.Bedrooms}</p>
-                                    <p>Bathrooms: {customer.Bathrooms}</p>
-                                    <p>Additionals Rooms: {customer.AdditionalRooms}</p>
-                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
-                                    <h3>Decluttering Questions</h3>
-                                    <p>Bedrooms: {customer.Bedrooms}</p>
-                                    <p>Bathrooms: {customer.Bathrooms}</p>
-                                    <p>Donations: {donationConversion(inquiryDetails)}</p>
-                                    <hr style={{ height: '5px', borderWidth: '0', color: 'blue' }} />
+                                    <div>{cleaningDisplay(inquiryDetails)}</div>
+                                    <div>{movingDisplay(inquiryDetails)}</div>
+                                    <div>{organizeDisplay(inquiryDetails)}</div>
+                                    <div>{declutterDisplay(inquiryDetails)}</div>
                                     <h3>Customer Photos</h3>
-                                    <img src={customer.url} />
-                                    <p></p>
+                                    <img src={inquiryDetails?.media?.url} />
                                 </center>
 
                             </div>
                         </div>
-                    ))}
                     <br />
 
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
