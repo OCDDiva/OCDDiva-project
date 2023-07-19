@@ -128,7 +128,6 @@ function Review() {
                 <p>Number of Bedrooms: {allUserInfo?.organize?.Bedrooms}</p>
                 <p>Number of Bathrooms: {allUserInfo?.organize?.Bathrooms}</p>
                 <p>Number of Additional Rooms: {allUserInfo?.organize?.AdditionalRooms}</p>
-                <p>Wanting to Donate? {donationConversion(allUserInfo)}</p>
                 <br/>
             </div>
         } else {
