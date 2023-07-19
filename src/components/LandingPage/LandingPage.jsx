@@ -23,6 +23,7 @@ function LandingPage() {
          <br/>
 
           <div>
+
             <RegisterForm />
 
               <h4>Already a Member?</h4>
@@ -30,7 +31,6 @@ function LandingPage() {
               <button className="btn btn_sizeSm" onClick={onLogin}>
                 Login
               </button>
-            
           </div>
       </center>
     </div>
